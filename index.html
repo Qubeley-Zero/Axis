@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QUBELEY | OZ²</title>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Noto+Sans+JP:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/common.css">
+</head>
+<body>
+
+<div class="grid-bg"></div>
+<canvas id="trail-canvas"></canvas>
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+
+<!-- ===== HEADER ===== -->
+<header class="site-header" id="site-header-mount"></header>
+
+<div class="scanline-wrap"><div class="scanline"></div></div>
+
+<!-- ===== LAYOUT ===== -->
+<div class="layout">
+
+  <!-- スマホ表示時、サイドバーを開くと背後に出る半透明の幕 -->
+  <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+
+  <!-- ===== SIDEBAR ===== -->
+  <aside class="sidebar" id="sidebar"></aside>
+
+  <!-- ===== MAIN ===== -->
+  <div class="main">
+
+    <!-- TOPBAR -->
+    <div class="topbar">
+      <div class="topbar-path">portal / <span>home</span></div>
+      <div class="ai-tool-badges">
+        <a class="ai-tool-badge badge-claude" href="https://claude.ai" target="_blank" rel="noopener">
+          <span class="badge-dot"></span>Claude
+        </a>
+        <a class="ai-tool-badge badge-chatgpt" href="https://chatgpt.com" target="_blank" rel="noopener">
+          <span class="badge-dot"></span>ChatGPT
+        </a>
+        <a class="ai-tool-badge badge-gemini" href="https://gemini.google.com" target="_blank" rel="noopener">
+          <span class="badge-dot"></span>Gemini
+        </a>
+      </div>
+      <div class="topbar-right">
+        <div class="status-chip"><div class="dot"></div>コンテンツ更新中</div>
+      </div>
+    </div>
+
+    <!-- CONTENT -->
+    <div class="content">
+
+      <!-- HERO -->
+      <div class="hero">
+        <div class="hero-text" style="flex:1; min-width:0;">
+          <div class="hero-heading">
+            AI、<span class="typed-wrap">覚えてますか。</span>
+          </div>
+          <p class="hero-sub">
+            静かに解き放たれた基盤が、リーダーを力づけ、<br>
+            あなた自身を進化させる。
+          </p>
+          <div class="hero-meta">
+            <div class="stat"><div class="stat-num">14</div><div class="stat-label">掲載記事数</div></div>
+            <div class="divider"></div>
+            <div class="stat"><div class="stat-num">8</div><div class="stat-label">カテゴリ</div></div>
+            <div class="divider"></div>
+            <div class="stat"><div class="stat-num">—</div><div class="stat-label">累計閲覧（準備中）</div></div>
+            <div class="wave-bars">
+              <div class="w-bar"></div><div class="w-bar"></div><div class="w-bar"></div>
+              <div class="w-bar"></div><div class="w-bar"></div><div class="w-bar"></div>
+            </div>
+          </div>
+        </div>
+        <div style="flex-shrink:0; display:flex; align-items:center; justify-content:center;">
+          <img src="assets/logo-stamp.png" alt="AI Generated No Human Powered by Claude"
+               style="width:130px; height:130px; object-fit:contain; animation:holoShift 5s ease-in-out infinite;">
+        </div>
+      </div>
+
+      <!-- 更新履歴ティッカー -->
+      <div class="update-ticker" id="updateTicker">
+        <div class="update-ticker-bar">
+          <div class="update-ticker-track" id="updateTickerTrack"></div>
+        </div>
+        <div class="update-panel">
+          <div class="update-panel-inner" id="updateTickerPanel"></div>
+          <a class="update-panel-more" href="pages/updates/index.html">更新履歴をすべて見る →</a>
+        </div>
+      </div>
+
+      <!-- 新着記事 -->
+      <div class="section">
+        <div class="section-header">
+          <div class="section-title"><span>//</span> 新着記事</div>
+          <div class="section-count">最新 6件</div>
+        </div>
+        <div class="card-grid">
+
+          <div class="article-card" onclick="location.href='pages/ai-news/index.html'">
+            <div class="card-new"></div>
+            <div class="card-tag tag-prompt">PROMPT</div>
+            <div class="card-title">議事録を3分で整形するプロンプト</div>
+            <div class="card-excerpt">会議後の生テキストをそのまま貼り付けるだけで、決定事項・アクションアイテム・次回議題に自動整形。</div>
+            <div class="card-footer">
+              <div class="card-powered">Powered by <span>Oz</span></div>
+              <div class="card-views"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>—</div>
+            </div>
+          </div>
+
+          <div class="article-card" onclick="location.href='pages/ai-news/index.html'">
+            <div class="card-new"></div>
+            <div class="card-tag tag-prompt">PROMPT</div>
+            <div class="card-title">メール文面を丁寧・簡潔に変換する</div>
+            <div class="card-excerpt">箇条書きや乱文をビジネスメールに変換。丁寧度・長さのパラメータ指定で用途別に使い分け。</div>
+            <div class="card-footer">
+              <div class="card-powered">Powered by <span>Oz</span></div>
+              <div class="card-views"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>—</div>
+            </div>
+          </div>
+
+          <div class="article-card" onclick="location.href='pages/ai-news/index.html'">
+            <div class="card-new"></div>
+            <div class="card-tag tag-news">NEWS</div>
+            <div class="card-title">2025年版・AI利用で気をつける著作権の基本</div>
+            <div class="card-excerpt">生成AIの出力物の著作権帰属・学習データの合法性・業務利用時のリスクを整理。文化庁ガイドライン対応版。</div>
+            <div class="card-footer">
+              <div class="card-powered">Powered by <span>Oz</span></div>
+              <div class="card-views"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>—</div>
+            </div>
+          </div>
+
+          <div class="article-card" onclick="location.href='pages/ai-news/index.html'">
+            <div class="card-tag tag-guide">GUIDE</div>
+            <div class="card-title">Claude Projectsで業務文脈を記憶させる方法</div>
+            <div class="card-excerpt">Projectsのシステムプロンプト・ナレッジ設定で「毎回説明する手間」をゼロにする実践手順。</div>
+            <div class="card-footer">
+              <div class="card-powered">Powered by <span>Oz</span></div>
+              <div class="card-views"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>—</div>
+            </div>
+          </div>
+
+          <div class="article-card" onclick="location.href='pages/ai-news/index.html'">
+            <div class="card-tag tag-news">NEWS</div>
+            <div class="card-title">AIエージェントストラテジスト資格とは</div>
+            <div class="card-excerpt">2024年登場の新資格の概要・受験要件・難易度・業務への活用場面をまとめて解説。</div>
+            <div class="card-footer">
+              <div class="card-powered">Powered by <span>Oz</span></div>
+              <div class="card-views"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>—</div>
+            </div>
+          </div>
+
+          <div class="article-card" onclick="location.href='pages/ai-news/index.html'">
+            <div class="card-tag tag-guide">GUIDE</div>
+            <div class="card-title">Coworkとは何か・何ができるか</div>
+            <div class="card-excerpt">デスクトップ自動化ツールCoworkの概要と、ファイル処理・定型業務への適用事例を紹介。</div>
+            <div class="card-footer">
+              <div class="card-powered">Powered by <span>Oz</span></div>
+              <div class="card-views"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>—</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- AI学習ロードマップ -->
+      <div class="section" style="padding-bottom:1.5rem;">
+        <div class="section-header">
+          <div class="section-title"><span>//</span> AI学習ロードマップ</div>
+          <div class="section-count">順番通りに読むと挫折しない</div>
+        </div>
+        <div class="cat-banners">
+          <a class="cat-banner" href="pages/step01-start/index.html">
+            <div class="cat-icon">[ 01 ]</div>
+            <div class="cat-name">まず触ってみる</div>
+            <div class="cat-desc">インストールから最初の会話まで。難しいことは何もありません。</div>
+            <div class="cat-count">▸ 11 ARTICLES</div>
+          </a>
+          <a class="cat-banner coming" href="pages/construction.html?section=うまく伝える">
+            <div class="cat-coming-badge">COMING SOON</div>
+            <div class="cat-icon">[ 02 ]</div>
+            <div class="cat-name">うまく伝える</div>
+            <div class="cat-desc">AIへの指示の出し方・プロンプトの書き方を基礎から実践まで。</div>
+            <div class="cat-count">▸ 7 ARTICLES</div>
+          </a>
+          <a class="cat-banner coming" href="pages/construction.html?section=安全に使う">
+            <div class="cat-coming-badge">COMING SOON</div>
+            <div class="cat-icon">[ 03 ]</div>
+            <div class="cat-name">安全に使う</div>
+            <div class="cat-desc">情報漏洩・ハルシネーション・やってはいけないことを正しく知る。</div>
+            <div class="cat-count">準備中</div>
+          </a>
+          <a class="cat-banner coming" href="pages/construction.html?section=ツールを知る・比較する">
+            <div class="cat-coming-badge">COMING SOON</div>
+            <div class="cat-icon">[ 04 ]</div>
+            <div class="cat-name">ツールを知る・比較する</div>
+            <div class="cat-desc">Claude・ChatGPT・Geminiの違いと使い分けを整理する。</div>
+            <div class="cat-count">準備中</div>
+          </a>
+          <a class="cat-banner coming" href="pages/construction.html?section=仕事で使う">
+            <div class="cat-coming-badge">COMING SOON</div>
+            <div class="cat-icon">[ 05 ]</div>
+            <div class="cat-name">仕事で使う</div>
+            <div class="cat-desc">議事録・Excel・日常業務など、実務直結の活用法を紹介。</div>
+            <div class="cat-count">準備中</div>
+          </a>
+        </div>
+      </div>
+
+      <!-- FOOTER -->
+      <footer class="portal-footer">
+        <div class="footer-inner">
+          <div class="footer-logo"><img src="assets/logo-claude.png" alt="Powered by Claude"></div>
+          <div class="footer-text">
+            QUBELEY | OZ² — Powered by Oz<br>
+            Copyright © 2026 Oz. All rights reserved.
+          </div>
+        </div>
+      </footer>
+
+    </div><!-- /content -->
+  </div><!-- /main -->
+</div><!-- /layout -->
+
+<!-- ===== JAVASCRIPT ===== -->
+<script src="assets/js/update-log.js"></script>
+<script src="pages/ai-news/news-data.js"></script>
+<script src="assets/js/common.js"></script>
+<script>
+  /* 共通ヘッダー・スタンプを挿入（root='./'はトップページ） */
+  renderSidebar({ root:'./', active:'home', sbLabel:'OZ²', sbVal:'HOME', sbSub:'QUBELEY' });
+  renderSiteHeader({ root: './' });
+  /* このページ固有：Hero見出しのタイピング演出 */
+  startTypewriterLoop('.hero-heading .typed-wrap');
+</script>
+</body>
+</html>

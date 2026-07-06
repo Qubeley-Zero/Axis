@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>絵文字リファレンス | Knowledge | OZ²</title>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Noto+Sans+JP:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/css/common.css">
+<style>
+/* ===== フィルターバー ===== */
+.filter-bar {
+  display:flex; gap:8px; flex-wrap:wrap; align-items:center;
+  margin-bottom:24px; padding:14px 18px;
+  background:var(--ai-panel); border:1px solid var(--ai-border2); border-radius:10px;
+}
+.filter-label { font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--text-muted); letter-spacing:0.1em; margin-right:4px; }
+.filter-btn {
+  font-family:'JetBrains Mono',monospace; font-size:10px;
+  padding:4px 12px; border-radius:20px;
+  border:1px solid var(--ai-border2); background:transparent;
+  color:var(--text-secondary); cursor:pointer; transition:all 0.2s; letter-spacing:0.06em;
+}
+.filter-btn:hover { border-color:rgba(255,107,26,0.4); color:var(--neon-orange); background:rgba(255,107,26,0.07); }
+.filter-btn.active { border-color:rgba(255,107,26,0.6); color:var(--neon-orange); background:rgba(255,107,26,0.12); }
+
+/* ===== セクション ===== */
+.section { margin-bottom:36px; opacity:0; animation:fadeUp 0.5s ease both; }
+.section-header { display:flex; align-items:baseline; gap:14px; margin-bottom:16px; padding-bottom:10px; border-bottom:1px solid var(--ai-border); }
+.section-title { font-family:'Rajdhani',sans-serif; font-size:20px; font-weight:700; letter-spacing:0.1em; color:var(--text-primary); }
+.section-title span { animation:orangePinkShift 2.4s ease-in-out infinite; }
+.section-count { font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--text-muted); letter-spacing:0.06em; }
+.copy-all-btn {
+  display:inline-flex; align-items:center; gap:6px;
+  font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:0.08em;
+  padding:5px 14px; border-radius:4px;
+  border:1px solid rgba(255,107,26,0.3); background:rgba(255,107,26,0.07);
+  color:var(--neon-orange); cursor:pointer; transition:all 0.2s; margin-left:auto;
+}
+.copy-all-btn:hover { background:rgba(255,107,26,0.15); border-color:rgba(255,107,26,0.6); }
+
+/* ===== 絵文字グリッド ===== */
+.emoji-grid { display:flex; flex-wrap:wrap; gap:10px; }
+
+.emoji-item {
+  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:5px;
+  background:var(--ai-panel); border:1px solid var(--ai-border2); border-radius:12px;
+  padding:0; width:96px; height:100px;
+  cursor:pointer; transition:all 0.18s; position:relative;
+  user-select:none; flex-shrink:0;
+}
+.emoji-item:hover {
+  border-color:rgba(255,107,26,0.45);
+  background:rgba(12,21,38,0.95);
+  transform:translateY(-4px);
+  box-shadow:0 6px 20px rgba(255,107,26,0.15);
+}
+.emoji-item:active { transform:scale(0.93); }
+.emoji-char { font-size:36px; line-height:1; transition:transform 0.15s; flex-shrink:0; }
+.emoji-item:hover .emoji-char { transform:scale(1.15); }
+.emoji-item.copied .emoji-char { animation:popScale 0.3s ease; }
+.emoji-name {
+  font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--text-muted);
+  letter-spacing:0.02em; text-align:center; line-height:1.3;
+  width:88px; height:28px; overflow:hidden;
+  display:flex; align-items:center; justify-content:center; flex-shrink:0;
+}
+.emoji-item.copied { border-color:rgba(0,201,167,0.5); background:rgba(0,201,167,0.06); }
+.copy-flash {
+  position:absolute; top:-7px; right:-7px;
+  background:var(--accent-teal); color:#060c18;
+  font-family:'JetBrains Mono',monospace; font-size:8px;
+  padding:2px 6px; border-radius:10px; font-weight:700;
+  pointer-events:none; opacity:0; transition:opacity 0.2s;
+}
+.emoji-item.copied .copy-flash { opacity:1; }
+
+/* ===== トースト ===== */
+#toast {
+  position:fixed; bottom:32px; left:50%; transform:translateX(-50%);
+  background:rgba(0,201,167,0.15); border:1px solid rgba(0,201,167,0.4);
+  color:var(--accent-teal); font-family:'JetBrains Mono',monospace; font-size:12px;
+  padding:10px 24px; border-radius:24px; backdrop-filter:blur(12px);
+  pointer-events:none; z-index:9000; opacity:0; letter-spacing:0.06em;
+}
+#toast.show { animation:toastIn 0.25s ease forwards; }
+#toast.hide { animation:toastOut 0.25s ease forwards; }
+@keyframes toastIn  { from{opacity:0;transform:translateX(-50%) translateY(10px)} to{opacity:1;transform:translateX(-50%) translateY(0)} }
+@keyframes toastOut { from{opacity:1;transform:translateX(-50%) translateY(0)} to{opacity:0;transform:translateX(-50%) translateY(-10px)} }
+@keyframes popScale { 0%{transform:scale(1)} 50%{transform:scale(1.4)} 100%{transform:scale(1)} }
+
+/* ===== サイドバー after を common.css と完全一致させる（二重線防止） ===== */
+.sidebar::after {
+  content:''; position:absolute; top:0; right:0; width:1px; height:100%;
+  background:linear-gradient(180deg,transparent,#FF6B1A 40%,#FF1493 60%,transparent);
+  opacity:0.4;
+}
+
+/* ===== ページヒーロー ===== */
+.page-hero {
+  position:relative; z-index:1;
+  background:var(--ai-panel); border:1px solid var(--ai-border);
+  border-radius:14px; padding:26px 36px 22px;
+  margin-bottom:24px; overflow:hidden;
+  display:flex; align-items:center; gap:24px;
+}
+.page-hero::after {
+  content:'EMOJI'; position:absolute; bottom:-14px; right:28px;
+  font-family:'Rajdhani',sans-serif; font-size:90px; font-weight:700;
+  color:rgba(255,107,26,0.04); line-height:1; pointer-events:none; letter-spacing:-2px;
+}
+.hero-body { flex:1; }
+.page-eyebrow { font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.2em; color:var(--accent); margin-bottom:10px; opacity:0; animation:fadeUp 0.5s ease 0.2s forwards; }
+.page-title { font-family:'Rajdhani',sans-serif; font-size:clamp(1.4rem,3vw,2rem); font-weight:700; color:#fff; margin-bottom:10px; line-height:1.1; opacity:0; animation:fadeUp 0.5s ease 0.35s forwards; }
+.page-title .accent { color:var(--neon-orange); }
+.page-lead { font-size:14px; color:#b0bec5; line-height:1.9; max-width:560px; opacity:0; animation:fadeUp 0.5s ease 0.5s forwards; }
+.hero-tip { margin-top:12px; display:inline-flex; align-items:center; gap:8px; font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--accent-teal); background:rgba(0,201,167,0.08); border:1px solid rgba(0,201,167,0.25); padding:5px 14px; border-radius:20px; }
+</style>
+</head>
+<body>
+<div class="grid-bg"></div>
+<canvas id="trail-canvas"></canvas>
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+<header class="site-header" id="site-header-mount"></header>
+<div class="scanline-wrap"><div class="scanline"></div></div>
+<div id="toast"></div>
+
+<div class="layout">
+  <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+  <aside class="sidebar" id="sidebar"></aside>
+
+  <div class="main">
+    <div class="topbar">
+      <div class="topbar-path">
+        <a href="../../index.html" style="color:inherit;text-decoration:none;">portal</a>
+        <span style="margin:0 6px;opacity:0.4;">/</span>
+        <a href="emoji.html" style="color:inherit;text-decoration:none;">knowledge</a>
+        <span style="margin:0 6px;opacity:0.4;">/</span>
+        <span>emoji</span>
+      </div>
+      <div class="topbar-right">
+        <div class="status-chip"><div class="dot"></div>クリックでコピー</div>
+      </div>
+    </div>
+
+    <div class="content">
+
+      <div class="page-hero">
+        <div class="hero-body">
+          <div class="page-eyebrow">// EMOJI REFERENCE</div>
+          <div class="page-title">絵文字・記号、<span class="accent">すぐ使える。</span></div>
+          <div class="page-lead">パワポ・Word・Teams・メールで使いたい絵文字をカテゴリ別に整理。クリックするだけでクリップボードにコピーされます。</div>
+          <div class="hero-tip">💡 クリック → クリップボードにコピー → そのままペースト（Ctrl+V）</div>
+        </div>
+        <div id="hero-stamp-mount"></div>
+      </div>
+
+      <div class="filter-bar" id="filter-bar">
+        <span class="filter-label">FILTER //</span>
+        <button class="filter-btn active" onclick="filterCat(this,'all')">すべて</button>
+      </div>
+
+      <div id="sections-wrap"></div>
+
+      <footer class="portal-footer">
+        <div class="footer-inner">
+          <div class="footer-logo"><img src="../../assets/logo-claude.png" alt="Powered by Claude"></div>
+          <div class="footer-text">
+            QUBELEY | OZ² — Powered by Oz<br>
+            Copyright © 2026 Oz. All rights reserved.
+          </div>
+        </div>
+      </footer>
+    </div>
+  </div>
+</div>
+
+<script src="../../assets/js/update-log.js"></script>
+<script src="../../assets/js/common.js"></script>
+<script>
+renderSidebar({ root:'../../', active:'emoji', sbLabel:'Knowledge', sbVal:'絵文字', sbSub:'クリックでコピー' });
+  renderSiteHeader({ root: '../../' });
+renderHeroStamp('../../');
+
+/* ================================================================
+   絵文字データ — カテゴリ別（13カテゴリ）
+================================================================ */
+const EMOJI_DATA = [
+  {
+    cat: "ビジネス定番",
+    icon: "💼",
+    items: [
+      {e:"👤",n:"ユーザー"},{e:"👥",n:"チーム"},{e:"👔",n:"社員"},{e:"💼",n:"ビジネス"},
+      {e:"💰",n:"お金"},{e:"💴",n:"円"},{e:"💵",n:"ドル"},{e:"💳",n:"カード"},
+      {e:"🏧",n:"ATM"},{e:"📜",n:"契約書"},{e:"🗂️",n:"ファイル整理"},{e:"🗃️",n:"書類箱"},
+      {e:"📞",n:"電話"},{e:"☎️",n:"固定電話"},{e:"📠",n:"FAX"},{e:"🖨️",n:"プリンタ"},
+      {e:"🗣️",n:"スピーチ"},{e:"🧮",n:"計算"},{e:"📐",n:"設計"},{e:"📏",n:"ルーラー"},
+      {e:"🔬",n:"分析"},{e:"🧪",n:"テスト"},{e:"🧠",n:"思考"},{e:"🏅",n:"メダル"},
+      {e:"🥇",n:"1位・金"},{e:"🥈",n:"2位・銀"},{e:"🥉",n:"3位・銅"},{e:"🔖",n:"ブックマーク"},
+      {e:"🗝️",n:"鍵"},{e:"🔑",n:"キー"},{e:"📦",n:"荷物"},{e:"🚚",n:"配送"},
+    ]
+  },
+  {
+    cat: "ポジティブ・感情",
+    icon: "😊",
+    items: [
+      {e:"😊",n:"笑顔"},{e:"😄",n:"満面笑み"},{e:"😁",n:"にっこり"},{e:"😀",n:"笑い"},
+      {e:"😃",n:"大喜び"},{e:"🤔",n:"考え中"},{e:"🤩",n:"感激"},{e:"😎",n:"クール"},
+      {e:"🙆",n:"OK・了解"},{e:"👍",n:"グッド"},{e:"👏",n:"拍手"},{e:"🙌",n:"達成"},
+      {e:"💪",n:"強い"},{e:"🤜",n:"ガッツ右"},{e:"🤛",n:"ガッツ左"},{e:"🙏",n:"感謝"},
+      {e:"☺️",n:"にこにこ"},{e:"😌",n:"ほっとする"},{e:"🌟",n:"輝き"},{e:"✨",n:"キラキラ"},
+      {e:"🎉",n:"お祝い"},{e:"🎊",n:"パーティー"},{e:"🎁",n:"プレゼント"},{e:"❤️",n:"レッドハート"},
+      {e:"💙",n:"ブルーハート"},{e:"💚",n:"グリーンハート"},{e:"💛",n:"イエローハート"},
+      {e:"🧡",n:"オレンジハート"},{e:"💜",n:"パープルハート"},{e:"🤍",n:"ホワイトハート"},
+      {e:"🔥",n:"炎・熱い"},{e:"⭐",n:"スター"},
+    ]
+  },
+  {
+    cat: "作業・進行",
+    icon: "🚀",
+    items: [
+      {e:"🚀",n:"開始・推進"},{e:"✅",n:"完了"},{e:"☑️",n:"チェック済み"},{e:"🔄",n:"更新"},
+      {e:"🔁",n:"リピート"},{e:"📌",n:"ピン"},{e:"📍",n:"マップピン"},{e:"✏️",n:"編集"},
+      {e:"📝",n:"メモ"},{e:"🗓️",n:"日程"},{e:"📅",n:"カレンダー"},{e:"⏰",n:"アラーム"},
+      {e:"⏱️",n:"ストップウォッチ"},{e:"⌛",n:"時間切れ"},{e:"🔧",n:"修正"},{e:"🔨",n:"ハンマー"},
+      {e:"⚙️",n:"設定"},{e:"🏁",n:"ゴール"},{e:"🎯",n:"目標"},{e:"📈",n:"上昇"},
+      {e:"📉",n:"下降"},{e:"📊",n:"グラフ"},{e:"🔝",n:"トップ"},{e:"▶️",n:"スタート"},
+      {e:"⏩",n:"早送り"},{e:"⏸️",n:"一時停止"},{e:"⏹️",n:"停止"},{e:"🆕",n:"NEW"},
+      {e:"🆙",n:"UP"},{e:"🆒",n:"COOL"},{e:"🆓",n:"FREE"},{e:"🔛",n:"オン"},
+      {e:"🔚",n:"オフ"},{e:"🔜",n:"SOON"},
+    ]
+  },
+  {
+    cat: "情報・コミュニケーション",
+    icon: "💡",
+    items: [
+      {e:"💡",n:"アイデア"},{e:"🔍",n:"検索"},{e:"🔎",n:"拡大検索"},{e:"💬",n:"チャット"},
+      {e:"💭",n:"ふきだし"},{e:"📢",n:"アナウンス"},{e:"📣",n:"メガホン"},{e:"🔔",n:"通知"},
+      {e:"📋",n:"クリップボード"},{e:"📄",n:"ドキュメント"},{e:"📃",n:"ページ"},{e:"📑",n:"タブ書類"},
+      {e:"📰",n:"ニュース"},{e:"📎",n:"クリップ"},{e:"🔗",n:"リンク"},{e:"🤝",n:"握手"},
+      {e:"🧩",n:"パズル"},{e:"📡",n:"アンテナ"},{e:"🌐",n:"グローバル"},{e:"📧",n:"メール"},
+      {e:"📨",n:"受信"},{e:"📩",n:"送信"},{e:"📬",n:"受信箱"},{e:"📚",n:"ライブラリ"},
+      {e:"🏷️",n:"タグ"},{e:"🗒️",n:"ノート"},{e:"📒",n:"ノート（青）"},{e:"📓",n:"ノート（緑）"},
+      {e:"🗺️",n:"マップ"},{e:"🧭",n:"コンパス"},{e:"📻",n:"ラジオ"},{e:"📺",n:"モニタ"},
+    ]
+  },
+  {
+    cat: "注意・警告",
+    icon: "⚠️",
+    items: [
+      {e:"⚠️",n:"注意"},{e:"🚫",n:"禁止"},{e:"❌",n:"NG・エラー"},{e:"❎",n:"バツ印"},
+      {e:"🚨",n:"サイレン"},{e:"🆘",n:"SOS・緊急"},{e:"🛑",n:"停止"},{e:"🚷",n:"立入禁止"},
+      {e:"🔴",n:"赤信号"},{e:"🟡",n:"黄色・注意"},{e:"🟠",n:"警戒"},{e:"📛",n:"警告"},
+      {e:"💢",n:"怒り・不満"},{e:"❗",n:"感嘆符"},{e:"❕",n:"感嘆（白）"},{e:"‼️",n:"!!"},
+      {e:"⁉️",n:"!?"},{e:"❓",n:"疑問符"},{e:"❔",n:"疑問（白）"},{e:"🔞",n:"18禁"},
+      {e:"☠️",n:"危険"},{e:"💀",n:"スカル"},{e:"🧨",n:"爆竹・要注意"},{e:"⚡",n:"電撃・注意"},
+    ]
+  },
+  {
+    cat: "セキュリティ・IT",
+    icon: "🔐",
+    items: [
+      {e:"🔐",n:"施錠"},{e:"🔒",n:"ロック"},{e:"🔓",n:"解錠"},{e:"🛡️",n:"シールド"},
+      {e:"⚖️",n:"法律"},{e:"🕵️",n:"調査・監査"},{e:"🔏",n:"署名"},{e:"🗄️",n:"サーバー"},
+      {e:"💻",n:"ノートPC"},{e:"🖥️",n:"デスクPC"},{e:"📱",n:"スマホ"},{e:"⌨️",n:"キーボード"},
+      {e:"🖱️",n:"マウス"},{e:"💾",n:"保存"},{e:"💿",n:"CD"},{e:"📀",n:"DVD"},
+      {e:"🖧",n:"ネットワーク"},{e:"📶",n:"電波強度"},{e:"🔌",n:"プラグ"},{e:"🔋",n:"バッテリー"},
+      {e:"🤖",n:"ロボット・AI"},{e:"🧬",n:"データ"},{e:"🔭",n:"監視"},{e:"🧱",n:"ファイアウォール"},
+      {e:"☁️",n:"クラウド"},{e:"⛓️",n:"チェーン"},{e:"🏴",n:"フラグ"},{e:"🚧",n:"工事中"},
+    ]
+  },
+  {
+    cat: "自然・環境",
+    icon: "🌱",
+    items: [
+      {e:"🌱",n:"新芽"},{e:"🌿",n:"葉・自然"},{e:"🌳",n:"木・安定"},{e:"🌲",n:"常緑樹"},
+      {e:"🌸",n:"桜・春"},{e:"🌺",n:"華やか"},{e:"🌻",n:"ひまわり"},{e:"🌼",n:"花・黄"},
+      {e:"🍀",n:"四つ葉"},{e:"🍁",n:"紅葉"},{e:"🌾",n:"稲穂"},{e:"🍃",n:"葉っぱ"},
+      {e:"☀️",n:"晴れ"},{e:"🌙",n:"月・夜"},{e:"⭐",n:"スター"},{e:"🌟",n:"輝く星"},
+      {e:"⛅",n:"くもり"},{e:"🌈",n:"虹"},{e:"❄️",n:"雪"},{e:"🌊",n:"波"},
+      {e:"🌍",n:"地球（欧）"},{e:"🌏",n:"地球（亜）"},{e:"🌋",n:"火山"},{e:"🏔️",n:"山"},
+      {e:"🌅",n:"夜明け"},{e:"🌄",n:"日の出"},{e:"🌠",n:"流れ星"},{e:"🌌",n:"銀河"},
+    ]
+  },
+  {
+    cat: "矢印・記号",
+    icon: "➡️",
+    items: [
+      {e:"➡️",n:"右矢印"},{e:"⬅️",n:"左矢印"},{e:"⬆️",n:"上矢印"},{e:"⬇️",n:"下矢印"},
+      {e:"↗️",n:"右上矢印"},{e:"↘️",n:"右下矢印"},{e:"↙️",n:"左下矢印"},{e:"↖️",n:"左上矢印"},
+      {e:"↩️",n:"折返し左"},{e:"↪️",n:"折返し右"},{e:"🔃",n:"縦回転"},{e:"🔄",n:"循環"},
+      {e:"🔀",n:"シャッフル"},{e:"◀️",n:"逆再生"},{e:"🔼",n:"上三角"},{e:"🔽",n:"下三角"},
+      {e:"➕",n:"プラス"},{e:"➖",n:"マイナス"},{e:"✖️",n:"かける"},{e:"➗",n:"わる"},
+      {e:"💯",n:"100点"},{e:"🔢",n:"数字"},{e:"🆗",n:"OK"},{e:"🆔",n:"ID"},
+      {e:"©️",n:"コピーライト"},{e:"®️",n:"登録商標"},{e:"™️",n:"トレードマーク"},{e:"🔰",n:"初心者"},
+      {e:"♾️",n:"無限"},{e:"〰️",n:"波線"},{e:"✔️",n:"チェック"},{e:"〽️",n:"アップ"},
+    ]
+  },
+  {
+    cat: "数字・カラー丸",
+    icon: "🔢",
+    items: [
+      {e:"1️⃣",n:"①"},{e:"2️⃣",n:"②"},{e:"3️⃣",n:"③"},{e:"4️⃣",n:"④"},
+      {e:"5️⃣",n:"⑤"},{e:"6️⃣",n:"⑥"},{e:"7️⃣",n:"⑦"},{e:"8️⃣",n:"⑧"},
+      {e:"9️⃣",n:"⑨"},{e:"🔟",n:"⑩"},{e:"🔴",n:"赤丸"},{e:"🔵",n:"青丸"},
+      {e:"🟢",n:"緑丸"},{e:"🟡",n:"黄丸"},{e:"🟠",n:"橙丸"},{e:"🟣",n:"紫丸"},
+      {e:"⚫",n:"黒丸"},{e:"⚪",n:"白丸"},{e:"🔶",n:"大橙ひし形"},{e:"🔷",n:"大青ひし形"},
+      {e:"🔸",n:"小橙ひし形"},{e:"🔹",n:"小青ひし形"},{e:"🔺",n:"赤三角上"},{e:"🔻",n:"赤三角下"},
+      {e:"🟥",n:"赤四角"},{e:"🟦",n:"青四角"},{e:"🟩",n:"緑四角"},{e:"🟨",n:"黄四角"},
+      {e:"🟧",n:"橙四角"},{e:"🟪",n:"紫四角"},{e:"⬛",n:"黒四角"},{e:"⬜",n:"白四角"},
+    ]
+  },
+  {
+    cat: "乗り物・場所",
+    icon: "✈️",
+    items: [
+      {e:"✈️",n:"飛行機"},{e:"🚂",n:"電車"},{e:"🚄",n:"新幹線"},{e:"🚗",n:"車"},
+      {e:"🚕",n:"タクシー"},{e:"🚌",n:"バス"},{e:"🚑",n:"救急車"},{e:"🚒",n:"消防車"},
+      {e:"🚢",n:"船"},{e:"🚁",n:"ヘリコプタ"},{e:"🚲",n:"自転車"},{e:"🛵",n:"バイク"},
+      {e:"🏠",n:"家"},{e:"🏢",n:"ビル"},{e:"🏥",n:"病院"},{e:"🏦",n:"銀行"},
+      {e:"🏨",n:"ホテル"},{e:"🏫",n:"学校"},{e:"🏭",n:"工場"},{e:"🗼",n:"東京タワー"},
+      {e:"🏖️",n:"ビーチ"},{e:"🏕️",n:"キャンプ"},{e:"🗾",n:"日本地図"},{e:"🌆",n:"夕暮れ都市"},
+      {e:"🌃",n:"夜景"},{e:"🌉",n:"夜の橋"},{e:"🛫",n:"離陸"},{e:"🛬",n:"着陸"},
+    ]
+  },
+  {
+    cat: "食べ物・飲み物",
+    icon: "🍜",
+    items: [
+      {e:"🍜",n:"ラーメン"},{e:"🍣",n:"寿司"},{e:"🍱",n:"弁当"},{e:"🍛",n:"カレー"},
+      {e:"🍚",n:"ご飯"},{e:"🍙",n:"おにぎり"},{e:"🍤",n:"エビフライ"},{e:"🥗",n:"サラダ"},
+      {e:"🍕",n:"ピザ"},{e:"🍔",n:"バーガー"},{e:"🍟",n:"フライドポテト"},{e:"🌮",n:"タコス"},
+      {e:"🍰",n:"ケーキ"},{e:"🎂",n:"バースデーケーキ"},{e:"🍩",n:"ドーナツ"},{e:"🍪",n:"クッキー"},
+      {e:"🍫",n:"チョコ"},{e:"🍬",n:"キャンディ"},{e:"🍭",n:"ペロペロ"},{e:"🧁",n:"カップケーキ"},
+      {e:"☕",n:"コーヒー"},{e:"🍵",n:"お茶"},{e:"🧃",n:"ジュース"},{e:"🥤",n:"ドリンク"},
+      {e:"🍺",n:"ビール"},{e:"🍻",n:"乾杯"},{e:"🥂",n:"シャンパン"},{e:"🍾",n:"ボトル"},
+      {e:"🍎",n:"りんご"},{e:"🍊",n:"みかん"},{e:"🍇",n:"ぶどう"},{e:"🍓",n:"いちご"},
+    ]
+  },
+  {
+    cat: "記念日・イベント",
+    icon: "🎉",
+    items: [
+      {e:"🎉",n:"お祝い"},{e:"🎊",n:"パーティー"},{e:"🎁",n:"プレゼント"},{e:"🎂",n:"誕生日"},
+      {e:"🎆",n:"花火"},{e:"🎇",n:"線香花火"},{e:"🧨",n:"爆竹"},{e:"✨",n:"キラキラ"},
+      {e:"🎀",n:"リボン"},{e:"🎗️",n:"リボンバッジ"},{e:"🏆",n:"優勝杯"},{e:"🥇",n:"金メダル"},
+      {e:"🎖️",n:"功績メダル"},{e:"🎵",n:"音符"},{e:"🎶",n:"ミュージック"},{e:"🎤",n:"マイク"},
+      {e:"🎸",n:"ギター"},{e:"🥁",n:"ドラム"},{e:"🎹",n:"ピアノ"},{e:"🎺",n:"トランペット"},
+      {e:"🎭",n:"演劇"},{e:"🎬",n:"映画"},{e:"🎤",n:"カラオケ"},{e:"🎯",n:"的当て"},
+      {e:"🎲",n:"サイコロ"},{e:"🎮",n:"ゲーム"},{e:"🎡",n:"観覧車"},{e:"🎠",n:"メリーゴーランド"},
+      {e:"🌸",n:"花見"},{e:"🎋",n:"七夕"},{e:"🎍",n:"お正月"},{e:"🎑",n:"お月見"},
+    ]
+  },
+  {
+    cat: "スポーツ・活動",
+    icon: "⚽",
+    items: [
+      {e:"⚽",n:"サッカー"},{e:"🏀",n:"バスケ"},{e:"⚾",n:"野球"},{e:"🎾",n:"テニス"},
+      {e:"🏐",n:"バレー"},{e:"🏈",n:"アメフト"},{e:"🏉",n:"ラグビー"},{e:"🎱",n:"ビリヤード"},
+      {e:"🏓",n:"卓球"},{e:"🏸",n:"バドミントン"},{e:"🥊",n:"ボクシング"},{e:"🥋",n:"格闘技"},
+      {e:"🏊",n:"水泳"},{e:"🏋️",n:"ウエイト"},{e:"🤸",n:"体操"},{e:"⛷️",n:"スキー"},
+      {e:"🏂",n:"スノボ"},{e:"🚴",n:"サイクリング"},{e:"🧘",n:"ヨガ"},{e:"🤾",n:"ハンドボール"},
+      {e:"🏇",n:"競馬"},{e:"🏄",n:"サーフィン"},{e:"🧗",n:"クライミング"},{e:"🤺",n:"フェンシング"},
+      {e:"🎳",n:"ボウリング"},{e:"🏆",n:"優勝杯"},{e:"🥇",n:"金メダル"},{e:"🎽",n:"ユニフォーム"},
+    ]
+  },
+];
+
+/* ================================================================
+   描画・フィルター
+================================================================ */
+let currentCat = 'all';
+
+function buildAll() {
+  const wrap = document.getElementById('sections-wrap');
+  const filterBar = document.getElementById('filter-bar');
+  let totalCount = 0;
+
+  EMOJI_DATA.forEach(cat => {
+    totalCount += cat.items.length;
+
+    // フィルターボタン追加
+    const btn = document.createElement('button');
+    btn.className = 'filter-btn';
+    btn.textContent = cat.icon + ' ' + cat.cat;
+    btn.onclick = () => filterCat(btn, cat.cat);
+    filterBar.appendChild(btn);
+
+    // セクション生成
+    const sec = document.createElement('div');
+    sec.className = 'section';
+    sec.dataset.cat = cat.cat;
+
+    const header = document.createElement('div');
+    header.className = 'section-header';
+    header.innerHTML = `
+      <div class="section-title"><span>${cat.icon}</span> ${cat.cat}</div>
+      <div class="section-count">${cat.items.length} 個</div>
+      <button class="copy-all-btn" onclick="copyAll('${cat.cat}')">全コピー</button>`;
+    sec.appendChild(header);
+
+    const grid = document.createElement('div');
+    grid.className = 'emoji-grid';
+    cat.items.forEach(item => {
+      const el = document.createElement('div');
+      el.className = 'emoji-item';
+      el.dataset.emoji = item.e;
+      el.dataset.cat = cat.cat;
+      el.innerHTML = `
+        <div class="emoji-char">${item.e}</div>
+        <div class="emoji-name">${item.n}</div>
+        <div class="copy-flash">COPIED</div>`;
+      el.onclick = () => copyEmoji(el, item.e);
+      grid.appendChild(el);
+    });
+    sec.appendChild(grid);
+    wrap.appendChild(sec);
+  });
+
+  document.getElementById('total-count').textContent = totalCount + '個';
+
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(en => {
+      if (en.isIntersecting) { en.target.style.animationPlayState = 'running'; obs.unobserve(en.target); }
+    });
+  }, { threshold: 0.05 });
+  document.querySelectorAll('.section').forEach(s => obs.observe(s));
+}
+
+function filterCat(btn, cat) {
+  currentCat = cat;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.section[data-cat]').forEach(s => {
+    s.style.display = (cat === 'all' || s.dataset.cat === cat) ? '' : 'none';
+  });
+}
+
+/* ================================================================
+   コピー
+================================================================ */
+let toastTimer = null;
+
+function copyEmoji(el, emoji) {
+  navigator.clipboard.writeText(emoji).then(() => {
+    el.classList.add('copied');
+    setTimeout(() => el.classList.remove('copied'), 1200);
+    showToast(`「${emoji}」をコピーしました`);
+  });
+}
+
+function copyAll(catName) {
+  const items = document.querySelectorAll(`.emoji-item[data-cat="${catName}"]`);
+  const text = Array.from(items).map(el => el.dataset.emoji).join(' ');
+  navigator.clipboard.writeText(text).then(() => {
+    showToast(`「${catName}」を全コピーしました（${items.length}個）`);
+  });
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = '✓ ' + msg;
+  t.classList.remove('hide');
+  t.classList.add('show');
+  if (toastTimer) clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => {
+    t.classList.remove('show');
+    t.classList.add('hide');
+  }, 2200);
+}
+
+buildAll();
+</script>
+</body>
+</html>

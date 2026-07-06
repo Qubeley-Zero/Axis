@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AIって難しそうで心配なんだけど | Step 01 | OZ²</title>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Noto+Sans+JP:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/css/common.css">
+<style>
+.page-hero {
+  position:relative; z-index:1;
+  background:var(--ai-panel); border:1px solid var(--ai-border);
+  border-radius:14px; padding:28px 36px 24px;
+  margin-bottom:24px; overflow:hidden;
+}
+.page-hero::after {
+  content:'FEAR'; position:absolute; bottom:-16px; right:24px;
+  font-family:'Rajdhani',sans-serif; font-size:100px; font-weight:700;
+  color:rgba(255,140,66,0.04); line-height:1; pointer-events:none; letter-spacing:-2px;
+}
+.page-eyebrow { font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.2em; color:var(--accent); margin-bottom:10px; opacity:0; animation:fadeUp 0.5s ease 0.2s forwards; }
+.page-title { font-family:'Rajdhani',sans-serif; font-size:clamp(1.4rem,3vw,2rem); font-weight:700; color:#fff; margin-bottom:12px; line-height:1.1; opacity:0; animation:fadeUp 0.5s ease 0.35s forwards; }
+.page-lead { font-size:15px; color:#b0bec5; line-height:1.9; max-width:600px; opacity:0; animation:fadeUp 0.5s ease 0.5s forwards; }
+
+/* 不安→安心の変換カード */
+.fear-cards { display:flex; flex-direction:column; gap:12px; margin-bottom:28px; }
+.fear-card {
+  background:var(--ai-panel); border:1px solid var(--ai-border2);
+  border-radius:12px; overflow:hidden;
+  transition:border-color 0.2s, box-shadow 0.2s;
+}
+.fear-card:hover {
+  border-color:rgba(255,107,26,0.45);
+  box-shadow:0 0 16px rgba(255,107,26,0.15);
+}
+.fear-card-header {
+  display:flex; align-items:center; gap:12px;
+  padding:14px 18px; background:rgba(255,107,26,0.04);
+  border-bottom:1px solid var(--ai-border2);
+}
+.fear-icon { font-size:18px; flex-shrink:0; }
+.fear-label {
+  font-size:11px; font-family:'JetBrains Mono',monospace;
+  color:var(--accent-red); background:rgba(255,75,110,0.1);
+  border:1px solid rgba(255,75,110,0.2); border-radius:3px;
+  padding:1px 8px; flex-shrink:0;
+}
+.fear-text { font-size:14px; color:var(--text-primary); font-weight:500; }
+.fear-card-body { padding:14px 18px; }
+.fear-answer { font-size:13px; color:#b0bec5; line-height:1.85; }
+.fear-answer strong { color:var(--accent3); }
+.fear-answer .hl { color:var(--text-primary); }
+
+/* 比較テーブル（AIとスマホの比較） */
+.compare-wrap { margin-bottom:28px; }
+.compare-table { width:100%; border-collapse:collapse; font-size:13px; }
+.compare-table th { font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.1em; padding:10px 14px; text-align:left; border-bottom:1px solid var(--ai-border); }
+.compare-table th:nth-child(2) { color:var(--text-muted); }
+.compare-table th:nth-child(3) { color:var(--accent3); }
+.compare-table td { padding:10px 14px; border-bottom:1px solid var(--ai-border2); color:#b0bec5; vertical-align:top; line-height:1.7; }
+.compare-table td:first-child { color:var(--text-primary); font-weight:500; white-space:nowrap; }
+.compare-table tr:last-child td { border-bottom:none; }
+
+/* 最短ステップ */
+.step-mini { display:flex; flex-direction:column; gap:8px; margin-bottom:28px; }
+.step-mini-item {
+  display:flex; align-items:center; gap:14px;
+  background:var(--ai-panel); border:1px solid var(--ai-border2);
+  border-radius:10px; padding:12px 16px;
+  transition:border-color 0.2s, background 0.2s, box-shadow 0.2s;
+}
+.step-mini-item:hover {
+  border-color:rgba(255,107,26,0.45);
+  background:rgba(255,107,26,0.05);
+  box-shadow:0 0 12px rgba(255,107,26,0.2);
+}
+.step-mini-num {
+  width:28px; height:28px; border-radius:50%; flex-shrink:0;
+  display:flex; align-items:center; justify-content:center;
+  font-family:'JetBrains Mono',monospace; font-size:11px;
+  background:rgba(255,107,26,0.1); color:var(--accent);
+  border:1px solid rgba(255,107,26,0.3);
+}
+.step-mini-text { font-size:14px; color:#b0bec5; line-height:1.6; }
+.step-mini-text strong { color:var(--text-primary); }
+
+/* ルールカード */
+.rule-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:28px; }
+.rule-card {
+  background:var(--ai-panel); border:1px solid var(--ai-border2);
+  border-radius:10px; padding:14px 16px;
+  transition:border-color 0.2s, background 0.2s, box-shadow 0.2s;
+}
+.rule-card:hover {
+  border-color:rgba(255,107,26,0.45);
+  background:rgba(255,107,26,0.05);
+  box-shadow:0 0 12px rgba(255,107,26,0.15);
+}
+.rule-card-icon { font-size:20px; margin-bottom:8px; }
+.rule-card-title { font-size:13px; color:var(--text-primary); font-weight:500; margin-bottom:4px; }
+.rule-card-desc { font-size:12px; color:#78909c; line-height:1.6; }
+
+/* ヒント・注意 */
+.hint-box { display:flex; gap:12px; align-items:flex-start; background:rgba(52,211,153,0.06); border:1px solid rgba(52,211,153,0.2); border-radius:10px; padding:14px 16px; margin:12px 0; }
+.hint-icon { font-size:17px; flex-shrink:0; margin-top:1px; }
+.hint-text { font-size:13px; color:#b0bec5; line-height:1.8; }
+.hint-text strong { color:var(--accent3); }
+
+/* CTA・前後ナビ */
+.cta-wrap { text-align:center; padding:24px; background:linear-gradient(135deg,rgba(255,107,26,0.06),rgba(255,20,147,0.06)); border:1px solid rgba(255,107,26,0.2); border-radius:12px; margin-bottom:28px; }
+.cta-wrap p { font-size:14px; color:#b0bec5; margin-bottom:16px; }
+.cta-btn { display:inline-flex; align-items:center; gap:10px; background:linear-gradient(135deg,var(--neon-orange),var(--neon-pink)); color:#fff; font-size:15px; font-weight:500; padding:12px 32px; border-radius:24px; text-decoration:none; box-shadow:0 0 20px rgba(255,107,26,0.35); transition:transform 0.2s,box-shadow 0.2s; }
+.page-nav { display:flex; gap:12px; margin-top:28px; }
+.page-nav-btn { flex:1; display:flex; align-items:center; gap:12px; background:var(--ai-panel); border:1px solid var(--ai-border2); border-radius:10px; padding:14px 18px; text-decoration:none; transition:border-color 0.2s,background 0.2s,box-shadow 0.2s,transform 0.2s; }
+.page-nav-btn.next { justify-content:flex-end; text-align:right; }
+.page-nav-label { font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--text-muted); margin-bottom:3px; }
+.page-nav-title { font-size:13px; color:var(--text-primary); font-weight:500; }
+.page-nav-arrow { font-size:18px; color:var(--accent); flex-shrink:0; }
+
+@media (max-width:768px) {
+  .page-hero { padding:20px 18px 18px; }
+  .page-hero[style] { grid-template-columns:1fr !important; }
+  .rule-grid { grid-template-columns:1fr; }
+  .compare-table th:nth-child(2), .compare-table td:nth-child(2) { display:none; }
+  .page-nav { flex-direction:column; }
+}
+</style>
+</head>
+<body>
+<div class="grid-bg"></div>
+<canvas id="trail-canvas"></canvas>
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+<header class="site-header" id="site-header-mount"></header>
+<div class="scanline-wrap"><div class="scanline"></div></div>
+
+<div class="layout">
+  <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+  <aside class="sidebar" id="sidebar"></aside>
+
+  <div class="main">
+    <div class="topbar">
+      <div class="topbar-path">
+        <a href="../../index.html" style="color:inherit;text-decoration:none;">portal</a>
+        <span style="margin:0 6px;opacity:0.4;">/</span>
+        <a href="index.html" style="color:inherit;text-decoration:none;">step01</a>
+        <span style="margin:0 6px;opacity:0.4;">/</span>
+        <span>AIって心配？</span>
+      </div>
+      <div class="topbar-right">
+        <div class="status-chip"><div class="dot"></div>公開中</div>
+      </div>
+    </div>
+
+    <div class="content">
+
+      <!-- HERO -->
+      <div class="page-hero" style="display:grid; grid-template-columns:1fr auto; gap:20px; align-items:center;">
+        <div>
+          <div class="page-eyebrow">STEP 01 — 06 / GETTING OVER FEAR</div>
+          <div class="page-title">AIって難しそうで<br>心配なんだけど</div>
+          <p class="page-lead">
+            その不安、よく分かります。でも大丈夫です。<br>
+            よくある「心配の声」を一つずつ解消していきます。
+          </p>
+        </div>
+        <div id="hero-stamp-mount"></div>
+      </div>
+
+      <!-- よくある不安を解消 -->
+      <div class="section">
+        <div class="section-header">
+          <div class="section-title"><span>//</span> よくある「心配」を一つずつ解消する</div>
+        </div>
+        <div class="fear-cards">
+
+          <div class="fear-card">
+            <div class="fear-card-header">
+              <div class="fear-icon">😰</div>
+              <div class="fear-label">心配</div>
+              <div class="fear-text">ITが苦手なので、使いこなせる気がしない</div>
+            </div>
+            <div class="fear-card-body">
+              <div class="fear-answer">
+                生成AIは<strong>「会話で頼む」道具</strong>です。マウス操作もプログラミングも要りません。日本語でテキストを打てれば、それだけで使えます。スマホのLINEが使えるなら、Claudeも使えます。
+              </div>
+            </div>
+          </div>
+
+          <div class="fear-card">
+            <div class="fear-card-header">
+              <div class="fear-icon">😨</div>
+              <div class="fear-label">心配</div>
+              <div class="fear-text">間違ったことを言われたら困る</div>
+            </div>
+            <div class="fear-card-body">
+              <div class="fear-answer">
+                AIは時々間違えます（これを「ハルシネーション」と言います）。でも、<strong>「試行錯誤しながら確認して使う」</strong>のが前提のツールです。重要な内容は必ず人間が最終チェックする、という習慣さえ持てば問題ありません。電卓でも計算ミスがゼロとは限りませんよね、それと同じです。
+              </div>
+            </div>
+          </div>
+
+          <div class="fear-card">
+            <div class="fear-card-header">
+              <div class="fear-icon">😟</div>
+              <div class="fear-label">心配</div>
+              <div class="fear-text">入力した情報が漏れたりしないか不安</div>
+            </div>
+            <div class="fear-card-body">
+              <div class="fear-answer">
+                学習設定をオフにする方法は前のページで説明しました。<strong>「機密情報・個人情報は入力しない」というルールを守る</strong>だけで、ほとんどのリスクは回避できます。使い方のルールはStep03で詳しく学びます。まずは「個人名・会社名・具体的な数字を含まない一般的な質問」から始めましょう。
+              </div>
+            </div>
+          </div>
+
+          <div class="fear-card">
+            <div class="fear-card-header">
+              <div class="fear-icon">🤔</div>
+              <div class="fear-label">心配</div>
+              <div class="fear-text">何をどう頼めばいいか分からない</div>
+            </div>
+            <div class="fear-card-body">
+              <div class="fear-answer">
+                最初はコツなんて気にしなくていいです。<strong>普通に日本語で話しかけるだけで大丈夫</strong>です。「ちょっとうまく伝わらなかったな」と思ったら、言い方を変えて再挑戦すればいい。それだけです。うまい「頼み方」はStep02で少しずつ学びます。
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- AIとスマホの比較表（追加コンテンツ） -->
+      <div class="section compare-wrap">
+        <div class="section-header">
+          <div class="section-title"><span>//</span> AIはスマホと同じくらい「身近な道具」</div>
+        </div>
+        <p style="font-size:14px; color:#b0bec5; line-height:1.9; margin-bottom:14px;">
+          「AIは難しそう」と感じるのは、まだ慣れていないだけです。スマホだって最初は難しく感じましたよね。
+        </p>
+        <table class="compare-table">
+          <thead>
+            <tr>
+              <th>比較ポイント</th>
+              <th>📱 スマホ（初めて使ったとき）</th>
+              <th>🤖 AI（Claude）</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>操作方法</td>
+              <td>タッチ操作。最初は戸惑った</td>
+              <td>日本語で話しかけるだけ</td>
+            </tr>
+            <tr>
+              <td>専門知識</td>
+              <td>電話の仕組みを知らなくても使える</td>
+              <td>AIの仕組みを知らなくても使える</td>
+            </tr>
+            <tr>
+              <td>ミスしたとき</td>
+              <td>操作を間違えても戻ればいい</td>
+              <td>返答がおかしければ言い直せばいい</td>
+            </tr>
+            <tr>
+              <td>慣れるまでの時間</td>
+              <td>数週間で日常的に使えるように</td>
+              <td>数回試せば感覚がつかめる</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- 今日から始める最短ステップ -->
+      <div class="section">
+        <div class="section-header">
+          <div class="section-title"><span>//</span> 今日から始める超・最短ステップ</div>
+        </div>
+        <div class="hint-box">
+          <div class="hint-icon">💡</div>
+          <div class="hint-text">
+            まずはこれだけ試してみてください。難しいことは何もありません。
+          </div>
+        </div>
+        <div class="step-mini">
+          <div class="step-mini-item">
+            <div class="step-mini-num">1</div>
+            <div class="step-mini-text">普段のメール文を貼り付けて<strong>「読みやすくして」</strong>と依頼する</div>
+          </div>
+          <div class="step-mini-item">
+            <div class="step-mini-num">2</div>
+            <div class="step-mini-text">会議メモを貼り付けて<strong>「要点を3つに要約して」</strong>と依頼する</div>
+          </div>
+          <div class="step-mini-item">
+            <div class="step-mini-num">3</div>
+            <div class="step-mini-text"><strong>「社内告知用に200字で」</strong>など、条件を添えてみる</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 安心のルール -->
+      <div class="section">
+        <div class="section-header">
+          <div class="section-title"><span>//</span> 不安を減らす使い方の3つのルール</div>
+        </div>
+        <div class="rule-grid">
+          <div class="rule-card">
+            <div class="rule-card-icon">🔒</div>
+            <div class="rule-card-title">機密情報は入力しない</div>
+            <div class="rule-card-desc">社外秘の情報・個人名・具体的な数字は無償版には入力しないことが基本ルール</div>
+          </div>
+          <div class="rule-card">
+            <div class="rule-card-icon">✅</div>
+            <div class="rule-card-title">重要な内容は必ず確認する</div>
+            <div class="rule-card-desc">AIが作った文章・数字は、最終的に人間が確認してから使う習慣をつける</div>
+          </div>
+          <div class="rule-card">
+            <div class="rule-card-icon">🔍</div>
+            <div class="rule-card-title">根拠を求めるプロンプトを使う</div>
+            <div class="rule-card-desc">「根拠も教えて」「出典はある？」と追加で聞くとハルシネーションを減らせる</div>
+          </div>
+          <div class="rule-card">
+            <div class="rule-card-icon">🔄</div>
+            <div class="rule-card-title">うまくいかなければ言い直す</div>
+            <div class="rule-card-desc">最初から完璧を求めない。対話を重ねて品質を上げていくのが正しい使い方</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CTA -->
+      <div class="cta-wrap">
+        <p>不安が解消されたら、次は「AIで何が便利になるか」を見てみましょう。</p>
+        <a class="cta-btn" href="07_AIを使うと何が便利なの.html">次へ：AIを使うと何が便利なの？ →</a>
+      </div>
+
+      <!-- 前後ナビ -->
+      <div class="page-nav">
+        <a class="page-nav-btn" href="05_なぜAIを勉強すべきなの.html">
+          <div class="page-nav-arrow">←</div>
+          <div>
+            <div class="page-nav-label">PREV</div>
+            <div class="page-nav-title">05：なぜAIを勉強すべきなの？</div>
+          </div>
+        </a>
+        <a class="page-nav-btn next" href="07_AIを使うと何が便利なの.html">
+          <div>
+            <div class="page-nav-label">NEXT</div>
+            <div class="page-nav-title">07：AIを使うと何が便利なの？</div>
+          </div>
+          <div class="page-nav-arrow">→</div>
+        </a>
+      </div>
+
+      <footer class="portal-footer">
+        <div class="footer-inner">
+          <div class="footer-logo"><img src="../../assets/logo-claude.png" alt="Powered by Claude"></div>
+          <div class="footer-text">
+            QUBELEY | OZ² — Powered by Oz<br>
+            Copyright © 2026 Oz. All rights reserved.
+          </div>
+        </div>
+      </footer>
+
+    </div>
+  </div>
+</div>
+
+<script src="../../assets/js/update-log.js"></script>
+<script src="../../assets/js/common.js"></script>
+<script>
+  renderSidebar({ root:'../../', active:'step01', sbLabel:'STEP', sbVal:'01<span> /05</span>', sbSub:'まず触ってみる' });
+  renderSiteHeader({ root: '../../' });
+  renderHeroStamp('../../');
+</script>
+</body>
+</html>

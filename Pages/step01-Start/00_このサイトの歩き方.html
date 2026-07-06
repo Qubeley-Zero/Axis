@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>このサイトの歩き方 | Step 01 | OZ²</title>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Noto+Sans+JP:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/css/common.css">
+<style>
+
+/* ===== ページ固有スタイル ===== */
+
+/* リード */
+.page-hero {
+  position:relative; z-index:1;
+  background:var(--ai-panel); border:1px solid var(--ai-border);
+  border-radius:14px; padding:28px 36px 24px;
+  margin-bottom:24px; overflow:hidden;
+}
+.page-hero::after {
+  content:'MAP'; position:absolute; bottom:-16px; right:24px;
+  font-family:'Rajdhani',sans-serif; font-size:100px; font-weight:700;
+  color:rgba(255,140,66,0.04); line-height:1; pointer-events:none;
+  letter-spacing:-2px;
+}
+.page-eyebrow {
+  font-family:'JetBrains Mono',monospace; font-size:11px;
+  letter-spacing:0.2em; color:var(--accent); margin-bottom:10px;
+  opacity:0; animation:fadeUp 0.5s ease 0.2s forwards;
+}
+.page-title {
+  font-family:'Rajdhani',sans-serif; font-size:clamp(1.4rem,3vw,2rem);
+  font-weight:700; color:#fff; margin-bottom:12px; line-height:1.1;
+  opacity:0; animation:fadeUp 0.5s ease 0.35s forwards;
+}
+.page-lead {
+  font-size:15px; color:var(--text-secondary); line-height:1.9;
+  max-width:600px;
+  opacity:0; animation:fadeUp 0.5s ease 0.5s forwards;
+}
+
+/* ロードマップ */
+.roadmap-wrap {
+  margin-bottom:28px;
+}
+.roadmap-flow {
+  display:flex; flex-direction:column; gap:0;
+}
+.roadmap-step {
+  display:flex; gap:0; position:relative;
+}
+.roadmap-step-line {
+  display:flex; flex-direction:column; align-items:center;
+  width:48px; flex-shrink:0;
+}
+.roadmap-step-dot {
+  width:36px; height:36px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  font-family:'JetBrains Mono',monospace; font-size:12px; font-weight:500;
+  flex-shrink:0; position:relative; z-index:1;
+  transition:box-shadow 0.2s;
+}
+.roadmap-step-dot.current {
+  background:var(--neon-orange);
+  color:#fff;
+  box-shadow:0 0 0 4px rgba(255,107,26,0.2), 0 0 16px rgba(255,107,26,0.4);
+}
+.roadmap-step-dot.upcoming {
+  background:var(--ai-panel2);
+  color:var(--text-muted);
+  border:1px solid var(--ai-border2);
+}
+.roadmap-step-connector {
+  width:2px; flex:1; min-height:16px;
+  background:linear-gradient(180deg, rgba(255,107,26,0.3), rgba(255,107,26,0.05));
+  margin:2px 0;
+}
+.roadmap-step:last-child .roadmap-step-connector { display:none; }
+
+.roadmap-step-body {
+  flex:1; padding:4px 0 20px 16px;
+}
+.roadmap-step-header {
+  display:flex; align-items:center; gap:10px; margin-bottom:6px;
+}
+.roadmap-step-name {
+  font-size:15px; font-weight:500;
+}
+.roadmap-step-name.current { color:var(--text-primary); }
+.roadmap-step-name.upcoming { color:var(--text-muted); }
+.roadmap-step-now {
+  font-family:'JetBrains Mono',monospace; font-size:9px;
+  background:rgba(255,107,26,0.15); color:var(--accent);
+  border:1px solid rgba(255,107,26,0.3); border-radius:3px;
+  padding:1px 7px;
+}
+.roadmap-step-desc {
+  font-size:13px; color:var(--text-muted); line-height:1.7;
+}
+.roadmap-step-articles {
+  display:flex; flex-wrap:wrap; gap:6px; margin-top:8px;
+}
+.roadmap-article-chip {
+  font-size:11px; color:var(--text-muted);
+  background:rgba(255,255,255,0.04); border:1px solid var(--ai-border2);
+  border-radius:4px; padding:2px 9px;
+  font-family:'JetBrains Mono',monospace;
+}
+
+/* Q&Aブロック */
+.qa-list { display:flex; flex-direction:column; gap:12px; margin-bottom:28px; }
+.qa-item {
+  background:var(--ai-panel); border:1px solid var(--ai-border2);
+  border-radius:10px; overflow:hidden;
+}
+.qa-q {
+  display:flex; align-items:flex-start; gap:12px;
+  padding:14px 18px; cursor:pointer;
+  transition:background 0.2s;
+}
+.qa-q:hover { background:rgba(255,107,26,0.05); }
+.qa-q-mark {
+  font-family:'JetBrains Mono',monospace; font-size:13px;
+  color:var(--accent); flex-shrink:0; margin-top:1px;
+}
+.qa-q-text { font-size:14px; color:var(--text-primary); flex:1; line-height:1.6; }
+.qa-q-arrow {
+  font-size:12px; color:var(--text-muted); flex-shrink:0; margin-top:3px;
+  transition:transform 0.2s;
+}
+.qa-item.open .qa-q-arrow { transform:rotate(90deg); }
+.qa-a {
+  max-height:0; overflow:hidden;
+  transition:max-height 0.28s ease, padding 0.2s;
+  padding:0 18px; font-size:14px; color:var(--text-secondary); line-height:1.9;
+}
+.qa-item.open .qa-a { max-height:200px; padding:0 18px 14px; }
+.qa-a-mark {
+  font-family:'JetBrains Mono',monospace; font-size:11px;
+  color:var(--accent3); display:inline; margin-right:6px;
+}
+
+/* 対象者チェック */
+.target-grid {
+  display:grid; grid-template-columns:1fr 1fr; gap:10px;
+  margin-bottom:28px;
+}
+.target-card {
+  background:var(--ai-panel); border:1px solid var(--ai-border2);
+  border-radius:10px; padding:14px 16px;
+}
+.target-card.match { border-color:rgba(52,211,153,0.3); }
+.target-card.no-match { border-color:rgba(100,116,139,0.2); opacity:0.5; }
+.target-card-icon { font-size:20px; margin-bottom:6px; }
+.target-card-text { font-size:13px; color:var(--text-primary); line-height:1.6; }
+.target-card.match .target-card-text { color:var(--text-primary); }
+.target-card.no-match .target-card-text { color:var(--text-muted); }
+
+/* CTAボタン */
+.cta-wrap {
+  text-align:center; padding:24px;
+  background:linear-gradient(135deg,rgba(255,107,26,0.06),rgba(255,20,147,0.06));
+  border:1px solid rgba(255,107,26,0.2); border-radius:12px;
+  margin-bottom:28px;
+}
+.cta-wrap p { font-size:14px; color:var(--text-muted); margin-bottom:16px; }
+.cta-btn { display:inline-flex; align-items:center; gap:10px; background:linear-gradient(135deg,var(--neon-orange),var(--neon-pink)); color:#fff; font-size:15px; font-weight:500; padding:12px 32px; border-radius:24px; text-decoration:none; box-shadow:0 0 20px rgba(255,107,26,0.35); transition:transform 0.2s,box-shadow 0.2s; }
+
+/* 前後ナビ */
+.page-nav {
+  display:flex; gap:12px; margin-top:28px;
+}
+.page-nav { display:flex; gap:12px; margin-top:28px; }
+.page-nav-btn { flex:1; display:flex; align-items:center; gap:12px; background:var(--ai-panel); border:1px solid var(--ai-border2); border-radius:10px; padding:14px 18px; text-decoration:none; transition:border-color 0.2s,background 0.2s,box-shadow 0.2s,transform 0.2s; }
+.page-nav-btn.next { justify-content:flex-end; text-align:right; }
+.page-nav-label { font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--text-muted); margin-bottom:3px; }
+.page-nav-title { font-size:13px; color:var(--text-primary); font-weight:500; }
+.page-nav-arrow { font-size:18px; color:var(--accent); flex-shrink:0; }
+.page-nav-title { font-size:13px; color:var(--text-primary); font-weight:500; }
+.page-nav-arrow { font-size:18px; color:var(--accent); flex-shrink:0; }
+.page-nav-btn.disabled { opacity:0.3; pointer-events:none; }
+
+@media (max-width:768px) {
+  .page-hero { padding:20px 18px 18px; }
+  .page-hero[style] { grid-template-columns:1fr !important; }
+  .target-grid { grid-template-columns:1fr; }
+  .page-nav { flex-direction:column; }
+}
+
+/* ===== 本文テキスト色の底上げ =====
+   --text-muted はサイト全体で暗い色のため、
+   記事ページの本文のみ読みやすい明るさに上書きする */
+.page-lead,
+.roadmap-step-desc,
+.qa-a,
+.target-card-text {
+  color:#b0bec5 !important;
+}
+.roadmap-step-name.upcoming { color:#78909c !important; }
+</style>
+</head>
+<body>
+
+<div class="grid-bg"></div>
+<canvas id="trail-canvas"></canvas>
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+
+<header class="site-header" id="site-header-mount"></header>
+<div class="scanline-wrap"><div class="scanline"></div></div>
+
+<div class="layout">
+  <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+
+  <aside class="sidebar" id="sidebar"></aside>
+
+  <div class="main">
+
+    <div class="topbar">
+      <div class="topbar-path">
+        <a href="../../index.html" style="color:inherit;text-decoration:none;">portal</a>
+        <span style="margin:0 6px;opacity:0.4;">/</span>
+        <a href="index.html" style="color:inherit;text-decoration:none;">step01</a>
+        <span style="margin:0 6px;opacity:0.4;">/</span>
+        <span>このサイトの歩き方</span>
+      </div>
+      <div class="topbar-right">
+        <div class="status-chip"><div class="dot"></div>公開中</div>
+      </div>
+    </div>
+
+    <div class="content">
+
+      <!-- PAGE HERO -->
+      <div class="page-hero" style="display:grid; grid-template-columns:1fr auto; gap:20px; align-items:center;">
+        <div>
+          <div class="page-eyebrow">STEP 01 — 00 / SITE GUIDE</div>
+          <div class="page-title">このサイトの歩き方</div>
+          <p class="page-lead">
+            「何から始めればいいの？」という疑問に、このページが答えます。<br>
+            全体の地図を頭に入れてから進むと、ずっとラクになります。
+          </p>
+        </div>
+        <div id="hero-stamp-mount"></div>
+      </div>
+
+      <!-- 対象者チェック -->
+      <div class="section">
+        <div class="section-header">
+          <div class="section-title"><span>//</span> こんな人のためのサイトです</div>
+        </div>
+        <div class="target-grid">
+          <div class="target-card match">
+            <div class="target-card-icon">✅</div>
+            <div class="target-card-text">AIを使ったことがない・ほぼ初めて</div>
+          </div>
+          <div class="target-card match">
+            <div class="target-card-icon">✅</div>
+            <div class="target-card-text">使ってみたいけど何から始めるか分からない</div>
+          </div>
+          <div class="target-card match">
+            <div class="target-card-icon">✅</div>
+            <div class="target-card-text">ChatGPTは聞いたことあるけどよく分からない</div>
+          </div>
+          <div class="target-card match">
+            <div class="target-card-icon">✅</div>
+            <div class="target-card-text">機械やITが得意ではない、という自覚がある</div>
+          </div>
+          <div class="target-card no-match">
+            <div class="target-card-icon">—</div>
+            <div class="target-card-text">AIをすでに毎日使いこなしている人</div>
+          </div>
+          <div class="target-card no-match">
+            <div class="target-card-icon">—</div>
+            <div class="target-card-text">プログラミングや技術的な内容を学びたい人</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ロードマップ -->
+      <div class="section roadmap-wrap">
+        <div class="section-header">
+          <div class="section-title"><span>//</span> 全体の地図</div>
+          <div class="section-count">5 STEPS</div>
+        </div>
+
+        <div class="roadmap-flow">
+
+          <div class="roadmap-step">
+            <div class="roadmap-step-line">
+              <div class="roadmap-step-dot current">01</div>
+              <div class="roadmap-step-connector"></div>
+            </div>
+            <div class="roadmap-step-body">
+              <div class="roadmap-step-header">
+                <div class="roadmap-step-name current">まず触ってみる</div>
+                <div class="roadmap-step-now">← 今ここ</div>
+              </div>
+              <div class="roadmap-step-desc">
+                インストールから最初の会話まで。難しいことは何もありません。<br>
+                ここを読み終えると「Claudeと話せた！」という体験ができます。
+              </div>
+              <div class="roadmap-step-articles">
+                <span class="roadmap-article-chip">準備するもの</span>
+                <span class="roadmap-article-chip">アカウント作成</span>
+                <span class="roadmap-article-chip">画面の使い方</span>
+                <span class="roadmap-article-chip">なぜAIを学ぶの？</span>
+                <span class="roadmap-article-chip">FAQ</span>
+                <span class="roadmap-article-chip">全11記事</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="roadmap-step">
+            <div class="roadmap-step-line">
+              <div class="roadmap-step-dot upcoming">02</div>
+              <div class="roadmap-step-connector"></div>
+            </div>
+            <div class="roadmap-step-body">
+              <div class="roadmap-step-header">
+                <div class="roadmap-step-name upcoming">うまく伝える</div>
+              </div>
+              <div class="roadmap-step-desc">
+                AIへの指示の出し方（プロンプト）を基礎から実践まで。<br>
+                「なんか答えが良くなった」という体験を積みます。
+              </div>
+            </div>
+          </div>
+
+          <div class="roadmap-step">
+            <div class="roadmap-step-line">
+              <div class="roadmap-step-dot upcoming">03</div>
+              <div class="roadmap-step-connector"></div>
+            </div>
+            <div class="roadmap-step-body">
+              <div class="roadmap-step-header">
+                <div class="roadmap-step-name upcoming">安全に使う</div>
+              </div>
+              <div class="roadmap-step-desc">
+                情報漏洩・ハルシネーション・やってはいけないことを正しく知る。<br>
+                「怖いから使わない」ではなく「ここだけ注意すれば安心」に変わります。
+              </div>
+            </div>
+          </div>
+
+          <div class="roadmap-step">
+            <div class="roadmap-step-line">
+              <div class="roadmap-step-dot upcoming">04</div>
+              <div class="roadmap-step-connector"></div>
+            </div>
+            <div class="roadmap-step-body">
+              <div class="roadmap-step-header">
+                <div class="roadmap-step-name upcoming">ツールを知る・比較する</div>
+              </div>
+              <div class="roadmap-step-desc">
+                Claude・ChatGPT・Geminiの違いと使い分けを整理する。<br>
+                「自分はどれを使えばいいか」が判断できるようになります。
+              </div>
+            </div>
+          </div>
+
+          <div class="roadmap-step">
+            <div class="roadmap-step-line">
+              <div class="roadmap-step-dot upcoming">05</div>
+              <div class="roadmap-step-connector"></div>
+            </div>
+            <div class="roadmap-step-body">
+              <div class="roadmap-step-header">
+                <div class="roadmap-step-name upcoming">仕事で使う</div>
+              </div>
+              <div class="roadmap-step-desc">
+                議事録・Excel・日常業務など、実務直結の活用法。<br>
+                「昨日の仕事で使えた」という実感が得られます。
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Q&A -->
+      <div class="section">
+        <div class="section-header">
+          <div class="section-title"><span>//</span> よくある疑問</div>
+        </div>
+        <div class="qa-list" id="qaList">
+
+          <div class="qa-item">
+            <div class="qa-q" onclick="toggleQa(this)">
+              <div class="qa-q-mark">Q.</div>
+              <div class="qa-q-text">毎日続けないといけませんか？</div>
+              <div class="qa-q-arrow">▸</div>
+            </div>
+            <div class="qa-a">
+              <span class="qa-a-mark">A.</span>
+              まったく必要ありません。気が向いたときに1記事だけ読む、で十分です。1記事あたり5〜10分で読めるよう設計しています。週1回でも、月2回でも、自分のペースで進めてください。
+            </div>
+          </div>
+
+          <div class="qa-item">
+            <div class="qa-q" onclick="toggleQa(this)">
+              <div class="qa-q-mark">Q.</div>
+              <div class="qa-q-text">全部読み終えるとどんな状態になりますか？</div>
+              <div class="qa-q-arrow">▸</div>
+            </div>
+            <div class="qa-a">
+              <span class="qa-a-mark">A.</span>
+              「Claudeをとりあえず仕事で使える」状態になります。専門家レベルは目指していません。「使い方が分からなくて困る」という状態を卒業して、自分なりに活用できるレベルを目指しています。
+            </div>
+          </div>
+
+          <div class="qa-item">
+            <div class="qa-q" onclick="toggleQa(this)">
+              <div class="qa-q-mark">Q.</div>
+              <div class="qa-q-text">お金はかかりますか？</div>
+              <div class="qa-q-arrow">▸</div>
+            </div>
+            <div class="qa-a">
+              <span class="qa-a-mark">A.</span>
+              Step01〜03はClaude無償版だけで完結します。Step04以降で有償版との違いに触れますが、無償版のまま学習を続けることは可能です。このサイト自体も無料でご覧いただけます。
+            </div>
+          </div>
+
+          <div class="qa-item">
+            <div class="qa-q" onclick="toggleQa(this)">
+              <div class="qa-q-mark">Q.</div>
+              <div class="qa-q-text">途中から読み始めてもいいですか？</div>
+              <div class="qa-q-arrow">▸</div>
+            </div>
+            <div class="qa-a">
+              <span class="qa-a-mark">A.</span>
+              もちろんです。各記事は単独でも読めるよう書いています。ただし、Step01だけは順番通りに読むことをおすすめします。アカウント作成の前に「準備するもの」を読まないと、後で迷うことがあるからです。
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- CTA -->
+      <div class="cta-wrap">
+        <p>全体の地図が頭に入ったら、いよいよスタートです。</p>
+        <a class="cta-btn" href="01_Claudeを始める前に準備するもの.html">
+          Step 01 を始める →
+        </a>
+      </div>
+
+      <!-- 前後ナビ -->
+      <div class="page-nav">
+        <a class="page-nav-btn" href="index.html">
+          <div class="page-nav-arrow">←</div>
+          <div>
+            <div class="page-nav-label">BACK</div>
+            <div class="page-nav-title">Step 01 一覧へ戻る</div>
+          </div>
+        </a>
+        <a class="page-nav-btn next" href="01_Claudeを始める前に準備するもの.html">
+          <div>
+            <div class="page-nav-label">NEXT</div>
+            <div class="page-nav-title">01：Claudeを始める前に準備するもの</div>
+          </div>
+          <div class="page-nav-arrow">→</div>
+        </a>
+      </div>
+
+      <!-- FOOTER -->
+      <footer class="portal-footer">
+        <div class="footer-inner">
+          <div class="footer-logo"><img src="../../assets/logo-claude.png" alt="Powered by Claude"></div>
+          <div class="footer-text">
+            QUBELEY | OZ² — Powered by Oz<br>
+            Copyright © 2026 Oz. All rights reserved.
+          </div>
+        </div>
+      </footer>
+
+    </div><!-- /content -->
+  </div><!-- /main -->
+</div><!-- /layout -->
+
+<script src="../../assets/js/update-log.js"></script>
+<script src="../../assets/js/common.js"></script>
+<script>
+  renderSidebar({ root:'../../', active:'step01', sbLabel:'STEP', sbVal:'01<span> /05</span>', sbSub:'まず触ってみる' });
+  renderSiteHeader({ root: '../../' });
+  renderHeroStamp('../../');
+
+  /* Q&Aアコーディオン */
+  function toggleQa(qEl) {
+    const item = qEl.closest('.qa-item');
+    item.classList.toggle('open');
+  }
+</script>
+</body>
+</html>

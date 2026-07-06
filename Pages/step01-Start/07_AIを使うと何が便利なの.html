@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AIを使うと何が便利なの？ | Step 01 | OZ²</title>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Noto+Sans+JP:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/css/common.css">
+<style>
+.page-hero {
+  position:relative; z-index:1;
+  background:var(--ai-panel); border:1px solid var(--ai-border);
+  border-radius:14px; padding:28px 36px 24px;
+  margin-bottom:24px; overflow:hidden;
+}
+.page-hero::after {
+  content:'USEFUL'; position:absolute; bottom:-16px; right:24px;
+  font-family:'Rajdhani',sans-serif; font-size:80px; font-weight:700;
+  color:rgba(255,140,66,0.04); line-height:1; pointer-events:none; letter-spacing:-2px;
+}
+.page-eyebrow { font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.2em; color:var(--accent); margin-bottom:10px; opacity:0; animation:fadeUp 0.5s ease 0.2s forwards; }
+.page-title { font-family:'Rajdhani',sans-serif; font-size:clamp(1.4rem,3vw,2rem); font-weight:700; color:#fff; margin-bottom:12px; line-height:1.1; opacity:0; animation:fadeUp 0.5s ease 0.35s forwards; }
+.page-lead { font-size:15px; color:#b0bec5; line-height:1.9; max-width:600px; opacity:0; animation:fadeUp 0.5s ease 0.5s forwards; }
+
+/* 便利カードグリッド */
+.benefit-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:28px; }
+.benefit-card {
+  background:var(--ai-panel); border:1px solid var(--ai-border2);
+  border-radius:12px; padding:18px 18px 16px;
+  transition:border-color 0.2s, background 0.2s, box-shadow 0.2s, transform 0.2s;
+}
+.benefit-card:hover {
+  border-color:rgba(255,107,26,0.5);
+  background:rgba(255,107,26,0.05);
+  box-shadow:0 0 16px rgba(255,107,26,0.2);
+  transform:translateY(-2px);
+}
+.benefit-card-header { display:flex; align-items:center; gap:10px; margin-bottom:12px; }
+.benefit-icon { font-size:22px; }
+.benefit-title { font-size:15px; font-weight:500; color:var(--text-primary); }
+.benefit-list { display:flex; flex-direction:column; gap:6px; }
+.benefit-item { display:flex; align-items:flex-start; gap:8px; }
+.benefit-item-arrow { color:var(--accent); font-size:11px; flex-shrink:0; margin-top:3px; font-family:'JetBrains Mono',monospace; }
+.benefit-item-text { font-size:13px; color:#b0bec5; line-height:1.6; }
+
+/* ビフォーアフター比較（追加コンテンツ） */
+.before-after { display:flex; flex-direction:column; gap:12px; margin-bottom:28px; }
+.ba-row {
+  display:grid; grid-template-columns:1fr 40px 1fr; gap:0;
+  align-items:stretch; border-radius:10px; overflow:hidden;
+}
+.ba-before {
+  background:rgba(100,116,139,0.1); border:1px solid rgba(100,116,139,0.2);
+  border-radius:10px 0 0 10px; padding:14px 16px;
+}
+.ba-arrow-wrap {
+  display:flex; align-items:center; justify-content:center;
+  background:rgba(255,107,26,0.06); border-top:1px solid rgba(255,107,26,0.1); border-bottom:1px solid rgba(255,107,26,0.1);
+  font-size:16px; color:var(--accent);
+}
+.ba-after {
+  background:rgba(52,211,153,0.06); border:1px solid rgba(52,211,153,0.2);
+  border-radius:0 10px 10px 0; padding:14px 16px;
+}
+.ba-label { font-family:'JetBrains Mono',monospace; font-size:9px; letter-spacing:0.12em; margin-bottom:5px; }
+.ba-before .ba-label { color:#78909c; }
+.ba-after .ba-label { color:var(--accent3); }
+.ba-text { font-size:13px; line-height:1.7; }
+.ba-before .ba-text { color:#78909c; }
+.ba-after .ba-text { color:#b0bec5; }
+.ba-after .ba-text strong { color:var(--accent3); }
+
+/* ヒントボックス */
+.hint-box { display:flex; gap:12px; align-items:flex-start; background:rgba(52,211,153,0.06); border:1px solid rgba(52,211,153,0.2); border-radius:10px; padding:14px 16px; margin:12px 0; }
+.hint-icon { font-size:17px; flex-shrink:0; margin-top:1px; }
+.hint-text { font-size:13px; color:#b0bec5; line-height:1.8; }
+.hint-text strong { color:var(--accent3); }
+
+/* CTA・前後ナビ */
+.cta-wrap { text-align:center; padding:24px; background:linear-gradient(135deg,rgba(255,107,26,0.06),rgba(255,20,147,0.06)); border:1px solid rgba(255,107,26,0.2); border-radius:12px; margin-bottom:28px; }
+.cta-wrap p { font-size:14px; color:#b0bec5; margin-bottom:16px; }
+.cta-btn { display:inline-flex; align-items:center; gap:10px; background:linear-gradient(135deg,var(--neon-orange),var(--neon-pink)); color:#fff; font-size:15px; font-weight:500; padding:12px 32px; border-radius:24px; text-decoration:none; box-shadow:0 0 20px rgba(255,107,26,0.35); transition:transform 0.2s,box-shadow 0.2s; }
+.page-nav { display:flex; gap:12px; margin-top:28px; }
+.page-nav-btn { flex:1; display:flex; align-items:center; gap:12px; background:var(--ai-panel); border:1px solid var(--ai-border2); border-radius:10px; padding:14px 18px; text-decoration:none; transition:border-color 0.2s,background 0.2s,box-shadow 0.2s,transform 0.2s; }
+.page-nav-btn.next { justify-content:flex-end; text-align:right; }
+.page-nav-label { font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--text-muted); margin-bottom:3px; }
+.page-nav-title { font-size:13px; color:var(--text-primary); font-weight:500; }
+.page-nav-arrow { font-size:18px; color:var(--accent); flex-shrink:0; }
+
+@media (max-width:768px) {
+  .page-hero { padding:20px 18px 18px; }
+  .page-hero[style] { grid-template-columns:1fr !important; }
+  .benefit-grid { grid-template-columns:1fr; }
+  .ba-row { grid-template-columns:1fr; }
+  .ba-before { border-radius:10px 10px 0 0; }
+  .ba-arrow-wrap { padding:6px; transform:rotate(90deg); border:none; background:rgba(255,107,26,0.06); }
+  .ba-after { border-radius:0 0 10px 10px; }
+  .page-nav { flex-direction:column; }
+}
+</style>
+</head>
+<body>
+<div class="grid-bg"></div>
+<canvas id="trail-canvas"></canvas>
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+<header class="site-header" id="site-header-mount"></header>
+<div class="scanline-wrap"><div class="scanline"></div></div>
+
+<div class="layout">
+  <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+  <aside class="sidebar" id="sidebar"></aside>
+
+  <div class="main">
+    <div class="topbar">
+      <div class="topbar-path">
+        <a href="../../index.html" style="color:inherit;text-decoration:none;">portal</a>
+        <span style="margin:0 6px;opacity:0.4;">/</span>
+        <a href="index.html" style="color:inherit;text-decoration:none;">step01</a>
+        <span style="margin:0 6px;opacity:0.4;">/</span>
+        <span>AIって何が便利？</span>
+      </div>
+      <div class="topbar-right">
+        <div class="status-chip"><div class="dot"></div>公開中</div>
+      </div>
+    </div>
+
+    <div class="content">
+
+      <!-- HERO -->
+      <div class="page-hero" style="display:grid; grid-template-columns:1fr auto; gap:20px; align-items:center;">
+        <div>
+          <div class="page-eyebrow">STEP 01 — 07 / AI BENEFITS</div>
+          <div class="page-title">AIを使うと<br>何が便利なの？</div>
+          <p class="page-lead">
+            「なんとなく便利そう」より「こんな場面で役に立つ」を具体的に知っておくと、使い始めのハードルがぐっと下がります。
+          </p>
+        </div>
+        <div id="hero-stamp-mount"></div>
+      </div>
+
+      <!-- 5つのメリット -->
+      <div class="section">
+        <div class="section-header">
+          <div class="section-title"><span>//</span> AIが便利な5つの理由</div>
+        </div>
+        <div class="benefit-grid">
+          <div class="benefit-card">
+            <div class="benefit-card-header">
+              <div class="benefit-icon">⚡</div>
+              <div class="benefit-title">とにかく速い</div>
+            </div>
+            <div class="benefit-list">
+              <div class="benefit-item"><div class="benefit-item-arrow">▸</div><div class="benefit-item-text">文章作成・要約・翻訳が一瞬でできる</div></div>
+              <div class="benefit-item"><div class="benefit-item-arrow">▸</div><div class="benefit-item-text">調べ物の時間が劇的に短縮される</div></div>
+              <div class="benefit-item"><div class="benefit-item-arrow">▸</div><div class="benefit-item-text">情報整理をお願いすれば数秒で結果が出る</div></div>
+            </div>
+          </div>
+
+          <div class="benefit-card">
+            <div class="benefit-card-header">
+              <div class="benefit-icon">✅</div>
+              <div class="benefit-title">品質が安定する</div>
+            </div>
+            <div class="benefit-list">
+              <div class="benefit-item"><div class="benefit-item-arrow">▸</div><div class="benefit-item-text">誤字・脱字が減る</div></div>
+              <div class="benefit-item"><div class="benefit-item-arrow">▸</div><div class="benefit-item-text">読みやすい文章に自動で整えてくれる</div></div>
+              <div class="benefit-item"><div class="benefit-item-arrow">▸</div><div class="benefit-item-text">知識ベースで回答するためブレにくい</div></div>
+            </div>
+          </div>
+
+          <div class="benefit-card">
+            <div class="benefit-card-header">
+              <div class="benefit-icon">🔁</div>
+              <div class="benefit-title">面倒な作業が減る</div>
+            </div>
+            <div class="benefit-list">
+              <div class="benefit-item"><div class="benefit-item-arrow">▸</div><div class="benefit-item-text">コピペ作業が大幅に減る</div></div>
+              <div class="benefit-item"><div class="benefit-item-arrow">▸</div><div class="benefit-item-text">定型文章を自動生成できる</div></div>
+              <div class="benefit-item"><div class="benefit-item-arrow">▸</div><div class="benefit-item-text">ファイル整理や分類も手伝ってくれる</div></div>
+            </div>
+          </div>
+
+          <div class="benefit-card">
+            <div class="benefit-card-header">
+              <div class="benefit-icon">💡</div>
+              <div class="benefit-title">アイデアがどんどん出る</div>
+            </div>
+            <div class="benefit-list">
+              <div class="benefit-item"><div class="benefit-item-arrow">▸</div><div class="benefit-item-text">考えがまとまらない時にサポート</div></div>
+              <div class="benefit-item"><div class="benefit-item-arrow">▸</div><div class="benefit-item-text">新しい視点を提案してくれる</div></div>
+              <div class="benefit-item"><div class="benefit-item-arrow">▸</div><div class="benefit-item-text">企画書のたたきを自動で作成</div></div>
+            </div>
+          </div>
+
+          <div class="benefit-card" style="grid-column:span 2;">
+            <div class="benefit-card-header">
+              <div class="benefit-icon">🤝</div>
+              <div class="benefit-title">いつでも相談できる安心感</div>
+            </div>
+            <div class="benefit-list" style="display:grid; grid-template-columns:1fr 1fr; gap:6px;">
+              <div class="benefit-item"><div class="benefit-item-arrow">▸</div><div class="benefit-item-text">すぐに質問できる「相棒」ができる</div></div>
+              <div class="benefit-item"><div class="benefit-item-arrow">▸</div><div class="benefit-item-text">説明が分かりやすくて丁寧</div></div>
+              <div class="benefit-item"><div class="benefit-item-arrow">▸</div><div class="benefit-item-text">ちょっとした疑問もすぐ解決できる</div></div>
+              <div class="benefit-item"><div class="benefit-item-arrow">▸</div><div class="benefit-item-text">深夜・休日でも即レスしてくれる</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ビフォーアフター（追加コンテンツ） -->
+      <div class="section">
+        <div class="section-header">
+          <div class="section-title"><span>//</span> AIを使う前と後の比較</div>
+        </div>
+        <p style="font-size:14px; color:#b0bec5; line-height:1.9; margin-bottom:14px;">
+          具体的にどう変わるか、仕事の場面で見てみましょう。
+        </p>
+        <div class="before-after">
+
+          <div class="ba-row">
+            <div class="ba-before">
+              <div class="ba-label">BEFORE — AI なし</div>
+              <div class="ba-text">会議メモを見ながら議事録を1から作成。30分〜1時間かかる</div>
+            </div>
+            <div class="ba-arrow-wrap">→</div>
+            <div class="ba-after">
+              <div class="ba-label">AFTER — AI あり</div>
+              <div class="ba-text">メモを貼り付けて「議事録を作って」と頼むだけ。<strong>数秒で完成</strong>、あとは確認・修正だけ</div>
+            </div>
+          </div>
+
+          <div class="ba-row">
+            <div class="ba-before">
+              <div class="ba-label">BEFORE — AI なし</div>
+              <div class="ba-text">社内向けのお知らせメールを何度も書き直し。「この言い回しでいいか」と迷う</div>
+            </div>
+            <div class="ba-arrow-wrap">→</div>
+            <div class="ba-after">
+              <div class="ba-label">AFTER — AI あり</div>
+              <div class="ba-text">「〇〇の件で全員にお知らせ。200字で丁寧な文章で」と頼むと<strong>すぐ下書き完成</strong></div>
+            </div>
+          </div>
+
+          <div class="ba-row">
+            <div class="ba-before">
+              <div class="ba-label">BEFORE — AI なし</div>
+              <div class="ba-text">専門用語が出てきたら検索→複数サイトを読み比べ→理解するまで時間がかかる</div>
+            </div>
+            <div class="ba-arrow-wrap">→</div>
+            <div class="ba-after">
+              <div class="ba-label">AFTER — AI あり</div>
+              <div class="ba-text">「〇〇って何？初心者に分かるように教えて」と聞くと<strong>自分のレベルに合わせて説明してくれる</strong></div>
+            </div>
+          </div>
+
+        </div>
+        <div class="hint-box">
+          <div class="hint-icon">💡</div>
+          <div class="hint-text">
+            AIは「作業を代わりにやってくれるツール」ではなく、<strong>「一緒に考えてくれる相棒」</strong>です。最終判断は常に自分がする、という感覚で使うのが一番うまくいきます。
+          </div>
+        </div>
+      </div>
+
+      <!-- CTA -->
+      <div class="cta-wrap">
+        <p>便利さが分かったら、次はClaude画面の使い方を覚えましょう。</p>
+        <a class="cta-btn" href="08_Claude画面の使い方.html">次へ：Claude画面の使い方 →</a>
+      </div>
+
+      <!-- 前後ナビ -->
+      <div class="page-nav">
+        <a class="page-nav-btn" href="06_AIって難しそうで心配なんだけど.html">
+          <div class="page-nav-arrow">←</div>
+          <div>
+            <div class="page-nav-label">PREV</div>
+            <div class="page-nav-title">06：AIって難しそうで心配なんだけど</div>
+          </div>
+        </a>
+        <a class="page-nav-btn next" href="08_Claude画面の使い方.html">
+          <div>
+            <div class="page-nav-label">NEXT</div>
+            <div class="page-nav-title">08：Claude画面の使い方</div>
+          </div>
+          <div class="page-nav-arrow">→</div>
+        </a>
+      </div>
+
+      <footer class="portal-footer">
+        <div class="footer-inner">
+          <div class="footer-logo"><img src="../../assets/logo-claude.png" alt="Powered by Claude"></div>
+          <div class="footer-text">
+            QUBELEY | OZ² — Powered by Oz<br>
+            Copyright © 2026 Oz. All rights reserved.
+          </div>
+        </div>
+      </footer>
+
+    </div>
+  </div>
+</div>
+
+<script src="../../assets/js/update-log.js"></script>
+<script src="../../assets/js/common.js"></script>
+<script>
+  renderSidebar({ root:'../../', active:'step01', sbLabel:'STEP', sbVal:'01<span> /05</span>', sbSub:'まず触ってみる' });
+  renderSiteHeader({ root: '../../' });
+  renderHeroStamp('../../');
+</script>
+</body>
+</html>

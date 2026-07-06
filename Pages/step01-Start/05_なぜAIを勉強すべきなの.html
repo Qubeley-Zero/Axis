@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>なぜ、AIを勉強すべきなの？ | Step 01 | OZ²</title>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Noto+Sans+JP:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/css/common.css">
+<style>
+.page-hero {
+  position:relative; z-index:1;
+  background:var(--ai-panel); border:1px solid var(--ai-border);
+  border-radius:14px; padding:28px 36px 24px;
+  margin-bottom:24px; overflow:hidden;
+}
+.page-hero::after {
+  content:'WHY'; position:absolute; bottom:-16px; right:24px;
+  font-family:'Rajdhani',sans-serif; font-size:100px; font-weight:700;
+  color:rgba(255,140,66,0.04); line-height:1; pointer-events:none; letter-spacing:-2px;
+}
+.page-eyebrow { font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.2em; color:var(--accent); margin-bottom:10px; opacity:0; animation:fadeUp 0.5s ease 0.2s forwards; }
+.page-title { font-family:'Rajdhani',sans-serif; font-size:clamp(1.4rem,3vw,2rem); font-weight:700; color:#fff; margin-bottom:12px; line-height:1.1; opacity:0; animation:fadeUp 0.5s ease 0.35s forwards; }
+.page-lead { font-size:15px; color:#b0bec5; line-height:1.9; max-width:600px; opacity:0; animation:fadeUp 0.5s ease 0.5s forwards; }
+
+/* 理由カード */
+.reason-list { display:flex; flex-direction:column; gap:10px; margin-bottom:28px; }
+.reason-item {
+  display:flex; align-items:flex-start; gap:14px;
+  background:var(--ai-panel); border:1px solid var(--ai-border2);
+  border-left:3px solid var(--neon-orange);
+  border-radius:0 10px 10px 0; padding:14px 18px;
+  position:relative; overflow:hidden;
+  transition:border-color 0.2s, background 0.2s, box-shadow 0.2s;
+}
+.reason-item:hover {
+  border-color:rgba(255,107,26,0.6);
+  background:rgba(255,107,26,0.05);
+  box-shadow:0 0 14px rgba(255,107,26,0.2);
+}
+.reason-item::after {
+  content:''; position:absolute; left:0; top:-100%; right:0; height:100%;
+  background:linear-gradient(180deg,transparent,rgba(255,107,26,0.04),transparent);
+  transition:top 0.4s ease; pointer-events:none;
+}
+.reason-item:hover::after { top:100%; }
+.reason-arrow { color:var(--accent); font-size:14px; flex-shrink:0; margin-top:2px; font-family:'JetBrains Mono',monospace; }
+.reason-text { font-size:14px; color:#b0bec5; line-height:1.7; }
+.reason-text strong { color:var(--text-primary); }
+
+/* ヒントボックス */
+.hint-box { display:flex; gap:12px; align-items:flex-start; background:rgba(52,211,153,0.06); border:1px solid rgba(52,211,153,0.2); border-radius:10px; padding:14px 16px; margin:12px 0; }
+.hint-icon { font-size:17px; flex-shrink:0; margin-top:1px; }
+.hint-text { font-size:13px; color:#b0bec5; line-height:1.8; }
+.hint-text strong { color:var(--accent3); }
+
+/* CTA・前後ナビ */
+.cta-wrap { text-align:center; padding:24px; background:linear-gradient(135deg,rgba(255,107,26,0.06),rgba(255,20,147,0.06)); border:1px solid rgba(255,107,26,0.2); border-radius:12px; margin-bottom:28px; }
+.cta-wrap p { font-size:14px; color:#b0bec5; margin-bottom:16px; }
+.cta-btn { display:inline-flex; align-items:center; gap:10px; background:linear-gradient(135deg,var(--neon-orange),var(--neon-pink)); color:#fff; font-size:15px; font-weight:500; padding:12px 32px; border-radius:24px; text-decoration:none; box-shadow:0 0 20px rgba(255,107,26,0.35); transition:transform 0.2s,box-shadow 0.2s; }
+.page-nav { display:flex; gap:12px; margin-top:28px; }
+.page-nav-btn { flex:1; display:flex; align-items:center; gap:12px; background:var(--ai-panel); border:1px solid var(--ai-border2); border-radius:10px; padding:14px 18px; text-decoration:none; transition:border-color 0.2s,background 0.2s,box-shadow 0.2s,transform 0.2s; }
+.page-nav-btn.next { justify-content:flex-end; text-align:right; }
+.page-nav-label { font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--text-muted); margin-bottom:3px; }
+.page-nav-title { font-size:13px; color:var(--text-primary); font-weight:500; }
+.page-nav-arrow { font-size:18px; color:var(--accent); flex-shrink:0; }
+
+@media (max-width:768px) {
+  .page-hero { padding:20px 18px 18px; }
+  .page-hero[style] { grid-template-columns:1fr !important; }
+  .page-nav { flex-direction:column; }
+}
+</style>
+</head>
+<body>
+<div class="grid-bg"></div>
+<canvas id="trail-canvas"></canvas>
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+<header class="site-header" id="site-header-mount"></header>
+<div class="scanline-wrap"><div class="scanline"></div></div>
+
+<div class="layout">
+  <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+  <aside class="sidebar" id="sidebar"></aside>
+
+  <div class="main">
+    <div class="topbar">
+      <div class="topbar-path">
+        <a href="../../index.html" style="color:inherit;text-decoration:none;">portal</a>
+        <span style="margin:0 6px;opacity:0.4;">/</span>
+        <a href="index.html" style="color:inherit;text-decoration:none;">step01</a>
+        <span style="margin:0 6px;opacity:0.4;">/</span>
+        <span>なぜAIを学ぶの？</span>
+      </div>
+      <div class="topbar-right">
+        <div class="status-chip"><div class="dot"></div>公開中</div>
+      </div>
+    </div>
+
+    <div class="content">
+
+      <!-- HERO -->
+      <div class="page-hero" style="display:grid; grid-template-columns:1fr auto; gap:20px; align-items:center;">
+        <div>
+          <div class="page-eyebrow">STEP 01 — 05 / WHY AI</div>
+          <div class="page-title">なぜ、AIを<br>勉強すべきなの？</div>
+          <p class="page-lead">
+            「別に使わなくてもいいんじゃないの？」と思っている方こそ、読んでほしいページです。<br>
+            難しい話は一切しません。3分で読めます。
+          </p>
+        </div>
+        <div id="hero-stamp-mount"></div>
+      </div>
+
+      <!-- セクション1 -->
+      <div class="section">
+        <div class="section-header">
+          <div class="section-title"><span>//</span> AIを勉強すべき一番の理由</div>
+        </div>
+        <p style="font-size:14px; color:#b0bec5; line-height:1.9; margin-bottom:14px;">
+          AIは「特別な人の道具」ではなく、<strong style="color:var(--text-primary);">誰もが使う日常ツール</strong>になりました。スマホやパソコンが当たり前になったように、AIも「使えるかどうか」が仕事や生活の質を左右します。
+        </p>
+        <div class="reason-list">
+          <div class="reason-item"><div class="reason-arrow">▸</div><div class="reason-text">仕事のスピードと成果が<strong>大幅に向上する</strong></div></div>
+          <div class="reason-item"><div class="reason-arrow">▸</div><div class="reason-text">多くの企業がAI活用を<strong>前提に動き始めている</strong></div></div>
+          <div class="reason-item"><div class="reason-arrow">▸</div><div class="reason-text">AIを使えないと<strong>"できる人との差"がどんどん開く</strong></div></div>
+          <div class="reason-item"><div class="reason-arrow">▸</div><div class="reason-text">専門知識より<strong>「AIへの頼み方」が重要になる時代</strong>に変化</div></div>
+        </div>
+      </div>
+
+      <!-- セクション2 -->
+      <div class="section">
+        <div class="section-header">
+          <div class="section-title"><span>//</span> AIが当たり前になる未来に備える</div>
+        </div>
+        <p style="font-size:14px; color:#b0bec5; line-height:1.9; margin-bottom:14px;">
+          多くの業界でAIを中心とした業務スタイルが進んでいます。文章作成、要約、分析、企画補助、顧客対応など……AIは仕事のあらゆる場面に入り込み、<strong style="color:var(--text-primary);">"AI前提の働き方"</strong>へと変化しています。
+        </p>
+        <div class="reason-list">
+          <div class="reason-item"><div class="reason-arrow">▸</div><div class="reason-text">世界的に<strong>AIリテラシーが必須スキル</strong>として扱われている</div></div>
+          <div class="reason-item"><div class="reason-arrow">▸</div><div class="reason-text">企業のDX推進の中心が<strong>「AI活用」</strong>になりつつある</div></div>
+          <div class="reason-item"><div class="reason-arrow">▸</div><div class="reason-text">AIを使える人の<strong>市場価値が上がり続けている</strong></div></div>
+        </div>
+        <div class="hint-box">
+          <div class="hint-icon">💡</div>
+          <div class="hint-text">
+            <strong>「AIは自分には関係ない」という時代は終わりつつあります。</strong>今のうちに触れておくだけで、数年後に大きな差がつきます。
+          </div>
+        </div>
+      </div>
+
+      <!-- セクション3 -->
+      <div class="section">
+        <div class="section-header">
+          <div class="section-title"><span>//</span> 学ぶメリットは"すぐ"実感できる</div>
+        </div>
+        <p style="font-size:14px; color:#b0bec5; line-height:1.9; margin-bottom:14px;">
+          AIの良いところは、<strong style="color:var(--text-primary);">学んだその日から成果が出ること。</strong>難しい知識はいらず、「AIにどう頼むか」を少し覚えるだけで使いこなせます。
+        </p>
+        <div class="reason-list">
+          <div class="reason-item"><div class="reason-arrow">▸</div><div class="reason-text">アイデア出しの質が上がり、<strong>思考が整理される</strong></div></div>
+          <div class="reason-item"><div class="reason-arrow">▸</div><div class="reason-text">時間のかかる作業を減らし、<strong>余裕が生まれる</strong></div></div>
+          <div class="reason-item"><div class="reason-arrow">▸</div><div class="reason-text">資料・メール・企画書が<strong>簡単に作れるようになる</strong></div></div>
+          <div class="reason-item"><div class="reason-arrow">▸</div><div class="reason-text">"仕事の相棒"ができることで<strong>安心して進められる</strong></div></div>
+        </div>
+      </div>
+
+      <!-- CTA -->
+      <div class="cta-wrap">
+        <p>AIを学ぶ理由が分かったら、次は不安を解消しておきましょう。</p>
+        <a class="cta-btn" href="06_AIって難しそうで心配なんだけど.html">次へ：AIって難しそうで心配なんだけど →</a>
+      </div>
+
+      <!-- 前後ナビ -->
+      <div class="page-nav">
+        <a class="page-nav-btn" href="04_Claudeの学習設定をオフにする方法.html">
+          <div class="page-nav-arrow">←</div>
+          <div>
+            <div class="page-nav-label">PREV</div>
+            <div class="page-nav-title">04：Claudeの学習設定をオフにする方法</div>
+          </div>
+        </a>
+        <a class="page-nav-btn next" href="06_AIって難しそうで心配なんだけど.html">
+          <div>
+            <div class="page-nav-label">NEXT</div>
+            <div class="page-nav-title">06：AIって難しそうで心配なんだけど</div>
+          </div>
+          <div class="page-nav-arrow">→</div>
+        </a>
+      </div>
+
+      <footer class="portal-footer">
+        <div class="footer-inner">
+          <div class="footer-logo"><img src="../../assets/logo-claude.png" alt="Powered by Claude"></div>
+          <div class="footer-text">
+            QUBELEY | OZ² — Powered by Oz<br>
+            Copyright © 2026 Oz. All rights reserved.
+          </div>
+        </div>
+      </footer>
+
+    </div>
+  </div>
+</div>
+
+<script src="../../assets/js/update-log.js"></script>
+<script src="../../assets/js/common.js"></script>
+<script>
+  renderSidebar({ root:'../../', active:'step01', sbLabel:'STEP', sbVal:'01<span> /05</span>', sbSub:'まず触ってみる' });
+  renderSiteHeader({ root: '../../' });
+  renderHeroStamp('../../');
+</script>
+</body>
+</html>

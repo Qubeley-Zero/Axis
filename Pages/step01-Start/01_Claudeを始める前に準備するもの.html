@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Claudeを始める前に準備するもの | Step 01 | OZ²</title>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Noto+Sans+JP:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/css/common.css">
+<style>
+/* ===== ページ固有スタイル ===== */
+.page-hero {
+  position:relative; z-index:1;
+  background:var(--ai-panel); border:1px solid var(--ai-border);
+  border-radius:14px; padding:28px 36px 24px;
+  margin-bottom:24px; overflow:hidden;
+}
+.page-hero::after {
+  content:'PREP'; position:absolute; bottom:-16px; right:24px;
+  font-family:'Rajdhani',sans-serif; font-size:90px; font-weight:700;
+  color:rgba(255,140,66,0.04); line-height:1; pointer-events:none;
+  letter-spacing:-2px;
+}
+.page-eyebrow {
+  font-family:'JetBrains Mono',monospace; font-size:11px;
+  letter-spacing:0.2em; color:var(--accent); margin-bottom:10px;
+  opacity:0; animation:fadeUp 0.5s ease 0.2s forwards;
+}
+.page-title {
+  font-family:'Rajdhani',sans-serif; font-size:clamp(1.4rem,3vw,2rem);
+  font-weight:700; color:#fff; margin-bottom:12px; line-height:1.1;
+  opacity:0; animation:fadeUp 0.5s ease 0.35s forwards;
+}
+.page-lead {
+  font-size:15px; color:var(--text-secondary); line-height:1.9;
+  max-width:600px;
+  opacity:0; animation:fadeUp 0.5s ease 0.5s forwards;
+}
+.page-time {
+  display:inline-flex; align-items:center; gap:7px; margin-top:14px;
+  font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--text-muted);
+  opacity:0; animation:fadeUp 0.5s ease 0.65s forwards;
+}
+
+/* チェックリスト */
+.checklist { display:flex; flex-direction:column; gap:10px; margin-bottom:28px; }
+.check-item {
+  display:flex; align-items:flex-start; gap:14px;
+  background:var(--ai-panel); border:1px solid var(--ai-border2);
+  border-radius:10px; padding:14px 18px;
+  transition:border-color 0.2s;
+}
+.check-item:hover { border-color:rgba(255,107,26,0.3); }
+.check-box {
+  width:22px; height:22px; border-radius:5px; flex-shrink:0; margin-top:1px;
+  border:1.5px solid rgba(255,107,26,0.4);
+  display:flex; align-items:center; justify-content:center;
+  cursor:pointer; transition:background 0.2s, border-color 0.2s;
+}
+.check-box.checked {
+  background:var(--neon-orange); border-color:var(--neon-orange);
+}
+.check-box.checked::after { content:'✓'; color:#fff; font-size:13px; font-weight:700; }
+.check-body { flex:1; }
+.check-title { font-size:14px; color:var(--text-primary); font-weight:500; margin-bottom:4px; }
+.check-note { font-size:12px; color:var(--text-muted); line-height:1.6; }
+.check-note a { color:var(--accent); }
+
+/* 解説ブロック */
+.explain-block {
+  background:var(--ai-panel); border:1px solid var(--ai-border);
+  border-radius:12px; overflow:hidden; margin-bottom:16px;
+}
+.explain-header {
+  display:flex; align-items:center; gap:12px;
+  padding:14px 20px; border-bottom:1px solid var(--ai-border2);
+  background:rgba(255,140,66,0.04);
+}
+.explain-num {
+  font-family:'JetBrains Mono',monospace; font-size:10px;
+  background:rgba(255,140,66,0.12); color:var(--accent);
+  border:1px solid rgba(255,140,66,0.25); border-radius:3px;
+  padding:2px 8px; flex-shrink:0;
+}
+.explain-title { font-size:15px; font-weight:500; color:var(--text-primary); }
+.explain-body { padding:18px 20px; }
+.explain-body p { font-size:14px; color:var(--text-secondary); line-height:1.9; margin-bottom:12px; }
+.explain-body p:last-child { margin-bottom:0; }
+
+/* メール選択テーブル */
+.mail-table { width:100%; border-collapse:collapse; margin:12px 0; }
+.mail-table th {
+  font-family:'JetBrains Mono',monospace; font-size:11px;
+  color:var(--text-muted); padding:8px 12px; text-align:left;
+  border-bottom:1px solid var(--ai-border2); background:rgba(255,255,255,0.02);
+}
+.mail-table td {
+  font-size:13px; color:var(--text-secondary); padding:10px 12px;
+  border-bottom:1px solid rgba(255,255,255,0.04); line-height:1.6;
+  vertical-align:top;
+}
+.mail-table tr:last-child td { border-bottom:none; }
+.mail-table td:first-child { color:var(--text-primary); white-space:nowrap; }
+.mail-ok { color:var(--accent3) !important; font-weight:500; }
+.mail-ng { color:var(--accent-red) !important; }
+
+/* 注意ボックス */
+.notice-box {
+  display:flex; gap:12px; align-items:flex-start;
+  background:rgba(255,107,26,0.06); border:1px solid rgba(255,107,26,0.2);
+  border-radius:10px; padding:14px 16px; margin:12px 0;
+}
+.notice-icon { font-size:18px; flex-shrink:0; margin-top:1px; }
+.notice-text { font-size:13px; color:var(--text-secondary); line-height:1.8; }
+.notice-text strong { color:var(--accent); }
+
+/* パスワードサンプル */
+.pw-sample {
+  display:flex; align-items:center; gap:10px; flex-wrap:wrap;
+  background:rgba(0,0,0,0.25); border:1px solid var(--ai-border2);
+  border-radius:8px; padding:10px 16px; margin:10px 0;
+  font-family:'JetBrains Mono',monospace; font-size:14px;
+}
+.pw-sample .pw-bad { color:var(--accent-red); text-decoration:line-through; }
+.pw-sample .pw-good { color:var(--accent3); }
+.pw-sample .pw-label {
+  font-size:10px; color:var(--text-muted); padding:1px 6px;
+  border-radius:3px; border:1px solid var(--ai-border2);
+}
+
+/* 画像プレースホルダー */
+.img-placeholder {
+  background:rgba(255,255,255,0.03); border:1.5px dashed var(--ai-border2);
+  border-radius:10px; padding:28px 16px; text-align:center;
+  margin:14px 0; color:var(--text-muted); font-size:13px; line-height:1.8;
+}
+.img-placeholder .img-label {
+  display:inline-block; margin-bottom:6px;
+  font-family:'JetBrains Mono',monospace; font-size:11px;
+  background:rgba(255,255,255,0.05); padding:2px 10px; border-radius:3px;
+}
+
+/* CTA */
+.cta-wrap {
+  text-align:center; padding:24px;
+  background:linear-gradient(135deg,rgba(255,107,26,0.06),rgba(255,20,147,0.06));
+  border:1px solid rgba(255,107,26,0.2); border-radius:12px; margin-bottom:28px;
+}
+.cta-wrap p { font-size:14px; color:var(--text-muted); margin-bottom:16px; }
+.cta-btn { display:inline-flex; align-items:center; gap:10px; background:linear-gradient(135deg,var(--neon-orange),var(--neon-pink)); color:#fff; font-size:15px; font-weight:500; padding:12px 32px; border-radius:24px; text-decoration:none; box-shadow:0 0 20px rgba(255,107,26,0.35); transition:transform 0.2s,box-shadow 0.2s; }
+
+/* 前後ナビ */
+.page-nav { display:flex; gap:12px; margin-top:28px; }
+.page-nav { display:flex; gap:12px; margin-top:28px; }
+.page-nav-btn { flex:1; display:flex; align-items:center; gap:12px; background:var(--ai-panel); border:1px solid var(--ai-border2); border-radius:10px; padding:14px 18px; text-decoration:none; transition:border-color 0.2s,background 0.2s,box-shadow 0.2s,transform 0.2s; }
+.page-nav-btn.next { justify-content:flex-end; text-align:right; }
+.page-nav-label { font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--text-muted); margin-bottom:3px; }
+.page-nav-title { font-size:13px; color:var(--text-primary); font-weight:500; }
+.page-nav-arrow { font-size:18px; color:var(--accent); flex-shrink:0; }
+.page-nav-title { font-size:13px; color:var(--text-primary); font-weight:500; }
+.page-nav-arrow { font-size:18px; color:var(--accent); flex-shrink:0; }
+
+@media (max-width:768px) {
+  .page-hero { padding:20px 18px 18px; }
+  .page-hero[style] { grid-template-columns:1fr !important; }
+  .page-nav { flex-direction:column; }
+  .mail-table th:nth-child(3), .mail-table td:nth-child(3) { display:none; }
+}
+
+/* ===== 本文テキスト色の底上げ ===== */
+.page-lead,
+.check-note,
+.explain-body p,
+.notice-text,
+.mail-table td:not(:first-child) {
+  color:#b0bec5 !important;
+}
+.mail-table td:first-child { color:#e0e0e0 !important; }
+</style>
+</head>
+<body>
+
+<div class="grid-bg"></div>
+<canvas id="trail-canvas"></canvas>
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+
+<header class="site-header" id="site-header-mount"></header>
+<div class="scanline-wrap"><div class="scanline"></div></div>
+
+<div class="layout">
+  <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+
+  <aside class="sidebar" id="sidebar"></aside>
+
+  <div class="main">
+    <div class="topbar">
+      <div class="topbar-path">
+        <a href="../../index.html" style="color:inherit;text-decoration:none;">portal</a>
+        <span style="margin:0 6px;opacity:0.4;">/</span>
+        <a href="index.html" style="color:inherit;text-decoration:none;">step01</a>
+        <span style="margin:0 6px;opacity:0.4;">/</span>
+        <span>準備するもの</span>
+      </div>
+      <div class="topbar-right">
+        <div class="status-chip"><div class="dot"></div>公開中</div>
+      </div>
+    </div>
+
+    <div class="content">
+
+      <!-- PAGE HERO -->
+      <div class="page-hero" style="display:grid; grid-template-columns:1fr auto; gap:20px; align-items:center;">
+        <div>
+          <div class="page-eyebrow">STEP 01 — 01 / PREPARATION</div>
+          <div class="page-title">Claudeを始める前に<br>準備するもの</div>
+          <p class="page-lead">
+            このページを読んでから始めると、アカウント作成で迷うことがなくなります。<br>
+            特に「どのメールアドレスを使うか」は、後で後悔しないように今決めておきましょう。
+          </p>
+          <div class="page-time">⏱ 約5分で読めます</div>
+        </div>
+        <div id="hero-stamp-mount"></div>
+      </div>
+
+      <!-- チェックリスト -->
+      <div class="section">
+        <div class="section-header">
+          <div class="section-title"><span>//</span> 用意するもの</div>
+          <div class="section-count">4 ITEMS</div>
+        </div>
+        <div class="checklist" id="checklist">
+          <div class="check-item">
+            <div class="check-box" onclick="toggleCheck(this)"></div>
+            <div class="check-body">
+              <div class="check-title">📧 メールアドレス</div>
+              <div class="check-note">どのメールを使うかは、下の「メールアドレスの選び方」を読んでから決めてください。</div>
+            </div>
+          </div>
+          <div class="check-item">
+            <div class="check-box" onclick="toggleCheck(this)"></div>
+            <div class="check-body">
+              <div class="check-title">🔑 パスワード（これから決めるもの）</div>
+              <div class="check-note">Claudeのアカウント専用に新しく決めます。下の「パスワードの決め方」を参考にしてください。</div>
+            </div>
+          </div>
+          <div class="check-item">
+            <div class="check-box" onclick="toggleCheck(this)"></div>
+            <div class="check-body">
+              <div class="check-title">📱 スマートフォン（場合によって必要）</div>
+              <div class="check-note">SMS（ショートメッセージ）で認証コードが届く場合があります。手元に置いておくと安心です。</div>
+            </div>
+          </div>
+          <div class="check-item">
+            <div class="check-box" onclick="toggleCheck(this)"></div>
+            <div class="check-body">
+              <div class="check-title">⏱ 15〜20分の時間</div>
+              <div class="check-note">アカウント作成自体は5分程度ですが、次のページでの初期設定も含めると余裕を持ってこの時間を確保するのがおすすめです。</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- メールアドレスの選び方 -->
+      <div class="section">
+        <div class="section-header">
+          <div class="section-title"><span>//</span> メールアドレスの選び方</div>
+        </div>
+
+        <div class="explain-block">
+          <div class="explain-header">
+            <div class="explain-num">POINT 01</div>
+            <div class="explain-title">会社のメールアドレスは使わないことをおすすめします</div>
+          </div>
+          <div class="explain-body">
+            <p>「会社のパソコンで使うんだから、会社のメールで登録すればいい」と思いがちです。でも、これには落とし穴があります。</p>
+
+            <div class="notice-box">
+              <div class="notice-icon">⚠️</div>
+              <div class="notice-text">
+                <strong>異動・退職・会社のメールシステム変更</strong>があったとき、会社のメールアドレスにアクセスできなくなります。そうなると、Claudeのアカウントにログインできなくなったり、パスワードのリセットができなくなったりする場合があります。
+              </div>
+            </div>
+
+            <p>自分のGmail（Googleのメール）などの個人メールアドレスで登録しておけば、会社が変わっても同じアカウントをずっと使い続けられます。</p>
+
+            <div class="img-placeholder">
+              <span class="img-label">IMAGE</span><br>
+              【ここに画像を入れる予定】<br>
+              Gmailの新規作成画面のスクリーンショット<br>
+              ※ まだGmailを持っていない方向けの補足説明も追加予定
+            </div>
+          </div>
+        </div>
+
+        <div class="explain-block">
+          <div class="explain-header">
+            <div class="explain-num">POINT 02</div>
+            <div class="explain-title">自分の状況に合わせて選んでください</div>
+          </div>
+          <div class="explain-body">
+            <table class="mail-table">
+              <thead>
+                <tr>
+                  <th>自分の状況</th>
+                  <th>おすすめのメール</th>
+                  <th>理由</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>個人のGmail・Yahooメール等を持っている</td>
+                  <td class="mail-ok">✅ それを使う</td>
+                  <td>一番スムーズです</td>
+                </tr>
+                <tr>
+                  <td>個人メールを持っていない</td>
+                  <td class="mail-ok">✅ Gmailを新しく作る</td>
+                  <td>無料で5分で作れます</td>
+                </tr>
+                <tr>
+                  <td>スマホのキャリアメール（docomo・au・SoftBank）しかない</td>
+                  <td class="mail-ok">✅ 使えるが非推奨</td>
+                  <td>機種変更時にメールアドレスが変わる場合があるため、できればGmailを推奨</td>
+                </tr>
+                <tr>
+                  <td>会社のメールアドレスしかない</td>
+                  <td class="mail-ng">❌ 使わない</td>
+                  <td>異動・退職後に使えなくなるリスクあり</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <div class="notice-box">
+              <div class="notice-icon">💡</div>
+              <div class="notice-text">
+                Gmailをまだお持ちでない場合は、<strong>「Gmail 作成」</strong>で検索すると手順が見つかります。Googleアカウントの作成と合わせて5〜10分程度で完了します。
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- パスワードの決め方 -->
+      <div class="section">
+        <div class="section-header">
+          <div class="section-title"><span>//</span> パスワードの決め方</div>
+        </div>
+
+        <div class="explain-block">
+          <div class="explain-header">
+            <div class="explain-num">POINT 03</div>
+            <div class="explain-title">3つのルールを守れば大丈夫です</div>
+          </div>
+          <div class="explain-body">
+            <p>パスワードは以下の3つのルールを守って決めてください。</p>
+
+            <div class="checklist" style="margin-bottom:12px;">
+              <div class="check-item" style="cursor:default;">
+                <div class="check-body">
+                  <div class="check-title">① 8文字以上（英字・数字・記号を混ぜる）</div>
+                  <div class="check-note">大文字・小文字・数字・記号（!@#等）を組み合わせると強くなります</div>
+                </div>
+              </div>
+              <div class="check-item" style="cursor:default;">
+                <div class="check-body">
+                  <div class="check-title">② 他のサービスと使い回さない</div>
+                  <div class="check-note">銀行・SNS・ショッピングサイトなどと同じパスワードを使うと、万が一のときに被害が広がります</div>
+                </div>
+              </div>
+              <div class="check-item" style="cursor:default;">
+                <div class="check-body">
+                  <div class="check-title">③ メモする場合は安全な場所に</div>
+                  <div class="check-note">付箋をPCに貼る・デスクトップにテキストファイルで保存するのは危険です</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="pw-sample">
+              <span class="pw-label">NG例</span>
+              <span class="pw-bad">password123</span>
+              <span style="color:var(--text-muted);font-size:12px;">← 単純すぎる</span>
+            </div>
+            <div class="pw-sample">
+              <span class="pw-label">OK例</span>
+              <span class="pw-good">Sunset#River_82</span>
+              <span style="color:var(--text-muted);font-size:12px;">← 覚えやすく複雑</span>
+            </div>
+
+            <div class="notice-box" style="margin-top:14px;">
+              <div class="notice-icon">💡</div>
+              <div class="notice-text">
+                パスワードの管理が不安な方には<strong>パスワード管理アプリ</strong>がおすすめです。iPhoneお使いの方は「iCloudキーチェーン」、Androidの方は「Googleパスワードマネージャー」がすでにスマホに入っていて無料で使えます。
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 会社PCの注意点 -->
+      <div class="section">
+        <div class="section-header">
+          <div class="section-title"><span>//</span> 会社のパソコンで使う場合の注意点</div>
+        </div>
+
+        <div class="explain-block">
+          <div class="explain-header">
+            <div class="explain-num">POINT 04</div>
+            <div class="explain-title">まず会社のルールを確認しましょう</div>
+          </div>
+          <div class="explain-body">
+            <p>会社のパソコンでClaudeを使う前に、以下を確認しておくと安心です。</p>
+
+            <div class="checklist" style="margin-bottom:0;">
+              <div class="check-item" style="cursor:default;">
+                <div class="check-body">
+                  <div class="check-title">📋 社内のAI利用ルールや情報セキュリティポリシーを確認する</div>
+                  <div class="check-note">会社によっては、外部のAIサービスの利用に関するルールが定められている場合があります</div>
+                </div>
+              </div>
+              <div class="check-item" style="cursor:default;">
+                <div class="check-body">
+                  <div class="check-title">💬 上司やIT担当者に一言確認する</div>
+                  <div class="check-note">「Claudeというウェブサービスを業務効率化に使いたいのですが問題ありませんか？」と一声かけておくだけで安心です</div>
+                </div>
+              </div>
+              <div class="check-item" style="cursor:default;">
+                <div class="check-body">
+                  <div class="check-title">🔒 会社の機密情報・個人情報をAIに入力しない</div>
+                  <div class="check-note">これは絶対に守るべきルールです。安全な使い方の詳細はStep03で詳しく学びます</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CTA -->
+      <div class="cta-wrap">
+        <p>準備が整ったら、いよいよアカウントを作りましょう。<br>画面を見ながら一緒に進めていきます。</p>
+        <a class="cta-btn" href="02_Claudeのアカウント作成手順.html">
+          次へ：アカウントを作る →
+        </a>
+      </div>
+
+      <!-- 前後ナビ -->
+      <div class="page-nav">
+        <a class="page-nav-btn" href="00_このサイトの歩き方.html">
+          <div class="page-nav-arrow">←</div>
+          <div>
+            <div class="page-nav-label">PREV</div>
+            <div class="page-nav-title">00：このサイトの歩き方</div>
+          </div>
+        </a>
+        <a class="page-nav-btn next" href="02_Claudeのアカウント作成手順.html">
+          <div>
+            <div class="page-nav-label">NEXT</div>
+            <div class="page-nav-title">02：Claudeのアカウント作成手順</div>
+          </div>
+          <div class="page-nav-arrow">→</div>
+        </a>
+      </div>
+
+      <!-- FOOTER -->
+      <footer class="portal-footer">
+        <div class="footer-inner">
+          <div class="footer-logo"><img src="../../assets/logo-claude.png" alt="Powered by Claude"></div>
+          <div class="footer-text">
+            QUBELEY | OZ² — Powered by Oz<br>
+            Copyright © 2026 Oz. All rights reserved.
+          </div>
+        </div>
+      </footer>
+
+    </div><!-- /content -->
+  </div><!-- /main -->
+</div><!-- /layout -->
+
+<script src="../../assets/js/update-log.js"></script>
+<script src="../../assets/js/common.js"></script>
+<script>
+  renderSidebar({ root:'../../', active:'step01', sbLabel:'STEP', sbVal:'01<span> /05</span>', sbSub:'まず触ってみる' });
+  renderSiteHeader({ root: '../../' });
+  renderHeroStamp('../../');
+
+  /* チェックボックスのON/OFF */
+  function toggleCheck(box) {
+    box.classList.toggle('checked');
+  }
+</script>
+</body>
+</html>

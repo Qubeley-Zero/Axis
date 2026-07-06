@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Claudeの初期設定とログイン確認 | Step 01 | OZ²</title>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Noto+Sans+JP:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/css/common.css">
+<style>
+.page-hero {
+  position:relative; z-index:1;
+  background:var(--ai-panel); border:1px solid var(--ai-border);
+  border-radius:14px; padding:28px 36px 24px;
+  margin-bottom:24px; overflow:hidden;
+}
+.page-hero::after {
+  content:'SETUP'; position:absolute; bottom:-16px; right:24px;
+  font-family:'Rajdhani',sans-serif; font-size:80px; font-weight:700;
+  color:rgba(255,140,66,0.04); line-height:1; pointer-events:none; letter-spacing:-2px;
+}
+.page-eyebrow { font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.2em; color:var(--accent); margin-bottom:10px; opacity:0; animation:fadeUp 0.5s ease 0.2s forwards; }
+.page-title { font-family:'Rajdhani',sans-serif; font-size:clamp(1.4rem,3vw,2rem); font-weight:700; color:#fff; margin-bottom:12px; line-height:1.1; opacity:0; animation:fadeUp 0.5s ease 0.35s forwards; }
+.page-lead { font-size:15px; color:#b0bec5; line-height:1.9; max-width:600px; opacity:0; animation:fadeUp 0.5s ease 0.5s forwards; }
+.page-time { display:inline-flex; align-items:center; gap:7px; margin-top:14px; font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--text-muted); opacity:0; animation:fadeUp 0.5s ease 0.65s forwards; }
+
+/* 画面マップ */
+.screen-map {
+  background:rgba(0,0,0,0.3); border:1px solid var(--ai-border2);
+  border-radius:12px; padding:20px; margin:14px 0;
+  font-family:'JetBrains Mono',monospace; font-size:12px;
+}
+.screen-map-title { font-size:11px; color:var(--text-muted); letter-spacing:0.15em; margin-bottom:14px; }
+.screen-area {
+  display:grid; grid-template-columns:180px 1fr;
+  gap:8px; min-height:180px;
+}
+.screen-sidebar {
+  background:rgba(255,107,26,0.05); border:1px solid rgba(255,107,26,0.15);
+  border-radius:8px; padding:12px 10px;
+  display:flex; flex-direction:column; gap:6px;
+}
+.screen-sidebar-item {
+  font-size:11px; color:var(--text-muted); padding:5px 8px;
+  border-radius:4px; transition:background 0.15s;
+}
+.screen-sidebar-item.active { background:rgba(255,107,26,0.12); color:var(--accent); }
+.screen-main {
+  background:rgba(255,255,255,0.02); border:1px solid var(--ai-border2);
+  border-radius:8px; padding:12px; display:flex; flex-direction:column; justify-content:flex-end; gap:8px;
+}
+.screen-input {
+  background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1);
+  border-radius:6px; padding:10px 14px; font-size:12px; color:var(--text-muted);
+  display:flex; justify-content:space-between; align-items:center;
+}
+.screen-input-hint { font-size:10px; color:rgba(255,255,255,0.2); }
+.screen-label {
+  display:inline-block; font-size:9px; padding:2px 8px; border-radius:3px;
+  font-family:'JetBrains Mono',monospace; margin-bottom:4px;
+}
+.screen-label.orange { background:rgba(255,107,26,0.15); color:var(--accent); border:1px solid rgba(255,107,26,0.25); }
+.screen-label.blue { background:rgba(74,158,255,0.15); color:#4A9EFF; border:1px solid rgba(74,158,255,0.25); }
+.screen-label.green { background:rgba(52,211,153,0.15); color:var(--accent3); border:1px solid rgba(52,211,153,0.25); }
+
+/* 設定項目リスト */
+.setting-list { display:flex; flex-direction:column; gap:12px; margin-bottom:28px; }
+.setting-item {
+  background:var(--ai-panel); border:1px solid var(--ai-border2);
+  border-radius:10px; padding:16px 18px;
+  transition:border-color 0.2s, background 0.2s, box-shadow 0.2s;
+}
+.setting-item:hover {
+  border-color:rgba(255,107,26,0.45);
+  background:rgba(255,107,26,0.05);
+  box-shadow:0 0 12px rgba(255,107,26,0.2);
+}
+.setting-item-header { display:flex; align-items:center; gap:10px; margin-bottom:8px; }
+.setting-item-icon { font-size:18px; flex-shrink:0; }
+.setting-item-title { font-size:14px; color:var(--text-primary); font-weight:500; }
+.setting-item-badge { font-family:'JetBrains Mono',monospace; font-size:9px; padding:2px 8px; border-radius:3px; flex-shrink:0; }
+.setting-item-badge.required { background:rgba(255,107,26,0.12); color:var(--accent); border:1px solid rgba(255,107,26,0.25); }
+.setting-item-badge.optional { background:rgba(100,116,139,0.15); color:var(--text-muted); border:1px solid rgba(100,116,139,0.2); }
+.setting-item-badge.later { background:rgba(52,211,153,0.1); color:var(--accent3); border:1px solid rgba(52,211,153,0.2); }
+.setting-item-desc { font-size:13px; color:#b0bec5; line-height:1.8; }
+
+/* ステップカード（ログイン確認用） */
+.step-cards { display:flex; flex-direction:column; gap:0; margin-bottom:28px; }
+.step-card { display:flex; gap:0; }
+.step-card-line { display:flex; flex-direction:column; align-items:center; width:52px; flex-shrink:0; }
+.step-card-num { width:38px; height:38px; border-radius:50%; flex-shrink:0; display:flex; align-items:center; justify-content:center; font-family:'JetBrains Mono',monospace; font-size:13px; font-weight:500; background:rgba(255,107,26,0.12); color:var(--accent); border:1.5px solid rgba(255,107,26,0.35); position:relative; z-index:1; }
+.step-card-connector { width:2px; flex:1; min-height:20px; background:linear-gradient(180deg,rgba(255,107,26,0.3),rgba(255,107,26,0.05)); margin:3px 0; }
+.step-card:last-child .step-card-connector { display:none; }
+.step-card-body { flex:1; padding:4px 0 24px 16px; }
+.step-card-title { font-size:15px; font-weight:500; color:var(--text-primary); margin-bottom:8px; }
+.step-card-desc { font-size:14px; color:#b0bec5; line-height:1.85; }
+
+/* ヒント・注意ボックス */
+.hint-box { display:flex; gap:12px; align-items:flex-start; background:rgba(52,211,153,0.06); border:1px solid rgba(52,211,153,0.2); border-radius:10px; padding:14px 16px; margin:12px 0; }
+.hint-icon { font-size:17px; flex-shrink:0; margin-top:1px; }
+.hint-text { font-size:13px; color:#b0bec5; line-height:1.8; }
+.hint-text strong { color:var(--accent3); }
+.notice-box { display:flex; gap:12px; align-items:flex-start; background:rgba(255,107,26,0.06); border:1px solid rgba(255,107,26,0.2); border-radius:10px; padding:14px 16px; margin:12px 0; }
+.notice-icon { font-size:17px; flex-shrink:0; margin-top:1px; }
+.notice-text { font-size:13px; color:#b0bec5; line-height:1.8; }
+.notice-text strong { color:var(--accent); }
+
+/* 完了バナー */
+.completion-banner { margin:28px 0; background:linear-gradient(135deg,rgba(255,107,26,0.08),rgba(255,20,147,0.08)); border:1px solid rgba(255,107,26,0.25); border-radius:12px; padding:22px 24px; text-align:center; }
+.completion-banner .cb-emoji { font-size:30px; margin-bottom:8px; }
+.completion-banner .cb-title { font-family:'Rajdhani',sans-serif; font-size:22px; font-weight:700; animation:orangePinkShift 2.4s ease-in-out infinite; margin-bottom:6px; }
+.completion-banner .cb-desc { font-size:13px; color:#b0bec5; line-height:1.8; }
+
+/* CTA・前後ナビ */
+.cta-wrap { text-align:center; padding:24px; background:linear-gradient(135deg,rgba(255,107,26,0.06),rgba(255,20,147,0.06)); border:1px solid rgba(255,107,26,0.2); border-radius:12px; margin-bottom:28px; }
+.cta-wrap p { font-size:14px; color:#b0bec5; margin-bottom:16px; }
+.cta-btn { display:inline-flex; align-items:center; gap:10px; background:linear-gradient(135deg,var(--neon-orange),var(--neon-pink)); color:#fff; font-size:15px; font-weight:500; padding:12px 32px; border-radius:24px; text-decoration:none; box-shadow:0 0 20px rgba(255,107,26,0.35); transition:transform 0.2s,box-shadow 0.2s; }
+.page-nav { display:flex; gap:12px; margin-top:28px; }
+.page-nav-btn { flex:1; display:flex; align-items:center; gap:12px; background:var(--ai-panel); border:1px solid var(--ai-border2); border-radius:10px; padding:14px 18px; text-decoration:none; transition:border-color 0.2s,background 0.2s,box-shadow 0.2s,transform 0.2s; }
+.page-nav-btn.next { justify-content:flex-end; text-align:right; }
+.page-nav-label { font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--text-muted); margin-bottom:3px; }
+.page-nav-title { font-size:13px; color:var(--text-primary); font-weight:500; }
+.page-nav-arrow { font-size:18px; color:var(--accent); flex-shrink:0; }
+
+@media (max-width:768px) {
+  .page-hero { padding:20px 18px 18px; }
+  .page-hero[style] { grid-template-columns:1fr !important; }
+  .screen-area { grid-template-columns:1fr; }
+  .page-nav { flex-direction:column; }
+}
+</style>
+</head>
+<body>
+<div class="grid-bg"></div>
+<canvas id="trail-canvas"></canvas>
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+<header class="site-header" id="site-header-mount"></header>
+<div class="scanline-wrap"><div class="scanline"></div></div>
+
+<div class="layout">
+  <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+  <aside class="sidebar" id="sidebar"></aside>
+
+  <div class="main">
+    <div class="topbar">
+      <div class="topbar-path">
+        <a href="../../index.html" style="color:inherit;text-decoration:none;">portal</a>
+        <span style="margin:0 6px;opacity:0.4;">/</span>
+        <a href="index.html" style="color:inherit;text-decoration:none;">step01</a>
+        <span style="margin:0 6px;opacity:0.4;">/</span>
+        <span>初期設定</span>
+      </div>
+      <div class="topbar-right">
+        <div class="status-chip"><div class="dot"></div>公開中</div>
+      </div>
+    </div>
+
+    <div class="content">
+
+      <!-- HERO -->
+      <div class="page-hero" style="display:grid; grid-template-columns:1fr auto; gap:20px; align-items:center;">
+        <div>
+          <div class="page-eyebrow">STEP 01 — 03 / INITIAL SETUP</div>
+          <div class="page-title">Claudeの初期設定と<br>ログイン確認</div>
+          <p class="page-lead">
+            アカウントが作れたら、最初の画面を確認しておきましょう。<br>
+            設定は3分で終わります。後回しにすると忘れがちなので今やっておくのがおすすめです。
+          </p>
+          <div class="page-time">⏱ 約5分で完了します</div>
+        </div>
+        <div id="hero-stamp-mount"></div>
+      </div>
+
+      <!-- 画面の見方 -->
+      <div class="section">
+        <div class="section-header">
+          <div class="section-title"><span>//</span> 最初の画面の見方</div>
+        </div>
+        <p style="font-size:14px; color:#b0bec5; line-height:1.9; margin-bottom:14px;">
+          ログイン直後に表示されるClaude画面はシンプルです。大きく分けて「左側のサイドバー」と「右側のチャットエリア」の2つだけです。
+        </p>
+
+        <div class="screen-map">
+          <div class="screen-map-title">[ CLAUDE.AI — チャット画面の構成 ]</div>
+          <div class="screen-area">
+            <div class="screen-sidebar">
+              <span class="screen-label orange">LEFT SIDEBAR</span>
+              <div class="screen-sidebar-item active">✦ New chat（新しい会話）</div>
+              <div class="screen-sidebar-item">📁 過去の会話履歴</div>
+              <div class="screen-sidebar-item">📂 Projects</div>
+              <div class="screen-sidebar-item" style="margin-top:auto; font-size:10px;">⚙ 設定・アカウント</div>
+            </div>
+            <div class="screen-main">
+              <div style="text-align:center; flex:1; display:flex; flex-direction:column; justify-content:center; gap:6px;">
+                <span class="screen-label blue" style="display:inline-block; margin:0 auto;">CENTER — チャットエリア</span>
+                <div style="font-size:11px; color:rgba(255,255,255,0.2);">「Claudeに何でも聞いてみましょう」</div>
+              </div>
+              <div class="screen-input">
+                <span>メッセージを入力...</span>
+                <span class="screen-input-hint">↵ 送信</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="hint-box" style="margin-top:14px;">
+          <div class="hint-icon">💡</div>
+          <div class="hint-text">
+            画面の構成はシンプルなので迷う場所はありません。<strong>一番よく使うのは右下のテキスト入力欄</strong>です。ここに話しかけるだけでClaudeが答えてくれます。
+          </div>
+        </div>
+      </div>
+
+      <!-- 今すぐ確認しておくこと -->
+      <div class="section">
+        <div class="section-header">
+          <div class="section-title"><span>//</span> 今すぐ確認しておくこと</div>
+          <div class="section-count">3 ITEMS</div>
+        </div>
+        <div class="setting-list">
+
+          <div class="setting-item">
+            <div class="setting-item-header">
+              <div class="setting-item-icon">👤</div>
+              <div class="setting-item-title">ログインできているか確認する</div>
+              <div class="setting-item-badge required">必須</div>
+            </div>
+            <div class="setting-item-desc">
+              画面左下（またはサイドバー下部）に自分のメールアドレスまたは名前が表示されていればログイン済みです。表示されていない場合は「Log in」をクリックしてログインしてください。
+            </div>
+          </div>
+
+          <div class="setting-item">
+            <div class="setting-item-header">
+              <div class="setting-item-icon">🌐</div>
+              <div class="setting-item-title">表示言語を確認する</div>
+              <div class="setting-item-badge optional">確認推奨</div>
+            </div>
+            <div class="setting-item-desc">
+              Claudeは話しかけた言語で答えてくれます。日本語で入力すれば日本語で返してくれるので、言語の設定を変える必要は基本的にありません。英語で表示されていても、日本語で話しかければ日本語で返ってきます。
+            </div>
+          </div>
+
+          <div class="setting-item">
+            <div class="setting-item-header">
+              <div class="setting-item-icon">🔔</div>
+              <div class="setting-item-title">メール通知の設定（任意）</div>
+              <div class="setting-item-badge later">後でOK</div>
+            </div>
+            <div class="setting-item-desc">
+              Anthropicからのお知らせメールが届く設定になっています。不要な場合は「Settings（設定）」→「Notifications（通知）」からオフにできます。急がなければ後回しで問題ありません。
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- 2回目以降のログイン方法 -->
+      <div class="section">
+        <div class="section-header">
+          <div class="section-title"><span>//</span> 2回目以降のログイン方法</div>
+        </div>
+        <div class="step-cards">
+          <div class="step-card">
+            <div class="step-card-line">
+              <div class="step-card-num">1</div>
+              <div class="step-card-connector"></div>
+            </div>
+            <div class="step-card-body">
+              <div class="step-card-title">ブラウザで claude.ai を開く</div>
+              <div class="step-card-desc">
+                ブックマーク（お気に入り）に登録しておくと毎回入力しなくて済みます。今のうちに登録しておくことをおすすめします。
+              </div>
+              <div class="hint-box">
+                <div class="hint-icon">💡</div>
+                <div class="hint-text">
+                  Chromeでは画面右上の☆マークをクリック、Edgeでは ★ アイコンまたは Ctrl+D でブックマークに追加できます。
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="step-card">
+            <div class="step-card-line">
+              <div class="step-card-num">2</div>
+              <div class="step-card-connector"></div>
+            </div>
+            <div class="step-card-body">
+              <div class="step-card-title">「Log in」をクリックする</div>
+              <div class="step-card-desc">
+                初回登録時と同じ方法（GoogleかEmail）でログインします。「Continue with Google」を選んだ方はGoogleアカウントを選択するだけで完了します。
+              </div>
+            </div>
+          </div>
+          <div class="step-card">
+            <div class="step-card-line">
+              <div class="step-card-num">3</div>
+            </div>
+            <div class="step-card-body">
+              <div class="step-card-title">チャット画面が開いたらOK</div>
+              <div class="step-card-desc">
+                ブラウザが「ログイン状態を記憶」している場合、次回以降はclaudeを開くだけで自動的にチャット画面が表示されることもあります。
+              </div>
+              <div class="notice-box">
+                <div class="notice-icon">⚠️</div>
+                <div class="notice-text">
+                  <strong>会社のパソコンでは「ログイン状態を保持しない」</strong>設定になっている場合があります。毎回ログインが必要でも仕様ですので、ブックマークを活用してください。
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 完了バナー -->
+      <div class="completion-banner">
+        <div class="cb-emoji">🎊</div>
+        <div class="cb-title">Step 01 の準備が整いました！</div>
+        <div class="cb-desc">
+          インストール・アカウント作成・ログイン確認まで完了です。<br>
+          次のページからは「なぜAIを学ぶのか」という話を読みながら、Claudeに話しかけてみましょう。
+        </div>
+      </div>
+
+      <!-- CTA -->
+      <div class="cta-wrap">
+        <p>次はアカウント作成直後にやっておくべき、大事な設定を確認しましょう。</p>
+        <a class="cta-btn" href="04_Claudeの学習設定をオフにする方法.html">次へ：学習設定をオフにする →</a>
+      </div>
+
+      <!-- 前後ナビ -->
+      <div class="page-nav">
+        <a class="page-nav-btn" href="02_Claudeのアカウント作成手順.html">
+          <div class="page-nav-arrow">←</div>
+          <div>
+            <div class="page-nav-label">PREV</div>
+            <div class="page-nav-title">02：Claudeのアカウント作成手順</div>
+          </div>
+        </a>
+        <a class="page-nav-btn next" href="04_Claudeの学習設定をオフにする方法.html">
+          <div>
+            <div class="page-nav-label">NEXT</div>
+            <div class="page-nav-title">04：Claudeの学習設定をオフにする方法</div>
+          </div>
+          <div class="page-nav-arrow">→</div>
+        </a>
+      </div>
+
+      <footer class="portal-footer">
+        <div class="footer-inner">
+          <div class="footer-logo"><img src="../../assets/logo-claude.png" alt="Powered by Claude"></div>
+          <div class="footer-text">
+            QUBELEY | OZ² — Powered by Oz<br>
+            Copyright © 2026 Oz. All rights reserved.
+          </div>
+        </div>
+      </footer>
+
+    </div>
+  </div>
+</div>
+
+<script src="../../assets/js/update-log.js"></script>
+<script src="../../assets/js/common.js"></script>
+<script>
+  renderSidebar({ root:'../../', active:'step01', sbLabel:'STEP', sbVal:'01<span> /05</span>', sbSub:'まず触ってみる' });
+  renderSiteHeader({ root: '../../' });
+  renderHeroStamp('../../');
+</script>
+</body>
+</html>

@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>記事詳細 | QUBELEY</title>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Noto+Sans+JP:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/css/common.css">
+<style>
+/* 記事ヘッダー */
+.article-hero {
+  position:relative; z-index:1;
+  background:var(--ai-panel); border:1px solid var(--ai-border);
+  border-radius:14px; padding:28px 32px 24px;
+  margin-bottom:24px; overflow:hidden;
+}
+.article-hero.high-importance { border-left:4px solid var(--neon-orange); border-radius:0 14px 14px 0; }
+.article-hero::after {
+  content:'NEWS'; position:absolute; bottom:-16px; right:24px;
+  font-family:'Rajdhani',sans-serif; font-size:80px; font-weight:700;
+  color:rgba(255,140,66,0.04); line-height:1; pointer-events:none;
+}
+.article-meta { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:14px; }
+.article-date { font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--text-muted); }
+.article-cat {
+  font-family:'JetBrains Mono',monospace; font-size:10px;
+  padding:2px 9px; border-radius:3px;
+}
+.article-cat.claude { background:rgba(255,107,26,0.12); color:var(--accent); border:1px solid rgba(255,107,26,0.25); }
+.article-cat.ai-global { background:rgba(74,158,255,0.12); color:#4A9EFF; border:1px solid rgba(74,158,255,0.25); }
+.article-cat.law-jp { background:rgba(255,193,51,0.12); color:#ffc933; border:1px solid rgba(255,193,51,0.25); }
+.article-cat.cert { background:rgba(52,211,153,0.12); color:var(--accent3); border:1px solid rgba(52,211,153,0.25); }
+.article-cat.incident { background:rgba(255,75,110,0.12); color:var(--accent-red); border:1px solid rgba(255,75,110,0.25); }
+.article-badge-new { font-family:'JetBrains Mono',monospace; font-size:9px; background:rgba(255,107,26,0.15); color:var(--accent); border:1px solid rgba(255,107,26,0.35); border-radius:3px; padding:1px 7px; animation:glowOrange 1.8s ease-in-out infinite; }
+.article-badge-high { font-family:'JetBrains Mono',monospace; font-size:9px; background:rgba(255,75,110,0.1); color:var(--accent-red); border:1px solid rgba(255,75,110,0.25); border-radius:3px; padding:1px 7px; }
+.article-title { font-family:'Noto Sans JP',sans-serif; font-size:clamp(1.1rem,2.5vw,1.4rem); font-weight:500; color:#fff; line-height:1.5; margin-bottom:14px; }
+.article-summary { font-size:14px; color:#b0bec5; line-height:1.9; padding:14px 16px; background:rgba(255,107,26,0.04); border-left:2px solid rgba(255,107,26,0.3); border-radius:0 8px 8px 0; margin-bottom:14px; }
+.article-tags { display:flex; gap:6px; flex-wrap:wrap; }
+.article-tag { font-size:11px; color:var(--text-muted); background:rgba(255,255,255,0.04); border:1px solid var(--ai-border2); border-radius:3px; padding:1px 8px; font-family:'JetBrains Mono',monospace; }
+
+/* 記事本文 */
+.article-body {
+  background:var(--ai-panel); border:1px solid var(--ai-border2);
+  border-radius:12px; padding:24px 28px; margin-bottom:20px;
+}
+.article-body-text { font-size:14px; color:#b0bec5; line-height:2; }
+.article-body-text p { margin-bottom:14px; }
+.article-body-text p:last-child { margin-bottom:0; }
+.article-body-text strong { color:var(--text-primary); }
+
+/* 出典リンク */
+.article-source {
+  display:flex; align-items:center; gap:10px;
+  background:var(--ai-panel); border:1px solid var(--ai-border2);
+  border-radius:10px; padding:12px 16px; margin-bottom:24px;
+  text-decoration:none; transition:border-color 0.2s, background 0.2s;
+}
+.article-source:hover { border-color:rgba(255,107,26,0.4); background:rgba(255,107,26,0.05); }
+.article-source-label { font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--text-muted); flex-shrink:0; }
+.article-source-url { font-size:12px; color:var(--accent); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; flex:1; }
+
+/* 前後ナビ */
+.page-nav { display:flex; gap:12px; margin-top:28px; }
+.page-nav-btn { flex:1; display:flex; align-items:center; gap:12px; background:var(--ai-panel); border:1px solid var(--ai-border2); border-radius:10px; padding:14px 18px; text-decoration:none; transition:border-color 0.2s,background 0.2s,box-shadow 0.2s,transform 0.2s; cursor:pointer; }
+.page-nav-btn.next { justify-content:flex-end; text-align:right; }
+.page-nav-btn.disabled { opacity:0.3; pointer-events:none; }
+.page-nav-label { font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--text-muted); margin-bottom:3px; }
+.page-nav-title { font-size:12px; color:var(--text-primary); font-weight:500; line-height:1.4; }
+.page-nav-arrow { font-size:18px; color:var(--accent); flex-shrink:0; }
+
+/* 一覧へ戻る */
+.back-link { display:inline-flex; align-items:center; gap:8px; font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--text-muted); text-decoration:none; margin-bottom:20px; transition:color 0.2s; }
+.back-link:hover { color:var(--accent); }
+
+/* エラー表示 */
+.error-box { background:var(--ai-panel); border:1px solid var(--ai-border2); border-radius:12px; padding:40px; text-align:center; color:var(--text-muted); font-size:14px; }
+
+@media (max-width:768px) {
+  .article-hero { padding:20px 18px; }
+  .article-body { padding:18px 16px; }
+  .page-nav { flex-direction:column; }
+}
+</style>
+</head>
+<body>
+<div class="grid-bg"></div>
+<canvas id="trail-canvas"></canvas>
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+<header class="site-header" id="site-header-mount"></header>
+<div class="scanline-wrap"><div class="scanline"></div></div>
+
+<div class="layout">
+  <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+  <aside class="sidebar" id="sidebar">
+    <nav class="sb-nav">
+      <a href="../../index.html" class="nav-item"><span class="nav-icon">⊞</span>ホーム</a>
+      <a href="index.html" class="nav-item active"><span class="nav-icon">📡</span>AI最新情報</a>
+      <div class="nav-accordion open" id="accordionRoadmap">
+        <div class="nav-accordion-header nav-item" onclick="toggleAccordion('accordionRoadmap')">
+          <span class="nav-icon">🗺</span>AI学習ロードマップ<span class="nav-accordion-arrow">▸</span>
+        </div>
+        <div class="nav-accordion-body">
+          <a href="../../pages/step01-start/index.html" class="nav-item nav-sub"><span class="nav-step-badge">01</span>まず触ってみる</a>
+          <a href="../../pages/step02-prompts/index.html" class="nav-item nav-sub"><span class="nav-step-badge">02</span>うまく伝える</a>
+          <a href="../../pages/construction.html?section=安全に使う" class="nav-item nav-sub"><span class="nav-step-badge">03</span>安全に使う<span class="nav-coming">SOON</span></a>
+          <a href="../../pages/construction.html?section=ツールを知る" class="nav-item nav-sub"><span class="nav-step-badge">04</span>ツールを知る<span class="nav-coming">SOON</span></a>
+          <a href="../../pages/construction.html?section=仕事で使う" class="nav-item nav-sub"><span class="nav-step-badge">05</span>仕事で使う<span class="nav-coming">SOON</span></a>
+        </div>
+      </div>
+      <div class="nav-accordion" id="accordionKnowledge">
+        <div class="nav-accordion-header nav-item" onclick="toggleAccordion('accordionKnowledge')">
+          <span class="nav-icon">🧠</span>Knowledge<span class="nav-accordion-arrow">▸</span>
+        </div>
+        <div class="nav-accordion-body">
+          <a href="../../pages/knowledge/emoji.html" class="nav-item nav-sub"><span class="nav-step-badge">—</span>絵文字集</a>
+          <a href="../../pages/knowledge/shortcuts.html" class="nav-item nav-sub"><span class="nav-step-badge">—</span>ショートカット集</a>
+          <a href="../../pages/knowledge/explorer-tips.html" class="nav-item nav-sub"><span class="nav-step-badge">—</span>エクスプローラー小技</a>
+        </div>
+      </div>
+      <div class="nav-accordion" id="accordionExams">
+        <div class="nav-accordion-header nav-item" onclick="toggleAccordion('accordionExams')">
+          <span class="nav-icon">📝</span>試験攻略<span class="nav-accordion-arrow">▸</span>
+        </div>
+        <div class="nav-accordion-body">
+          <a href="../../pages/exams/aws-clf-c02/index.html" class="nav-item nav-sub"><span class="nav-step-badge">—</span>AWS CLF-C02</a>
+        </div>
+      </div>
+    </nav>
+    <div class="sb-footer">
+      <div class="license-box">
+        <div class="lic-label">AI NEWS</div>
+        <div class="lic-val" style="font-size:1.4rem;">記事</div>
+        <div class="lic-sub">詳細表示</div>
+      </div>
+    </div>
+  </aside>
+
+  <div class="main">
+    <div class="topbar">
+      <div class="topbar-path">
+        <a href="../../index.html" style="color:inherit;text-decoration:none;">portal</a>
+        <span style="margin:0 6px;opacity:0.4;">/</span>
+        <a href="index.html" style="color:inherit;text-decoration:none;">AI最新情報</a>
+        <span style="margin:0 6px;opacity:0.4;">/</span>
+        <span id="breadcrumb-title">記事詳細</span>
+      </div>
+      <div class="topbar-right">
+        <div class="status-chip"><div class="dot"></div>公開中</div>
+      </div>
+    </div>
+
+    <div class="content">
+      <a class="back-link" href="index.html">← AI最新情報一覧に戻る</a>
+
+      <div id="articleContainer">
+        <div class="error-box">記事を読み込んでいます...</div>
+      </div>
+
+      <footer class="portal-footer">
+        <div class="footer-inner">
+          <div class="footer-logo"><img src="../../assets/logo-claude.png" alt="Powered by Claude"></div>
+          <div class="footer-text">
+            QUBELEY | OZ² — Powered by Oz<br>
+            Copyright © 2026 Oz. All rights reserved.
+          </div>
+        </div>
+      </footer>
+    </div>
+  </div>
+</div>
+
+<script src="../../assets/js/update-log.js"></script>
+<script src="../../assets/js/common.js"></script>
+<script src="news-data.js"></script>
+<script>
+  renderSiteHeader({ root: '../../' });
+
+  const CAT_LABELS = {
+    'claude': 'Claude', 'ai-global': 'AI全般',
+    'law-jp': '法令・規制', 'cert': '資格・認定', 'incident': 'インシデント',
+  };
+
+  function getParam(key) {
+    return new URLSearchParams(location.search).get(key);
+  }
+
+  function bodyToHtml(text) {
+    return text.split('\n\n').map(p => p.trim()).filter(Boolean)
+      .map(p => `<p>${p.replace(/\n/g, '<br>')}</p>`).join('');
+  }
+
+  function render() {
+    const id = getParam('id');
+    const idx = NEWS_DATA.findIndex(n => n.id === id);
+    if (idx === -1) {
+      document.getElementById('articleContainer').innerHTML =
+        '<div class="error-box">記事が見つかりませんでした。<br><a href="index.html" style="color:var(--accent);">一覧へ戻る</a></div>';
+      return;
+    }
+    const n = NEWS_DATA[idx];
+    const prev = NEWS_DATA[idx + 1] || null;
+    const next = NEWS_DATA[idx - 1] || null;
+
+    document.title = `${n.title} | QUBELEY`;
+    document.getElementById('breadcrumb-title').textContent = n.title.length > 20 ? n.title.slice(0,20) + '…' : n.title;
+
+    document.getElementById('articleContainer').innerHTML = `
+      <div class="article-hero${n.importance === 'high' ? ' high-importance' : ''}">
+        <div class="article-meta">
+          <span class="article-date">${n.date}</span>
+          <span class="article-cat ${n.category}">${CAT_LABELS[n.category] || n.category}</span>
+          ${n.isNew ? '<span class="article-badge-new">NEW</span>' : ''}
+          ${n.importance === 'high' ? '<span class="article-badge-high">重要</span>' : ''}
+        </div>
+        <div class="article-title">${n.title}</div>
+        <div class="article-summary">${n.summary}</div>
+        <div class="article-tags">${(n.tags||[]).map(t=>`<span class="article-tag">${t}</span>`).join('')}</div>
+      </div>
+
+      <div class="article-body">
+        <div class="article-body-text">${bodyToHtml(n.body)}</div>
+      </div>
+
+      ${n.source ? `
+      <a class="article-source" href="${n.source}" target="_blank" rel="noopener">
+        <span class="article-source-label">出典</span>
+        <span class="article-source-url">${n.source}</span>
+        <span style="color:var(--text-muted); font-size:12px; flex-shrink:0;">↗</span>
+      </a>` : ''}
+
+      <div class="page-nav">
+        <div class="page-nav-btn${prev ? '' : ' disabled'}" onclick="${prev ? `location.href='news-detail.html?id=${prev.id}'` : ''}">
+          <div class="page-nav-arrow">←</div>
+          <div>
+            <div class="page-nav-label">PREV</div>
+            <div class="page-nav-title">${prev ? prev.title.slice(0,30)+'…' : '（最初の記事）'}</div>
+          </div>
+        </div>
+        <div class="page-nav-btn next${next ? '' : ' disabled'}" onclick="${next ? `location.href='news-detail.html?id=${next.id}'` : ''}">
+          <div>
+            <div class="page-nav-label">NEXT</div>
+            <div class="page-nav-title">${next ? next.title.slice(0,30)+'…' : '（最新の記事）'}</div>
+          </div>
+          <div class="page-nav-arrow">→</div>
+        </div>
+      </div>
+    `;
+  }
+
+  render();
+</script>
+</body>
+</html>

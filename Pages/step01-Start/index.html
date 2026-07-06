@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Step 01 まず触ってみる | OZ² Advanced Knowledge Strategy Journey</title>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Noto+Sans+JP:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/css/common.css">
+<style>
+/* ===== Step01 固有スタイル ===== */
+.step-hero {
+  position:relative; z-index:1;
+  background:var(--ai-panel); border:1px solid var(--ai-border);
+  border-radius:14px; padding:28px 36px 24px;
+  margin-bottom:24px; overflow:hidden;
+}
+.step-hero::before {
+  content:''; position:absolute; top:-60px; right:-60px;
+  width:280px; height:280px;
+  background:radial-gradient(circle,rgba(255,140,66,0.07) 0%,transparent 70%);
+  pointer-events:none;
+}
+.step-hero::after {
+  content:'01'; position:absolute; bottom:-20px; right:24px;
+  font-family:'Rajdhani',sans-serif; font-size:120px; font-weight:700;
+  color:rgba(255,140,66,0.04); line-height:1; pointer-events:none;
+}
+.step-hero-inner {
+  display:grid; grid-template-columns:1fr auto;
+  gap:20px; align-items:center; position:relative; z-index:1;
+}
+.step-hero-text { display:flex; flex-direction:column; gap:0; }
+.step-eyebrow {
+  font-family:'JetBrains Mono',monospace; font-size:11px;
+  letter-spacing:0.2em; color:var(--accent); margin-bottom:10px;
+  opacity:0; animation:fadeUp 0.5s ease 0.2s forwards;
+}
+.step-title {
+  font-family:'Rajdhani',sans-serif; font-size:clamp(1.5rem,3vw,2.2rem);
+  font-weight:700; color:#fff; margin-bottom:10px; line-height:1.1;
+  opacity:0; animation:fadeUp 0.5s ease 0.35s forwards;
+}
+.step-title .accent { animation:orangePinkShift 2.4s ease-in-out infinite; }
+.step-desc {
+  font-size:15px; color:var(--text-secondary); line-height:1.9;
+  max-width:560px; margin-bottom:20px;
+  opacity:0; animation:fadeUp 0.5s ease 0.5s forwards;
+}
+.step-meta {
+  display:flex; align-items:center; gap:20px; flex-wrap:wrap;
+  opacity:0; animation:fadeUp 0.5s ease 0.65s forwards;
+}
+.step-meta-item {
+  display:flex; align-items:center; gap:7px;
+  font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--text-muted);
+}
+.step-meta-item .val { color:var(--text-primary); font-size:14px; }
+.badge-goal {
+  display:inline-flex; align-items:center; gap:8px;
+  background:rgba(255,140,66,0.1); border:1px solid rgba(255,140,66,0.3);
+  border-radius:20px; padding:6px 16px;
+  font-size:13px; color:var(--accent);
+  font-family:'JetBrains Mono',monospace;
+}
+
+/* ===== 進捗バー ===== */
+.progress-wrap {
+  background:var(--ai-panel); border:1px solid var(--ai-border);
+  border-radius:10px; padding:16px 20px; margin-bottom:24px;
+  display:flex; align-items:center; gap:16px;
+}
+.progress-label {
+  font-family:'JetBrains Mono',monospace; font-size:11px;
+  color:var(--text-muted); white-space:nowrap;
+}
+.progress-bar {
+  flex:1; height:6px; background:rgba(255,255,255,0.06);
+  border-radius:3px; overflow:hidden;
+}
+.progress-fill {
+  height:100%; width:0%; border-radius:3px;
+  background:linear-gradient(90deg,var(--neon-orange),var(--neon-pink));
+  box-shadow:0 0 8px rgba(255,107,26,0.5);
+  transition:width 1s ease 0.8s;
+}
+.progress-count {
+  font-family:'JetBrains Mono',monospace; font-size:12px;
+  color:var(--accent); white-space:nowrap;
+}
+
+/* ===== 記事リスト ===== */
+.article-list { display:flex; flex-direction:column; gap:10px; }
+
+.al-item {
+  display:flex; align-items:center; gap:16px;
+  background:var(--ai-panel); border:1px solid var(--ai-border2);
+  border-radius:10px; padding:14px 18px;
+  text-decoration:none; cursor:pointer;
+  transition:border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+  position:relative; overflow:hidden;
+}
+.al-item:hover {
+  border-color:rgba(255,107,26,0.45);
+  transform:translateX(4px);
+  box-shadow:0 0 20px rgba(255,107,26,0.1);
+}
+.al-item::before {
+  content:''; position:absolute; left:0; top:0; bottom:0; width:0;
+  background:linear-gradient(90deg,rgba(255,107,26,0.08),transparent);
+  transition:width 0.3s ease;
+}
+.al-item:hover::before { width:100%; }
+
+.al-item.coming {
+  opacity:0.38; pointer-events:none; cursor:default;
+}
+
+.al-num {
+  font-family:'JetBrains Mono',monospace; font-size:11px;
+  color:var(--text-muted); width:20px; flex-shrink:0; text-align:center;
+}
+.al-icon {
+  font-size:18px; flex-shrink:0; width:26px; text-align:center;
+}
+.al-body { flex:1; min-width:0; }
+.al-title {
+  font-size:14px; color:var(--text-primary); font-weight:500;
+  line-height:1.4; margin-bottom:3px;
+  transition:color 0.2s;
+}
+.al-item:hover .al-title { color:var(--accent); }
+.al-desc {
+  font-size:12px; color:var(--text-muted); line-height:1.5;
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+}
+.al-badge {
+  font-family:'JetBrains Mono',monospace; font-size:9px;
+  padding:2px 8px; border-radius:3px; flex-shrink:0;
+  white-space:nowrap;
+}
+.al-badge.new-badge {
+  background:rgba(255,140,66,0.12); color:var(--accent);
+  border:1px solid rgba(255,140,66,0.3);
+  animation:glowOrange 1.8s ease-in-out infinite;
+}
+.al-badge.soon-badge {
+  background:rgba(100,116,139,0.15); color:var(--text-muted);
+  border:1px solid rgba(100,116,139,0.2);
+}
+.al-arrow {
+  font-size:14px; color:var(--text-muted); flex-shrink:0;
+  opacity:0; transform:translateX(-6px);
+  transition:opacity 0.2s, transform 0.2s;
+}
+.al-item:hover .al-arrow { opacity:1; transform:translateX(0); }
+
+/* ===== 完了バッジ（Step完走後） ===== */
+.completion-banner {
+  margin-top:28px;
+  background:linear-gradient(135deg,rgba(255,107,26,0.08),rgba(255,20,147,0.08));
+  border:1px solid rgba(255,107,26,0.25); border-radius:12px;
+  padding:20px 24px; text-align:center;
+}
+.completion-banner .cb-emoji { font-size:28px; margin-bottom:6px; }
+.completion-banner .cb-title {
+  font-family:'Rajdhani',sans-serif; font-size:20px; font-weight:700;
+  animation:orangePinkShift 2.4s ease-in-out infinite; margin-bottom:6px;
+}
+.completion-banner .cb-desc { font-size:13px; color:var(--text-muted); }
+
+/* ===== ナビゲーション（前後ステップ） ===== */
+.step-nav {
+  display:flex; gap:12px; margin-top:28px;
+}
+.step-nav-btn {
+  flex:1; display:flex; align-items:center; gap:12px;
+  background:var(--ai-panel); border:1px solid var(--ai-border2);
+  border-radius:10px; padding:14px 18px; text-decoration:none;
+  transition:border-color 0.2s, transform 0.2s;
+}
+.step-nav-btn:hover { border-color:rgba(255,107,26,0.4); transform:translateY(-2px); }
+.step-nav-btn.next { justify-content:flex-end; text-align:right; }
+.step-nav-label { font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--text-muted); margin-bottom:3px; }
+.step-nav-title { font-size:13px; color:var(--text-primary); font-weight:500; }
+.step-nav-arrow { font-size:18px; color:var(--accent); flex-shrink:0; }
+.step-nav-btn.disabled { opacity:0.3; pointer-events:none; }
+
+@media (max-width:768px) {
+  .step-hero { padding:20px 18px 18px; }
+  .step-hero-inner { grid-template-columns:1fr; }
+  .step-nav { flex-direction:column; }
+  .al-desc { display:none; }
+}
+</style>
+</head>
+<body>
+
+<div class="grid-bg"></div>
+<canvas id="trail-canvas"></canvas>
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+
+<!-- ===== HEADER ===== -->
+<header class="site-header" id="site-header-mount"></header>
+
+<div class="scanline-wrap"><div class="scanline"></div></div>
+
+<!-- ===== LAYOUT ===== -->
+<div class="layout">
+  <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar"></aside>
+
+  <!-- MAIN -->
+  <div class="main">
+
+    <!-- TOPBAR -->
+    <div class="topbar">
+      <div class="topbar-path">
+        <a href="../../index.html" style="color:inherit;text-decoration:none;">portal</a>
+        <span style="margin:0 6px;opacity:0.4;">/</span>
+        <span>step01</span>
+      </div>
+      <div class="topbar-right">
+        <div class="status-chip"><div class="dot"></div>公開中</div>
+      </div>
+    </div>
+
+    <!-- CONTENT -->
+    <div class="content">
+
+      <!-- STEP HERO -->
+      <div class="step-hero">
+        <div class="step-hero-inner">
+          <div class="step-hero-text">
+            <div class="step-eyebrow">STEP 01 — GETTING STARTED</div>
+            <div class="step-title"><span class="accent">まず</span>、触ってみる。</div>
+            <p class="step-desc">
+              インストールから最初の会話まで、ここで全部分かります。<br>
+              難しいことは何もありません。一つひとつ、ゆっくり進みましょう。
+            </p>
+            <div class="step-meta">
+              <div class="step-meta-item">
+                <span>📄</span>
+                <span class="val">11</span>記事
+              </div>
+              <div class="step-meta-item">
+                <span>⏱</span>
+                <span class="val">約30分</span>で読み切れる
+              </div>
+              <div class="badge-goal">🎯 ゴール：Claudeと会話できるようになる</div>
+            </div>
+          </div>
+          <div id="hero-stamp-mount"></div>
+        </div>
+      </div>
+
+      <!-- 進捗バー -->
+      <div class="progress-wrap">
+        <div class="progress-label">PROGRESS</div>
+        <div class="progress-bar">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+        <div class="progress-count" id="progressCount">0 / 13</div>
+      </div>
+
+      <!-- 記事一覧 -->
+      <div class="section">
+        <div class="section-header">
+          <div class="section-title"><span>//</span> 記事一覧</div>
+          <div class="section-count">全 13 記事</div>
+        </div>
+
+        <div class="article-list">
+
+          <a class="al-item" href="00_このサイトの歩き方.html">
+            <div class="al-num">00</div>
+            <div class="al-icon">🗺</div>
+            <div class="al-body">
+              <div class="al-title">このサイトの歩き方</div>
+              <div class="al-desc">全体の地図・対象者・よくある疑問。まずここを読んでから始めましょう</div>
+            </div>
+            <div class="al-badge new-badge">START</div>
+            <div class="al-arrow">→</div>
+          </a>
+
+          <a class="al-item" href="01_Claudeを始める前に準備するもの.html">
+            <div class="al-num">01</div>
+            <div class="al-icon">📋</div>
+            <div class="al-body">
+              <div class="al-title">Claudeを始める前に準備するもの</div>
+              <div class="al-desc">メールアドレスの選び方・会社PCと個人PCどちらで登録すべきか・パスワードの決め方</div>
+            </div>
+            <div class="al-badge new-badge">NEW</div>
+            <div class="al-arrow">→</div>
+          </a>
+
+          <a class="al-item" href="02_Claudeのアカウント作成手順.html">
+            <div class="al-num">02</div>
+            <div class="al-icon">🔑</div>
+            <div class="al-body">
+              <div class="al-title">Claudeのアカウント作成手順</div>
+              <div class="al-desc">画面を見ながら1ステップずつ解説。迷わずアカウントを作れます</div>
+            </div>
+            <div class="al-badge new-badge">NEW</div>
+            <div class="al-arrow">→</div>
+          </a>
+
+          <a class="al-item" href="03_Claudeの初期設定とログイン確認.html">
+            <div class="al-num">03</div>
+            <div class="al-icon">⚙️</div>
+            <div class="al-body">
+              <div class="al-title">Claudeの初期設定とログイン確認</div>
+              <div class="al-desc">最初の画面の見方・ログインできているか確認する方法</div>
+            </div>
+            <div class="al-badge new-badge">NEW</div>
+            <div class="al-arrow">→</div>
+          </a>
+
+          <a class="al-item" href="04_Claudeの学習設定をオフにする方法.html">
+            <div class="al-num">04</div>
+            <div class="al-icon">🔒</div>
+            <div class="al-body">
+              <div class="al-title">Claudeの学習設定をオフにする方法</div>
+              <div class="al-desc">アカウント作成直後にやっておくべき3分の設定。プライバシー保護のために必ず確認</div>
+            </div>
+            <div class="al-badge new-badge">NEW</div>
+            <div class="al-arrow">→</div>
+          </a>
+
+          <a class="al-item" href="05_なぜAIを勉強すべきなの.html">
+            <div class="al-num">05</div>
+            <div class="al-icon">🤔</div>
+            <div class="al-body">
+              <div class="al-title">なぜ、AIを勉強すべきなの？</div>
+              <div class="al-desc">「別に使わなくてもいい」と思っている人こそ読んでほしい話</div>
+            </div>
+            <div class="al-arrow">→</div>
+          </a>
+
+          <a class="al-item" href="06_AIって難しそうで心配なんだけど.html">
+            <div class="al-num">06</div>
+            <div class="al-icon">😟</div>
+            <div class="al-body">
+              <div class="al-title">AIって難しそうで心配なんだけど</div>
+              <div class="al-desc">機械が苦手な人でも大丈夫。よくある不安を一つずつ解消します</div>
+            </div>
+            <div class="al-arrow">→</div>
+          </a>
+
+          <a class="al-item" href="07_AIを使うと何が便利なの.html">
+            <div class="al-num">07</div>
+            <div class="al-icon">✨</div>
+            <div class="al-body">
+              <div class="al-title">AIを使うと何が便利なの？</div>
+              <div class="al-desc">仕事・日常・学習、それぞれで「こんなことができる」を具体的に紹介</div>
+            </div>
+            <div class="al-arrow">→</div>
+          </a>
+
+          <a class="al-item" href="08_Claude画面の使い方.html">
+            <div class="al-num">08</div>
+            <div class="al-icon">🖥️</div>
+            <div class="al-body">
+              <div class="al-title">Claude画面の使い方</div>
+              <div class="al-desc">各ボタン・メニューの意味と使い方をやさしく解説</div>
+            </div>
+            <div class="al-arrow">→</div>
+          </a>
+
+          <a class="al-item" href="09_Claudeのログインありなしの違いは.html">
+            <div class="al-num">09</div>
+            <div class="al-icon">🔐</div>
+            <div class="al-body">
+              <div class="al-title">Claudeのログインありなしの違いは？</div>
+              <div class="al-desc">ログインしないと何ができない？アカウントを作るメリットを整理</div>
+            </div>
+            <div class="al-arrow">→</div>
+          </a>
+
+          <a class="al-item" href="10_AI初心者向けFAQ集.html">
+            <div class="al-num">10</div>
+            <div class="al-icon">❓</div>
+            <div class="al-body">
+              <div class="al-title">AI初心者向けFAQ集</div>
+              <div class="al-desc">「これ聞いていいの？」という素朴な疑問をまとめて解決</div>
+            </div>
+            <div class="al-arrow">→</div>
+          </a>
+
+          <a class="al-item" href="11_AI初心者による雑談10選.html">
+            <div class="al-num">11</div>
+            <div class="al-icon">💬</div>
+            <div class="al-body">
+              <div class="al-title">AIに慣れるために入力すべき雑談10選</div>
+              <div class="al-desc">難しいことは考えず、まずこれをコピーして貼り付けるだけでOK</div>
+            </div>
+            <div class="al-arrow">→</div>
+          </a>
+
+          <a class="al-item" href="12_主要AI比較表（Claude・ChatGPT・Gemini）.html">
+            <div class="al-num">12</div>
+            <div class="al-icon">📊</div>
+            <div class="al-body">
+              <div class="al-title">主要AI比較表（Claude・ChatGPT・Gemini）</div>
+              <div class="al-desc">3つのAIの得意・不得意を超初心者向けに分かりやすく比較</div>
+            </div>
+            <div class="al-badge new-badge">NEW</div>
+            <div class="al-arrow">→</div>
+          </a>
+
+        </div>
+      </div>
+
+      <!-- 完了バッジ -->
+      <div class="completion-banner">
+        <div class="cb-emoji">🎉</div>
+        <div class="cb-title">Step 01 完了！Claudeと話せるようになった！</div>
+        <div class="cb-desc">全13記事を読んだあなたは、もうAI初心者ではありません。次のStepへ進みましょう。</div>
+      </div>
+
+      <!-- 前後ナビ -->
+      <div class="step-nav">
+        <div class="step-nav-btn disabled">
+          <div class="step-nav-arrow">←</div>
+          <div>
+            <div class="step-nav-label">PREV STEP</div>
+            <div class="step-nav-title">（最初のステップです）</div>
+          </div>
+        </div>
+        <a class="step-nav-btn next" href="../../pages/step02-prompts/index.html">
+          <div>
+            <div class="step-nav-label">NEXT STEP</div>
+            <div class="step-nav-title">Step 02：うまく伝える</div>
+          </div>
+          <div class="step-nav-arrow">→</div>
+        </a>
+      </div>
+
+      <!-- FOOTER -->
+      <footer class="portal-footer">
+        <div class="footer-inner">
+          <div class="footer-logo"><img src="../../assets/logo-claude.png" alt="Powered by Claude"></div>
+          <div class="footer-text">
+            QUBELEY | OZ² — Powered by Oz<br>
+            Copyright © 2026 Oz. All rights reserved.
+          </div>
+        </div>
+      </footer>
+
+    </div><!-- /content -->
+  </div><!-- /main -->
+</div><!-- /layout -->
+
+<script src="../../assets/js/update-log.js"></script>
+<script src="../../assets/js/common.js"></script>
+<script>
+  /* 共通ヘッダー・スタンプを挿入（root='../../'はstep01配下のページ） */
+  renderSidebar({ root:'../../', active:'step01', sbLabel:'STEP', sbVal:'01<span> /05</span>', sbSub:'まず触ってみる' });
+  renderSiteHeader({ root: '../../' });
+  renderHeroStamp('../../');
+
+  /* 進捗バーアニメーション（将来的にlocalStorageで読んだ記事数を管理予定） */
+  window.addEventListener('load', () => {
+    const fill  = document.getElementById('progressFill');
+    const count = document.getElementById('progressCount');
+    const read = 0; /* 将来: localStorage等で管理 */
+    const total = 13;
+    if (fill) fill.style.width = (read / total * 100) + '%';
+    if (count) count.textContent = read + ' / ' + total;
+  });
+</script>
+</body>
+</html>

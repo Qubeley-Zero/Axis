@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Claudeの学習設定をオフにする方法 | Step 01 | OZ²</title>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Noto+Sans+JP:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/css/common.css">
+<style>
+.page-hero {
+  position:relative; z-index:1;
+  background:var(--ai-panel); border:1px solid var(--ai-border);
+  border-radius:14px; padding:28px 36px 24px;
+  margin-bottom:24px; overflow:hidden;
+}
+.page-hero::after {
+  content:'PRIVACY'; position:absolute; bottom:-16px; right:24px;
+  font-family:'Rajdhani',sans-serif; font-size:68px; font-weight:700;
+  color:rgba(255,140,66,0.04); line-height:1; pointer-events:none; letter-spacing:-2px;
+}
+.page-eyebrow { font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.2em; color:var(--accent); margin-bottom:10px; opacity:0; animation:fadeUp 0.5s ease 0.2s forwards; }
+.page-title { font-family:'Rajdhani',sans-serif; font-size:clamp(1.4rem,3vw,2rem); font-weight:700; color:#fff; margin-bottom:12px; line-height:1.1; opacity:0; animation:fadeUp 0.5s ease 0.35s forwards; }
+.page-lead { font-size:15px; color:#b0bec5; line-height:1.9; max-width:600px; opacity:0; animation:fadeUp 0.5s ease 0.5s forwards; }
+.page-time { display:inline-flex; align-items:center; gap:7px; margin-top:14px; font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--text-muted); opacity:0; animation:fadeUp 0.5s ease 0.65s forwards; }
+
+/* 結論ボックス */
+.conclusion-box {
+  background:linear-gradient(135deg,rgba(255,107,26,0.08),rgba(255,20,147,0.06));
+  border:1px solid rgba(255,107,26,0.3); border-radius:12px;
+  padding:20px 22px; margin-bottom:28px;
+}
+.conclusion-box .cb-title { font-size:13px; font-family:'JetBrains Mono',monospace; color:var(--accent); margin-bottom:10px; letter-spacing:0.1em; }
+.conclusion-box .cb-body { font-size:14px; color:#b0bec5; line-height:1.9; }
+.conclusion-box .cb-body strong { color:var(--text-primary); }
+
+/* 比較テーブル */
+.compare-table { width:100%; border-collapse:collapse; margin:14px 0; font-size:13px; }
+.compare-table th { font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.1em; padding:10px 14px; text-align:left; border-bottom:1px solid var(--ai-border); }
+.compare-table th:nth-child(2) { color:var(--accent3); }
+.compare-table th:nth-child(3) { color:#78909c; }
+.compare-table td { padding:10px 14px; border-bottom:1px solid var(--ai-border2); color:#b0bec5; vertical-align:top; line-height:1.7; }
+.compare-table td:first-child { color:var(--text-primary); font-weight:500; white-space:nowrap; }
+.compare-table tr:last-child td { border-bottom:none; }
+.badge-on { display:inline-block; font-size:10px; padding:1px 8px; border-radius:3px; background:rgba(52,211,153,0.1); color:var(--accent3); border:1px solid rgba(52,211,153,0.25); }
+.badge-off { display:inline-block; font-size:10px; padding:1px 8px; border-radius:3px; background:rgba(100,116,139,0.15); color:#78909c; border:1px solid rgba(100,116,139,0.2); }
+
+/* ステップカード */
+.step-cards { display:flex; flex-direction:column; gap:0; margin-bottom:28px; }
+.step-card { display:flex; gap:0; }
+.step-card-line { display:flex; flex-direction:column; align-items:center; width:52px; flex-shrink:0; }
+.step-card-num { width:38px; height:38px; border-radius:50%; flex-shrink:0; display:flex; align-items:center; justify-content:center; font-family:'JetBrains Mono',monospace; font-size:13px; font-weight:500; background:rgba(255,107,26,0.12); color:var(--accent); border:1.5px solid rgba(255,107,26,0.35); position:relative; z-index:1; }
+.step-card-connector { width:2px; flex:1; min-height:20px; background:linear-gradient(180deg,rgba(255,107,26,0.3),rgba(255,107,26,0.05)); margin:3px 0; }
+.step-card:last-child .step-card-connector { display:none; }
+.step-card-body { flex:1; padding:4px 0 24px 16px; }
+.step-card-title { font-size:15px; font-weight:500; color:var(--text-primary); margin-bottom:8px; }
+.step-card-desc { font-size:14px; color:#b0bec5; line-height:1.85; }
+
+/* 設定画面の再現 */
+.settings-mock {
+  background:rgba(0,0,0,0.3); border:1px solid var(--ai-border2);
+  border-radius:12px; overflow:hidden; margin:14px 0;
+}
+.settings-mock-tabs {
+  display:flex; gap:0; border-bottom:1px solid var(--ai-border2);
+  background:rgba(255,255,255,0.02); padding:0 16px;
+}
+.settings-tab {
+  font-size:12px; padding:10px 16px; cursor:default;
+  border-bottom:2px solid transparent; color:var(--text-muted);
+  font-family:'JetBrains Mono',monospace;
+}
+.settings-tab.active { border-bottom-color:var(--accent); color:var(--accent); }
+.settings-mock-body { padding:16px 20px; }
+.settings-row {
+  display:flex; align-items:center; justify-content:space-between;
+  gap:16px; padding:14px 0; border-bottom:1px solid var(--ai-border2);
+}
+.settings-row:last-child { border-bottom:none; }
+.settings-row-label { flex:1; }
+.settings-row-title { font-size:13px; color:var(--text-primary); margin-bottom:3px; }
+.settings-row-note { font-size:11px; color:var(--text-muted); line-height:1.6; }
+
+/* トグルスイッチ再現 */
+.toggle-wrap { display:flex; flex-direction:column; align-items:center; gap:4px; flex-shrink:0; }
+.toggle {
+  width:44px; height:24px; border-radius:12px; padding:3px;
+  display:flex; align-items:center; cursor:default; transition:background 0.25s;
+}
+.toggle.on { background:rgba(52,211,153,0.6); justify-content:flex-end; }
+.toggle.off { background:rgba(100,116,139,0.4); justify-content:flex-start; }
+.toggle-knob { width:18px; height:18px; border-radius:50%; background:#fff; }
+.toggle-state { font-family:'JetBrains Mono',monospace; font-size:9px; }
+.toggle-state.on { color:var(--accent3); }
+.toggle-state.off { color:#78909c; }
+
+/* タブ切り替え */
+.device-tabs { display:flex; gap:8px; margin-bottom:16px; }
+.device-tab {
+  padding:8px 18px; border-radius:20px; font-size:13px; cursor:pointer;
+  border:1px solid var(--ai-border2); color:var(--text-muted);
+  transition:all 0.2s; background:none;
+  font-family:'Noto Sans JP',sans-serif;
+}
+.device-tab.active {
+  background:rgba(255,107,26,0.12); border-color:rgba(255,107,26,0.4);
+  color:var(--accent);
+}
+.device-content { display:none; }
+.device-content.show { display:block; }
+
+/* ヒント・注意 */
+.hint-box { display:flex; gap:12px; align-items:flex-start; background:rgba(52,211,153,0.06); border:1px solid rgba(52,211,153,0.2); border-radius:10px; padding:14px 16px; margin:12px 0; }
+.hint-icon { font-size:17px; flex-shrink:0; margin-top:1px; }
+.hint-text { font-size:13px; color:#b0bec5; line-height:1.8; }
+.hint-text strong { color:var(--accent3); }
+.notice-box { display:flex; gap:12px; align-items:flex-start; background:rgba(255,107,26,0.06); border:1px solid rgba(255,107,26,0.2); border-radius:10px; padding:14px 16px; margin:12px 0; }
+.notice-icon { font-size:17px; flex-shrink:0; margin-top:1px; }
+.notice-text { font-size:13px; color:#b0bec5; line-height:1.8; }
+.notice-text strong { color:var(--accent); }
+
+/* FAQ */
+.qa-list { display:flex; flex-direction:column; gap:10px; margin-bottom:28px; }
+.qa-item { background:var(--ai-panel); border:1px solid var(--ai-border2); border-radius:10px; overflow:hidden; }
+.qa-q { display:flex; align-items:flex-start; gap:12px; padding:14px 18px; cursor:pointer; transition:background 0.2s; }
+.qa-q:hover { background:rgba(255,107,26,0.06); }
+.qa-q-mark { font-family:'JetBrains Mono',monospace; font-size:13px; color:var(--accent); flex-shrink:0; }
+.qa-q-text { font-size:14px; color:var(--text-primary); flex:1; line-height:1.6; }
+.qa-q-arrow { font-size:12px; color:var(--text-muted); flex-shrink:0; transition:transform 0.2s; }
+.qa-item.open .qa-q-arrow { transform:rotate(90deg); }
+.qa-a { max-height:0; overflow:hidden; transition:max-height 0.28s ease,padding 0.2s; padding:0 18px; font-size:14px; color:#b0bec5; line-height:1.9; }
+.qa-item.open .qa-a { max-height:200px; padding:0 18px 14px; }
+.qa-a-mark { font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--accent3); margin-right:6px; }
+
+/* CTA・前後ナビ */
+.cta-wrap { text-align:center; padding:24px; background:linear-gradient(135deg,rgba(255,107,26,0.06),rgba(255,20,147,0.06)); border:1px solid rgba(255,107,26,0.2); border-radius:12px; margin-bottom:28px; }
+.cta-wrap p { font-size:14px; color:#b0bec5; margin-bottom:16px; }
+.cta-btn { display:inline-flex; align-items:center; gap:10px; background:linear-gradient(135deg,var(--neon-orange),var(--neon-pink)); color:#fff; font-size:15px; font-weight:500; padding:12px 32px; border-radius:24px; text-decoration:none; box-shadow:0 0 20px rgba(255,107,26,0.35); transition:transform 0.2s,box-shadow 0.2s; }
+.page-nav { display:flex; gap:12px; margin-top:28px; }
+.page-nav-btn { flex:1; display:flex; align-items:center; gap:12px; background:var(--ai-panel); border:1px solid var(--ai-border2); border-radius:10px; padding:14px 18px; text-decoration:none; transition:border-color 0.2s,background 0.2s,box-shadow 0.2s,transform 0.2s; }
+.page-nav-btn.next { justify-content:flex-end; text-align:right; }
+.page-nav-label { font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--text-muted); margin-bottom:3px; }
+.page-nav-title { font-size:13px; color:var(--text-primary); font-weight:500; }
+.page-nav-arrow { font-size:18px; color:var(--accent); flex-shrink:0; }
+
+@media (max-width:768px) {
+  .page-hero { padding:20px 18px 18px; }
+  .page-hero[style] { grid-template-columns:1fr !important; }
+  .compare-table td:nth-child(2), .compare-table th:nth-child(2) { display:none; }
+  .page-nav { flex-direction:column; }
+}
+</style>
+</head>
+<body>
+<div class="grid-bg"></div>
+<canvas id="trail-canvas"></canvas>
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+<header class="site-header" id="site-header-mount"></header>
+<div class="scanline-wrap"><div class="scanline"></div></div>
+
+<div class="layout">
+  <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+  <aside class="sidebar" id="sidebar"></aside>
+
+  <div class="main">
+    <div class="topbar">
+      <div class="topbar-path">
+        <a href="../../index.html" style="color:inherit;text-decoration:none;">portal</a>
+        <span style="margin:0 6px;opacity:0.4;">/</span>
+        <a href="index.html" style="color:inherit;text-decoration:none;">step01</a>
+        <span style="margin:0 6px;opacity:0.4;">/</span>
+        <span>学習設定</span>
+      </div>
+      <div class="topbar-right">
+        <div class="status-chip"><div class="dot"></div>公開中</div>
+      </div>
+    </div>
+
+    <div class="content">
+
+      <!-- HERO -->
+      <div class="page-hero" style="display:grid; grid-template-columns:1fr auto; gap:20px; align-items:center;">
+        <div>
+          <div class="page-eyebrow">STEP 01 — 04 / PRIVACY SETTINGS</div>
+          <div class="page-title">Claudeの学習設定を<br>オフにする方法</div>
+          <p class="page-lead">
+            アカウントを作ったら、まずこの設定だけやっておきましょう。<br>
+            3分で完了します。特にお仕事でClaudeを使う方は必ず確認してください。
+          </p>
+          <div class="page-time">⏱ 約3分で完了します</div>
+        </div>
+        <div id="hero-stamp-mount"></div>
+      </div>
+
+      <!-- 結論ボックス -->
+      <div class="conclusion-box">
+        <div class="cb-title">[ まず結論から ]</div>
+        <div class="cb-body">
+          Claudeに話しかけた内容は、<strong>初期状態ではAnthropicのAI改善に使われる場合があります</strong>。<br>
+          設定から <strong>「モデルのトレーニングに会話を使用しない」をオフ</strong> にすることで、あなたの会話は学習データとして使われなくなります。<br>
+          この設定は<strong>無料プラン・有料プランどちらでも変更できます。</strong>
+        </div>
+      </div>
+
+      <!-- 比較表 -->
+      <div class="section">
+        <div class="section-header">
+          <div class="section-title"><span>//</span> オンとオフ、何が違う？</div>
+        </div>
+        <table class="compare-table">
+          <thead>
+            <tr>
+              <th>比較ポイント</th>
+              <th>🟢 オン（初期状態）</th>
+              <th>⚫ オフ（推奨）</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>会話の扱い</td>
+              <td><span class="badge-on">学習に使われる場合あり</span></td>
+              <td><span class="badge-off">学習には使われない</span></td>
+            </tr>
+            <tr>
+              <td>Claudeの回答品質</td>
+              <td colspan="2" style="text-align:center; color:var(--text-muted);">変わらない（どちらも同じ）</td>
+            </tr>
+            <tr>
+              <td>料金への影響</td>
+              <td colspan="2" style="text-align:center; color:var(--text-muted);">変わらない（どちらも無料）</td>
+            </tr>
+            <tr>
+              <td>おすすめの人</td>
+              <td>AI改善に協力したい方</td>
+              <td>業務情報・個人情報を扱う方・プライバシーを重視する方</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="notice-box">
+          <div class="notice-icon">⚠️</div>
+          <div class="notice-text">
+            設定をオフにしても、<strong>安全性・セキュリティのためにAnthropicが会話内容を確認することはあります</strong>。完全に誰にも見られないわけではありません。業務上の機密情報や個人情報の入力には引き続き注意してください（詳しくはStep03で学びます）。
+          </div>
+        </div>
+      </div>
+
+      <!-- 設定手順 -->
+      <div class="section">
+        <div class="section-header">
+          <div class="section-title"><span>//</span> 設定の変更手順</div>
+        </div>
+
+        <div class="device-tabs">
+          <button class="device-tab active" onclick="switchDevice('pc', this)">💻 パソコン</button>
+          <button class="device-tab" onclick="switchDevice('sp', this)">📱 スマートフォン</button>
+        </div>
+
+        <!-- パソコン手順 -->
+        <div class="device-content show" id="content-pc">
+          <div class="step-cards">
+            <div class="step-card">
+              <div class="step-card-line">
+                <div class="step-card-num">1</div>
+                <div class="step-card-connector"></div>
+              </div>
+              <div class="step-card-body">
+                <div class="step-card-title">画面左下の名前・アイコンをクリック</div>
+                <div class="step-card-desc">
+                  claude.aiにログインした状態で、画面<strong style="color:var(--text-primary);">左下</strong>に表示されているあなたの名前またはアイコンをクリックします。小さなメニューが表示されます。
+                </div>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-card-line">
+                <div class="step-card-num">2</div>
+                <div class="step-card-connector"></div>
+              </div>
+              <div class="step-card-body">
+                <div class="step-card-title">「設定（Settings）」をクリック</div>
+                <div class="step-card-desc">
+                  メニューの中から <strong style="color:var(--accent);">「設定（Settings）」</strong> をクリックします。設定画面が開きます。
+                </div>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-card-line">
+                <div class="step-card-num">3</div>
+                <div class="step-card-connector"></div>
+              </div>
+              <div class="step-card-body">
+                <div class="step-card-title">「プライバシー（Privacy）」タブをクリック</div>
+                <div class="step-card-desc">
+                  設定画面の上部に複数のタブが並んでいます。<strong style="color:var(--accent);">「プライバシー（Privacy）」</strong> タブをクリックしてください。
+                </div>
+                <div class="settings-mock" style="margin-top:12px;">
+                  <div class="settings-mock-tabs">
+                    <div class="settings-tab active">Privacy</div>
+                    <div class="settings-tab">Profile</div>
+                    <div class="settings-tab">Notifications</div>
+                  </div>
+                  <div style="padding:8px 16px; font-size:11px; color:var(--text-muted); font-family:'JetBrains Mono',monospace;">← このタブを選ぶ</div>
+                </div>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-card-line">
+                <div class="step-card-num">4</div>
+                <div class="step-card-connector"></div>
+              </div>
+              <div class="step-card-body">
+                <div class="step-card-title">学習設定のスイッチをオフにする</div>
+                <div class="step-card-desc">
+                  「プライバシー」画面の中に <strong style="color:var(--text-primary);">「モデルのトレーニングへの会話の使用を許可する」</strong>（Allow your conversations to be used for model training）という項目があります。スイッチをクリックして<strong style="color:var(--accent);">グレー（OFF）</strong>にしてください。
+                </div>
+                <div class="settings-mock" style="margin-top:12px;">
+                  <div class="settings-mock-body">
+                    <div class="settings-row">
+                      <div class="settings-row-label">
+                        <div class="settings-row-title">モデルのトレーニングへの会話の使用を許可する</div>
+                        <div class="settings-row-note">Allow your conversations to be used for model training</div>
+                      </div>
+                      <div class="toggle-wrap">
+                        <div class="toggle off"><div class="toggle-knob"></div></div>
+                        <span class="toggle-state off">OFF ← 目指す状態</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="hint-box" style="margin-top:12px;">
+                  <div class="hint-icon">💡</div>
+                  <div class="hint-text">
+                    <strong>保存ボタンはありません。</strong>スイッチを切り替えた瞬間に自動で保存されます。スイッチがグレーになっていれば設定完了です。
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- スマートフォン手順 -->
+        <div class="device-content" id="content-sp">
+          <div class="hint-box" style="margin-bottom:16px;">
+            <div class="hint-icon">📱</div>
+            <div class="hint-text">
+              スマートフォンでもパソコンと同じ設定ができます。Claude公式アプリ（iOS・Android）またはスマホのブラウザからclaudeにアクセスして、以下の手順で進めてください。
+            </div>
+          </div>
+          <div class="step-cards">
+            <div class="step-card">
+              <div class="step-card-line">
+                <div class="step-card-num">1</div>
+                <div class="step-card-connector"></div>
+              </div>
+              <div class="step-card-body">
+                <div class="step-card-title">左上または右上のメニューを開く</div>
+                <div class="step-card-desc">
+                  アプリの場合は画面上部にあるハンバーガーメニュー（三本線）または自分のアイコンをタップします。ブラウザの場合は画面下部または左側のメニューアイコンをタップします。
+                </div>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-card-line">
+                <div class="step-card-num">2</div>
+                <div class="step-card-connector"></div>
+              </div>
+              <div class="step-card-body">
+                <div class="step-card-title">「設定（Settings）」を開く</div>
+                <div class="step-card-desc">
+                  メニューの中から <strong style="color:var(--accent);">「設定（Settings）」</strong> をタップします。
+                </div>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-card-line">
+                <div class="step-card-num">3</div>
+              </div>
+              <div class="step-card-body">
+                <div class="step-card-title">「プライバシー」→ スイッチをオフにする</div>
+                <div class="step-card-desc">
+                  <strong style="color:var(--accent);">「プライバシー（Privacy）」</strong> をタップし、「モデルのトレーニングへの会話の使用を許可する」のスイッチをグレーにします。パソコンと同じく、自動保存されます。
+                </div>
+                <div class="notice-box">
+                  <div class="notice-icon">⚠️</div>
+                  <div class="notice-text">
+                    アプリのバージョンによってメニューの位置が異なる場合があります。「Settings」という文字を探してください。
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- FAQ -->
+      <div class="section">
+        <div class="section-header">
+          <div class="section-title"><span>//</span> よくある質問</div>
+        </div>
+        <div class="qa-list">
+          <div class="qa-item">
+            <div class="qa-q" onclick="toggleQa(this)">
+              <div class="qa-q-mark">Q.</div>
+              <div class="qa-q-text">オフにするとClaudeの回答が悪くなりますか？</div>
+              <div class="qa-q-arrow">▸</div>
+            </div>
+            <div class="qa-a">
+              <span class="qa-a-mark">A.</span>なりません。この設定はあくまで「今後のモデル改善に会話を使うかどうか」の設定です。あなたとClaudeの今の会話の質には一切影響しません。
+            </div>
+          </div>
+          <div class="qa-item">
+            <div class="qa-q" onclick="toggleQa(this)">
+              <div class="qa-q-mark">Q.</div>
+              <div class="qa-q-text">設定を変える前の会話は学習に使われてしまいますか？</div>
+              <div class="qa-q-arrow">▸</div>
+            </div>
+            <div class="qa-a">
+              <span class="qa-a-mark">A.</span>設定変更前の会話については、Anthropicのプライバシーポリシーに従って取り扱われます。気になる方はアカウント作成直後に設定を変えておくのが最善です。
+            </div>
+          </div>
+          <div class="qa-item">
+            <div class="qa-q" onclick="toggleQa(this)">
+              <div class="qa-q-mark">Q.</div>
+              <div class="qa-q-text">設定をオフにすれば、会話内容は誰にも見られませんか？</div>
+              <div class="qa-q-arrow">▸</div>
+            </div>
+            <div class="qa-a">
+              <span class="qa-a-mark">A.</span>そうではありません。安全性・セキュリティの確認のためにAnthropicが会話内容を確認する場合があります。機密情報や個人情報の入力は、オン・オフにかかわらず控えることをおすすめします。
+            </div>
+          </div>
+          <div class="qa-item">
+            <div class="qa-q" onclick="toggleQa(this)">
+              <div class="qa-q-mark">Q.</div>
+              <div class="qa-q-text">後からオンに戻せますか？</div>
+              <div class="qa-q-arrow">▸</div>
+            </div>
+            <div class="qa-a">
+              <span class="qa-a-mark">A.</span>はい、いつでも同じ手順でオン・オフを切り替えられます。
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CTA -->
+      <div class="cta-wrap">
+        <p>設定が完了したら、次はClaudeの画面の使い方を覚えましょう。</p>
+        <a class="cta-btn" href="05_なぜAIを勉強すべきなの.html">次へ：なぜAIを勉強すべきなの？ →</a>
+      </div>
+
+      <!-- 前後ナビ -->
+      <div class="page-nav">
+        <a class="page-nav-btn" href="03_Claudeの初期設定とログイン確認.html">
+          <div class="page-nav-arrow">←</div>
+          <div>
+            <div class="page-nav-label">PREV</div>
+            <div class="page-nav-title">03：Claudeの初期設定とログイン確認</div>
+          </div>
+        </a>
+        <a class="page-nav-btn next" href="05_なぜAIを勉強すべきなの.html">
+          <div>
+            <div class="page-nav-label">NEXT</div>
+            <div class="page-nav-title">05：なぜAIを勉強すべきなの？</div>
+          </div>
+          <div class="page-nav-arrow">→</div>
+        </a>
+      </div>
+
+      <footer class="portal-footer">
+        <div class="footer-inner">
+          <div class="footer-logo"><img src="../../assets/logo-claude.png" alt="Powered by Claude"></div>
+          <div class="footer-text">
+            QUBELEY | OZ² — Powered by Oz<br>
+            Copyright © 2026 Oz. All rights reserved.
+          </div>
+        </div>
+      </footer>
+
+    </div>
+  </div>
+</div>
+
+<script src="../../assets/js/update-log.js"></script>
+<script src="../../assets/js/common.js"></script>
+<script>
+  renderSidebar({ root:'../../', active:'step01', sbLabel:'STEP', sbVal:'01<span> /05</span>', sbSub:'まず触ってみる' });
+  renderSiteHeader({ root: '../../' });
+  renderHeroStamp('../../');
+
+  /* デバイスタブ切り替え */
+  function switchDevice(device, btn) {
+    document.querySelectorAll('.device-content').forEach(el => el.classList.remove('show'));
+    document.querySelectorAll('.device-tab').forEach(el => el.classList.remove('active'));
+    document.getElementById('content-' + device).classList.add('show');
+    btn.classList.add('active');
+  }
+
+  /* Q&Aアコーディオン */
+  function toggleQa(qEl) {
+    qEl.closest('.qa-item').classList.toggle('open');
+  }
+</script>
+</body>
+</html>

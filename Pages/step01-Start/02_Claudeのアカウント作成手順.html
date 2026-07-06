@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Claudeのアカウント作成手順 | Step 01 | OZ²</title>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Noto+Sans+JP:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/css/common.css">
+<style>
+.page-hero {
+  position:relative; z-index:1;
+  background:var(--ai-panel); border:1px solid var(--ai-border);
+  border-radius:14px; padding:28px 36px 24px;
+  margin-bottom:24px; overflow:hidden;
+}
+.page-hero::after {
+  content:'SIGN UP'; position:absolute; bottom:-16px; right:24px;
+  font-family:'Rajdhani',sans-serif; font-size:72px; font-weight:700;
+  color:rgba(255,140,66,0.04); line-height:1; pointer-events:none; letter-spacing:-2px;
+}
+.page-eyebrow {
+  font-family:'JetBrains Mono',monospace; font-size:11px;
+  letter-spacing:0.2em; color:var(--accent); margin-bottom:10px;
+  opacity:0; animation:fadeUp 0.5s ease 0.2s forwards;
+}
+.page-title {
+  font-family:'Rajdhani',sans-serif; font-size:clamp(1.4rem,3vw,2rem);
+  font-weight:700; color:#fff; margin-bottom:12px; line-height:1.1;
+  opacity:0; animation:fadeUp 0.5s ease 0.35s forwards;
+}
+.page-lead { font-size:15px; color:#b0bec5; line-height:1.9; max-width:600px; opacity:0; animation:fadeUp 0.5s ease 0.5s forwards; }
+.page-time { display:inline-flex; align-items:center; gap:7px; margin-top:14px; font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--text-muted); opacity:0; animation:fadeUp 0.5s ease 0.65s forwards; }
+
+/* ステップカード */
+.step-cards { display:flex; flex-direction:column; gap:0; margin-bottom:28px; }
+.step-card { display:flex; gap:0; }
+.step-card-line { display:flex; flex-direction:column; align-items:center; width:52px; flex-shrink:0; }
+.step-card-num {
+  width:38px; height:38px; border-radius:50%; flex-shrink:0;
+  display:flex; align-items:center; justify-content:center;
+  font-family:'JetBrains Mono',monospace; font-size:13px; font-weight:500;
+  background:rgba(255,107,26,0.12); color:var(--accent);
+  border:1.5px solid rgba(255,107,26,0.35); position:relative; z-index:1;
+}
+.step-card-num.trouble { background:rgba(100,116,139,0.15); color:var(--text-muted); border-color:rgba(100,116,139,0.3); }
+.step-card-connector { width:2px; flex:1; min-height:20px; background:linear-gradient(180deg,rgba(255,107,26,0.3),rgba(255,107,26,0.05)); margin:3px 0; }
+.step-card:last-child .step-card-connector { display:none; }
+.step-card-body { flex:1; padding:4px 0 28px 16px; }
+.step-card-title { font-size:15px; font-weight:500; color:var(--text-primary); margin-bottom:8px; line-height:1.4; }
+.step-card-desc { font-size:14px; color:#b0bec5; line-height:1.85; margin-bottom:0; }
+
+/* URL表示 */
+.url-display {
+  display:inline-flex; align-items:center; gap:10px;
+  background:rgba(0,0,0,0.3); border:1px solid var(--ai-border2);
+  border-radius:8px; padding:10px 16px; margin:10px 0;
+  font-family:'JetBrains Mono',monospace;
+}
+.url-display .url-icon { font-size:14px; color:var(--text-muted); }
+.url-display .url-text { font-size:15px; color:var(--accent); letter-spacing:0.04em; }
+
+/* ボタン再現 */
+.ui-btn-wrap { display:flex; gap:10px; flex-wrap:wrap; margin:14px 0; align-items:flex-start; }
+.ui-btn {
+  display:inline-flex; align-items:center; gap:8px;
+  border-radius:8px; padding:9px 20px; font-size:13px; font-weight:500;
+  border:none; cursor:default; font-family:inherit;
+}
+.ui-btn-google { background:#fff; color:#3c4043; box-shadow:0 1px 3px rgba(0,0,0,0.4); }
+.ui-btn-google .g-icon { width:18px; height:18px; background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%234285F4' d='M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z'/%3E%3Cpath fill='%2334A853' d='M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z'/%3E%3Cpath fill='%23FBBC05' d='M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z'/%3E%3Cpath fill='%23EA4335' d='M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z'/%3E%3C/svg%3E") no-repeat center/contain; flex-shrink:0; }
+.ui-btn-email { background:var(--ai-panel2); color:var(--text-primary); border:1px solid var(--ai-border2); }
+.ui-btn-primary { background:linear-gradient(135deg,#FF6B1A,#FF1493); color:#fff; box-shadow:0 0 12px rgba(255,107,26,0.4); }
+.ui-btn-label { font-size:11px; color:var(--text-muted); font-family:'JetBrains Mono',monospace; margin-top:4px; display:block; }
+
+/* ヒント・注意ボックス */
+.hint-box { display:flex; gap:12px; align-items:flex-start; background:rgba(52,211,153,0.06); border:1px solid rgba(52,211,153,0.2); border-radius:10px; padding:14px 16px; margin:12px 0; }
+.hint-icon { font-size:17px; flex-shrink:0; margin-top:1px; }
+.hint-text { font-size:13px; color:#b0bec5; line-height:1.8; }
+.hint-text strong { color:var(--accent3); }
+.notice-box { display:flex; gap:12px; align-items:flex-start; background:rgba(255,107,26,0.06); border:1px solid rgba(255,107,26,0.2); border-radius:10px; padding:14px 16px; margin:12px 0; }
+.notice-icon { font-size:17px; flex-shrink:0; margin-top:1px; }
+.notice-text { font-size:13px; color:#b0bec5; line-height:1.8; }
+.notice-text strong { color:var(--accent); }
+
+/* 完了バナー */
+.complete-check { display:flex; align-items:center; gap:12px; background:rgba(52,211,153,0.06); border:1px solid rgba(52,211,153,0.2); border-radius:10px; padding:16px 18px; margin-top:16px; }
+.complete-check-icon { font-size:20px; }
+.complete-check-text { font-size:14px; color:#b0bec5; line-height:1.7; }
+.complete-check-text strong { color:#4db6ac; }
+
+/* CTA・前後ナビ */
+.cta-wrap { text-align:center; padding:24px; background:linear-gradient(135deg,rgba(255,107,26,0.06),rgba(255,20,147,0.06)); border:1px solid rgba(255,107,26,0.2); border-radius:12px; margin-bottom:28px; }
+.cta-wrap p { font-size:14px; color:#b0bec5; margin-bottom:16px; }
+.cta-btn { display:inline-flex; align-items:center; gap:10px; background:linear-gradient(135deg,var(--neon-orange),var(--neon-pink)); color:#fff; font-size:15px; font-weight:500; padding:12px 32px; border-radius:24px; text-decoration:none; box-shadow:0 0 20px rgba(255,107,26,0.35); transition:transform 0.2s,box-shadow 0.2s; }
+.page-nav { display:flex; gap:12px; margin-top:28px; }
+.page-nav-btn { flex:1; display:flex; align-items:center; gap:12px; background:var(--ai-panel); border:1px solid var(--ai-border2); border-radius:10px; padding:14px 18px; text-decoration:none; transition:border-color 0.2s,background 0.2s,box-shadow 0.2s,transform 0.2s; }
+.page-nav-btn.next { justify-content:flex-end; text-align:right; }
+.page-nav-label { font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--text-muted); margin-bottom:3px; }
+.page-nav-title { font-size:13px; color:var(--text-primary); font-weight:500; }
+.page-nav-arrow { font-size:18px; color:var(--accent); flex-shrink:0; }
+
+@media (max-width:768px) {
+  .page-hero { padding:20px 18px 18px; }
+  .page-hero[style] { grid-template-columns:1fr !important; }
+  .page-nav { flex-direction:column; }
+}
+</style>
+</head>
+<body>
+<div class="grid-bg"></div>
+<canvas id="trail-canvas"></canvas>
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+<header class="site-header" id="site-header-mount"></header>
+<div class="scanline-wrap"><div class="scanline"></div></div>
+
+<div class="layout">
+  <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+  <aside class="sidebar" id="sidebar"></aside>
+
+  <div class="main">
+    <div class="topbar">
+      <div class="topbar-path">
+        <a href="../../index.html" style="color:inherit;text-decoration:none;">portal</a>
+        <span style="margin:0 6px;opacity:0.4;">/</span>
+        <a href="index.html" style="color:inherit;text-decoration:none;">step01</a>
+        <span style="margin:0 6px;opacity:0.4;">/</span>
+        <span>アカウント作成</span>
+      </div>
+      <div class="topbar-right">
+        <div class="status-chip"><div class="dot"></div>公開中</div>
+      </div>
+    </div>
+
+    <div class="content">
+
+      <!-- HERO -->
+      <div class="page-hero" style="display:grid; grid-template-columns:1fr auto; gap:20px; align-items:center;">
+        <div>
+          <div class="page-eyebrow">STEP 01 — 02 / ACCOUNT SETUP</div>
+          <div class="page-title">Claudeのアカウント<br>作成手順</div>
+          <p class="page-lead">
+            画面を見ながら一緒に進めましょう。<br>
+            迷う場面ごとに解説を入れてあるので、つまずかずに完了できます。
+          </p>
+          <div class="page-time">⏱ 約10分で完了します</div>
+        </div>
+        <div id="hero-stamp-mount"></div>
+      </div>
+
+      <!-- 事前確認 -->
+      <div class="section">
+        <div class="section-header">
+          <div class="section-title"><span>//</span> 始める前に確認</div>
+        </div>
+        <div class="hint-box">
+          <div class="hint-icon">📋</div>
+          <div class="hint-text">
+            前のページ「<a href="01_Claudeを始める前に準備するもの.html" style="color:var(--accent);">Claudeを始める前に準備するもの</a>」を読んで、使うメールアドレスが決まっていますか？まだの方は先にそちらを読んでから戻ってきてください。
+          </div>
+        </div>
+      </div>
+
+      <!-- 手順 -->
+      <div class="section">
+        <div class="section-header">
+          <div class="section-title"><span>//</span> アカウント作成の手順</div>
+          <div class="section-count">6 STEPS</div>
+        </div>
+
+        <div class="step-cards">
+
+          <div class="step-card">
+            <div class="step-card-line">
+              <div class="step-card-num">1</div>
+              <div class="step-card-connector"></div>
+            </div>
+            <div class="step-card-body">
+              <div class="step-card-title">ブラウザでClaude.aiを開く</div>
+              <div class="step-card-desc">
+                ChromeやEdgeのアドレスバーに以下のURLを入力してEnterを押します。
+              </div>
+              <div class="url-display">
+                <span class="url-icon">🔗</span>
+                <span class="url-text">claude.ai</span>
+              </div>
+              <div class="hint-box">
+                <div class="hint-icon">💡</div>
+                <div class="hint-text">
+                  <strong>「.com」ではなく「.ai」</strong>です。<code style="font-family:'JetBrains Mono',monospace; background:rgba(255,255,255,0.06); padding:1px 6px; border-radius:3px;">claude.com</code> と <code style="font-family:'JetBrains Mono',monospace; background:rgba(255,255,255,0.06); padding:1px 6px; border-radius:3px;">claude.ai</code> は別物なので注意してください。
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="step-card">
+            <div class="step-card-line">
+              <div class="step-card-num">2</div>
+              <div class="step-card-connector"></div>
+            </div>
+            <div class="step-card-body">
+              <div class="step-card-title">「Sign up」ボタンをクリックする</div>
+              <div class="step-card-desc">
+                トップページを開くと、以下のようなボタンが表示されています。「Sign up」をクリックしてください。
+              </div>
+              <div class="ui-btn-wrap">
+                <div>
+                  <button class="ui-btn ui-btn-primary">Sign up</button>
+                  <span class="ui-btn-label">← このボタン</span>
+                </div>
+              </div>
+              <div class="hint-box">
+                <div class="hint-icon">💡</div>
+                <div class="hint-text">
+                  すでにアカウントを持っている方は「Log in」をクリックしてください。「Sign up」と「Log in」は同じページ内に並んで表示されています。
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="step-card">
+            <div class="step-card-line">
+              <div class="step-card-num">3</div>
+              <div class="step-card-connector"></div>
+            </div>
+            <div class="step-card-body">
+              <div class="step-card-title">登録方法を選ぶ（ここが一番迷うポイント）</div>
+              <div class="step-card-desc">
+                2種類のボタンが表示されます。Gmailをお持ちの方は上のボタンがおすすめです。
+              </div>
+              <div class="ui-btn-wrap" style="flex-direction:column; align-items:flex-start;">
+                <div>
+                  <button class="ui-btn ui-btn-google"><span class="g-icon"></span>Continue with Google</button>
+                  <span class="ui-btn-label">✅ Gmailをお持ちの方はこちらがおすすめ（入力が少ない）</span>
+                </div>
+                <div style="margin-top:4px;">
+                  <button class="ui-btn ui-btn-email">✉️ Continue with email</button>
+                  <span class="ui-btn-label">Gmail以外のメールアドレスを使う方はこちら</span>
+                </div>
+              </div>
+              <div class="notice-box">
+                <div class="notice-icon">⚠️</div>
+                <div class="notice-text">
+                  「Continue with Google」を選んだ場合、次の画面でGoogleアカウントの選択が求められます。<strong>個人のGmailアカウントを選んでください</strong>。会社のGoogleアカウントが表示されている場合は、そちらを選ばないよう注意してください。
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="step-card">
+            <div class="step-card-line">
+              <div class="step-card-num">4</div>
+              <div class="step-card-connector"></div>
+            </div>
+            <div class="step-card-body">
+              <div class="step-card-title">メール認証を完了する</div>
+              <div class="step-card-desc">
+                「Continue with email」を選んだ場合、登録したメールアドレスに確認メールが届きます。メールを開いて<strong style="color:var(--accent);">「Verify email address」</strong>ボタンをクリックしてください。
+              </div>
+              <div class="notice-box">
+                <div class="notice-icon">⚠️</div>
+                <div class="notice-text">
+                  確認メールが届かない場合は<strong>迷惑メールフォルダ</strong>を確認してください。送信元は <code style="font-family:'JetBrains Mono',monospace; background:rgba(255,255,255,0.06); padding:1px 6px; border-radius:3px;">no-reply@anthropic.com</code> です。数分待っても届かない場合は再送を試してください。
+                </div>
+              </div>
+              <div class="hint-box">
+                <div class="hint-icon">💡</div>
+                <div class="hint-text">
+                  「Continue with Google」を選んだ方はこのステップは不要です。Googleがすでにメールアドレスを確認済みのため、自動的にスキップされます。
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="step-card">
+            <div class="step-card-line">
+              <div class="step-card-num">5</div>
+              <div class="step-card-connector"></div>
+            </div>
+            <div class="step-card-body">
+              <div class="step-card-title">利用規約に同意する</div>
+              <div class="step-card-desc">
+                利用規約（Terms of Service）とプライバシーポリシーの確認画面が表示されます。確認して同意ボタンをクリックしてください。
+              </div>
+              <div class="ui-btn-wrap">
+                <div>
+                  <button class="ui-btn ui-btn-primary">I agree to the Terms</button>
+                  <span class="ui-btn-label">← このボタンをクリック</span>
+                </div>
+              </div>
+              <div class="hint-box">
+                <div class="hint-icon">💡</div>
+                <div class="hint-text">
+                  利用規約は英語で表示されますが、要点は「<strong>18歳以上であること</strong>」「<strong>会話内容がサービス改善に使われる場合があること</strong>」の2点です。仕事上の機密情報をAIに入力する際の注意点はStep03で詳しく学びます。
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="step-card">
+            <div class="step-card-line">
+              <div class="step-card-num">6</div>
+            </div>
+            <div class="step-card-body">
+              <div class="step-card-title">チャット画面が開いたら完了！</div>
+              <div class="step-card-desc">
+                同意が完了すると、Claudeのチャット画面が自動的に開きます。画面中央に大きなテキスト入力欄が表示されていれば成功です。
+              </div>
+              <div class="complete-check">
+                <div class="complete-check-icon">🎉</div>
+                <div class="complete-check-text">
+                  <strong>アカウント作成完了！</strong><br>
+                  これでClaudeが使える状態になりました。次のページで画面の見方と初期設定を確認しましょう。
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- よくあるトラブル -->
+      <div class="section">
+        <div class="section-header">
+          <div class="section-title"><span>//</span> うまくいかないときは</div>
+        </div>
+        <div class="step-cards">
+          <div class="step-card">
+            <div class="step-card-line">
+              <div class="step-card-num trouble">?</div>
+              <div class="step-card-connector"></div>
+            </div>
+            <div class="step-card-body">
+              <div class="step-card-title">「このメールアドレスはすでに登録されています」と表示された</div>
+              <div class="step-card-desc">
+                過去に同じメールアドレスでアカウントを作ったことがある可能性があります。「Sign up」ではなく「Log in」からログインを試してください。パスワードを忘れた場合は「Forgot password?」から再設定できます。
+              </div>
+            </div>
+          </div>
+          <div class="step-card">
+            <div class="step-card-line">
+              <div class="step-card-num trouble">?</div>
+              <div class="step-card-connector"></div>
+            </div>
+            <div class="step-card-body">
+              <div class="step-card-title">確認メールのリンクをクリックしても何も起きない</div>
+              <div class="step-card-desc">
+                確認メールのリンクには有効期限（通常24時間）があります。期限切れの場合は登録画面に戻り「確認メールを再送」を試してください。
+              </div>
+            </div>
+          </div>
+          <div class="step-card">
+            <div class="step-card-line">
+              <div class="step-card-num trouble">?</div>
+            </div>
+            <div class="step-card-body">
+              <div class="step-card-title">会社のパソコンでページが開かない・エラーが出る</div>
+              <div class="step-card-desc">
+                会社のネットワーク（ファイアウォール等）によってアクセスが制限されている場合があります。IT部門に「claude.aiへのアクセスを許可してほしい」と相談してみてください。
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CTA -->
+      <div class="cta-wrap">
+        <p>アカウントが作れたら、次は画面の見方と初期設定を確認しましょう。</p>
+        <a class="cta-btn" href="03_Claudeの初期設定とログイン確認.html">次へ：初期設定を確認する →</a>
+      </div>
+
+      <!-- 前後ナビ -->
+      <div class="page-nav">
+        <a class="page-nav-btn" href="01_Claudeを始める前に準備するもの.html">
+          <div class="page-nav-arrow">←</div>
+          <div>
+            <div class="page-nav-label">PREV</div>
+            <div class="page-nav-title">01：Claudeを始める前に準備するもの</div>
+          </div>
+        </a>
+        <a class="page-nav-btn next" href="03_Claudeの初期設定とログイン確認.html">
+          <div>
+            <div class="page-nav-label">NEXT</div>
+            <div class="page-nav-title">03：Claudeの初期設定とログイン確認</div>
+          </div>
+          <div class="page-nav-arrow">→</div>
+        </a>
+      </div>
+
+      <footer class="portal-footer">
+        <div class="footer-inner">
+          <div class="footer-logo"><img src="../../assets/logo-claude.png" alt="Powered by Claude"></div>
+          <div class="footer-text">
+            QUBELEY | OZ² — Powered by Oz<br>
+            Copyright © 2026 Oz. All rights reserved.
+          </div>
+        </div>
+      </footer>
+
+    </div>
+  </div>
+</div>
+
+<script src="../../assets/js/update-log.js"></script>
+<script src="../../assets/js/common.js"></script>
+<script>
+  renderSidebar({ root:'../../', active:'step01', sbLabel:'STEP', sbVal:'01<span> /05</span>', sbSub:'まず触ってみる' });
+  renderSiteHeader({ root: '../../' });
+  renderHeroStamp('../../');
+</script>
+</body>
+</html>
