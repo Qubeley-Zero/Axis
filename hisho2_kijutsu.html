@@ -231,6 +231,89 @@ button { font-family: inherit; -webkit-appearance: none; appearance: none; curso
 .result-btn:active { opacity: 0.85; }
 
 .note-box { background: #F5F3FF; border-radius: 14px; padding: 14px; margin-bottom: 16px; font-size: 12px; color: #6D28D9; line-height: 1.7; }
+
+/* ━━ カテゴリ選択モーダル ━━ */
+.modal-overlay {
+  position:fixed; top:0; left:0; width:100%; height:100%;
+  background:rgba(0,0,0,0.45); z-index:200;
+  display:none; align-items:flex-end; justify-content:center;
+}
+.modal-overlay.show { display:flex; }
+.modal-sheet {
+  background:#fff; border-radius:24px 24px 0 0;
+  padding:24px 20px 40px; width:100%; max-width:500px;
+  animation: slideUp 0.25s ease;
+}
+@keyframes slideUp { from{transform:translateY(100%)} to{transform:translateY(0)} }
+.modal-title { font-size:16px; font-weight:800; color:#1F2937; margin-bottom:6px; }
+.modal-sub   { font-size:12px; color:#9CA3AF; margin-bottom:18px; }
+.modal-btn {
+  display:flex; align-items:center; gap:12px;
+  width:100%; background:#F9FAFB; border:1.5px solid #E5E7EB;
+  border-radius:14px; padding:14px 16px; margin-bottom:9px;
+  text-align:left; font-size:14px; font-weight:700; color:#1F2937;
+  transition:background .15s, border-color .15s;
+}
+.modal-btn:active { background:#FDF2F8; border-color:#F472B6; }
+.modal-btn-icon { font-size:22px; flex-shrink:0; }
+.modal-btn-sub  { font-size:11px; color:#9CA3AF; font-weight:400; margin-top:2px; }
+.modal-cancel {
+  display:block; width:100%; padding:14px;
+  background:#F3F4F6; border-radius:14px;
+  font-size:14px; font-weight:600; color:#6B7280;
+  margin-top:4px;
+}
+
+/* ━━ 進捗サマリー ━━ *//* ━━ 進捗サマリー ━━ */
+.prog-summary { background:#fff; border-radius:16px; padding:16px; margin-bottom:14px; box-shadow:0 2px 10px rgba(0,0,0,0.06); }
+.prog-summary-title { font-size:13px; font-weight:800; color:var(--darker); margin-bottom:12px; }
+.prog-cat-row { margin-bottom:9px; }
+.prog-cat-label { display:flex; justify-content:space-between; font-size:12px; margin-bottom:3px; }
+.prog-cat-name { font-weight:600; color:var(--darker); }
+.prog-cat-pct  { color:var(--gray4); }
+.prog-cat-bar  { height:7px; background:var(--gray3); border-radius:99px; overflow:hidden; }
+.prog-cat-fill { height:100%; border-radius:99px; transition:width .6s ease; }
+
+/* ━━ モードカード拡張 ━━ */
+.mode-section-title { font-size:12px; font-weight:700; color:var(--gray4); letter-spacing:2px; text-transform:uppercase; margin:18px 0 10px; padding-left:2px; }
+.menu-card-sm {
+  display:flex; align-items:center; gap:12px;
+  width:100%; background:#fff; border-radius:14px;
+  padding:14px 16px; margin-bottom:8px; text-align:left;
+  box-shadow:0 1px 8px rgba(0,0,0,0.05);
+  border:1.5px solid var(--gray3);
+  transition:border-color .2s, transform .15s;
+}
+.menu-card-sm:active { transform:scale(0.97); border-color:var(--pink); }
+.menu-card-sm-icon { font-size:22px; flex-shrink:0; }
+.menu-card-sm-title { font-size:14px; font-weight:700; color:var(--darker); }
+.menu-card-sm-sub   { font-size:11px; color:var(--gray4); margin-top:2px; }
+.menu-card-sm-badge { margin-left:auto; font-size:10px; font-weight:700; padding:3px 9px; border-radius:99px; flex-shrink:0; }
+.badge-new  { background:#ECFDF5; color:var(--mint); border:1px solid #A7F3D0; }
+.badge-ng   { background:#FFF1F2; color:var(--rose); border:1px solid #FECDD3; }
+.badge-weak { background:#F5F3FF; color:var(--lilac); border:1px solid #DDD6FE; }
+.badge-star { background:#FFFBEB; color:var(--amber); border:1px solid #FDE68A; }
+.badge-today{ background:#FDF2F8; color:var(--pink); border:1px solid #FBCFE8; }
+.badge-zero { background:var(--gray2); color:var(--gray4); border:1px solid var(--gray3); }
+
+/* ━━ 重要マーク（クイズ画面） ━━ */
+.imp-star-btn {
+  margin-left:auto; font-size:22px; background:none; border:none;
+  cursor:pointer; padding:4px; flex-shrink:0;
+  transition:transform .2s;
+}
+.imp-star-btn:active { transform:scale(1.3); }
+
+/* ━━ 連続正解バナー ━━ */
+.streak-banner {
+  background:linear-gradient(135deg,#FDF2F8,#EDE9FE);
+  border:1.5px solid #F9A8D4; border-radius:14px;
+  padding:10px 14px; margin-bottom:12px;
+  display:flex; align-items:center; gap:10px; display:none;
+}
+.streak-banner.show { display:flex; }
+.streak-num { font-size:24px; font-weight:900; color:var(--pink); }
+.streak-lbl { font-size:12px; color:var(--dark); }
 </style>
 </head>
 <body>
@@ -243,9 +326,51 @@ button { font-family: inherit; -webkit-appearance: none; appearance: none; curso
 <!-- ━━ メニュー ━━ -->
 <div id="menuPage" class="page active">
   <div class="menu-wrap">
-    <div class="menu-title">問題の種類を選んでください</div>
+    <div class="menu-title">秘書検定2級 記述問題集</div>
     <div class="menu-sub">記述問題は模範解答で自己採点します</div>
 
+    <!-- 進捗サマリー -->
+    <div class="prog-summary" id="progSummary"></div>
+
+    <!-- 連続正解バナー -->
+    <div class="streak-banner" id="streakBanner">
+      <div class="streak-num" id="streakNum">0</div>
+      <div class="streak-lbl">問<br>連続正解中！🔥</div>
+    </div>
+
+    <!-- 今日の5問 -->
+    <div class="mode-section-title">✨ おすすめ</div>
+    <button type="button" id="menuBtnToday" class="menu-card-sm">
+      <span class="menu-card-sm-icon">🌸</span>
+      <div><div class="menu-card-sm-title">今日の5問</div><div class="menu-card-sm-sub">全カテゴリからランダムに5問</div></div>
+      <span class="menu-card-sm-badge badge-today">5問</span>
+    </button>
+
+    <!-- 学習状況から出題 -->
+    <div class="mode-section-title">📚 学習状況から出題</div>
+    <button type="button" id="menuBtnNew" class="menu-card-sm">
+      <span class="menu-card-sm-icon">🆕</span>
+      <div><div class="menu-card-sm-title">未出題5問</div><div class="menu-card-sm-sub" id="subNew">まだ解いていない問題から出題</div></div>
+      <span class="menu-card-sm-badge badge-new" id="badgeNew">-問</span>
+    </button>
+    <button type="button" id="menuBtnWrong" class="menu-card-sm">
+      <span class="menu-card-sm-icon">❌</span>
+      <div><div class="menu-card-sm-title">要復習5問</div><div class="menu-card-sm-sub" id="subWrong">「要復習」にした問題から出題</div></div>
+      <span class="menu-card-sm-badge badge-ng" id="badgeWrong">-問</span>
+    </button>
+    <button type="button" id="menuBtnWeak" class="menu-card-sm">
+      <span class="menu-card-sm-icon">🔥</span>
+      <div><div class="menu-card-sm-title">苦手集中5問</div><div class="menu-card-sm-sub">2回以上「要復習」の問題を優先</div></div>
+      <span class="menu-card-sm-badge badge-weak" id="badgeWeak">-問</span>
+    </button>
+    <button type="button" id="menuBtnStar" class="menu-card-sm">
+      <span class="menu-card-sm-icon">⭐</span>
+      <div><div class="menu-card-sm-title">重要マーク5問</div><div class="menu-card-sm-sub">⭐をつけた問題から出題</div></div>
+      <span class="menu-card-sm-badge badge-star" id="badgeStar">-問</span>
+    </button>
+
+    <!-- カテゴリ別 -->
+    <div class="mode-section-title">📂 カテゴリから出題</div>
     <button type="button" id="menuBtn1" class="menu-card">
       <div class="menu-card-row">
         <span class="menu-card-icon">💬</span>
@@ -256,28 +381,30 @@ button { font-family: inherit; -webkit-appearance: none; appearance: none; curso
         </div>
       </div>
     </button>
-
     <button type="button" id="menuBtn2" class="menu-card">
       <div class="menu-card-row">
         <span class="menu-card-icon">✍️</span>
         <div>
           <div class="menu-card-title">敬語・言葉遣い（記述）</div>
-          <div class="menu-card-desc">誤った敬語を直す・正しい表現に書き換える<br>模範解答・採点ポイント付き 10問</div>
+          <div class="menu-card-desc">誤った敬語を直す・〇×判断・書き換え<br>模範解答・採点ポイント付き 50問</div>
           <span class="menu-badge badge-lilac">記述 50問</span>
         </div>
       </div>
     </button>
-
     <button type="button" id="menuBtn3" class="menu-card">
       <div class="menu-card-row">
         <span class="menu-card-icon">📝</span>
         <div>
           <div class="menu-card-title">記述問題集・全般</div>
-          <div class="menu-card-desc">文書作成・場面対応・用語説明<br>模範解答・採点ポイント付き 75問</div>
-          <span class="menu-badge badge-amber">記述 75問</span>
+          <div class="menu-card-desc">文書作成・場面対応・用語説明<br>模範解答・採点ポイント付き 115問</div>
+          <span class="menu-badge badge-amber">記述 115問</span>
         </div>
       </div>
     </button>
+
+    <div style="text-align:center;padding:16px 0 8px">
+      <button type="button" id="btnResetAll" style="background:none;border:none;color:#D1D5DB;font-size:11px;cursor:pointer;font-family:inherit;">🗑 すべての解答履歴をリセット</button>
+    </div>
   </div>
 </div>
 
@@ -311,7 +438,33 @@ button { font-family: inherit; -webkit-appearance: none; appearance: none; curso
       <button type="button" id="btnResultHome" class="result-btn secondary">🏠 メニューへ戻る</button>
     </div>
   </div>
+  <div id="wrongReview"></div>
   <div id="noteBox"></div>
+</div>
+
+<!-- ━━ カテゴリ選択モーダル ━━ -->
+<div class="modal-overlay" id="catModal">
+  <div class="modal-sheet">
+    <div class="modal-title" id="catModalTitle">カテゴリを選んでください</div>
+    <div class="modal-sub" id="catModalSub">出題するカテゴリを選択してください</div>
+    <button type="button" class="modal-btn" id="catBtnAll">
+      <span class="modal-btn-icon">🌀</span>
+      <div><div>すべてミックス</div><div class="modal-btn-sub" id="catSubAll">全カテゴリから出題</div></div>
+    </button>
+    <button type="button" class="modal-btn" id="catBtn4taku">
+      <span class="modal-btn-icon">💬</span>
+      <div><div>敬語4択のみ</div><div class="modal-btn-sub" id="catSub4taku">80問から出題</div></div>
+    </button>
+    <button type="button" class="modal-btn" id="catBtnKeigo">
+      <span class="modal-btn-icon">✍️</span>
+      <div><div>敬語記述のみ</div><div class="modal-btn-sub" id="catSubKeigo">50問から出題</div></div>
+    </button>
+    <button type="button" class="modal-btn" id="catBtnGeneral">
+      <span class="modal-btn-icon">📝</span>
+      <div><div>記述全般のみ</div><div class="modal-btn-sub" id="catSubGeneral">75問から出題</div></div>
+    </button>
+    <button type="button" class="modal-cancel" id="catCancel">キャンセル</button>
+  </div>
 </div>
 
 <script>
@@ -1767,18 +1920,433 @@ var GENERAL_KIJUTSU = [
  choice1:'💡 対応がわかる', choice2:'😓 わからない（要確認）',
  model:'【対応手順】\n\n①すぐに上司に報告・訂正：\n「先ほど郵送完了とご報告いたしましたが、確認したところ○○社へ未送付であることが判明いたしました。大変申し訳ございません。」\n\n②すぐに郵送手配：\n上司への報告と同時または指示を受けて、至急○○社に郵送する。\n\n③必要であれば○○社へ連絡：\n上司の指示に従い「遅れてのご送付となり大変失礼いたしました」と一言添える。\n\n【ポイント】\n①「完了と報告済み」でも誤りに気づいたらすぐ訂正報告\n②「バレなければいい」は絶対NG\n③誤りの訂正報告は早いほど誠実さが伝わる',
  point:'①既に完了報告済みでも誤りに気づいたら即訂正報告 ②隠蔽・放置は絶対NG ③すぐに対処し上司に指示を仰ぐ',
- hint:'完了報告後の誤り発見：すぐ上司に訂正報告→至急対処→隠蔽は絶対NG'}
+ hint:'完了報告後の誤り発見：すぐ上司に訂正報告→至急対処→隠蔽は絶対NG'},
+
+// ══════════════════════════════════════════
+// ── 過去問傾向40問（Q76〜Q115）──
+// ══════════════════════════════════════════
+
+// ❶ 秘書の判断・行動（Q76〜Q85）
+{id:76, diff:'high', type:'kijutsu', cat:'場面対応',
+ q:'【秘書の判断】上司から「来週月曜の午後2時に○○部長と会議をする予定にしておいて」と言われた。しかし手帳を確認すると、月曜午後2時にはすでに別の予約が入っていた。秘書はどう行動するか。',
+ choice1:'💡 対応がわかる', choice2:'😓 わからない（要確認）',
+ model:'【行動】上司にすぐ状況を報告し、どちらを優先するか確認する。\n\n「月曜の午後2時ですが、すでに△△のご予定が入っております。○○部長との会議はお時間をずらしてよろしいでしょうか。」\n\n【ポイント】①重複を発見したら即報告 ②優先順位は上司が決める ③代替時間帯を提案できると更によい',
+ point:'①重複発見→即報告 ②優先順位は上司が決める ③代替案を提案',
+ hint:'スケジュール重複：即報告→上司に判断させる→代替案を提案'},
+
+{id:77, diff:'high', type:'kijutsu', cat:'場面対応',
+ q:'【秘書の判断】上司が外出中に、上司宛の「親展」の封書が届いた。秘書はどう対応するか。',
+ choice1:'💡 対応がわかる', choice2:'😓 わからない（要確認）',
+ model:'【行動】開封せずにそのまま上司の机の上（所定の場所）に置いておく。上司が帰社したら「親展のお手紙が届いております」と伝える。\n\n【ポイント】①「親展」は宛名本人のみが開封する ②秘書が代わりに開封してはいけない ③急ぎなら上司に連絡も',
+ point:'①親展は開封不可→未開封のまま上司へ ②帰社後すぐ伝える ③急ぎなら連絡も',
+ hint:'親展：絶対に開封しない→未開封のまま上司の机へ→帰社後に報告'},
+
+{id:78, diff:'high', type:'kijutsu', cat:'場面対応',
+ q:'【秘書の判断】上司が来客と商談中に、その来客の会社の別の人から「今すぐ来客中の○○部長と話したい」と電話が入った。秘書はどう対応するか。',
+ choice1:'💡 対応がわかる', choice2:'😓 わからない（要確認）',
+ model:'【行動】商談の妨げにならない対応が必要。\n\n「○○様はただいま席を外しております。折り返しご連絡できるよう伝えてよろしいでしょうか」と伝えるか、応接室にメモを届けて来客本人に判断させる。\n\n【ポイント】①商談を妨げない ②メモで来客本人に知らせ判断させる ③折り返しを提案する',
+ point:'①商談中の来客への電話→商談を妨げない対応 ②メモで来客本人に判断させる ③折り返しを提案',
+ hint:'商談中の来客への電話：メモで来客本人に知らせ判断させる'},
+
+{id:79, diff:'high', type:'kijutsu', cat:'場面対応',
+ q:'【秘書の判断】上司から「今日は体調が悪いので、午後の予定はすべてキャンセルしてほしい」と連絡があった。午後には3件の来客予約がある。秘書はどうするか。',
+ choice1:'💡 対応がわかる', choice2:'😓 わからない（要確認）',
+ model:'【行動手順】①3件すべての来客先に早急に連絡する（早いほど相手への配慮になる）\n\n②言葉：「誠に恐れ入りますが、山田が本日急病のため面会が困難な状況でございます。大変ご迷惑をおかけして申し訳ございません。改めてお日にちを調整させていただけますでしょうか。」\n\n③日程変更の候補日を提案できると丁寧 ④上司に完了報告',
+ point:'①早急に全件連絡 ②丁寧なお詫びの言葉 ③代替日の提案 ④上司に完了報告',
+ hint:'急病でキャンセル：早急に連絡→丁寧なお詫び→代替日提案→上司に完了報告'},
+
+{id:80, diff:'high', type:'kijutsu', cat:'場面対応',
+ q:'【秘書の判断】上司が会議中に、上司の家族から「急用なので今すぐ話したい」と電話があった。秘書はどう対応するか。',
+ choice1:'💡 対応がわかる', choice2:'😓 わからない（要確認）',
+ model:'【行動】①「ただいま会議中でございます」と伝え終了予定時刻を伝える。②「急用」とのことなのでメモを届け上司に判断させる。\nメモ：「ご家族より急用とのお電話あり。折り返しお願いします。（秘書名）」③中断するかどうかは上司本人が判断する。\n\n【ポイント】家族からの急用は通常より優先度が高い可能性がある。しかし秘書が勝手に会議を中断させてはいけない。',
+ point:'①会議中と伝える ②急用なのでメモで上司に知らせる ③中断するかは上司が判断',
+ hint:'家族からの急用電話：会議中と伝えつつメモで上司に知らせ判断を委ねる'},
+
+{id:81, diff:'high', type:'kijutsu', cat:'場面対応',
+ q:'【秘書の判断】上司から「この件は内密に」と言われた案件を、上司の上位者である副社長から「聞かせてほしい」と言われた。秘書はどう対応するか。',
+ choice1:'💡 対応がわかる', choice2:'😓 わからない（要確認）',
+ model:'「恐れ入りますが、その件につきましては山田より内密にするようご指示をいただいております。確認の上、改めてご連絡させていただいてよろしいでしょうか。」\n\n【ポイント】①副社長（上位者）でも内密指示は守る ②「確認します」として判断を上司に委ねる ③嘘はつかない ④上司に報告する',
+ point:'①上位者でも内密指示は守る ②「確認します」として上司に委ねる ③嘘はつかない ④上司に報告',
+ hint:'内密指示vs上位者：「確認します」として上司に委ねる。嘘・ごまかしはNG'},
+
+{id:82, diff:'high', type:'kijutsu', cat:'場面対応',
+ q:'【秘書の判断】上司から「明日朝一番で○○社に電話して来週の打ち合わせを確認してほしい」と頼まれた。翌朝相手が不在で確認が取れなかった。上司への報告はどうするか。',
+ choice1:'💡 対応がわかる', choice2:'😓 わからない（要確認）',
+ model:'【報告の言葉】「○○社の△△様に朝お電話しましたが、ただいまご不在とのことでした。午後に改めてご連絡するようにいたします。」\n\n【ポイント】①「電話した（行動）」と「確認が取れなかった（結果）」の両方を報告 ②次の対応（午後に再連絡）も合わせて報告 ③「できませんでした」だけはNG ④最終報告まで責任を持つ',
+ point:'①行動と結果の両方を報告 ②次の対応も伝える ③「できませんでした」だけはNG ④最終報告まで責任',
+ hint:'不在で確認取れず：行動・結果・次の対応の3点をセットで報告'},
+
+{id:83, diff:'high', type:'kijutsu', cat:'場面対応',
+ q:'【秘書の判断】秘書が業務中に自分のミス（資料の誤字）に気づいた。その資料はすでに上司に提出済みである。どう対応するか。',
+ choice1:'💡 対応がわかる', choice2:'😓 わからない（要確認）',
+ model:'【行動】①すぐに上司に報告：「先ほどお渡しした資料に誤字がございました。大変失礼いたしました。」②訂正版を作成して上司に渡す ③資料がすでに配布されている場合は訂正の連絡方法を上司と相談する\n\n【ポイント】①発見次第すぐ報告（隠蔽は絶対NG） ②謝罪と訂正をセットで行う ③再発防止も意識する',
+ point:'①発見次第すぐ報告 ②謝罪＋訂正をセット ③配布済みなら対処法を上司と相談 ④隠蔽NG',
+ hint:'自分のミス：即報告→謝罪→訂正。隠蔽は絶対NG'},
+
+{id:84, diff:'high', type:'kijutsu', cat:'場面対応',
+ q:'【秘書の判断】上司から「来客には「在席していない」と言っておいて」と指示された。その後その来客が訪問してきた。秘書はどう対応するか。',
+ choice1:'💡 対応がわかる', choice2:'😓 わからない（要確認）',
+ model:'【対応の言葉】「誠に恐れ入りますが、山田はただいま席を外しております。よろしければご用件をお聞かせいただけますでしょうか。または後ほどこちらからご連絡させていただくことも可能でございます。」\n\n【ポイント】①「在席していない」ではなく「席を外しております」という表現を使う ②来客の用件を聞いて上司に伝える ③来客に失礼のない言葉を選ぶ',
+ point:'①「在席していない」→「席を外しております」という表現で対応 ②用件を聞いて上司に伝える ③来客に失礼のない言葉',
+ hint:'在席しないよう指示：「席を外しております」で対応→用件を聞く→上司に伝える'},
+
+{id:85, diff:'high', type:'kijutsu', cat:'場面対応',
+ q:'【秘書の判断】上司の机の整理中に、重要そうな未開封の郵便物を見つけた。日付を見ると2週間前に届いていたものだった。どう対応するか。',
+ choice1:'💡 対応がわかる', choice2:'😓 わからない（要確認）',
+ model:'【行動】①「親展」かどうかを確認する ②「親展」でなければ開封して内容を確認し重要度・期限を確認する ③上司に「机の中に未開封のお手紙がありました。2週間前のものですが、ご確認いただけますでしょうか」と報告する ④期限が過ぎているものがあれば合わせて報告する\n\n【ポイント】上司に黙って処分・対応しない。必ず報告して上司に判断させる。',
+ point:'①親展確認→通常は開封して内容確認 ②上司にすぐ報告 ③期限切れの可能性も伝える ④独断処理NG',
+ hint:'未開封郵便物の発見：内容確認→上司に報告→期限切れの可能性も伝える'},
+
+// ❷ 文書の穴埋め（Q86〜Q95）
+{id:86, diff:'high', type:'kijutsu', cat:'文書作成',
+ q:'【文書穴埋め】次の社外文書の（　）に適切な言葉を入れなさい。\n\n拝啓　（①　）の候、貴社ますますご清栄のこととお慶び申し上げます。\n\nさて、（②　）は書中にてご案内申し上げます。\n\n　　　　　　　　　　　　　　　　　　（③　）\n\n※季節：11月、文書の種類：案内状',
+ choice1:'📝 書けた（大体わかる）', choice2:'🤔 あいまい（要復習）',
+ model:'①晩秋（ばんしゅう）または「向寒（こうかん）」\n\n②「まずは」\n\n③敬具\n\n【解説】①11月の時候の挨拶：晩秋・向寒など ②案内状の末文「まずは書中にてご案内申し上げます」 ③頭語「拝啓」の結語は「敬具」',
+ point:'①11月→晩秋・向寒の候 ②まずは書中にて〜 ③拝啓の結語は敬具',
+ hint:'11月：晩秋・向寒の候。拝啓の結語は敬具。末文「まずは書中にて〜申し上げます」'},
+
+{id:87, diff:'high', type:'kijutsu', cat:'文書作成',
+ q:'【文書穴埋め】次のお礼状の（　）に適切な言葉を入れなさい。\n\n（①　）　時下ますますご清栄のこととお慶び申し上げます。\n\nさて、先日はご多忙中にもかかわらずご来社いただき、（②　）申し上げます。\n\n（③　）書中にてお礼申し上げます。\n\n　　　　　　　　　　　　　　　　　　（④　）',
+ choice1:'📝 書けた（大体わかる）', choice2:'🤔 あいまい（要復習）',
+ model:'①拝啓\n②「誠にありがとうございました」または「厚く御礼」\n③「まずは」\n④敬具\n\n【解説】①お礼状の頭語は「拝啓」 ②お礼の言葉 ③末文：まずは書中にてお礼申し上げます ④結語：敬具',
+ point:'①頭語「拝啓」 ②お礼の言葉 ③まずは書中にて〜 ④結語「敬具」',
+ hint:'お礼状：拝啓→時候挨拶→お礼→まずは書中にて→敬具'},
+
+{id:88, diff:'high', type:'kijutsu', cat:'文書作成',
+ q:'【文書穴埋め】次の社内連絡文書の（　）に適切な記号・言葉を入れなさい。\n\n令和○年○月○日\n全社員各位\n総務部　山田\n\n○○会議 開催のお知らせ\n\n下記の通り開催いたしますので、ご確認ください。\n\n（①　）\n\n日　時：○月○日（月）午前10時〜\n場　所：第1会議室\n\n（②　）',
+ choice1:'📝 書けた（大体わかる）', choice2:'🤔 あいまい（要復習）',
+ model:'①「記」（文字を中央に配置）\n②「以上」（右端・右寄せに配置）\n\n【解説】社内文書では頭語・結語・時候の挨拶は不要。別記形式は「記（中央）→箇条書き→以上（右端）」が基本ルール。',
+ point:'①記（中央配置） ②以上（右端・右寄せ）。社内文書は頭語・時候挨拶不要',
+ hint:'社内文書：記（中央）→箇条書き→以上（右端）。頭語・時候挨拶不要'},
+
+{id:89, diff:'high', type:'kijutsu', cat:'文書作成',
+ q:'【文書穴埋め】次のお詫び状の（　）に適切な言葉を入れなさい。\n\nさて、このたびは弊社の不手際により（①　）をおかけしてしまい、（②　）。謹んで（③　）申し上げます。\n\n今後はこのようなことのないよう（④　）してまいります。\n\nまずは（⑤　）申し上げます。',
+ choice1:'📝 書けた（大体わかる）', choice2:'🤔 あいまい（要復習）',
+ model:'①「ご迷惑」または「ご不便」\n②「誠に申し訳ございません」\n③「お詫び」\n④「細心の注意を払い」または「再発防止に努め」\n⑤「書中にてお詫び」\n\n【解説】お詫び状の定型：ご迷惑→申し訳ございません→お詫び→再発防止→書中にてお詫び',
+ point:'①ご迷惑 ②誠に申し訳ございません ③お詫び ④再発防止 ⑤書中にてお詫び',
+ hint:'お詫び状：ご迷惑→申し訳ございません→お詫び→再発防止→書中にてお詫び'},
+
+{id:90, diff:'high', type:'kijutsu', cat:'文書作成',
+ q:'【文書穴埋め】次の送付状の（　）に適切な言葉を入れなさい。\n\nさて、先日ご依頼いただきました件につきまして、下記の通りお送りいたします。（①　）くださいますようお願い申し上げます。\n\nまずは書中にてご送付申し上げます。\n\n記\n\n（②　）：見積書　1部\n\n以上',
+ choice1:'📝 書けた（大体わかる）', choice2:'🤔 あいまい（要復習）',
+ model:'①「ご査収」（書類を受け取って内容を確認してほしい時の定型表現）\n②「同封書類」または「添付書類」\n\n【解説】「ご査収ください」は送付状の最重要定型表現。「受け取って内容を確認してください」という意味。',
+ point:'①ご査収（超重要定型表現） ②同封書類・添付書類',
+ hint:'送付状の定型：「ご査収くださいますようお願い申し上げます」は必須表現'},
+
+{id:91, diff:'high', type:'kijutsu', cat:'文書作成',
+ q:'【文書穴埋め】次の案内状の記書きの（　）に適切な記号・言葉を入れなさい。\n\n（①　）\n\n日　時：○月○日（金）午後3時〜5時\n場　所：弊社第2会議室\n内　容：新製品説明会\n参加費：（②　）\n申込締切：○月○日（月）\n\n（③　）',
+ choice1:'📝 書けた（大体わかる）', choice2:'🤔 あいまい（要復習）',
+ model:'①「記」（中央に配置）\n②「無料」（参加費が無料の場合は明記する）\n③「以上」（右端・右寄せに配置）\n\n【解説】記書きのルール：記（中央）→箇条書き→以上（右端）。参加費無料は「無料」と明記すると親切。',
+ point:'①記（中央） ②無料と明記 ③以上（右端）',
+ hint:'記書き：記（中央）→箇条書き→以上（右端）。参加費無料は「無料」と明記'},
+
+{id:92, diff:'high', type:'kijutsu', cat:'文書作成',
+ q:'【文書穴埋め】次の議事録の（　）に適切な項目名を入れなさい。\n\n議事録\n（①　）：○○会議\n（②　）：令和○年○月○日（月）午後2時〜3時\n（③　）：第1会議室\n（④　）：山田部長・鈴木課長・田中（欠席：高橋）\n（⑤　）：①売上報告　②来期計画\n（⑥　）：来期目標売上を○億円とする（全会一致）\n（⑦　）：田中→来週中に資料作成',
+ choice1:'📝 書けた（大体わかる）', choice2:'🤔 あいまい（要復習）',
+ model:'①会議名称（件名）\n②開催日時\n③開催場所\n④出席者（欠席者も記載）\n⑤議題（審議事項）\n⑥決定事項\n⑦担当者と期限（アクション事項）\n\n【解説】議事録の7大必須項目。特に⑥決定事項と⑦担当者・期限が最重要。',
+ point:'議事録7大項目：会議名・日時・場所・出席者・議題・決定事項・担当者と期限',
+ hint:'議事録必須7項目：会議名・日時・場所・出席者・議題・決定事項・担当者と期限'},
+
+{id:93, diff:'high', type:'kijutsu', cat:'文書作成',
+ q:'【文書穴埋め】次のFAX送付状の（　）に適切な項目名を入れなさい。\n\nFAX送付状\n（①　）：令和○年○月○日\n（②　）：○○株式会社 △△様　FAX：03-XXXX-XXXX\n（③　）：□□株式会社 ○○\n（④　）：3枚（本状含む）\n件　名：見積書送付の件\n\n表記の件お送りいたします。（⑤　）くださいますようお願いいたします。',
+ choice1:'📝 書けた（大体わかる）', choice2:'🤔 あいまい（要復習）',
+ model:'①送付日\n②送付先\n③発信者\n④送信枚数（必須・本状含む合計を記載）\n⑤ご査収\n\n【解説】FAX送付状必須項目：日付・送付先・発信者・枚数（重要）・件名・ご査収。',
+ point:'①送付日 ②送付先 ③発信者 ④送信枚数（必須） ⑤ご査収',
+ hint:'FAX送付状：日付・送付先・発信者・枚数（必須）・件名・ご査収'},
+
+{id:94, diff:'high', type:'kijutsu', cat:'文書作成',
+ q:'【文書穴埋め】次の電話メモの（　）に適切な内容を書きなさい。\n\n電話メモ\n宛　先：（①　）\n受信日時：（②　）\nお電話：（③　）株式会社　（④　）様\n連絡先：（⑤　）\n用　件：来週の打ち合わせ日程についてご相談したいとのこと。\n折り返し：（⑥　）\n受けた者：（⑦　）',
+ choice1:'📝 書けた（大体わかる）', choice2:'🤔 あいまい（要復習）',
+ model:'①伝言を受け取ってほしい上司の名前\n②具体的な日時（○月○日（曜日）○時○分）\n③相手の会社名\n④相手の名前（氏名）\n⑤相手の電話番号\n⑥「折り返しご連絡をお願いします」または「折り返し不要」\n⑦秘書の氏名\n\n【解説】電話メモ必須7項目：宛先・日時・会社名・名前・連絡先・用件・折り返し要否・受けた人。',
+ point:'電話メモ7項目：宛先・日時・会社名・名前・TEL・用件・折り返し要否・受けた人',
+ hint:'電話メモ：宛先・日時・会社名・名前・TEL・用件・折り返し要否・受けた人の名前'},
+
+{id:95, diff:'high', type:'kijutsu', cat:'文書作成',
+ q:'【文書穴埋め】次の稟議書の（　）に適切な言葉を入れなさい。\n\n稟議書\n件　名：（①　）\n申請日：令和○年○月○日\n申請者：○○部　田中\n\n1．申請理由：現在使用の〜が老朽化のため（②　）を防ぐため購入を申請します。\n2．申請内容：品目：（③　）　金額：（④　）\n3．期待される効果：（⑤　）\n\n【承認欄】',
+ choice1:'📝 書けた（大体わかる）', choice2:'🤔 あいまい（要復習）',
+ model:'①「○○購入の件」（具体的な品名を入れる）\n②「業務支障・業務効率低下」\n③具体的な品名・型番\n④「金○○円（税込）」\n⑤「業務効率の向上・○○の解消」など具体的な効果\n\n【解説】稟議書：件名は「○○の件」と具体的に。金額は税込を明記。効果は数値・具体例で示す。',
+ point:'①件名：○○の件 ②現状の問題を具体的に ③品名 ④税込金額 ⑤具体的な効果',
+ hint:'稟議書：件名（○○の件）→理由→内容（品名・金額）→効果→承認欄'},
+
+// ❸ 慶弔マナーの記述（Q96〜Q105）
+{id:96, diff:'high', type:'kijutsu', cat:'用語説明',
+ q:'【慶弔マナー】次の表書きの使う場面を説明しなさい。\n\n①「寿（ことぶき）」②「御霊前（ごれいぜん）」③「御仏前（ごぶつぜん）」④「御見舞（おみまい）」⑤「内祝（うちいわい）」',
+ choice1:'✅ 説明できる', choice2:'❓ 説明できない',
+ model:'①寿：結婚祝いの最もよく使われる表書き。水引は結び切り・金銀または紅白。\n\n②御霊前：四十九日の法要が終わる前（忌中）に使う。浄土真宗では使わない。\n\n③御仏前：四十九日の法要が終わった後（忌明け後）に使う。浄土真宗は最初から御仏前。\n\n④御見舞：病気・怪我のお見舞いの表書き。\n\n⑤内祝：慶事（出産・結婚・新築など）のお返し・おすそ分けの表書き。',
+ point:'①寿＝結婚祝い ②御霊前＝49日前の香典 ③御仏前＝49日後（浄土真宗は最初から） ④御見舞＝お見舞い ⑤内祝＝慶事のお返し',
+ hint:'寿＝結婚祝い　御霊前＝49日前　御仏前＝49日後（浄土真宗は最初から）　御見舞＝お見舞い　内祝＝お返し'},
+
+{id:97, diff:'high', type:'kijutsu', cat:'用語説明',
+ q:'【慶弔マナー】「水引（みずひき）」の結び方と使い分けを説明しなさい。\n\n①蝶結びはどんな時に使うか②結び切りはどんな時に使うか③色の使い分け（紅白・黒白・黄白）',
+ choice1:'✅ 説明できる', choice2:'❓ 説明できない',
+ model:'①蝶結び：何度でも結び直せることから「何度あってもよいお祝い」に使う。例：出産祝い・入学祝い・昇進祝い・お中元・お歳暮\n\n②結び切り：一度結んだらほどけないことから「二度と繰り返さない場面」に使う。例：結婚祝い・快気祝い・弔事\n\n③色：紅白＝慶事全般　黒白＝弔事（東日本）　黄白＝弔事（西日本・関西）',
+ point:'①蝶結び＝繰り返しOKの慶事 ②結び切り＝繰り返しNG（結婚・快気） ③紅白＝慶事　黒白黄白＝弔事',
+ hint:'蝶結び＝繰り返しOKの慶事　結び切り＝繰り返しNG（結婚・快気）　紅白＝慶事　黒白黄白＝弔事'},
+
+{id:98, diff:'high', type:'kijutsu', cat:'用語説明',
+ q:'【慶弔マナー】次の場面での「のし袋の表書き」を書きなさい。\n\n①部下の結婚祝い②友人の出産祝い③取引先の社屋新築祝い④上司への昇進祝い',
+ choice1:'✅ 説明できる', choice2:'❓ 説明できない',
+ model:'①「寿」または「御結婚御祝」（水引：結び切り・紅白または金銀）\n②「御出産御祝」または「御祝」（水引：蝶結び・紅白）\n③「御新築御祝」または「御祝」（水引：蝶結び・紅白）\n④「御昇進御祝」または「御栄転御祝」「御祝」（水引：蝶結び・紅白）\n\n【ポイント】「御祝」は万能の表書き。具体的な場面に合わせた表書きの方がより丁寧。',
+ point:'①寿（結婚）②御出産御祝 ③御新築御祝 ④御昇進御祝。「御祝」は万能',
+ hint:'結婚→寿　出産→御出産御祝　新築→御新築御祝　昇進→御昇進御祝。「御祝」は万能'},
+
+{id:99, diff:'high', type:'kijutsu', cat:'用語説明',
+ q:'【慶弔マナー】「お中元」と「お歳暮」について①時期②のし・水引の形式③継続すべきかどうか、を説明しなさい。',
+ choice1:'✅ 説明できる', choice2:'❓ 説明できない',
+ model:'①時期：お中元＝7月初旬〜8月初旬（関東は7/1〜15頃・関西は7/15〜8/15頃）　お歳暮＝12月初旬〜12月20日頃\n\n②のし・水引：どちらも慶事のため「のし」あり・蝶結び・紅白の水引が基本。表書き：「御中元」「御歳暮」\n\n③継続：一度贈り始めたら毎年継続するのが礼儀。やめる場合は時期をずらして「御礼」として贈り自然に終わらせる。',
+ point:'①お中元：7〜8月　お歳暮：12月初旬〜20日頃 ②のしあり・蝶結び・紅白 ③一度始めたら継続が礼儀',
+ hint:'お中元：7〜8月　お歳暮：12月初旬〜20日頃。のしあり・蝶結び・紅白。一度始めたら継続'},
+
+{id:100, diff:'high', type:'kijutsu', cat:'用語説明',
+ q:'【慶弔マナー】①お通夜と告別式の違い②香典袋の選び方（宗教・宗派別）③弔事で使ってはいけない「忌み言葉」の例を3つ挙げる、を説明しなさい。',
+ choice1:'✅ 説明できる', choice2:'❓ 説明できない',
+ model:'①お通夜：死後翌日の夜に行う儀式（本来は近親者向け・近年は一般参列者も）。告別式：翌日の正式なお別れの儀式。\n\n②香典袋の選び方：仏式＝蓮の絵柄（御霊前・御仏前）　神式＝白無地（御玉串料）　キリスト教＝白無地（御花料）\n\n③忌み言葉（重ね言葉）：「重ね重ね」「たびたび」「ますます」「くれぐれも」「重々」など（不幸が重なることを連想させる言葉）',
+ point:'①お通夜（夜の儀式）vs告別式（正式なお別れ） ②仏式→蓮の絵柄　神式・キリスト教→白無地 ③忌み言葉：重ね重ね・たびたび・ますますなど',
+ hint:'お通夜＝夜の儀式　告別式＝翌日の正式なお別れ。仏式→蓮の絵柄。忌み言葉：重ね重ね・たびたびなど'},
+
+{id:101, diff:'high', type:'kijutsu', cat:'用語説明',
+ q:'【慶弔マナー】「弔電（ちょうでん）」を送る際の①送るタイミング②使ってはいけない言葉③宛名の書き方を説明しなさい。',
+ choice1:'✅ 説明できる', choice2:'❓ 説明できない',
+ model:'①送るタイミング：葬儀・告別式が始まる前に届くよう手配する。式が終わった後では意味がない。訃報を受けたらすぐに手配する。\n\n②使ってはいけない言葉：重ね言葉（重ね重ね・たびたびなど）・直接的な死の表現（「死」「死亡」など）→「ご逝去」「ご他界」に言い換える。\n\n③宛名：「○○家 喪主様」または「○○様ご遺族様」が一般的。',
+ point:'①式の前に届くよう手配 ②重ね言葉・死の直接表現NG ③○○家喪主様またはご遺族様',
+ hint:'弔電：式の前に届くよう手配。忌み言葉NG。宛名：○○家喪主様'},
+
+{id:102, diff:'high', type:'kijutsu', cat:'用語説明',
+ q:'【慶弔マナー】「お見舞い」のマナーについて①タイミング②持参するお花の注意点③表書きの書き方を説明しなさい。',
+ choice1:'✅ 説明できる', choice2:'❓ 説明できない',
+ model:'①タイミング：入院直後は避け病状が落ち着いてから（目安：入院後3〜4日以降）。手術後は医師・看護師の許可が出てから。\n\n②お花の注意点：菊（仏花）・鉢植え（「根付く」→病気が根付くと連想）・白黄紫の花は避ける→カーネーション・ガーベラなど明るい色が適切。\n\n③表書き：「御見舞」（のしなし・水引なしが正式）',
+ point:'①3〜4日後以降 ②菊・鉢植え・白黄紫はNG→明るい色の花 ③御見舞（のしなし）',
+ hint:'お見舞い：3〜4日後以降。菊・鉢植えNG。表書き「御見舞」（のしなし）'},
+
+{id:103, diff:'high', type:'kijutsu', cat:'用語説明',
+ q:'【慶弔マナー】「忌中（きちゅう）」「喪中（もちゅう）」それぞれの期間と控えることを説明しなさい。',
+ choice1:'✅ 説明できる', choice2:'❓ 説明できない',
+ model:'【忌中（四十九日まで）に控えること】①神社への参拝（鳥居をくぐること）②慶事への出席③正月の飾りつけ・年賀状の送付\n\n【喪中（1年間）に控えること】①年賀状の送付（代わりに「喪中はがき」を出す）②お正月のお祝い・新年会への出席③慶事への出席（関係性による）\n\n【ポイント】喪中はがきは12月上旬（相手が年賀状を書き始める前）に出す。',
+ point:'忌中（49日）：神社参拝・慶事・正月飾りを控える。喪中（1年）：年賀状・正月のお祝い・慶事を控える',
+ hint:'忌中（49日）：神社参拝NG。喪中（1年）：年賀状NG→喪中はがき（12月上旬）'},
+
+{id:104, diff:'high', type:'kijutsu', cat:'用語説明',
+ q:'【慶弔マナー】「香典（こうでん）」の①金額で避けるべき数字②袋の選び方（宗教別）③渡し方のマナーを説明しなさい。',
+ choice1:'✅ 説明できる', choice2:'❓ 説明できない',
+ model:'①避けるべき数字：偶数（2・4・6・8）・「4」（死を連想）・「9」（苦を連想）→奇数（3・5・10）が基本。\n\n②袋の選び方：仏式＝蓮の絵柄（御霊前・御仏前）　神式＝白無地（御玉串料）　キリスト教＝白無地（御花料・献花料）　宗教不明＝白無地が無難\n\n③渡し方：袱紗（ふくさ・寒色系）から取り出し、両手でお悔やみの言葉とともに差し出す。',
+ point:'①偶数・4・9はNG→奇数が基本 ②仏式→蓮の絵柄　神式・キリスト教→白無地 ③袱紗から取り出し両手で',
+ hint:'香典：偶数・4・9はNG。仏式→蓮の絵柄。袱紗（寒色系）から取り出し両手で'},
+
+{id:105, diff:'high', type:'kijutsu', cat:'用語説明',
+ q:'【慶弔マナー】次の場面にふさわしい言葉を書きなさい。\n\n①取引先の社長が亡くなった時（電話でのお悔やみ）②取引先の部長が結婚した時（お祝いの言葉）③同僚が入院した時（見舞いの言葉）',
+ choice1:'✅ 書ける', choice2:'❓ 書けない',
+ model:'①弔事：「このたびは突然の悲報に接し、誠に残念でなりません。心よりお悔やみ申し上げます。謹んでご冥福をお祈り申し上げます。」\n\n②慶事：「このたびはご結婚おめでとうございます。お二人の末永いご多幸をお祈り申し上げます。」\n\n③お見舞い：「このたびはご入院とのこと、心よりお見舞い申し上げます。一日も早いご回復をお祈りしております。どうぞご無理なさいませんように。」',
+ point:'①弔事：心よりお悔やみ→ご冥福をお祈り ②慶事：おめでとう→末永いご多幸 ③見舞い：早期回復→無理しないよう',
+ hint:'弔事：心よりお悔やみ→ご冥福をお祈り。慶事：おめでとう→末永いご多幸。見舞い：早期回復→無理しないよう'},
+
+// ❹ 電話応対の言葉を書く（Q106〜Q115）
+{id:106, diff:'high', type:'kijutsu', cat:'場面対応',
+ q:'【電話応対】次の状況で秘書が実際に言う言葉を書きなさい。\n\n状況：取引先から電話が入り、担当者の上司が在席しているが今すぐ電話に出られるか不明。',
+ choice1:'💡 言葉が書ける', choice2:'😓 わからない（要確認）',
+ model:'「○○様でいらっしゃいますね。恐れ入りますが、ただいま山田が席を外しているか確認いたします。少々お待ちいただけますでしょうか。」\n\n（保留にして上司に確認後）\n「大変お待たせいたしました。ただいまお繋ぎいたします。」\nまたは\n「申し訳ございません。山田はただいま手が離せない状況でございます。折り返しご連絡させていただいてよろしいでしょうか。」',
+ point:'①相手の名前を確認・復唱 ②「少々お待ちください」と保留 ③確認後に繋ぐか折り返しを提案',
+ hint:'在席確認できない時：「確認いたします」→保留→繋ぐか折り返し提案'},
+
+{id:107, diff:'high', type:'kijutsu', cat:'場面対応',
+ q:'【電話応対】次の状況で秘書が実際に言う言葉を書きなさい。\n\n状況：電話をかけてきた相手の名前が聞き取れなかった。',
+ choice1:'💡 言葉が書ける', choice2:'😓 わからない（要確認）',
+ model:'「恐れ入りますが、お名前をもう一度お聞かせいただけますでしょうか。」\n\n（2回目以降）\n「申し訳ございません。電波の状況がよくないようでございまして、もう一度お名前をおっしゃっていただけますでしょうか。」\n\n【ポイント】①「聞こえませんでした」は相手の話し方が悪いようなニュアンスになるため避ける ②「恐れ入りますが」を必ず添える ③2度目は「電波の状況が〜」と添える',
+ point:'①聞こえませんでした→NG ②恐れ入りますが＋もう一度 ③2回目は電波の状況が〜と添える',
+ hint:'聞き取れない：「恐れ入りますが、お名前をもう一度お聞かせいただけますでしょうか」'},
+
+{id:108, diff:'high', type:'kijutsu', cat:'場面対応',
+ q:'【電話応対】次の状況で秘書が実際に言う言葉を書きなさい。\n\n状況：上司が外出中で不在、相手から「折り返し電話してほしい」と言われた。',
+ choice1:'💡 言葉が書ける', choice2:'😓 わからない（要確認）',
+ model:'「承知いたしました。山田が戻り次第、○○様にご連絡するようお伝えいたします。念のため、お電話番号をお聞かせいただけますでしょうか。」\n\n（番号を聞いて復唱後）\n「○○-○○○○-○○○○でよろしいでしょうか。本日何時頃までご在席でいらっしゃいますでしょうか。」\n\n【ポイント】①折り返しを約束 ②電話番号を確認・復唱 ③在席時間も確認すると丁寧',
+ point:'①折り返しを確約 ②電話番号を確認・復唱 ③在席時間を確認',
+ hint:'折り返し依頼：折り返し確約→電話番号確認・復唱→在席時間を確認'},
+
+{id:109, diff:'high', type:'kijutsu', cat:'場面対応',
+ q:'【電話応対】次の状況で秘書が実際に言う言葉を書きなさい。\n\n状況：電話を受けた。相手が名乗らずに「社長いますか」とだけ言った。',
+ choice1:'💡 言葉が書ける', choice2:'😓 わからない（要確認）',
+ model:'「恐れ入りますが、どちら様でいらっしゃいますでしょうか。」\n\nまたは\n「恐れ入りますが、お名前とご所属をお聞かせいただけますでしょうか。」\n\n（名前を聞いた後）\n「○○会社の○○様でいらっしゃいますね。少々お待ちくださいませ。」\n\n【ポイント】①どんな場合でも相手の名前・所属を確認してから取り次ぐ ②「誰ですか」は失礼→「どちら様でいらっしゃいますでしょうか」 ③名前を復唱',
+ point:'①名乗らない相手には丁寧に確認 ②誰ですか→「どちら様でいらっしゃいますでしょうか」 ③名前を復唱',
+ hint:'名乗らない相手：「恐れ入りますが、どちら様でいらっしゃいますでしょうか」'},
+
+{id:110, diff:'high', type:'kijutsu', cat:'場面対応',
+ q:'【電話応対】次の状況で秘書が実際に言う言葉を書きなさい。\n\n状況：取引先から電話があり内容を聞いたが自分では判断できない。上司に確認が必要。',
+ choice1:'💡 言葉が書ける', choice2:'😓 わからない（要確認）',
+ model:'「ありがとうございます。その件につきましては、私では判断いたしかねますので、担当の山田に確認の上、折り返しご連絡させていただいてよろしいでしょうか。お急ぎでしょうか。」\n\n（折り返しの了承を得たら）\n「かしこまりました。山田より○時までにご連絡するようにいたします。お電話番号をお聞かせいただけますでしょうか。」\n\n【ポイント】①「わかりません」→「私では判断いたしかねます」 ②折り返し了承を取る ③時間目安を伝える',
+ point:'①わかりません→「私では判断いたしかねます」 ②折り返し了承を取る ③時間目安を伝える',
+ hint:'判断できない時：「私では判断いたしかねます」→折り返し提案→時間目安を伝える'},
+
+{id:111, diff:'high', type:'kijutsu', cat:'場面対応',
+ q:'【電話応対】次の状況で秘書が実際に言う言葉を書きなさい。\n\n状況：自分がかけた電話で相手が不在だった。伝言をお願いする場合。',
+ choice1:'💡 言葉が書ける', choice2:'😓 わからない（要確認）',
+ model:'「恐れ入りますが、○○会社の○○と申します。○○様はいつ頃お戻りになりますでしょうか。」\n\n（戻り時間を聞いた後）\n「それでは、○○の件でお電話したとお伝えいただけますでしょうか。折り返しお電話いただけますと幸いです。私の連絡先は○○-○○○○-○○○○でございます。」\n\n【ポイント】①会社名・名前を名乗る ②戻り時間を確認 ③伝言内容を簡潔に ④自分の連絡先を伝える',
+ point:'①会社名・名前を名乗る ②戻り時間を確認 ③伝言内容を簡潔に ④自分の連絡先を伝える',
+ hint:'かけた電話で不在：会社名・名前→戻り時間確認→伝言（用件）→自分の連絡先'},
+
+{id:112, diff:'high', type:'kijutsu', cat:'場面対応',
+ q:'【電話応対】次の状況で秘書が実際に言う言葉を書きなさい。\n\n状況：相手からのクレームの電話。相手は大変怒っており「責任者を出せ」と言っている。',
+ choice1:'💡 言葉が書ける', choice2:'😓 わからない（要確認）',
+ model:'「このたびは大変ご迷惑をおかけし、誠に申し訳ございません。ただいま担当の者に確認いたしますので、少々お時間をいただけますでしょうか。」\n\n（保留後）\n「大変お待たせいたしました。担当の山田に代わります。」\n\n担当者不在の場合：「誠に恐れ入りますが、担当の山田はただいま席を外しております。折り返しご連絡させていただいてよろしいでしょうか。戻り次第すぐにご連絡するよう申し伝えます。」\n\n【ポイント】①まずお詫び（事実確認前でも不快へのお詫びは行う） ②保留で担当者に繋ぐ ③不在なら折り返しを確約',
+ point:'①まず不快へのお詫び ②保留で担当者に繋ぐ ③不在なら折り返しを確約',
+ hint:'クレーム電話：まずお詫び→保留で担当者に→不在なら折り返し確約'},
+
+{id:113, diff:'high', type:'kijutsu', cat:'場面対応',
+ q:'【電話応対】次の状況で秘書が実際に言う言葉を書きなさい。\n\n状況：上司への電話を受け取り次ごうとしたが、上司から「その相手なら取り次がなくていい」と言われた。相手はまだ電話口で待っている。',
+ choice1:'💡 言葉が書ける', choice2:'😓 わからない（要確認）',
+ model:'「大変お待たせいたしました。申し訳ございませんが、山田はただいま手が離せない状況でございます。よろしければ折り返しご連絡させていただくことは可能でございますが、いかがでしょうか。またはご用件をお聞かせいただけますでしょうか。担当の者にお伝えいたします。」\n\n【ポイント】①「取り次がない」をそのまま言わない ②「手が離せない状況」と伝える ③折り返しか伝言で対応',
+ point:'①「取り次がない」をそのまま言わない ②「手が離せない状況」と伝える ③折り返しか伝言で対応',
+ hint:'取り次がない指示：「手が離せない状況」と伝え→折り返しか伝言で対応'},
+
+{id:114, diff:'high', type:'kijutsu', cat:'場面対応',
+ q:'【電話応対】次の状況で秘書が実際に言う言葉を書きなさい。\n\n状況：電話で「先週送った資料は届きましたか」と確認された。届いているかどうかわからない。',
+ choice1:'💡 言葉が書ける', choice2:'😓 わからない（要確認）',
+ model:'「ご確認いただきありがとうございます。恐れ入りますが、ただいま手元で確認いたしかねる状況でございます。担当の山田に確認の上、折り返しご連絡させていただいてよろしいでしょうか。お送りいただいた資料の日付とお送り先をお聞かせいただけますでしょうか。」\n\n【ポイント】①確認できない→「確認いたしかねます」 ②折り返し約束 ③確認に必要な情報（日付・送り先）を聞く',
+ point:'①確認できない→「確認いたしかねます」 ②折り返し約束 ③必要情報を聞く',
+ hint:'確認できない時：「確認いたしかねます」→折り返し約束→必要情報を聞く'},
+
+{id:115, diff:'high', type:'kijutsu', cat:'場面対応',
+ q:'【電話応対】電話応対の基本マナーを5つ以上挙げなさい。',
+ choice1:'✅ 5つ以上挙げられる', choice2:'❓ 3つ以下しか思いつかない',
+ model:'①3コール以内に出る（3コール以上は「お待たせいたしました」を添える）\n\n②最初に会社名と自分の名前を名乗る（「○○会社の○○でございます」）\n\n③相手の会社名・名前を確認し復唱する\n\n④保留は必ず「少々お待ちくださいませ」と伝えてから行う（受話器を持ったまま大声で確認しない）\n\n⑤用件は正確にメモを取る（日時・内容・連絡先）\n\n⑥電話を切る際はかけた側が先に切る（目上・取引先の場合は相手が切るのを待つ）\n\n⑦折り返しの際は相手の電話番号を確認・復唱する',
+ point:'①3コール以内 ②会社名・名前を名乗る ③相手の名前を確認・復唱 ④保留前に一言 ⑤メモを取る ⑥切り方のマナー ⑦折り返し時は番号確認',
+ hint:'電話基本マナー7点：3コール・名乗り・名前確認・保留前一言・メモ・切り方・折り返し番号確認'}
 ];
 
 // ══════════════════════════════════════════
 // 状態管理
 // ══════════════════════════════════════════
-var SAVE_KEY = 'hisho2_kijutsu_v1';
-var state = { results:{}, session:[], idx:0, mode:'', label:'', wrong:[] };
+var SAVE_KEY = 'hisho2_kijutsu_v2';
+var state = { results:{}, session:[], idx:0, mode:'', label:'', wrong:[], starred:[], streak:0 };
 
-function loadState(){ try{ var d=localStorage.getItem(SAVE_KEY); if(d) state=JSON.parse(d); }catch(e){} }
+function loadState(){ try{ var d=localStorage.getItem(SAVE_KEY); if(d){ var s=JSON.parse(d); state=Object.assign(state,s); } }catch(e){} }
 function saveState(){ try{ localStorage.setItem(SAVE_KEY, JSON.stringify(state)); }catch(e){} }
 function lastResult(key){ var r=state.results[key]; if(!r||!r.length) return null; return r[r.length-1]; }
+function wrongCount(key){ var r=state.results[key]; if(!r) return 0; return r.filter(function(x){return !x.ok;}).length; }
+
+// 全問題リスト（4択＋記述を統合）
+function allQs(){
+  var list = [];
+  KEIGO_4TAKU.forEach(function(q){ list.push({q:q, mode:'4taku', key:'4taku_'+q.id}); });
+  KEIGO_KIJUTSU.forEach(function(q){ list.push({q:q, mode:'keigo', key:'keigo_'+q.id}); });
+  GENERAL_KIJUTSU.forEach(function(q){ list.push({q:q, mode:'general', key:'general_'+q.id}); });
+  return list;
+}
+
+// 未出題の問題を取得
+function newQs(){ return allQs().filter(function(item){ var r=state.results[item.key]; return !r||!r.length; }); }
+// 要復習の問題を取得
+function wrongQs(){ return allQs().filter(function(item){ var r=state.results[item.key]; return r&&r.length>0&&!r[r.length-1].ok; }); }
+// 苦手問題（2回以上NG）を取得
+function weakQs(){ return allQs().filter(function(item){ return wrongCount(item.key)>=2; }); }
+// ⭐マーク済み問題を取得
+function starredQs(){ return allQs().filter(function(item){ return (state.starred||[]).indexOf(item.key)>=0; }); }
+
+// 混在モードでセッション開始（5問）
+function startMixSession(items, label){
+  if(!items.length){ alert('対象の問題がありません。'); return; }
+  // シャッフルして5問
+  var arr=[].concat(items).sort(function(){return Math.random()-0.5;}).slice(0,5);
+  state.mixSession = arr;
+  state.mixIdx = 0;
+  state.mixLabel = label;
+  state.mixWrong = 0;
+  saveState();
+  showPage('quizPage');
+  document.getElementById('qModeLabel').textContent = label;
+  document.getElementById('progBar').className = 'prog-bar pb-pink';
+  document.getElementById('nextBtn').className = 'next-btn nb-grad-pink';
+  renderMixQ();
+}
+
+function renderMixQ(){
+  if(state.mixIdx >= state.mixSession.length){ showMixResult(); return; }
+  var item = state.mixSession[state.mixIdx];
+  var tot = state.mixSession.length;
+  document.getElementById('progBar').style.width = (state.mixIdx/tot*100)+'%';
+  document.getElementById('nextWrap').classList.remove('show');
+  answered = false;
+
+  // 問題データ・モードをセット
+  currentQs = [item.q];
+  state.session = [0];
+  state.idx = 0;
+  state.mode = item.mode;
+
+  var th = THEME[item.mode] || THEME['4taku'];
+  document.getElementById('progBar').className = 'prog-bar ' + th.pbClass;
+  document.getElementById('nextBtn').className = 'next-btn ' + th.nextClass;
+
+  renderQCore(item.q, item.mode, state.mixIdx, tot, th);
+}
+
+function showMixResult(){
+  var tot = state.mixSession.length;
+  var ok = tot - state.mixWrong;
+  var pct = Math.round(ok/tot*100);
+  showPage('resultPage');
+  document.getElementById('resEmoji').textContent = pct===100?'🌸':pct>=80?'✨':'💪';
+  document.getElementById('resTitle').textContent = state.mixLabel + ' 完了！';
+  document.getElementById('resScore').textContent = pct+'%';
+  document.getElementById('resOk').textContent = ok;
+  document.getElementById('resNg').textContent = state.mixWrong;
+  document.getElementById('resTotal2').textContent = tot;
+  var msg = pct===100?'パーフェクト！🎉':pct>=80?'合格ライン超え！さらに練習しましょう。':'模範解答を読み返して繰り返し練習しましょう。';
+  document.getElementById('resMsg').textContent = msg;
+  document.getElementById('wrongReview').innerHTML = '';
+  document.getElementById('noteBox').innerHTML = '';
+  renderMenu();
+}
+
+// ━━ カテゴリ選択モーダル ━━
+var currentModalMode = '';  // 現在モーダルを開いているモード名
+
+function openCatModal(modeName, title, sub){
+  currentModalMode = modeName;
+  document.getElementById('catModalTitle').textContent = title;
+  document.getElementById('catModalSub').textContent   = sub;
+
+  // 各カテゴリの件数を表示
+  ['all','4taku','keigo','general'].forEach(function(cat){
+    var items = getFilteredItems(modeName, cat);
+    var subId = {all:'catSubAll', '4taku':'catSub4taku', keigo:'catSubKeigo', general:'catSubGeneral'}[cat];
+    var el = document.getElementById(subId);
+    if(el){
+      var base = {all:'全カテゴリから出題', '4taku':'敬語4択から出題', keigo:'敬語記述から出題', general:'記述全般から出題'}[cat];
+      el.textContent = base + '（対象：' + items.length + '問）';
+    }
+  });
+
+  document.getElementById('catModal').classList.add('show');
+}
+
+function closeCatModal(){
+  document.getElementById('catModal').classList.remove('show');
+}
+
+// カテゴリでフィルタリングして対象問題を返す
+function getFilteredItems(modeName, catFilter){
+  var all = allQs();
+  var filtered;
+  if(catFilter === 'all'){
+    filtered = all;
+  } else {
+    filtered = all.filter(function(item){ return item.mode === catFilter; });
+  }
+
+  if(modeName === 'new')    return filtered.filter(function(item){ var r=state.results[item.key]; return !r||!r.length; });
+  if(modeName === 'wrong')  return filtered.filter(function(item){ var r=state.results[item.key]; return r&&r.length>0&&!r[r.length-1].ok; });
+  if(modeName === 'weak')   return filtered.filter(function(item){ return wrongCount(item.key)>=2; });
+  if(modeName === 'star')   return filtered.filter(function(item){ return (state.starred||[]).indexOf(item.key)>=0; });
+  if(modeName === 'today')  return filtered;
+  return filtered;
+}
+
+// カテゴリ名を日本語に変換
+function catLabel(cat){
+  if(cat==='4taku')   return '敬語4択';
+  if(cat==='keigo')   return '敬語記述';
+  if(cat==='general') return '記述全般';
+  return 'すべて';
+}
 
 // ━━ 画面切り替え ━━
 function showPage(id){
@@ -1793,9 +2361,9 @@ var answered = false;
 var shuffled = [], corrIdx = -1;
 
 var THEME = {
-  '4taku':  { pbClass:'pb-pink',  nbClass:'nb-pink',  headClass:'q-head-pink',  nextClass:'nb-grad-pink',  label:'敬語4択（15問）' },
-  'keigo':  { pbClass:'pb-lilac', nbClass:'nb-lilac', headClass:'q-head-lilac', nextClass:'nb-grad-lilac', label:'敬語記述（10問）' },
-  'general':{ pbClass:'pb-amber', nbClass:'nb-amber', headClass:'q-head-amber', nextClass:'nb-grad-amber', label:'記述全般（15問）' }
+  '4taku':  { pbClass:'pb-pink',  nbClass:'nb-pink',  headClass:'q-head-pink',  nextClass:'nb-grad-pink',  label:'敬語4択（80問）' },
+  'keigo':  { pbClass:'pb-lilac', nbClass:'nb-lilac', headClass:'q-head-lilac', nextClass:'nb-grad-lilac', label:'敬語記述（50問）' },
+  'general':{ pbClass:'pb-amber', nbClass:'nb-amber', headClass:'q-head-amber', nextClass:'nb-grad-amber', label:'記述全般（75問）' }
 };
 
 function startSession(qs, mode){
@@ -1806,28 +2374,33 @@ function startSession(qs, mode){
     var sj=Math.floor(Math.random()*(si+1));
     var tmp=indices[si]; indices[si]=indices[sj]; indices[sj]=tmp;
   }
-  state.session = indices;
-  state.idx = 0;
-  state.mode = mode;
-  state.label = THEME[mode].label;
-  state.wrong = [];
+  state.session  = indices;
+  state.idx      = 0;
+  state.mode     = mode;
+  state.label    = THEME[mode].label;
+  state.wrong    = [];
+  state.mixSession = [];
   saveState();
   showPage('quizPage');
   document.getElementById('qModeLabel').textContent = state.label;
   document.getElementById('progBar').className = 'prog-bar ' + THEME[mode].pbClass;
-  document.getElementById('nextBtn').className   = 'next-btn ' + THEME[mode].nextClass;
+  document.getElementById('nextBtn').className  = 'next-btn ' + THEME[mode].nextClass;
   renderQ();
 }
 
-// ━━ 問題描画 ━━
+// ━━ 問題描画（通常セッション用） ━━
 function renderQ(){
   if(state.idx >= currentQs.length){ showResult(); return; }
-  var q   = currentQs[state.idx];
-  var tot = currentQs.length;
+  var q   = currentQs[state.session[state.idx]];
+  var tot = state.session.length;
   var idx = state.idx;
   var mode = state.mode;
-  var th = THEME[mode];
+  var th = THEME[mode] || THEME['4taku'];
+  renderQCore(q, mode, idx, tot, th);
+}
 
+// ━━ 問題描画コア ━━
+function renderQCore(q, mode, idx, tot, th){
   document.getElementById('progBar').style.width = (idx/tot*100) + '%';
   document.getElementById('nextWrap').classList.remove('show');
   answered = false;
@@ -1847,9 +2420,12 @@ function renderQ(){
   // ヘッダー
   var head = document.createElement('div');
   head.className = 'q-head ' + th.headClass;
+  var qKey = mode + '_' + q.id;
+  var isStarred = (state.starred || []).indexOf(qKey) >= 0;
   head.innerHTML =
     '<div class="q-num-badge ' + th.nbClass + '">' + (idx+1) + '</div>' +
-    '<div class="q-tags">' + typeTag + catTag + '<span class="tag ' + diffClass + '">難易度:' + diffLabel + '</span></div>';
+    '<div class="q-tags">' + typeTag + catTag + '<span class="tag ' + diffClass + '">難易度:' + diffLabel + '</span></div>' +
+    '<button type="button" class="imp-star-btn" id="starBtn" data-key="' + qKey + '">' + (isStarred ? '⭐' : '☆') + '</button>';
   card.appendChild(head);
 
   var body = document.createElement('div');
@@ -1937,13 +2513,26 @@ function renderQ(){
     smWrap.className = 'self-mark-wrap';
     smWrap.id = 'selfMarkWrap';
     smWrap.innerHTML =
-      '<button type="button" class="sm-btn sm-ok" id="smOk">✅ 理解できた</button>' +
-      '<button type="button" class="sm-btn sm-ng" id="smNg">📖 要復習</button>';
+      '<button type="button" class="sm-btn sm-ok" id="smOk">✅ 理解できた → 次へ</button>' +
+      '<button type="button" class="sm-btn sm-ng" id="smNg">📖 要復習 → 次へ</button>';
     body.appendChild(smWrap);
   }
 
   card.appendChild(body);
   area.appendChild(card);
+
+  // ⭐重要マークボタン
+  var starBtn = document.getElementById('starBtn');
+  if(starBtn){
+    starBtn.addEventListener('click', function(){
+      var key = this.getAttribute('data-key');
+      if(!state.starred) state.starred = [];
+      var idx2 = state.starred.indexOf(key);
+      if(idx2 >= 0){ state.starred.splice(idx2,1); this.textContent = '☆'; }
+      else { state.starred.push(key); this.textContent = '⭐'; }
+      saveState();
+    });
+  }
 
   // イベント登録
   if(mode !== '4taku'){
@@ -1972,11 +2561,17 @@ function renderQ(){
 function judge4taku(q, clickedIdx){
   answered = true;
   var isOk = (clickedIdx === corrIdx);
-  var key  = state.mode + '_' + q.id;
+  var mode = state.mixSession && state.mixSession.length ? state.mixSession[state.mixIdx].mode : state.mode;
+  var key  = mode + '_' + q.id;
 
   if(!state.results[key]) state.results[key] = [];
   state.results[key].push({ok:isOk, ts:Date.now()});
-  if(!isOk) state.wrong.push(state.idx);
+
+  if(state.mixSession && state.mixSession.length){
+    if(!isOk){ state.mixWrong++; state.streak=0; } else { state.streak=(state.streak||0)+1; }
+  } else {
+    if(!isOk){ state.wrong.push(state.idx); state.streak=0; } else { state.streak=(state.streak||0)+1; }
+  }
   saveState();
 
   for(var i=0; i<shuffled.length; i++){
@@ -1995,6 +2590,7 @@ function judge4taku(q, clickedIdx){
     '<div class="expl-body">' + q.expl + '</div>' +
     '<div class="expl-hint">💡 覚え方：' + q.hint + '</div>';
   box.classList.add('show');
+  // 4択：解説を読んでから手動で次へ
   document.getElementById('nextWrap').classList.add('show');
 }
 
@@ -2026,20 +2622,33 @@ function showKijutsuAnswer(q, mode){
 }
 
 function markKijutsu(q, isOk, mode){
-  var key = mode + '_' + q.id;
+  var realMode = state.mixSession && state.mixSession.length ? state.mixSession[state.mixIdx].mode : mode;
+  var key = realMode + '_' + q.id;
   if(!state.results[key]) state.results[key] = [];
   state.results[key].push({ok:isOk, ts:Date.now()});
-  if(!isOk) state.wrong.push(state.idx);
+
+  if(state.mixSession && state.mixSession.length){
+    if(!isOk){ state.mixWrong++; state.streak=0; } else { state.streak=(state.streak||0)+1; }
+  } else {
+    if(!isOk){ state.wrong.push(state.idx); state.streak=0; } else { state.streak=(state.streak||0)+1; }
+  }
   saveState();
 
   var smWrap = document.getElementById('selfMarkWrap');
   if(smWrap) smWrap.classList.remove('show');
-  document.getElementById('nextWrap').classList.add('show');
+  // 自己採点後：1秒後に自動で次の問題へ
+  setTimeout(function(){
+    if(state.mixSession && state.mixSession.length){
+      state.mixIdx++; saveState(); renderMixQ();
+    } else {
+      state.idx++; saveState(); renderQ();
+    }
+  }, 1000);
 }
 
 // ━━ 結果 ━━
 function showResult(){
-  var tot = currentQs.length;
+  var tot = state.session.length;
   var ng  = state.wrong.length;
   var ok  = tot - ng;
   var pct = Math.round(ok/tot*100);
@@ -2060,46 +2669,192 @@ function showResult(){
 
   var note = document.getElementById('noteBox');
   if(state.mode !== '4taku'){
-    note.innerHTML = '<div class="note-box">📝 記述問題は自己採点です。模範解答と完全一致でなくても、要点が含まれていれば正解とみなしましょう。繰り返し書くことで表現力が身につきます。</div>';
+    note.innerHTML = '<div class="note-box">📝 記述問題は自己採点です。要点が含まれていれば正解とみなしましょう。</div>';
   } else {
     note.innerHTML = '';
   }
+  // 不正解があれば要復習への誘導
+  var wr = document.getElementById('wrongReview');
+  if(wr){ wr.innerHTML = ng>0 ? '<div class="note-box" style="background:#FFF1F2;color:#BE123C;border:1px solid #FECDD3">❌ '+ng+'問が要復習です。メニューの「要復習5問」で再挑戦できます！</div>' : ''; }
+  renderMenu();
 }
 
-// ━━ DOMContentLoaded ━━
+// ━━ メニュー表示更新 ━━
+function renderMenu(){
+  var allItems = allQs();
+  var total = allItems.length;
+
+  // バッジ更新
+  var nqList = newQs();
+  var wqList = wrongQs();
+  var wkList = weakQs();
+  var stList = starredQs();
+
+  document.getElementById('badgeNew').textContent   = nqList.length + '問';
+  document.getElementById('badgeWrong').textContent = wqList.length + '問';
+  document.getElementById('badgeWeak').textContent  = wkList.length + '問';
+  document.getElementById('badgeStar').textContent  = stList.length + '問';
+
+  // バッジが0の時はグレーに
+  ['badgeNew','badgeWrong','badgeWeak','badgeStar'].forEach(function(id,i){
+    var el = document.getElementById(id);
+    var counts = [nqList.length, wqList.length, wkList.length, stList.length];
+    if(counts[i]===0){
+      el.className = 'menu-card-sm-badge badge-zero';
+    } else {
+      var cls = ['badge-new','badge-ng','badge-weak','badge-star'];
+      el.className = 'menu-card-sm-badge ' + cls[i];
+    }
+  });
+
+  // 連続正解バナー
+  var streak = state.streak || 0;
+  var banner = document.getElementById('streakBanner');
+  if(streak >= 3){
+    document.getElementById('streakNum').textContent = streak;
+    banner.classList.add('show');
+  } else {
+    banner.classList.remove('show');
+  }
+
+  // 進捗サマリー（カテゴリ別正解率）
+  var cats = [
+    { key:'4taku',   label:'敬語4択',   color:'linear-gradient(90deg,#F472B6,#A78BFA)', qs: KEIGO_4TAKU.map(function(q){return '4taku_'+q.id;}) },
+    { key:'keigo',   label:'敬語記述',  color:'linear-gradient(90deg,#A78BFA,#FBBF24)', qs: KEIGO_KIJUTSU.map(function(q){return 'keigo_'+q.id;}) },
+    { key:'general', label:'文書・場面・用語', color:'linear-gradient(90deg,#FBBF24,#34D399)', qs: GENERAL_KIJUTSU.map(function(q){return 'general_'+q.id;}) }
+  ];
+
+  var summaryHtml = '<div class="prog-summary-title">📊 カテゴリ別進捗</div>';
+  cats.forEach(function(cat){
+    var done = cat.qs.filter(function(k){ var r=state.results[k]; return r&&r.length>0; }).length;
+    var ok   = cat.qs.filter(function(k){ var r=state.results[k]; return r&&r.length>0&&r[r.length-1].ok; }).length;
+    var pct  = cat.qs.length > 0 ? Math.round(done/cat.qs.length*100) : 0;
+    summaryHtml +=
+      '<div class="prog-cat-row">' +
+      '<div class="prog-cat-label">' +
+        '<span class="prog-cat-name">' + cat.label + '</span>' +
+        '<span class="prog-cat-pct">' + done + '/' + cat.qs.length + '問 ✅' + ok + '</span>' +
+      '</div>' +
+      '<div class="prog-cat-bar"><div class="prog-cat-fill" style="width:' + pct + '%;background:' + cat.color + '"></div></div>' +
+      '</div>';
+  });
+  // 全体正解率
+  var totalDone = allItems.filter(function(item){ var r=state.results[item.key]; return r&&r.length>0; }).length;
+  var totalOk   = allItems.filter(function(item){ var r=state.results[item.key]; return r&&r.length>0&&r[r.length-1].ok; }).length;
+  var totalPct  = total > 0 ? Math.round(totalOk/total*100) : 0;
+  summaryHtml += '<div style="text-align:center;margin-top:10px;font-size:12px;color:#9CA3AF">全 ' + total + ' 問中 ' + totalDone + ' 問解答済み ／ 正解率 <strong style="color:#1F2937">' + totalPct + '%</strong></div>';
+  document.getElementById('progSummary').innerHTML = summaryHtml;
+}
+
 document.addEventListener('DOMContentLoaded', function(){
   loadState();
+  renderMenu();
 
-  // メニューボタン
+  // ━━ メニューボタン ━━
   document.getElementById('menuBtn1').addEventListener('click', function(){
-    startSession(KEIGO_4TAKU, '4taku');
+    state.mixSession=[]; startSession(KEIGO_4TAKU, '4taku');
   });
   document.getElementById('menuBtn2').addEventListener('click', function(){
-    startSession(KEIGO_KIJUTSU, 'keigo');
+    state.mixSession=[]; startSession(KEIGO_KIJUTSU, 'keigo');
   });
   document.getElementById('menuBtn3').addEventListener('click', function(){
-    startSession(GENERAL_KIJUTSU, 'general');
+    state.mixSession=[]; startSession(GENERAL_KIJUTSU, 'general');
+  });
+
+  // ━━ 新モードボタン（モーダル経由） ━━
+  document.getElementById('menuBtnToday').addEventListener('click', function(){
+    openCatModal('today', '今日の5問 🌸', '出題するカテゴリを選んでください');
+  });
+  document.getElementById('menuBtnNew').addEventListener('click', function(){
+    openCatModal('new', '未出題5問 🆕', '未出題の問題からカテゴリを選んでください');
+  });
+  document.getElementById('menuBtnWrong').addEventListener('click', function(){
+    openCatModal('wrong', '要復習5問 ❌', '要復習の問題からカテゴリを選んでください');
+  });
+  document.getElementById('menuBtnWeak').addEventListener('click', function(){
+    openCatModal('weak', '苦手集中5問 🔥', '苦手問題からカテゴリを選んでください');
+  });
+  document.getElementById('menuBtnStar').addEventListener('click', function(){
+    openCatModal('star', '重要マーク5問 ⭐', '⭐マーク済みの問題からカテゴリを選んでください');
+  });
+
+  // ━━ モーダルボタン ━━
+  function handleCatSelect(catFilter){
+    closeCatModal();
+    var items = getFilteredItems(currentModalMode, catFilter);
+    var modeNames = {
+      'new':'未出題5問 🆕', 'wrong':'要復習5問 ❌',
+      'weak':'苦手集中5問 🔥', 'star':'重要マーク5問 ⭐', 'today':'今日の5問 🌸'
+    };
+    var label = modeNames[currentModalMode] || '5問';
+    if(catFilter !== 'all') label += '（' + catLabel(catFilter) + '）';
+    if(!items.length){
+      var msgs = {
+        'new':'このカテゴリに未出題の問題はありません！',
+        'wrong':'このカテゴリに要復習の問題はありません！',
+        'weak':'このカテゴリに苦手問題はありません！',
+        'star':'このカテゴリに⭐マークした問題がありません。',
+        'today':''
+      };
+      if(msgs[currentModalMode]) alert(msgs[currentModalMode]);
+      return;
+    }
+    startMixSession(items, label);
+  }
+
+  document.getElementById('catBtnAll').addEventListener('click',     function(){ handleCatSelect('all'); });
+  document.getElementById('catBtn4taku').addEventListener('click',   function(){ handleCatSelect('4taku'); });
+  document.getElementById('catBtnKeigo').addEventListener('click',   function(){ handleCatSelect('keigo'); });
+  document.getElementById('catBtnGeneral').addEventListener('click', function(){ handleCatSelect('general'); });
+  document.getElementById('catCancel').addEventListener('click',     function(){ closeCatModal(); });
+  // オーバーレイ外タップで閉じる
+  document.getElementById('catModal').addEventListener('click', function(e){
+    if(e.target === this) closeCatModal();
+  });
+
+  // ━━ リセットボタン ━━
+  document.getElementById('btnResetAll').addEventListener('click', function(){
+    if(!confirm('すべての解答履歴をリセットしますか？')) return;
+    state.results={}; state.wrong=[]; state.starred=[]; state.streak=0;
+    state.mixSession=[]; state.mixIdx=0;
+    saveState(); renderMenu();
+    alert('リセットしました。');
   });
 
   // 戻るボタン
   document.getElementById('qBackBtn').addEventListener('click', function(){
+    state.mixSession=[];
+    saveState();
     showPage('menuPage');
+    renderMenu();
   });
 
-  // 次へボタン
+  // 次へボタン（4択問題のみ表示・記述は自己採点後自動遷移）
   document.getElementById('nextBtn').addEventListener('click', function(){
-    state.idx++;
-    saveState();
-    renderQ();
+    if(state.mixSession && state.mixSession.length){
+      state.mixIdx++;
+      saveState(); renderMixQ();
+    } else {
+      state.idx++;
+      saveState(); renderQ();
+    }
   });
 
   // 結果画面
   document.getElementById('btnRetry').addEventListener('click', function(){
-    state.idx = 0; state.wrong = [];
-    saveState(); showPage('quizPage'); renderQ();
+    if(state.mixSession && state.mixSession.length){
+      state.mixIdx=0; state.mixWrong=0;
+      saveState(); showPage('quizPage'); renderMixQ();
+    } else {
+      state.idx=0; state.wrong=[];
+      saveState(); showPage('quizPage'); renderQ();
+    }
   });
   document.getElementById('btnResultHome').addEventListener('click', function(){
+    state.mixSession = [];
+    saveState();
     showPage('menuPage');
+    renderMenu();
   });
 });
 </script>
