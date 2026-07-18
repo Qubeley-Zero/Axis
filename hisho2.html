@@ -1,0 +1,3127 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>秘書検定2級｜完全攻略 問題集（4択・320問）</title>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Noto+Sans+JP:wght@300;400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --aws-orange: #FF9900;
+    --aws-orange-dim: #CC7A00;
+    --aws-orange-glow: rgba(255,153,0,0.15);
+    --aws-dark: #0A0E1A;
+    --aws-panel: #0F1628;
+    --aws-panel2: #141d35;
+    --aws-border: rgba(255,153,0,0.18);
+    --aws-border2: rgba(255,255,255,0.06);
+    --text-primary: #E8EBF2;
+    --text-secondary: #8A94B0;
+    --text-muted: #4A5268;
+    --accent-blue: #4A9EFF;
+    --accent-teal: #00C9A7;
+    --accent-red: #FF4B6E;
+    --success: #00C9A7;
+    --danger: #FF4B6E;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  /* buttonのデフォルトスタイルリセット（iPhone Safari対応） */
+  button{font-family:'Noto Sans JP',sans-serif;background:none;border:none;padding:0;margin:0;text-align:inherit;color:inherit}
+  body{font-family:'Noto Sans JP',sans-serif;background:var(--aws-dark);color:var(--text-primary);min-height:100vh;overflow-x:hidden}
+  body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(255,153,0,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,153,0,0.03) 1px,transparent 1px);background-size:40px 40px;pointer-events:none;z-index:0}
+
+  /* SIDEBAR */
+  .sidebar{position:fixed;left:0;top:0;bottom:0;width:240px;background:var(--aws-panel);border-right:1px solid var(--aws-border);display:flex;flex-direction:column;z-index:100;overflow:hidden}
+  .sidebar::after{content:'';position:absolute;top:0;right:0;width:1px;height:100%;background:linear-gradient(180deg,transparent,var(--aws-orange) 40%,var(--aws-orange) 60%,transparent);opacity:0.4}
+  .sidebar-logo{padding:24px 20px 20px;border-bottom:1px solid var(--aws-border2)}
+  .logo-badge{display:inline-flex;align-items:center;gap:8px;background:var(--aws-orange-glow);border:1px solid var(--aws-border);border-radius:6px;padding:6px 12px;margin-bottom:10px}
+  .logo-badge .dot{width:8px;height:8px;background:var(--aws-orange);border-radius:50%;animation:pulse 2s ease-in-out infinite}
+  @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.5;transform:scale(0.8)}}
+  .logo-badge span{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--aws-orange);letter-spacing:0.1em}
+  .sidebar-title{font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:600;color:var(--text-secondary);letter-spacing:0.08em;line-height:1.4}
+  .sidebar-nav{flex:1;padding:16px 0;overflow-y:auto}
+  .nav-section{margin-bottom:8px}
+  .nav-label{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--text-muted);letter-spacing:0.15em;padding:8px 20px 4px;text-transform:uppercase}
+  .nav-item{display:flex;align-items:center;gap:10px;padding:9px 20px;cursor:pointer;transition:all 0.2s;border-left:2px solid transparent;font-size:13px;color:var(--text-secondary);text-decoration:none}
+  .nav-item:hover{background:rgba(255,153,0,0.06);color:var(--text-primary);border-left-color:rgba(255,153,0,0.4)}
+  .nav-item.active{background:rgba(255,153,0,0.1);color:var(--aws-orange);border-left-color:var(--aws-orange)}
+  .nav-item .nav-icon{width:16px;text-align:center;font-size:14px;flex-shrink:0}
+  .nav-item .nav-badge{margin-left:auto;font-family:'JetBrains Mono',monospace;font-size:9px;background:var(--aws-orange-glow);color:var(--aws-orange);border:1px solid var(--aws-border);padding:1px 6px;border-radius:3px}
+  .sidebar-footer{padding:16px 20px;border-top:1px solid var(--aws-border2)}
+  .exam-countdown{background:var(--aws-panel2);border:1px solid var(--aws-border);border-radius:8px;padding:12px;text-align:center}
+  .countdown-label{font-size:10px;color:var(--text-muted);font-family:'JetBrains Mono',monospace;letter-spacing:0.1em;margin-bottom:6px}
+  .countdown-value{font-family:'Rajdhani',sans-serif;font-size:28px;font-weight:700;color:var(--aws-orange);line-height:1}
+  .countdown-unit{font-size:10px;color:var(--text-muted);margin-top:2px}
+
+  /* MAIN */
+  .main{margin-left:240px;min-height:100vh;position:relative;z-index:1}
+
+  /* TOPBAR */
+  .topbar{height:56px;background:rgba(10,14,26,0.8);backdrop-filter:blur(12px);border-bottom:1px solid var(--aws-border2);display:flex;align-items:center;padding:0 20px;gap:16px;position:sticky;top:0;z-index:50}
+  .topbar-path{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--text-muted)}
+  .topbar-path span{color:var(--aws-orange)}
+  .topbar-right{margin-left:auto;display:flex;align-items:center;gap:12px}
+  .status-chip{display:flex;align-items:center;gap:6px;background:rgba(0,201,167,0.1);border:1px solid rgba(0,201,167,0.3);border-radius:20px;padding:4px 12px;font-size:11px;color:var(--accent-teal);font-family:'JetBrains Mono',monospace}
+  .status-chip .dot{width:6px;height:6px;background:var(--accent-teal);border-radius:50%;animation:pulse 2s infinite}
+
+  /* DESIGN TOKENS */
+  :root{--ok-bg:rgba(0,201,167,.12);--ng-bg:rgba(255,75,110,.12);--wk-bg:rgba(192,96,255,.13)}
+  body{background-image:radial-gradient(ellipse 80% 40% at 20% 0%,rgba(255,153,0,.05) 0%,transparent 55%),radial-gradient(ellipse 60% 50% at 80% 100%,rgba(74,158,255,.04) 0%,transparent 55%);background-attachment:fixed}
+  body::after{content:'';position:fixed;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(255,255,255,.006) 2px,rgba(255,255,255,.006) 4px);pointer-events:none;z-index:0}
+  .app{position:relative;z-index:1;min-height:100vh;padding:0}
+  .screen{display:none}.screen.active{display:block}
+
+  /* HOME */
+  #homeScreen{max-width:100%;margin:0;padding:20px 28px 80px}
+  .home-hdr{text-align:left;padding:28px 0 24px;border-bottom:1px solid rgba(255,153,0,.12);margin-bottom:24px}
+  .badge{display:inline-flex;align-items:center;gap:8px;background:rgba(255,153,0,.1);border:1px solid var(--aws-orange);color:var(--aws-orange);font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600;letter-spacing:2px;padding:5px 14px;border-radius:2px;margin-bottom:16px;text-transform:uppercase}
+  .home-title{font-family:'Rajdhani',sans-serif;font-size:clamp(24px,4vw,38px);font-weight:800;letter-spacing:-.5px;background:linear-gradient(135deg,#fff 30%,var(--aws-orange) 65%,var(--accent-blue) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:8px}
+  .home-sub{color:var(--text-secondary);font-size:13px}
+  .sec-lbl{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;letter-spacing:3px;color:var(--aws-orange);margin-bottom:14px;display:flex;align-items:center;gap:10px;text-transform:uppercase}
+  .sec-lbl::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,var(--aws-orange),transparent)}
+
+  /* OVERVIEW GRID */
+  .ov-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:24px}
+  .ov-card{background:var(--aws-panel);border:1px solid rgba(255,153,0,.15);border-radius:6px;padding:14px;text-align:center}
+  .ov-val{font-family:'JetBrains Mono',monospace;font-size:32px;font-weight:700;color:var(--aws-orange);display:block;line-height:1.2}
+  .ov-lbl{font-size:11px;color:var(--text-muted);margin-top:4px}
+
+  /* CAT GRID */
+  .cat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:11px;margin-bottom:24px}
+  .cat-card{background:var(--aws-panel);border:1px solid rgba(255,153,0,.15);border-radius:6px;padding:15px 17px;transition:all .25s;cursor:pointer;-webkit-tap-highlight-color:rgba(255,153,0,0.15);touch-action:manipulation}
+  .cat-card:hover{border-color:var(--aws-orange);transform:translateY(-2px);box-shadow:0 0 28px rgba(255,153,0,0.18)}
+  .cat-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:9px}
+  .cat-name{font-size:13px;font-weight:700}
+  .cat-pct{font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:700}
+  .cat-bar{background:var(--aws-panel2);border-radius:100px;height:7px;overflow:hidden;margin-bottom:7px}
+  .cat-bar-fill{height:100%;border-radius:100px;background:linear-gradient(90deg,var(--aws-orange),var(--accent-blue));transition:width .6s ease}
+  .cat-sub{display:flex;justify-content:space-between;font-size:11px}
+  .cat-ok{color:var(--success)}.cat-ng{color:var(--accent-red)}.cat-un{color:var(--text-muted)}
+
+  /* WEAK BANNER */
+  .weak-banner{background:var(--wk-bg);border:1px solid rgba(192,96,255,.35);border-radius:6px;padding:16px 20px;margin-bottom:20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+  .weak-info{display:flex;align-items:center;gap:12px}
+  .weak-icon{font-size:28px}
+  .weak-text strong{color:#c060ff;font-size:14px}
+  .weak-text small{display:block;color:var(--text-secondary);font-size:12px;margin-top:2px}
+
+  /* IMP BANNER */
+  .imp-banner{background:rgba(255,153,0,.08);border:1px solid rgba(255,153,0,.35);border-radius:6px;padding:16px 20px;margin-bottom:20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+  .imp-banner-info{display:flex;align-items:center;gap:12px}
+  .imp-banner-icon{font-size:28px}
+  .imp-banner-text strong{color:var(--aws-orange);font-size:14px}
+  .imp-banner-text small{display:block;color:var(--text-secondary);font-size:12px;margin-top:2px}
+
+  /* MODE CARDS */
+  .mode-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:13px;margin-bottom:24px}
+  .mode-card{background:var(--aws-panel);border:1.5px solid rgba(255,153,0,.18);border-radius:6px;padding:20px 16px;cursor:pointer;transition:all .25s;text-align:center;position:relative;overflow:hidden;-webkit-tap-highlight-color:rgba(255,153,0,0.15);touch-action:manipulation}
+  .mode-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,153,0,.06),transparent);opacity:0;transition:opacity .25s}
+  .mode-card:hover{border-color:var(--aws-orange);transform:translateY(-3px);box-shadow:0 0 28px rgba(255,153,0,0.18)}
+  .mode-card:hover::before{opacity:1}
+  .mode-icon{font-size:32px;margin-bottom:10px}
+  .mode-name{font-family:'Rajdhani',sans-serif;font-size:14px;font-weight:700;margin-bottom:5px}
+  .mode-desc{font-size:11px;color:var(--text-secondary);line-height:1.65}
+  .mode-pill{position:absolute;top:9px;right:9px;font-size:10px;font-weight:700;padding:2px 8px;border-radius:100px}
+  .pill-weak{background:#c060ff;color:#fff}
+  .pill-imp{background:var(--aws-orange);color:#000}
+
+  /* SET PICKER */
+  .set-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px;margin-bottom:24px}
+  .set-card{background:var(--aws-panel);border:1.5px solid rgba(255,153,0,.15);border-radius:6px;padding:14px 12px;cursor:pointer;transition:all .22s;text-align:center;-webkit-tap-highlight-color:rgba(255,153,0,0.15);touch-action:manipulation}
+  .set-card:hover{border-color:var(--aws-orange);transform:translateY(-2px)}
+  .set-num{font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:700;color:var(--aws-orange)}
+  .set-range{font-size:11px;color:var(--text-muted);margin-top:3px}
+  .set-done{font-size:11px;margin-top:6px;display:flex;align-items:center;justify-content:center;gap:5px}
+  .set-bar{height:4px;background:var(--aws-panel2);border-radius:100px;overflow:hidden;margin-top:6px}
+  .set-bar-fill{height:100%;background:linear-gradient(90deg,var(--aws-orange),var(--accent-blue));border-radius:100px;transition:width .4s}
+
+  /* QUIZ SCREEN */
+  #quizScreen{max-width:100%;margin:0;padding:24px 28px 80px}
+  .quiz-topbar{display:flex;align-items:center;gap:12px;margin-bottom:18px;flex-wrap:wrap}
+  .qbtn-back{background:var(--aws-panel2);border:1px solid rgba(255,153,0,.2);color:var(--text-secondary);border-radius:6px;padding:8px 14px;font-size:13px;cursor:pointer;font-family:'Noto Sans JP',sans-serif;transition:all .2s}
+  .qbtn-back:hover{color:var(--text-primary);border-color:var(--aws-orange)}
+  .quiz-mode-lbl{font-size:13px;font-weight:700;color:var(--text-secondary)}
+  .quiz-prog-txt{margin-left:auto;font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--aws-orange)}
+  .qpbar{background:var(--aws-panel2);border-radius:100px;height:4px;overflow:hidden;margin-bottom:22px}
+  .qpbar-fill{height:100%;background:linear-gradient(90deg,var(--aws-orange),var(--accent-blue));border-radius:100px;transition:width .5s ease}
+
+  /* Q CARD */
+  .q-card{background:var(--aws-panel);border:1.5px solid rgba(255,153,0,.18);border-radius:12px;overflow:hidden;animation:fadeUp .32s ease}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+  .q-card.ac{border-color:rgba(34,197,94,.5)}.q-card.ng{border-color:rgba(239,68,68,.5)}
+  .q-head{display:flex;align-items:center;gap:11px;padding:16px 20px 12px;border-bottom:1px solid rgba(255,153,0,.1);flex-wrap:nowrap}
+  .q-num{flex-shrink:0;width:33px;height:33px;background:linear-gradient(135deg,var(--aws-orange),var(--accent-blue));border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;color:#000}
+  .q-tags{flex:1;display:flex;gap:5px;flex-wrap:wrap;align-items:center;min-width:0}
+  .tag{font-size:10px;padding:3px 9px;border-radius:2px;font-weight:600;letter-spacing:.3px;white-space:nowrap;display:inline-block}
+  .t-cat{background:rgba(255,153,0,.12);color:var(--aws-orange);border:1px solid rgba(255,153,0,.25)}
+  .t-sc{background:rgba(56,189,248,.1);color:var(--accent-blue);border:1px solid rgba(56,189,248,.22)}
+  .t-lo{background:rgba(34,197,94,.08);color:var(--success);border:1px solid rgba(34,197,94,.22)}
+  .t-mi{background:rgba(234,179,8,.08);color:var(--aws-orange);border:1px solid rgba(234,179,8,.18)}
+  .t-hi{background:rgba(239,68,68,.08);color:var(--accent-red);border:1px solid rgba(239,68,68,.22)}
+  .t-wk{background:var(--wk-bg);color:#c060ff;border:1px solid rgba(192,96,255,.35)}
+  .t-imp{background:rgba(255,153,0,.18);color:var(--aws-orange);border:1px solid rgba(255,153,0,.45)}
+  .wk-flag{font-size:20px;cursor:pointer;transition:transform .2s;user-select:none;flex-shrink:0;width:auto;display:inline-flex;align-items:center;background:none;border:none;padding:0}
+  .wk-flag:hover{transform:scale(1.25)}
+  .imp-flag{margin-left:auto;font-size:20px;cursor:pointer;transition:transform .2s;user-select:none;position:relative;flex-shrink:0;width:auto;display:inline-flex;align-items:center;background:none;border:none;padding:0}
+  .imp-flag:hover{transform:scale(1.25)}
+  .imp-flag .imp-tooltip{position:absolute;bottom:calc(100% + 6px);right:0;background:var(--aws-panel2);border:1px solid rgba(255,153,0,.35);color:var(--text-secondary);font-size:10px;font-family:'JetBrains Mono',monospace;padding:4px 8px;border-radius:4px;white-space:nowrap;pointer-events:none;opacity:0;transition:opacity .2s;letter-spacing:.5px}
+  .imp-flag:hover .imp-tooltip{opacity:1}
+  .q-body{font-size:15px;line-height:1.7;padding:20px 24px 16px}
+  .q-text{font-size:17px;font-weight:500;line-height:1.95;margin-bottom:20px}
+  .opts{display:flex;flex-direction:column;gap:10px}
+  .opt{display:flex;align-items:flex-start;gap:12px;padding:14px 18px;background:var(--aws-panel2);border:1.5px solid transparent;border-radius:8px;cursor:pointer;transition:all .18s;font-size:15px;line-height:1.6;user-select:none;-webkit-tap-highlight-color:rgba(255,153,0,0.15);touch-action:manipulation}
+  .opt:hover:not(.disabled){border-color:rgba(255,153,0,.25)}
+  .opt.ok{border-color:var(--success);background:var(--ok-bg)}
+  .opt.ng{border-color:var(--accent-red);background:var(--ng-bg)}
+  .opt.hint{border-color:var(--success);background:rgba(34,197,94,.07)}
+  .opt.disabled{cursor:default}
+  .opt-mk{flex-shrink:0;width:27px;height:27px;border-radius:4px;background:var(--aws-panel2);border:1.5px solid rgba(255,153,0,.18);display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;color:var(--text-muted);transition:all .18s}
+  .opt.ok .opt-mk{background:var(--success);border-color:var(--success);color:#fff}
+  .opt.ng .opt-mk{background:var(--accent-red);border-color:var(--accent-red);color:#fff}
+  .opt.hint .opt-mk{background:rgba(34,197,94,.25);border-color:var(--success);color:var(--success)}
+  .expl{display:none;margin-top:17px;border-left:3px solid var(--aws-orange);background:var(--aws-panel2);border-radius:0 8px 8px 0;padding:16px 20px}
+  .expl.show{display:block}
+  .expl-ok{font-size:14px;font-weight:700;color:var(--success);margin-bottom:10px;padding:9px 14px;background:var(--ok-bg);border-radius:5px;border:1px solid rgba(34,197,94,.25)}
+  .expl-ng{font-size:14px;font-weight:700;color:var(--accent-red);margin-bottom:10px;padding:9px 14px;background:var(--ng-bg);border-radius:5px;border:1px solid rgba(239,68,68,.25)}
+  .expl-body{font-size:14px;line-height:1.8;color:var(--text-secondary)}
+  .expl-hint{margin-top:10px;font-size:13px;color:rgba(255,153,0,0.5);background:rgba(255,153,0,.08);padding:10px 14px;border-radius:5px;border:1px solid rgba(255,153,0,.18)}
+  .miss-count{margin-top:8px;font-size:12px;color:#c060ff;font-weight:700}
+  .next-wrap{display:none;text-align:center;margin-top:22px}.next-wrap.show{display:block}
+  .next-btn{padding:13px 44px;background:linear-gradient(135deg,var(--aws-orange),var(--accent-blue));color:#000;border:none;border-radius:8px;font-family:'Rajdhani',sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:all .2s}
+  .next-btn:hover{transform:translateY(-3px);box-shadow:0 10px 28px rgba(255,153,0,.3)}
+
+  /* RESULT */
+  #resultScreen{max-width:100%;margin:0;padding:32px 28px 80px;text-align:center}
+  .res-card{background:var(--aws-panel);border:1px solid rgba(255,153,0,.2);border-radius:14px;padding:36px 28px;animation:scaleIn .4s cubic-bezier(.34,1.56,.64,1)}
+  @keyframes scaleIn{from{opacity:0;transform:scale(.88)}to{opacity:1;transform:scale(1)}}
+  .res-title{font-family:'Rajdhani',sans-serif;font-size:22px;font-weight:800;margin-bottom:6px}
+  .res-score{font-family:'JetBrains Mono',monospace;font-size:76px;font-weight:600;background:linear-gradient(135deg,var(--aws-orange),var(--accent-blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1;margin:14px 0 6px}
+  .res-meta{display:flex;justify-content:center;gap:28px;margin:16px 0 22px}
+  .res-item .val{font-family:'JetBrains Mono',monospace;font-size:30px;font-weight:600}
+  .res-item .lbl{font-size:11px;color:var(--text-muted);margin-top:3px;font-family:'JetBrains Mono',monospace;letter-spacing:1px}
+  .res-msg{font-size:14px;color:var(--text-secondary);margin-bottom:26px;line-height:1.85}
+  .res-btns{display:flex;flex-wrap:wrap;gap:11px;justify-content:center;margin-bottom:28px}
+  .btn{padding:11px 22px;border-radius:6px;font-family:'Noto Sans JP',sans-serif;font-size:13px;font-weight:700;cursor:pointer;border:none;transition:all .2s;display:inline-flex;align-items:center;width:auto}
+  .btn-p{background:linear-gradient(135deg,var(--aws-orange),var(--accent-blue));color:#000}
+  .btn-p:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(255,153,0,.3)}
+  .btn-s{background:var(--aws-panel2);color:var(--text-secondary);border:1px solid rgba(255,153,0,.2)}
+  .btn-s:hover{color:var(--text-primary);border-color:var(--aws-orange)}
+  .btn-w{background:var(--wk-bg);color:#c060ff;border:1px solid rgba(192,96,255,.35)}
+  .btn-w:hover{background:rgba(192,96,255,.2)}
+  .wr-list{text-align:left;margin-top:4px}
+  .wr-item{background:var(--aws-panel2);border:1px solid rgba(239,68,68,.22);border-radius:8px;padding:12px 15px;margin-bottom:8px;font-size:13px;color:var(--text-secondary);line-height:1.65}
+  .wr-item .wi-q{color:var(--text-primary);font-weight:600;margin-bottom:4px}
+  .wr-item .wi-a{color:var(--success);font-size:12px}
+  .wr-item .wi-miss{color:#c060ff;font-size:11px;margin-top:3px;font-weight:700}
+
+  /* BACK TOP */
+  .bktop{position:fixed;bottom:22px;right:22px;width:42px;height:42px;background:linear-gradient(135deg,var(--aws-orange),var(--accent-blue));border:none;border-radius:6px;color:#000;font-size:17px;font-weight:700;cursor:pointer;display:none;align-items:center;justify-content:center;z-index:99;transition:transform .2s}
+  .bktop.show{display:flex}
+  .bktop:hover{transform:translateY(-3px)}
+  .divider{height:1px;background:linear-gradient(90deg,transparent,rgba(255,153,0,.18),transparent);margin:22px 0}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+
+  /* ── ハンバーガーボタン（PC時は非表示） ── */
+  .hamburger{display:none;position:fixed;top:12px;left:12px;z-index:300;width:40px;height:40px;background:var(--aws-panel);border:1px solid var(--aws-border);border-radius:8px;flex-direction:column;align-items:center;justify-content:center;gap:5px;cursor:pointer}
+  .hamburger span{display:block;width:20px;height:2px;background:var(--aws-orange);border-radius:2px;transition:all .25s}
+  .hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+  .hamburger.open span:nth-child(2){opacity:0}
+  .hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+
+  /* オーバーレイ */
+  .sb-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:150;backdrop-filter:blur(2px)}
+  .sb-overlay.show{display:block}
+
+  /* ── スマホ用メディアクエリ ── */
+  @media(max-width:768px){
+    /* ハンバーガー表示 */
+    .hamburger{display:flex}
+
+    /* サイドバー：通常は画面外に隠す */
+    .sidebar{transform:translateX(-100%);transition:transform .28s ease;z-index:200}
+    .sidebar.open{transform:translateX(0)}
+
+    /* メイン：サイドバー分のマージンを0に */
+    .main{margin-left:0}
+
+    /* トップバー：左にハンバーガー分のスペース */
+    .topbar{padding:0 12px 0 60px}
+    .topbar-path{font-size:11px}
+
+    /* 合格基準バッジを隠す */
+    .topbar-right > div:first-child{display:none}
+
+    /* 各画面のパディング縮小 */
+    #homeScreen{padding:16px 14px 80px}
+    #quizScreen{padding:16px 14px 80px}
+    #resultScreen{padding:20px 14px 80px}
+
+    /* ホームヘッダー */
+    .home-hdr{padding:16px 0 16px}
+    .home-title{font-size:clamp(22px,6vw,32px)}
+
+    /* 統計グリッド：2列に */
+    .ov-grid{grid-template-columns:repeat(2,1fr)!important}
+
+    /* カテゴリ・モード：1列に */
+    .cat-grid{grid-template-columns:1fr}
+    .mode-grid{grid-template-columns:repeat(2,1fr)}
+    .set-grid{grid-template-columns:repeat(2,1fr)}
+
+    /* 問題文・選択肢を読みやすく */
+    .q-text{font-size:15px;line-height:1.85}
+    .opt{font-size:14px;padding:13px 14px}
+    .q-body{padding:16px 14px 12px}
+    .q-head{padding:12px 14px 10px;gap:8px;flex-wrap:wrap}
+
+    /* 次へボタン */
+    .next-btn{padding:14px 36px;font-size:15px}
+
+    /* 結果カード */
+    .res-card{padding:24px 16px}
+    .res-score{font-size:56px}
+    .res-meta{gap:16px}
+    .res-item .val{font-size:24px}
+
+    /* 戻るボタン */
+    .bktop{bottom:16px;right:14px}
+  }
+
+  /* さらに小さい画面（iPhone SE等） */
+  @media(max-width:390px){
+    .mode-grid{grid-template-columns:1fr}
+    .ov-grid{grid-template-columns:repeat(2,1fr)!important}
+    .q-text{font-size:14px}
+    .opt{font-size:13px}
+  }
+</style>
+</head>
+<body>
+
+<!-- ハンバーガーボタン（スマホのみ表示） -->
+<button class="hamburger" id="hamburger" onclick="toggleSidebar()" aria-label="メニュー">
+  <span></span><span></span><span></span>
+</button>
+<!-- オーバーレイ -->
+<div class="sb-overlay" id="sbOverlay" onclick="closeSidebar()"></div>
+
+<!-- SIDEBAR -->
+<nav class="sidebar" id="sidebar">
+  <div class="sidebar-logo">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid rgba(255,255,255,0.06)">
+      <div style="width:44px;height:44px;background:linear-gradient(135deg,var(--aws-orange),var(--accent-blue));border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:'Rajdhani',sans-serif;font-size:18px;font-weight:700;color:#000;filter:drop-shadow(0 0 4px rgba(255,153,0,0.3))">秘</div>
+      <div>
+        <div style="font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:700;color:#E8EBF2;line-height:1.2">秘書検定2級</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:#8A94B0;letter-spacing:0.08em">Hisho Kentei Lv.2</div>
+      </div>
+    </div>
+    <div class="logo-badge">
+      <div class="dot"></div>
+      <span>4択問題集 v1.2</span>
+    </div>
+    <div class="sidebar-title">秘書検定2級<br>完全攻略 問題集</div>
+  </div>
+  <div class="sidebar-nav">
+    <div class="nav-section">
+      <div class="nav-label">Menu</div>
+      <a class="nav-item active" href="#" onclick="goHome();closeSidebar();return false">
+        <span class="nav-icon">⊞</span> ホーム
+      </a>
+    </div>
+    <div class="nav-section">
+      <div class="nav-label">領域</div>
+      <a class="nav-item" href="#" onclick="startCat('必要とされる資質');closeSidebar();return false">
+        <span class="nav-icon">▷</span> 必要とされる資質
+        <span class="nav-badge">理論</span>
+      </a>
+      <a class="nav-item" href="#" onclick="startCat('職務知識');closeSidebar();return false">
+        <span class="nav-icon">▷</span> 職務知識
+        <span class="nav-badge">理論</span>
+      </a>
+      <a class="nav-item" href="#" onclick="startCat('一般知識');closeSidebar();return false">
+        <span class="nav-icon">▷</span> 一般知識
+        <span class="nav-badge">理論</span>
+      </a>
+      <a class="nav-item" href="#" onclick="startCat('マナー・接遇');closeSidebar();return false">
+        <span class="nav-icon">▷</span> マナー・接遇
+        <span class="nav-badge">実技</span>
+      </a>
+      <a class="nav-item" href="#" onclick="startCat('技能');closeSidebar();return false">
+        <span class="nav-icon">▷</span> 技能
+        <span class="nav-badge">実技</span>
+      </a>
+    </div>
+  </div>
+  <div class="sidebar-footer">
+    <div class="exam-countdown">
+      <div class="countdown-label">// 試験情報</div>
+      <div class="countdown-value" style="font-size:18px">年3回</div>
+      <div class="countdown-unit">2月・6月・11月 実施</div>
+    </div>
+  </div>
+</nav>
+
+<!-- MAIN -->
+<div class="main">
+  <div class="topbar">
+    <div class="topbar-path">
+      秘書検定2級 / <span>問題集（4択）</span>
+    </div>
+    <div class="topbar-right">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-muted);background:rgba(255,153,0,0.08);border:1px solid rgba(255,153,0,0.2);border-radius:12px;padding:3px 10px">🎓 合格基準：各60%以上</div>
+      <div class="status-chip">
+        <div class="dot"></div>
+        社内研修用 v1.0
+      </div>
+    </div>
+  </div>
+
+  <div style="padding:0">
+<div class="app">
+
+<!-- HOME SCREEN -->
+<div id="homeScreen" class="screen active">
+<div class="home-hdr">
+  <div style="display:flex;align-items:center;gap:0">
+    <div style="flex:1;min-width:0;text-align:left">
+      <div style="display:inline-flex;align-items:center;gap:8px;border:1px solid var(--aws-orange);color:var(--aws-orange);font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600;letter-spacing:2px;padding:4px 14px;border-radius:2px;background:rgba(255,153,0,0.06);text-transform:uppercase;margin-bottom:16px">◈ 文部科学省後援 · 秘書技能検定試験 · 2級</div>
+      <h1 class="home-title">秘書検定2級<br>完全攻略 問題集</h1>
+      <div class="home-sub">理論（必要とされる資質・職務知識・一般知識）/ 実技（マナー・接遇・技能）全5領域対応</div>
+    </div>
+  </div>
+</div>
+
+<!-- 統計 -->
+<div class="sec-lbl">📊 学習進捗</div>
+<div class="ov-grid">
+  <div class="ov-card"><span class="ov-val" id="ovTotal">0</span><div class="ov-lbl">総問題数</div></div>
+  <div class="ov-card"><span class="ov-val" id="ovAnswered">0</span><div class="ov-lbl">解答済み</div></div>
+  <div class="ov-card"><span class="ov-val" id="ovCorrect" style="color:var(--success)">0</span><div class="ov-lbl">正解数</div></div>
+  <div class="ov-card"><span class="ov-val" id="ovWrong" style="color:var(--accent-red)">0</span><div class="ov-lbl">不正解数</div></div>
+</div>
+
+<!-- 弱点バナー -->
+<div id="weakBanner" class="weak-banner" style="display:none">
+  <div class="weak-info">
+    <div class="weak-icon">⚠️</div>
+    <div class="weak-text">
+      <strong>苦手問題が <span id="weakCount">0</span> 問あります</strong>
+      <small>2回以上間違えた問題を集中練習しましょう</small>
+    </div>
+  </div>
+  <button class="btn btn-w" onclick="startMode('weak')">苦手だけやる</button>
+</div>
+
+<!-- 重要バナー -->
+<div id="impBanner" class="imp-banner" style="display:none">
+  <div class="imp-banner-info">
+    <div class="imp-banner-icon">⭐</div>
+    <div class="imp-banner-text">
+      <strong>重要マーク済み <span id="impCount">0</span> 問</strong>
+      <small>マークした問題をランダムに出題できます</small>
+    </div>
+  </div>
+  <button class="btn btn-p" onclick="startMode('imp10')">重要問題を解く</button>
+</div>
+
+<!-- 出題モード -->
+<div class="sec-lbl">🎯 出題モード</div>
+<div class="mode-grid">
+  <button type="button" id="modeBtnAll" class="mode-card">
+    <div class="mode-icon">📚</div>
+    <div class="mode-name">全問チャレンジ</div>
+    <div class="mode-desc"><span id="modeAllCount">0</span>問すべてに挑戦</div>
+  </button>
+  <button type="button" id="modeBtnShuffle" class="mode-card">
+    <div class="mode-icon">🎲</div>
+    <div class="mode-name">ランダム10問</div>
+    <div class="mode-desc">全領域からランダム出題</div>
+  </button>
+  <button type="button" id="modeBtnNew" class="mode-card">
+    <div class="mode-icon">🆕</div>
+    <div class="mode-name">未出題10問</div>
+    <div class="mode-desc"><span id="modeNewCount">0</span></div>
+  </button>
+  <button type="button" id="modeBtnWrong" class="mode-card">
+    <div class="mode-icon">❌</div>
+    <div class="mode-name">不正解のみ</div>
+    <div class="mode-desc">間違えた問題を再挑戦</div>
+  </button>
+  <button type="button" id="modeWeakCard" class="mode-card" style="display:none">
+    <div class="mode-pill pill-weak">苦手</div>
+    <div class="mode-icon">🔥</div>
+    <div class="mode-name">苦手集中モード</div>
+    <div class="mode-desc" id="weakDesc">苦手問題を集中練習</div>
+  </button>
+  <button type="button" id="modeImpCard" class="mode-card" style="display:none">
+    <div class="mode-pill pill-imp">⭐</div>
+    <div class="mode-icon">⭐</div>
+    <div class="mode-name">重要問題モード</div>
+    <div class="mode-desc" id="impDesc">重要マークした問題を出題</div>
+  </button>
+</div>
+
+<!-- セット選択 -->
+<div class="sec-lbl">📑 セットを選択（10問ずつ）</div>
+<div id="setPicker" style="display:none">
+  <div id="setGrid" class="set-grid"></div>
+</div>
+<button class="btn btn-s" style="margin-bottom:14px" onclick="showSetPicker()">▼ セットを選択</button>
+
+<!-- カテゴリ選択 -->
+<div class="sec-lbl">📂 領域別に解く</div>
+<div id="catPicker" style="display:none">
+  <div id="catPickGrid" class="cat-grid"></div>
+</div>
+<button class="btn btn-s" style="margin-bottom:20px" onclick="showCatPicker()">▼ 領域を選択</button>
+
+<div class="divider"></div>
+
+<!-- カテゴリ進捗 -->
+<div class="sec-lbl">📈 領域別正答率</div>
+<div id="catGrid" class="cat-grid"></div>
+
+<!-- リセット -->
+<div style="text-align:center;margin-top:16px">
+  <button class="btn btn-s" onclick="resetAll()" style="font-size:12px;opacity:0.6">🗑 解答履歴をリセット</button>
+</div>
+</div><!-- /homeScreen -->
+
+<!-- QUIZ SCREEN -->
+<div id="quizScreen" class="screen">
+  <div class="quiz-topbar">
+    <button class="qbtn-back" onclick="goHome()">← ホームへ</button>
+    <div class="quiz-mode-lbl" id="quizModeLabel"></div>
+    <div class="quiz-prog-txt" id="quizProgTxt"></div>
+  </div>
+  <div class="qpbar"><div class="qpbar-fill" id="quizProgFill" style="width:0%"></div></div>
+  <div id="quizCardWrap"></div>
+  <div class="next-wrap" id="nextWrap">
+    <button class="next-btn" onclick="nextQuestion()">次の問題へ →</button>
+  </div>
+</div>
+
+<!-- RESULT SCREEN -->
+<div id="resultScreen" class="screen">
+  <div class="res-card">
+    <div class="res-title" id="resTitle"></div>
+    <div class="res-score" id="resScore"></div>
+    <div class="res-meta">
+      <div class="res-item"><div class="val" style="color:var(--success)" id="resOk">0</div><div class="lbl">CORRECT</div></div>
+      <div class="res-item"><div class="val" style="color:var(--accent-red)" id="resNg">0</div><div class="lbl">WRONG</div></div>
+      <div class="res-item"><div class="val" id="resTotal">0</div><div class="lbl">TOTAL</div></div>
+    </div>
+    <div class="res-msg" id="resMsg"></div>
+    <div class="res-btns">
+      <button class="btn btn-p" onclick="retrySession()">🔁 同じ問題をもう一度</button>
+      <button class="btn btn-w" id="btnRetryWrong" onclick="retryWrong()" style="display:none">❌ 不正解のみやり直す</button>
+      <button class="btn btn-s" onclick="goHome()">🏠 ホームへ戻る</button>
+    </div>
+    <div id="wrongReview"></div>
+  </div>
+</div>
+
+</div><!-- /app -->
+  </div>
+</div><!-- /main -->
+
+<button class="bktop" id="bkBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+// ===== ハンバーガーメニュー制御 =====
+function toggleSidebar(){
+  const sb=document.getElementById('sidebar');
+  const hb=document.getElementById('hamburger');
+  const ov=document.getElementById('sbOverlay');
+  sb.classList.toggle('open');
+  hb.classList.toggle('open');
+  ov.classList.toggle('show');
+  document.body.style.overflow=sb.classList.contains('open')?'hidden':'';
+}
+function closeSidebar(){
+  const sb=document.getElementById('sidebar');
+  const hb=document.getElementById('hamburger');
+  const ov=document.getElementById('sbOverlay');
+  sb.classList.remove('open');
+  hb.classList.remove('open');
+  ov.classList.remove('show');
+  document.body.style.overflow='';
+}
+
+// ===== 問題データ（秘書検定2級・4択・320問） =====
+const QS=[
+
+// ── 必要とされる資質 (Q1-4) ──
+{id:1,cat:'必要とされる資質',type:'sc',diff:'mid',
+q:'上司が会議中に取引先から至急の電話が入った。秘書としてもっとも適切な対応はどれか。',
+opts:['会議を中断して上司に伝える','メモに要件を書き、会議が終わり次第上司に渡す','折り返し電話するよう先方に伝え、上司に至急メモを届ける','電話をそのまま保留にして上司が出るまで待つ'],
+ans:[2],
+expl:'至急案件でも会議中は原則として中断しない。先方に折り返しの旨を伝え、「至急」という内容をメモにして上司に届けるのが正しい手順。保留で待たせ続けるのは先方に失礼。',
+hint:'至急でも会議中断は不可 → 折り返しメモで対応'},
+
+{id:2,cat:'必要とされる資質',type:'sc',diff:'mid',
+q:'秘書の「補佐役」としての姿勢について、最も不適切なものはどれか。',
+opts:['上司の意図を先読みして、指示される前に準備を整える','上司が多忙な時ほど、報告・連絡を省略して自己判断で処理する','上司のスケジュールや業務内容を深く把握しておく','自分の判断に自信があっても、権限外のことは必ず上司に確認する'],
+ans:[1],
+expl:'多忙な時こそ報告・連絡・相談（ほうれんそう）が重要。「忙しそうだから」という理由で省略し自己判断で処理するのは秘書として最も避けるべき行動。上司が状況を把握できなくなりトラブルの原因となる。',
+hint:'多忙な時ほど「ほうれんそう」は省略してはいけない'},
+
+{id:3,cat:'必要とされる資質',type:'sc',diff:'mid',
+q:'上司から、他の人に知られたくない機密情報を処理するよう頼まれた。この場合の秘書の対応として適切なものはどれか。',
+opts:['同僚に相談しながら処理する','機密情報であることを意識せず通常通り処理する','機密保持に細心の注意を払い、単独で処理する','業務効率を優先し、関係者全員に内容を共有する'],
+ans:[2],
+expl:'機密情報は漏洩防止のため、秘書自身が責任を持って処理し、不必要な第三者への情報開示を避ける。機密保持は秘書の必須資質の一つ。',
+hint:'機密保持 ＝ 秘書の最重要資質'},
+
+{id:4,cat:'必要とされる資質',type:'sc',diff:'high',
+q:'秘書が身だしなみを整える目的として、最も的確なものはどれか。',
+opts:['自己満足のため','上司や来客に不快感を与えないため、また会社の品位を保つため','同僚から評価されるため','流行のファッションを取り入れるため'],
+ans:[1],
+expl:'秘書の身だしなみは自己表現ではなく、上司や来客に対して不快感を与えず、職場・会社の品位を保つためのものである。派手すぎず清潔感が基本。',
+hint:'身だしなみ ＝ 相手への配慮＋会社の品位'},
+
+// ── 職務知識 (Q5-8) ──
+{id:5,cat:'職務知識',type:'sc',diff:'mid',
+q:'秘書の職務範囲として、一般的に「秘書固有業務」に含まれないものはどれか。',
+opts:['上司のスケジュール管理','来客の応対','社内一般文書の印刷・配布補助','上司の出張手配'],
+ans:[2],
+expl:'社内一般文書の印刷・配布補助は庶務的な一般業務であり、秘書固有業務（スケジュール管理・上司対応・出張手配など）には含まれない。ただし状況に応じて行うこともある。',
+hint:'秘書固有業務＝上司に直結するもの。一般文書配布は庶務寄り'},
+
+{id:6,cat:'職務知識',type:'sc',diff:'mid',
+q:'上司が急病で会議を欠席することになった。秘書として最初にすべき行動はどれか。',
+opts:['会議参加者全員に欠席連絡をする','上司の代理出席者を独断で決める','上司に指示を仰ぎ、指示に従い関係者へ連絡する','会議資料をそのまま送付しておく'],
+ans:[2],
+expl:'緊急時でも上司への確認が最優先。指示を仰いだ上で、代理出席者の選定や欠席連絡を行う。独断での代理決定は秘書の権限を超える。',
+hint:'緊急時も「上司への確認」→「指示に従い行動」の順序'},
+
+{id:7,cat:'職務知識',type:'sc',diff:'mid',
+q:'秘書がスケジュールを調整する際の対応として、最も不適切なものはどれか。',
+opts:['会議と会議の間に移動時間・準備時間を確保する','日程が確定する前に関係者へ先に連絡を入れて仮押さえしてもらう','複数の候補日を用意して相手に選んでもらう','仮予定と確定予定を明確に区別して管理する'],
+ans:[1],
+expl:'上司の承認を得る前に関係者へ先に連絡を入れるのは不適切。スケジュール変更の際と同様、必ず上司の確認・承認を得てから関係者へ連絡するのが正しい手順。先走った連絡はトラブルのもとになる。',
+hint:'関係者への連絡は必ず上司の承認後。先走りは厳禁'},
+
+{id:8,cat:'職務知識',type:'sc',diff:'high',
+q:'上司が不在中に会社から「至急、決裁が必要な書類」が届いた。秘書として最も適切な行動はどれか。',
+opts:['秘書自身が署名して処理する','書類をそのまま放置し、上司の帰社を待つ','上司に連絡して指示を仰ぐ','担当部署に書類を返送する'],
+ans:[2],
+expl:'秘書は上司の代わりに決裁する権限を持たない。至急案件でも必ず上司に連絡して指示を仰ぐことが原則。放置や返送も状況を悪化させる可能性がある。',
+hint:'決裁権限は上司のみ。至急でも連絡→指示を仰ぐ'},
+
+// ── 一般知識 (Q9-11) ──
+{id:9,cat:'一般知識',type:'sc',diff:'mid',
+q:'「株式会社」の略称として正しいものはどれか。',
+opts:['（合）','（有）','（株）','（資）'],
+ans:[2],
+expl:'株式会社の略称は（株）。有限会社は（有）、合名会社は（合）、合資会社は（資）。会社の種類と略称は秘書検定の定番事項。',
+hint:'株式会社＝（株）　有限＝（有）　合名＝（合）　合資＝（資）'},
+
+{id:10,cat:'一般知識',type:'sc',diff:'mid',
+q:'「ミッション」「ビジョン」「バリュー」の説明として正しい組み合わせはどれか。',
+opts:['ミッション＝将来像　ビジョン＝存在意義　バリュー＝行動規範','ミッション＝存在意義・使命　ビジョン＝将来目指す姿　バリュー＝価値観・行動規範','ミッション＝利益目標　ビジョン＝価値観　バリュー＝将来像','ミッション＝行動規範　ビジョン＝利益目標　バリュー＝存在意義'],
+ans:[1],
+expl:'ミッション＝企業の存在意義・使命（なぜ存在するか）、ビジョン＝将来目指す姿（どうなりたいか）、バリュー＝価値観・行動規範（どう行動するか）。この3つを混同しやすいので正確に覚えることが重要。',
+hint:'ミッション＝存在意義　ビジョン＝将来像　バリュー＝価値観・行動規範'},
+
+{id:11,cat:'一般知識',type:'sc',diff:'high',
+q:'次の公文書用語のうち、「前回の議事録をご確認ください」の「ご確認ください」に相当する文語表現として最も適切なものはどれか。',
+opts:['ご覧のほどよろしくお願い申し上げます','ご高覧くださいますようお願い申し上げます','ご査収くださいますようお願い申し上げます','お目通しください'],
+ans:[2],
+expl:'「ご査収（さしゅう）」は書類や金品を受け取り確認してもらうよう依頼する表現。文書・書類を送付・提出する際に「ご査収くださいますようお願いします」と使う。高覧はより目上の方への鑑賞依頼。',
+hint:'ご査収＝書類を受け取って確認してください　という意味'},
+
+// ── マナー・接遇 (Q12-16) ──
+{id:12,cat:'マナー・接遇',type:'sc',diff:'mid',
+q:'来客を案内する際のマナーとして、最も不適切なものはどれか。',
+opts:['廊下では秘書が2〜3歩前を歩いて誘導する','階段を上る際は秘書が先に上り、来客が後に続く','会議室に入る際は秘書が先に入り照明をつけて来客を招き入れる','エレベーターでは来客に先に乗ってもらい、秘書は操作盤の前に立つ'],
+ans:[1],
+expl:'階段では「上りは来客が先・秘書が後」「下りは秘書が先・来客が後」が正しい。廊下では秘書が先だが、階段では来客を先に上ってもらうのがマナー。エレベーターは操作盤がある場合は秘書が先に乗って操作する。',
+hint:'階段：上りは来客が先・秘書が後。下りは秘書が先・来客が後'},
+
+{id:13,cat:'マナー・接遇',type:'sc',diff:'mid',
+q:'来客に席を勧める際、「上座」として最も適切な位置はどれか。（会議室で出入口から遠い奥の席を上座とする一般的な場合）',
+opts:['出入口に最も近い席','出入口から最も遠い奥の席','窓側の席','中央の席'],
+ans:[1],
+expl:'会議室での上座は出入口から最も遠い奥の席。下座は出入口に近い席。来客には上座（奥の席）を勧めるのが接遇の基本。',
+hint:'上座＝出入口から遠い席（奥）　下座＝出入口に近い席'},
+
+{id:14,cat:'マナー・接遇',type:'sc',diff:'mid',
+q:'電話応対で相手の名前が聞き取れなかった場合の対応として最も適切なものはどれか。',
+opts:['適当に聞き流して対応する','「もう一度おっしゃっていただけますか」と聞き返す','「聞こえません」とだけ言う','上司に代わってもらう'],
+ans:[1],
+expl:'聞き取れなかった場合は、失礼にならないよう「恐れ入りますが、もう一度おっしゃっていただけますでしょうか」と丁寧に聞き返す。確認せずに進めると誤りの元になる。',
+hint:'聞き取れない時は丁寧に聞き返す。「恐れ入りますが…」で始める'},
+
+{id:15,cat:'マナー・接遇',type:'sc',diff:'high',
+q:'訪問先で面会した後の名刺の取り扱いとして適切なものはどれか。',
+opts:['会話中は机の上に並べておき、面談が終わったら名刺入れに収める','もらったらすぐに名刺入れにしまう','もらった名刺に相手の前でメモを書く','名刺はその場で不要と判断したら捨てる'],
+ans:[0],
+expl:'名刺は受け取ったら両手で持ち、面談中は相手の名刺を机の上に置いておく。面談終了後に丁寧に名刺入れへ収める。相手の前でのメモ書きや、即座の廃棄は失礼に当たる。',
+hint:'名刺：面談中は机上に置く→終わったら名刺入れへ'},
+
+{id:16,cat:'マナー・接遇',type:'sc',diff:'mid',
+q:'上司が外出中に取引先の部長から「先日の件でご相談したい」と電話があった場合の正しい対応はどれか。',
+opts:['上司は外出中ですと伝えて電話を切る','「○時頃戻る予定ですが、折り返しご連絡してもよろしいでしょうか」と伝える','上司の携帯番号を教えて直接連絡するよう促す','担当者も不在だと言って対応を避ける'],
+ans:[1],
+expl:'上司が不在の場合は、戻り時刻の目安を伝えた上で折り返し連絡の確認をするのが基本。上司の携帯番号を無断で教えることや、虚偽の説明は不適切。',
+hint:'不在時＝戻り時刻の目安＋折り返し確認がセット'},
+
+// ── 技能 (Q17-20) ──
+{id:17,cat:'技能',type:'sc',diff:'mid',
+q:'頭語と結語の組み合わせについて、誤っているものはどれか。',
+opts:['拝啓 → 敬具','謹啓 → 謹白','前略 → 敬具','急啓 → 草々'],
+ans:[2],
+expl:'「前略」の結語は「草々」または「不一」。「敬具」は「拝啓」に対応する結語。「前略→敬具」の組み合わせは誤り。「急啓→草々」は急ぎの場合に使う組み合わせで正しい。頭語と結語の対応を正確に覚えることが重要。',
+hint:'前略の結語は草々。敬具は拝啓に対応。組み合わせを間違えやすい'},
+
+{id:18,cat:'技能',type:'sc',diff:'mid',
+q:'社外文書（取引先への正式なビジネスレター）の構成として正しい順序はどれか。',
+opts:['前文→本文→末文→後付け','後付け→本文→前文→末文','本文→前文→末文→後付け','前文→末文→本文→後付け'],
+ans:[0],
+expl:'ビジネスレターの標準構成は「前文（頭語＋時候の挨拶＋安否など）→主文→末文（結語）→後付け（日付・差出人・宛名）」の順。',
+hint:'文書構成：前文→主文（本文）→末文→後付け'},
+
+{id:19,cat:'技能',type:'sc',diff:'high',
+q:'会議の議事録を作成する際に必ず記載すべき事項として、最も不適切なものはどれか。',
+opts:['会議の日時・場所','出席者の氏名・役職','審議事項と決定事項','出席者の服装'],
+ans:[3],
+expl:'議事録に記載すべき必須事項は、日時・場所・出席者（氏名・役職）・審議事項・決定事項・担当者・次回予定など。出席者の服装は議事録に不要な情報。',
+hint:'議事録必須：日時・場所・出席者・審議＆決定事項。服装は不要'},
+
+{id:20,cat:'技能',type:'sc',diff:'mid',
+q:'ファイリング（書類整理）の方法として「件名別ファイリング」の特徴として最も正しいものはどれか。',
+opts:['書類を受け取った日付順に保管する','取引先の会社名ごとに書類を分類保管する','業務内容・テーマごとに書類を分類保管する','書類の発信者ごとに分類保管する'],
+ans:[2],
+expl:'件名別ファイリングはプロジェクト名や業務テーマなど「件名（テーマ）」ごとに書類を分類する方法。日付順は「時系列ファイリング」、会社名ごとは「名称別ファイリング」。',
+hint:'件名別＝テーマ・内容別に分類。日付順・会社別とは異なる'},
+
+// ══════════════════════════════════════
+// ── 追加問題 Q21〜Q60 ──
+// ══════════════════════════════════════
+
+// ── 必要とされる資質 (Q21-28) ──
+{id:21,cat:'必要とされる資質',type:'sc',diff:'mid',
+q:'秘書が「臨機応変」に対応することが求められる場面として、最も適切な説明はどれか。',
+opts:['上司の指示がなければ何もしないこと','状況を的確に判断して、その場に応じた対応をとること','決まった手順だけを機械的に実行すること','周囲の意見に合わせて行動を変えること'],
+ans:[1],
+expl:'「臨機応変」とは、状況をよく見て判断し、その場に最もふさわしい行動をとること。秘書は予定外の事態でも上司の意図を汲んで適切に対処する能力が必要。',
+hint:'臨機応変＝状況判断→その場に最適な行動'},
+
+{id:22,cat:'必要とされる資質',type:'sc',diff:'mid',
+q:'複数の業務が重なった場合の優先順位のつけ方として、最も不適切なものはどれか。',
+opts:['緊急度が高く重要度も高いものを最優先にする','締め切りまでの時間が短いものから順に処理する','上司から最初に指示された順番通りに処理する','重要度が高くても緊急でないものは計画的に時間を確保する'],
+ans:[2],
+expl:'指示を受けた順番通りに処理するのは不適切。後から受けた指示でも緊急度・重要度が高い場合は優先すべき。優先順位は「重要度×緊急度」で常に判断し直す必要がある。指示の順番と優先順位は必ずしも一致しない。',
+hint:'指示を受けた順番＝優先順位ではない。重要度×緊急度で常に判断'},
+
+{id:23,cat:'必要とされる資質',type:'sc',diff:'mid',
+q:'上司から、自分の判断では対処できない問題が発生した場合の秘書の対応として正しいものはどれか。',
+opts:['とりあえず自分なりに処理して後で報告する','問題が解決するまで何も動かずに待つ','速やかに上司に報告・連絡し、指示を仰ぐ','他の部署の人に判断をゆだねる'],
+ans:[2],
+expl:'秘書の権限を超える問題は、自己判断で処理せず、速やかに上司へ報告・連絡し指示を仰ぐことが原則。報告・連絡・相談（ほうれんそう）は社会人の基本。',
+hint:'権限外の問題→迷わず上司に報告・相談'},
+
+{id:24,cat:'必要とされる資質',type:'sc',diff:'high',
+q:'秘書としての「感情のコントロール」について、最も適切な説明はどれか。',
+opts:['どんな状況でも感情を一切出さず無表情でいること','感情を抑えながらも、相手に対して適切な表情・言葉遣いで接すること','感情を素直に表現して、相手との距離を縮めること','不快な来客には感情を示して毅然と対応すること'],
+ans:[1],
+expl:'秘書は感情を完全に消すのではなく、コントロールすることが大切。不快な状況でも冷静さを保ちつつ、場に応じた表情・言葉遣いで対応することがプロとして求められる。',
+hint:'感情コントロール＝抑える×→適切に表現○'},
+
+{id:25,cat:'必要とされる資質',type:'sc',diff:'mid',
+q:'秘書が上司のスケジュールを管理する際に「先読み」として行う行動として適切なものはどれか。',
+opts:['上司に指示されてからスケジュールを確認する','次の週の予定を週末に上司へ確認してもらう','翌日の予定に必要な資料や移動手段を事前に準備しておく','スケジュールの変更があった時だけ上司に伝える'],
+ans:[2],
+expl:'秘書の「先読み」とは、翌日や近日中の予定に必要なものを事前に準備しておくこと。資料の用意・移動手段の確認・持ち物の準備などを上司が指示する前に整えるのが理想。',
+hint:'先読み＝上司が言う前に必要なものを準備'},
+
+{id:26,cat:'必要とされる資質',type:'sc',diff:'mid',
+q:'秘書が人間関係を築く際の行動として、最も不適切なものはどれか。',
+opts:['上司が不在の時でも社外の人に対して誠実・丁寧に応対する','上司が高く評価している取引先には特に丁寧に、そうでない相手には対応を簡略化する','社内の誰に対しても分け隔てなく礼儀正しく接する','相手の立場・状況を考慮した言葉遣い・対応を心がける'],
+ans:[1],
+expl:'相手によって対応の質を変えるのは秘書として不適切。上司の評価や相手の地位に関わらず、誰に対しても一貫して誠実・丁寧に接することが信頼関係の基盤。差別的な対応は会社の評判にも関わる。',
+hint:'相手によって対応を変えるのはNG。誰にでも一貫した誠実な対応を'},
+
+{id:27,cat:'必要とされる資質',type:'sc',diff:'high',
+q:'秘書が「守秘義務」を果たすために避けるべき行動として最も適切なものはどれか。',
+opts:['職場外では業務に関する具体的な情報を話さない','業務上知り得た情報を同僚と共有して確認する','退職後は守秘義務が発生しないため自由に話してよい','家族には職場の情報を話しても問題ない'],
+ans:[0],
+expl:'守秘義務は在職中のみならず退職後も継続する。家族や親しい同僚であっても、業務上知り得た機密情報を漏らすことは守秘義務違反となる。職場外では具体的な情報は話さないことが原則。',
+hint:'守秘義務＝退職後も・家族にも・同僚にも厳守'},
+
+{id:28,cat:'必要とされる資質',type:'sc',diff:'mid',
+q:'秘書が仕事上でストレスを感じたとき、プロとして最も適切な対処はどれか。',
+opts:['ストレスを仕事に持ち込まず、自分なりの解消法を見つけて対処する','ストレスの原因となった人物に直接不満をぶつける','ストレスを感じている旨を来客や取引先にも率直に伝える','無理をしてでも感情を表に出さず、我慢し続ける'],
+ans:[0],
+expl:'ストレスを完全に排除することは難しいが、それを仕事や対人関係に持ち込まないことが秘書のプロ意識。適切な解消法（運動・休息など）を持ち、業務に支障が出ないよう管理することが大切。',
+hint:'ストレス管理＝仕事に持ち込まない＋自分の解消法を持つ'},
+
+// ── 職務知識 (Q29-36) ──
+{id:29,cat:'職務知識',type:'sc',diff:'mid',
+q:'上司の出張手配を行う際の秘書の対応として、最も不適切なものはどれか。',
+opts:['訪問先・目的・日時を確認した上で交通機関・宿泊先を手配する','出張費用の概算を出して上司に確認してもらう','上司の好みに関わらず最安値の交通手段・宿泊先を優先して手配する','出張中の連絡方法や緊急時の対応について上司と確認しておく'],
+ans:[2],
+expl:'最安値だけを優先するのは不適切。出張手配では費用だけでなく、移動時間・乗り換えの負担・宿泊地のアクセス・上司の体調・好みなども考慮して手配するのが秘書の役割。費用対効果を考えた最適な選択をする。',
+hint:'出張手配：最安値優先ではなく移動効率・上司の状況を総合的に考慮'},
+
+{id:30,cat:'職務知識',type:'sc',diff:'mid',
+q:'上司が会議で使用する資料を準備する際の秘書の対応として適切なものはどれか。',
+opts:['会議の当日に上司から受け取った原稿をそのままコピーして配布する','会議の内容・出席者数・配布方法を確認した上で、余部を含めて事前に準備する','資料の準備は担当部署に任せ、秘書は関与しない','上司が忙しそうなときは資料準備を後回しにする'],
+ans:[1],
+expl:'会議資料は出席者数・配布形式（印刷か電子か）・会議の趣旨などを事前に確認し、余裕をもって準備する。余部（予備）を含めて準備しておくのが基本。',
+hint:'会議資料：出席者数確認→余部込みで事前準備'},
+
+{id:31,cat:'職務知識',type:'sc',diff:'mid',
+q:'来客の取り次ぎを行う際の秘書の基本手順として正しいものはどれか。',
+opts:['来客の名前・所属・用件を確認してから上司に取り次ぐ','来客を直接上司のもとへ案内する','来客の名前だけ確認して上司に伝える','来客の用件のみ確認して判断する'],
+ans:[0],
+expl:'来客の取り次ぎでは「お名前・ご所属・ご用件」の三点を確認するのが基本。この情報を上司に伝えることで、上司が面会するかどうかを判断できる。',
+hint:'取り次ぎ三点セット：名前・所属・用件'},
+
+{id:32,cat:'職務知識',type:'sc',diff:'high',
+q:'アポイントメントなしで来訪した客の対応として最も適切なものはどれか。',
+opts:['「アポイントがないためお会いできません」と即座に断る','名前・所属・用件を確認し、上司に判断を仰ぐ','とりあえず応接室に通して待ってもらう','担当部署に引き渡して自分は対応しない'],
+ans:[1],
+expl:'アポイントなしの来客でも、まず丁寧に名前・所属・用件を確認し、上司に可否の判断を仰ぐのが正しい手順。即断で断るのは失礼にあたる場合もある。',
+hint:'アポなし来客→即断×→名前・所属・用件を聞いて上司に判断仰ぐ'},
+
+{id:33,cat:'職務知識',type:'sc',diff:'mid',
+q:'秘書が郵便物を処理する際の基本的な手順として正しいものはどれか。',
+opts:['封書はすべて開封してから上司に渡す','「親展」と書かれた封書は開封せずに上司に渡す','速達郵便物は他の郵便物と同様に処理する','宅配便は受け取りを拒否して担当者に転送する'],
+ans:[1],
+expl:'「親展」と書かれた封書は本人（上司）のみが開封するものであり、秘書が無断で開封してはならない。速達・書留などは優先して上司に届けるのが原則。',
+hint:'親展＝開封厳禁。必ず上司本人に渡す'},
+
+{id:34,cat:'職務知識',type:'sc',diff:'mid',
+q:'電話応対に関する記述として、最も不適切なものはどれか。',
+opts:['電話は呼び出し音が3回以内に出るのが基本','3コール以上かかった場合は「お待たせいたしました」と添える','上司への電話を取り次ぐ際は必ず保留にしてから上司に伝える','電話を切る際はかけた側が先に切るのが原則のため、相手が切るまで待つ必要はない'],
+ans:[3],
+expl:'電話を切る際の原則は「かけた側が先に切る」だが、相手が目上・取引先の場合は相手が切るのを確認してから静かに受話器を置くのがマナー。「原則だから」と自分から先に切るのは失礼になる場合がある。状況を判断することが重要。',
+hint:'電話を切る：かけた側が先が原則だが、目上・取引先は相手が切るのを待つ'},
+
+{id:35,cat:'職務知識',type:'sc',diff:'high',
+q:'秘書が上司のスケジュールを変更する必要が生じた場合の手順として最も適切なものはどれか。',
+opts:['秘書の判断でスケジュールを変更し、後で上司に報告する','まず上司に変更の必要性を説明し、承認を得てから関係者に連絡する','関係者に先に連絡してから上司に報告する','変更が必要でも、確定したスケジュールは変更しない'],
+ans:[1],
+expl:'スケジュール変更は必ず上司の承認を得てから行う。秘書が独断で変更すると、上司が把握していない状態になり問題が生じる。承認後に関係者への連絡を行うのが正しい順序。',
+hint:'スケジュール変更の順：上司へ説明→承認→関係者連絡'},
+
+{id:36,cat:'職務知識',type:'sc',diff:'mid',
+q:'秘書が上司の名刺を管理する方法として適切なものはどれか。',
+opts:['もらった順番に重ねて保管する','あいうえお順や業種別など、使いやすい分類方法で整理・保管する','名刺は上司自身が管理するものなので秘書は関与しない','古い名刺は適当に処分する'],
+ans:[1],
+expl:'名刺管理は秘書の重要な職務のひとつ。あいうえお順・業種別・会社別など、上司が使いやすい方法で整理する。古い名刺も個人情報であるため、適切な方法で処分する必要がある。',
+hint:'名刺管理：使いやすい分類で整理→古いものは適切に処分'},
+
+// ── 一般知識 (Q37-40) ──
+{id:37,cat:'一般知識',type:'sc',diff:'mid',
+q:'「コンプライアンス」の意味として最も正しいものはどれか。',
+opts:['企業の利益を最大化すること','法令・社会規範・企業倫理を遵守すること','競合他社との協力関係を築くこと','社内の業務効率を改善すること'],
+ans:[1],
+expl:'コンプライアンス（Compliance）は法令遵守と訳されるが、法律だけでなく社会規範・企業倫理・社内規程など広い意味での「守るべきルール」への適合を指す。',
+hint:'コンプライアンス＝法令＋社会規範＋倫理を守ること'},
+
+{id:38,cat:'一般知識',type:'sc',diff:'mid',
+q:'「稟議」と「決裁」の違いについて、正しい説明はどれか。',
+opts:['稟議と決裁はまったく同じ意味で使われる','稟議は複数の関係者が回覧・承認するプロセス全体、決裁は最終権限者が承認を下すこと','決裁は社外向け、稟議は社内向けの文書','稟議は口頭で行い、決裁は文書で行う'],
+ans:[1],
+expl:'稟議は担当者が起案した文書を関係者が順に回覧・確認・承認していくプロセス全体を指す。決裁は最終的な権限を持つ人（社長・部門長など）が最終承認を下すこと。稟議プロセスの最後に決裁があるイメージ。',
+hint:'稟議＝回覧・承認のプロセス全体　決裁＝最終権限者による最終承認'},
+
+{id:39,cat:'一般知識',type:'sc',diff:'mid',
+q:'ビジネスの場でよく使われる「アジェンダ」の意味として正しいものはどれか。',
+opts:['会議の議事録','会議の議題・進行予定表','取引先への請求書','プロジェクトの最終報告書'],
+ans:[1],
+expl:'アジェンダ（Agenda）は会議の議題・討議事項・進行スケジュールをまとめた一覧のこと。会議前に配布されることが多く、参加者が事前に内容を把握できるようにするためのもの。',
+hint:'アジェンダ＝会議の議題・進行予定をまとめた文書'},
+
+{id:40,cat:'一般知識',type:'sc',diff:'high',
+q:'「貸借対照表（バランスシート）」に関する説明として正しいものはどれか。',
+opts:['一定期間の収益と費用を示した財務諸表','ある時点での企業の資産・負債・純資産の状態を示した財務諸表','企業の現金の流入・流出を示した財務諸表','製品の製造原価を計算するための表'],
+ans:[1],
+expl:'貸借対照表（Balance Sheet）は特定の時点における企業の財政状態を示す財務諸表。左側（借方）に資産、右側（貸方）に負債と純資産が記載される。損益計算書・キャッシュフロー計算書と並ぶ三大財務諸表のひとつ。',
+hint:'貸借対照表＝ある時点の資産・負債・純資産（財政状態）'},
+
+// ── マナー・接遇 (Q41-50) ──
+{id:41,cat:'マナー・接遇',type:'sc',diff:'mid',
+q:'社外の人への電話応対で上司の不在を伝える表現として、正しいものはどれか。',
+opts:['「山田部長はただいま外出されております」','「部長の山田様は外出中でいらっしゃいます」','「田中はただいま外出しております。○時頃戻る予定でございます」','「田中部長は外出中ですが、何かご用でしょうか」'],
+ans:[2],
+expl:'社外に対して自社の人間を言う際は役職・敬称をつけず呼び捨てにする。「山田部長は〜」「山田様は〜」はいずれも誤り。「外出されております」も自社の人間に尊敬語を使っており誤り。正しくは「田中はただいま外出しております」。',
+hint:'社外向けに自社の人：役職なし・様なし・尊敬語なし。「おります」が正解'},
+
+{id:42,cat:'マナー・接遇',type:'sc',diff:'mid',
+q:'来客に「お茶」を出すタイミングとして最も適切なものはどれか。',
+opts:['来客が椅子に座る前に机の上に置いておく','来客が着席し、話が始まったころを見計らって出す','上司から指示があったときだけ出す','来客の人数が3人以上のときだけ出す'],
+ans:[1],
+expl:'お茶は来客が着席し、会話が落ち着いた頃合いを見て出すのが基本。話の途中を妨げないよう、自然なタイミングを計ることが大切。',
+hint:'お茶出しのタイミング＝着席して落ち着いたころ'},
+
+{id:43,cat:'マナー・接遇',type:'sc',diff:'mid',
+q:'お茶を出す際の基本マナーとして正しいものはどれか。',
+opts:['茶碗に茶托（ちゃたく）をのせてそのまま運ぶ','茶碗と茶托は別々に持参し、来客の前で茶托に置く','茶碗の取っ手は来客の右側になるよう置く','茶碗を出した後は部屋を素早く退出する'],
+ans:[2],
+expl:'お茶の出し方：茶碗（または湯呑み）は茶托にのせて運び、お客様の右側に取っ手や茶托の木目が向くよう置く。基本的には右側に置き、茶碗の絵柄がお客様向きになるよう意識する。',
+hint:'お茶の向き：取っ手は右側。茶托にのせて運ぶ'},
+
+{id:44,cat:'マナー・接遇',type:'sc',diff:'high',
+q:'来客を応接室で待たせる際の対応として最も適切なものはどれか。',
+opts:['「少々お待ちください」とだけ言って部屋を出る','待機時間の目安を伝え、定期的に状況を報告する','上司が来るまで同席して雑談する義務はない','「いつ戻るかわかりません」と正直に伝える'],
+ans:[1],
+expl:'来客を待たせる場合は「〇分ほどお待ちいただけますでしょうか」と目安を伝え、長引く場合は「もう少々お時間をいただきます」と中間報告をする。放置は失礼に当たる。',
+hint:'待たせる時＝目安時間を伝える＋長引けば中間報告'},
+
+{id:45,cat:'マナー・接遇',type:'sc',diff:'mid',
+q:'電話を取り次ぐ際、「少々お待ちください」と伝えてから保留にするまでの時間として適切なものはどれか。',
+opts:['相手が「わかりました」と言うのを確認してから保留にする','「少々お待ちください」と言い終わった直後に即座に保留にする','「少々お待ちください」と言ってから1分間待って保留にする','相手が話し終わるまで保留にしない'],
+ans:[0],
+expl:'「少々お待ちください」と伝えた後は、相手が了承したことを確認（「はい」などの返答）してから保留にするのが丁寧な対応。相手の言葉をさえぎって保留にするのは失礼。',
+hint:'保留前：相手の了承を確認してからボタンを押す'},
+
+{id:46,cat:'マナー・接遇',type:'sc',diff:'mid',
+q:'名刺交換のマナーについて、最も不適切なものはどれか。',
+opts:['名刺は胸の高さで両手で差し出す','自分の名刺を差し出しながら同時に相手の名刺を受け取る（同時交換）','受け取った名刺は両手で持ち、内容を確認してから名刺入れの上に置く','名刺入れを忘れた場合は、受け取った名刺をそのままポケットに入れる'],
+ans:[3],
+expl:'名刺入れを忘れた場合でも、受け取った名刺をポケットに直接入れるのは大変失礼。「名刺入れを忘れてしまい大変失礼いたします」と一言詫びた上で、丁寧に両手で持って扱う。名刺は相手の顔と同じと考える。',
+hint:'名刺入れを忘れても名刺をポケットに直入れは厳禁。一言詫びて丁寧に扱う'},
+
+{id:47,cat:'マナー・接遇',type:'sc',diff:'mid',
+q:'社外の人に対して謝罪する際の言葉として最も適切なものはどれか。',
+opts:['「すみません」','「申し訳ございません」','「ごめんなさい」','「失礼しました」'],
+ans:[1],
+expl:'社外の人や目上の人への謝罪には「申し訳ございません」が最も丁寧な表現。「すみません」「ごめんなさい」はカジュアルすぎる。「失礼しました」は軽微な場合に使う。',
+hint:'ビジネスの謝罪：「申し訳ございません」が最上位'},
+
+{id:48,cat:'マナー・接遇',type:'sc',diff:'high',
+q:'エレベーターに乗り降りする際のマナーとして正しいものはどれか。（自社ビル内・操作盤なしのエレベーター）',
+opts:['案内する人（秘書）が先に乗り、先に降りる','来客が先に乗り、先に降りる','案内する人（秘書）が先に乗り、降りるときは来客を先に降ろす','来客が先に乗り、降りるときは秘書が先に降りる'],
+ans:[2],
+expl:'エレベーターでは案内者（秘書）が先に乗って「開」ボタンを押して待ち、来客を乗せる。降りるときは「開」を押して来客を先に降ろすのが基本。ただし操作盤がある場合は異なる。',
+hint:'エレベーター：乗る時→秘書が先。降りる時→来客が先'},
+
+{id:49,cat:'マナー・接遇',type:'sc',diff:'mid',
+q:'「いたします」と「させていただきます」の使い分けについて、正しい説明はどれか。',
+opts:['「させていただきます」の方が常に丁寧なので、ビジネスでは常にこちらを使う','「させていただきます」は相手の許可・恩恵がある場合に使い、それ以外は「いたします」を使う','「いたします」は目下の人に使い、「させていただきます」は目上の人に使う','どちらも同じ意味なので、使い分けは不要'],
+ans:[1],
+expl:'「させていただきます」は相手の許可や恩恵を受ける場合に用いる謙譲表現。何でも「させていただきます」を使うのは過剰敬語になる。「ご連絡いたします」など「いたします」の方が自然な場面も多い。',
+hint:'させていただきます＝相手の許可・恩恵がある時のみ使う'},
+
+{id:50,cat:'マナー・接遇',type:'sc',diff:'mid',
+q:'来客の見送りに関する記述として、最も不適切なものはどれか。',
+opts:['エレベーターを利用する場合、扉が完全に閉まるまでお辞儀をする','見送りは応接室の入口までで十分で、廊下まで出る必要はない','来客が建物を出て姿が見えなくなるまでお辞儀をして見送る','エレベーター内で「ありがとうございました」と挨拶し、扉が閉まる瞬間までお辞儀を続ける'],
+ans:[1],
+expl:'応接室の入口だけでの見送りは不十分。少なくともエレベーターが閉まるまで、または玄関口まで見送るのが基本マナー。「ここまでで大丈夫です」と客に言われた場合はそこで失礼するが、自分から途中で切り上げるのはNG。',
+hint:'見送りは応接室入口だけではNG。最低限エレベーターが閉まるまで'},
+
+// ── 技能 (Q51-60) ──
+{id:51,cat:'技能',type:'sc',diff:'mid',
+q:'社外ビジネス文書について、正しい説明はどれか。',
+opts:['「拝啓」で始めた場合、結語は「草々」でよい','「謹啓」は「拝啓」より格式が低い頭語である','社外文書では頭語・結語は省略してもよい','「拝啓」より「謹啓」の方が格式が高く、改まった場面に使う'],
+ans:[3],
+expl:'「謹啓」は「拝啓」より格式が高く、より改まった場面（重要な取引先・目上の方など）に使う。「拝啓→敬具」「謹啓→謹白・謹言」が正しい組み合わせ。「草々」は「前略」の結語。社外正式文書では頭語・結語は省略しない。',
+hint:'謹啓は拝啓より格式が高い。謹啓→謹白。草々は前略の結語'},
+
+{id:52,cat:'技能',type:'sc',diff:'mid',
+q:'社内文書の特徴として正しいものはどれか。',
+opts:['時候の挨拶や頭語・結語が必要である','簡潔・明瞭を重視し、時候の挨拶は省略するのが一般的','社外文書より格式を高くする必要がある','手書きで作成しなければならない'],
+ans:[1],
+expl:'社内文書は社外文書と異なり、時候の挨拶・頭語・結語などの儀礼的な表現は原則不要。簡潔・明瞭・正確を重視し、業務連絡に必要な情報を的確に伝えることが目的。',
+hint:'社内文書＝時候の挨拶・頭語・結語は省略OK。簡潔が原則'},
+
+{id:53,cat:'技能',type:'sc',diff:'mid',
+q:'ビジネス文書で「拝受いたしました」の意味として正しいものはどれか。',
+opts:['謹んでお送りいたしました','謹んでお受け取りいたしました','謹んでご確認いたしました','謹んでご報告いたします'],
+ans:[1],
+expl:'「拝受（はいじゅ）」は「謹んで受け取る」という意味の謙譲語。書類・荷物・メールなどを受け取った際の丁寧な表現として「拝受いたしました」と使う。',
+hint:'拝受＝謹んで受け取りました（受領の敬語）'},
+
+{id:54,cat:'技能',type:'sc',diff:'high',
+q:'「回覧」と「配布」の違いとして正しいものはどれか。',
+opts:['回覧は電子メール、配布は紙で行うもの','回覧は一部を順番に回して読んでもらうもの、配布は各自に一部ずつ渡すもの','回覧は上司へ、配布は部下への情報共有方法','回覧と配布は同じ意味で使われる'],
+ans:[1],
+expl:'回覧は文書を一部用意して関係者に順番に回し、全員が読んだことを確認する方法。配布は人数分を用意して各自に渡す方法。コスト・文書の性質によって使い分ける。',
+hint:'回覧＝1部を順番に回す　配布＝人数分を各自に渡す'},
+
+{id:55,cat:'技能',type:'sc',diff:'mid',
+q:'ビジネス文書で数字を記載する際の基本ルールとして適切なものはどれか。',
+opts:['金額は必ず漢数字（一・二・三…）で書く','横書き文書ではアラビア数字（1・2・3…）を使うのが一般的','縦書き・横書きに関わらず、すべてアラビア数字を使う','日付は「2025/1/15」のようにスラッシュ形式で書く'],
+ans:[1],
+expl:'ビジネス文書の数字表記は、横書きはアラビア数字（1・2・3）、縦書きは漢数字（一・二・三）が一般的。金額証書・契約書では改ざん防止のため漢数字を用いることもある。',
+hint:'横書き→アラビア数字。縦書き→漢数字が基本'},
+
+{id:56,cat:'技能',type:'sc',diff:'mid',
+q:'資料作成でグラフを選ぶ際の説明として、最も不適切なものはどれか。',
+opts:['月別売上の増減推移を見せたいときは折れ線グラフが適している','5つの部門の売上構成比を見せたいときは円グラフが適している','3年分の売上を前年比較したいときは積み上げ棒グラフより折れ線グラフが適している','製品A〜Eの販売数量を比較したいときは棒グラフが適している'],
+ans:[2],
+expl:'複数年の前年比較（例：部門別3年分の売上）を見せる場合は、グループ棒グラフや折れ線グラフが適している。積み上げ棒グラフは「合計量の推移と内訳の変化」を同時に見せる際に使う。前年比較には折れ線かグループ棒グラフを使うのが一般的。',
+hint:'積み上げ棒グラフ＝合計と内訳を同時に表示。前年比較はグループ棒・折れ線'},
+
+{id:57,cat:'技能',type:'sc',diff:'mid',
+q:'会議室の予約・管理において秘書が行うべきことして最も適切なものはどれか。',
+opts:['会議室の利用は上司が直接予約するため秘書は関与しない','会議の目的・人数・必要設備を確認した上で、適切な部屋を事前に押さえる','会議室の予約は当日に行えばよい','会議後の清掃は清掃スタッフに任せ、秘書は確認しない'],
+ans:[1],
+expl:'会議室の管理は秘書の重要な役割のひとつ。会議の規模・必要な設備（プロジェクター・ホワイトボード等）・人数を確認し、余裕をもって予約する。',
+hint:'会議室予約：目的・人数・設備を確認→事前に予約'},
+
+{id:58,cat:'技能',type:'sc',diff:'high',
+q:'「帳票」の説明として正しいものはどれか。',
+opts:['企業の経営方針を記した文書','業務上の記録・集計・伝達に使う書式（伝票・帳簿・申請書など）の総称','社員の勤務状況を管理するシステム','来客記録をまとめたノート'],
+ans:[1],
+expl:'帳票とは業務上の記録・伝達・集計に用いる書式類の総称。注文書・請求書・伝票・日報・申請書など様々な種類がある。組織の業務を円滑に進めるための重要なツール。',
+hint:'帳票＝業務上の書式類（伝票・申請書など）の総称'},
+
+{id:59,cat:'技能',type:'sc',diff:'mid',
+q:'秘書がスケジュール帳やシステムでの予定管理において注意すべき点として最も適切なものはどれか。',
+opts:['予定は確定してから記入し、変更は上司に任せる','仮予定と確定予定を区別して管理し、常に最新の状態に保つ','他の秘書に管理を任せて、自分は把握しなくてよい','記入は月に一度まとめて更新すれば十分'],
+ans:[1],
+expl:'スケジュール管理では「仮予定」と「確定予定」を明確に区別し、変更が生じた場合は速やかに更新して常に最新状態を維持することが大切。曖昧なまま放置するとダブルブッキングなどのトラブルにつながる。',
+hint:'スケジュール管理：仮と確定を区別→常に最新に保つ'},
+
+{id:60,cat:'技能',type:'sc',diff:'mid',
+q:'文書の保存・廃棄に関する説明として、最も不適切なものはどれか。',
+opts:['契約書や重要文書には法令・社内規程による保存期間がある','保存期間が満了した文書は、個人情報が含まれる場合はシュレッダーや溶解処理で廃棄する','電子データで保存している文書は紙と異なり保存期間のルールは適用されない','文書を廃棄する際は上司または担当者の承認を得てから行う'],
+ans:[2],
+expl:'電子データも紙文書と同様に、法令・社内規程で定められた保存期間が適用される。「電子だから関係ない」は誤り。電子文書法（e-文書法）等により電子保存が認められているが、保存期間のルールは同様に適用される。',
+hint:'電子データにも保存期間のルールは適用される。紙と同様に管理が必要'},
+
+// ══════════════════════════════════════
+// ── 第3弾 Q61〜Q100（頻出・間違えやすいテーマ強化） ──
+// ── ❶敬語10問 ❷慶弔8問 ❸席次6問 ❹文書8問 ❺電話3問 ❻一般知識5問 ──
+// ══════════════════════════════════════
+
+// ❶ 敬語・言葉遣い（Q61〜Q70）
+{id:61,cat:'マナー・接遇',type:'sc',diff:'high',
+q:'次のうち「二重敬語」として誤っている表現はどれか。',
+opts:['おっしゃっていただく','お召し上がりになる','ご覧になる','お聞きになる'],
+ans:[1],
+expl:'「お召し上がりになる」は「召し上がる」がすでに尊敬語（食べる・飲むの尊敬語）なのに、さらに「お〜になる」という尊敬表現を重ねた二重敬語。正しくは「召し上がる」だけでよい。「おっしゃっていただく」は尊敬語＋謙譲語の組み合わせだが、相手の動作に謙譲を添える形として一般的に許容される。',
+hint:'召し上がる＝すでに尊敬語。「お〜になる」を重ねると二重敬語'},
+
+{id:62,cat:'マナー・接遇',type:'sc',diff:'high',
+q:'「部長が会議室にいらっしゃいます」という表現について正しい説明はどれか。',
+opts:['正しい表現である（社外向けでも社内向けでも使える）','社内では正しいが、社外の人に対して自社の部長について言う場合は誤り','社外の人に対しては「部長がいます」と言うのが正しい','社外の人に対しては「部長がおられます」が正しい'],
+ans:[1],
+expl:'「いらっしゃいます」は尊敬語。社外の人に対して自社の上司（部長）を尊敬語で表現するのは誤り。社外向けには「（弊社の）田中は会議室におります」と謙譲語を使う。社内向けなら「いらっしゃいます」でよい。',
+hint:'社外向けに自社の人→尊敬語×、謙譲語○「おります」'},
+
+{id:63,cat:'マナー・接遇',type:'sc',diff:'mid',
+q:'来客に「どうぞおかけください」と勧める場面で、より丁寧な表現として適切なものはどれか。',
+opts:['「座ってください」','「おかけになってください」','「どうぞおかけくださいませ」','「座られてください」'],
+ans:[2],
+expl:'「おかけくださいませ」は「おかけください」にさらに丁寧さを添えた表現で、接遇の場面では最も自然で適切。「座られてください」は「られ」を尊敬の意で使った表現だが、「座る」への「られ」は誤用になりやすく不自然。',
+hint:'接遇での着席依頼：「おかけくださいませ」が最も丁寧'},
+
+{id:64,cat:'マナー・接遇',type:'sc',diff:'high',
+q:'次の敬語表現のうち、正しいものはどれか。',
+opts:['「先生が申されました」','「社長がおっしゃいました」','「課長がいらっしゃいました」と社外の人に言う','「お客様がおります」'],
+ans:[1],
+expl:'「おっしゃいました」は「言う」の尊敬語で正しい。「申す」は謙譲語なので「先生が申された」は誤り（尊敬語を使うべき）。「お客様がおります」の「おります」は謙譲語なので客に使うのは失礼（「いらっしゃいます」が正しい）。',
+hint:'言う→尊敬：おっしゃる　謙譲：申す。客に「おります」×→「いらっしゃいます」'},
+
+{id:65,cat:'マナー・接遇',type:'sc',diff:'mid',
+q:'「資料をご確認いただけますでしょうか」を別の表現に言い換えた場合、最も適切なものはどれか。',
+opts:['「資料を確認してください」','「資料をお確かめくださいますでしょうか」','「資料をご覧くださいますようお願い申し上げます」','「資料をご覧になっていただければと思います」'],
+ans:[2],
+expl:'「ご覧くださいますようお願い申し上げます」は「見る」の尊敬語「ご覧になる」＋依頼表現の組み合わせで、書類や資料を相手に確認してもらう際の最も丁寧な表現のひとつ。社外文書や改まった場面でよく使う。',
+hint:'資料確認の依頼：「ご覧くださいますようお願い申し上げます」が定番'},
+
+{id:66,cat:'マナー・接遇',type:'sc',diff:'mid',
+q:'電話で相手が不在の場合、「伝言をお願いできますか」と頼む際の正しい表現はどれか。',
+opts:['「伝言してください」','「伝言をお伝えいただけますでしょうか」','「伝言を言っておいてください」','「伝言を頼んでいいですか」'],
+ans:[1],
+expl:'「お伝えいただけますでしょうか」は相手に伝言を伝えてもらうことを丁寧に依頼する表現。「お〜いただく」は相手の行為に感謝・敬意を示す謙譲表現で、依頼の場面で広く使われる。',
+hint:'伝言依頼：「お伝えいただけますでしょうか」が適切'},
+
+{id:67,cat:'マナー・接遇',type:'sc',diff:'high',
+q:'「わかりました」のビジネス敬語として最も格式が高い表現はどれか。',
+opts:['「わかりました」','「了解しました」','「承知いたしました」','「かしこまりました」'],
+ans:[3],
+expl:'格式の高さは「わかりました」＜「了解しました」＜「承知いたしました」＜「かしこまりました」の順。「かしこまりました」が最も丁寧で格式が高い。取引先・来客・目上の人には「かしこまりました」が最適。「了解」は目下や同僚向け。',
+hint:'丁寧度：わかった＜了解＜承知＜かしこまりました（最上）'},
+
+{id:68,cat:'マナー・接遇',type:'sc',diff:'mid',
+q:'「お世話になっております」という表現について正しい説明はどれか。',
+opts:['初対面の相手には使わず、面識のある相手にのみ使う','電話・メールの書き出しに幅広く使える定型の挨拶表現','目上の人には使わず、同僚や部下に使う','「お世話様です」と同じ意味で同じ場面で使える'],
+ans:[1],
+expl:'「お世話になっております」はビジネスにおける電話・メールの書き出しとして広く使われる定型挨拶。初対面でも使う。「お世話様です」はやや軽い表現でビジネスの場ではやや不適切な場合もある。',
+hint:'お世話になっております＝電話・メール書き出しの定番挨拶。初対面でも使える'},
+
+{id:69,cat:'マナー・接遇',type:'sc',diff:'high',
+q:'次の表現のうち、ビジネスシーンで誤った敬語の使い方はどれか。',
+opts:['「ご利用になれます」','「おいでになりますか」','「ご覧になられますか」','「お読みになりましたか」'],
+ans:[2],
+expl:'「ご覧になられますか」は「ご覧になる」という尊敬語にさらに「られる」という尊敬の助動詞を重ねた二重敬語。正しくは「ご覧になりますか」。他の選択肢は正しい敬語表現。',
+hint:'ご覧になられる→二重敬語。正しくは「ご覧になりますか」'},
+
+{id:70,cat:'マナー・接遇',type:'sc',diff:'mid',
+q:'「お客様がお見えになりました」という表現の説明として正しいものはどれか。',
+opts:['「見える」は「来る」の謙譲語なので誤り','「お見えになる」は「来る」の尊敬語で正しい表現','「お見えになられました」とすると更に丁寧になる','社内の人間に使う際は「いらっしゃいました」に変える必要はない'],
+ans:[1],
+expl:'「お見えになる」は「来る」の尊敬語として広く使われる正しい表現。「お見えになられました」は二重敬語になるため誤り。なお「いらっしゃる」も「来る」の尊敬語で同様に使える。',
+hint:'お見えになる＝来るの尊敬語○。「お見えになられる」は二重敬語×'},
+
+// ❷ 冠婚葬祭・慶弔マナー（Q71〜Q78）
+{id:71,cat:'マナー・接遇',type:'sc',diff:'high',
+q:'仏式の葬儀に参列する際の香典の表書きとして正しいものはどれか。',
+opts:['「御霊前」なら宗教を問わずいつでも使える','「御仏前」は四十九日の法要以降に使う','「御香典」は神式にのみ使う','「御花料」は仏式に使う表書きである'],
+ans:[1],
+expl:'仏教では四十九日の忌明け前は「御霊前」、四十九日以降（忌明け後）は「御仏前」を使う。「御霊前」は宗教・宗派を問わず使えるが、浄土真宗は死後すぐ仏になるとされるため葬儀でも「御仏前」を使う。「御花料」はキリスト教式に使う。',
+hint:'四十九日前→御霊前、四十九日後→御仏前。浄土真宗は最初から御仏前'},
+
+{id:72,cat:'マナー・接遇',type:'sc',diff:'high',
+q:'慶弔の際に使う「忌み言葉」として適切なものはどれか。',
+opts:['結婚式のスピーチで「お開き」を使う','弔事の場で「重ね重ね」を使う','結婚式で「切れる」「別れる」を使う','葬儀で「ますます」を使う'],
+ans:[2],
+expl:'結婚式などの慶事では「切れる」「別れる」「終わる」「壊れる」などの縁起の悪い言葉（忌み言葉）は使わない。「重ね重ね」「たびたび」「またまた」などの重ね言葉は弔事での忌み言葉（不幸が重なるを連想）。「お開き」は宴の終わりを「終わる」と言わないための言い換えで正しい使い方。',
+hint:'慶事の忌み言葉：切る・別れる・終わる　弔事：重ね重ね・たびたび'},
+
+{id:73,cat:'マナー・接遇',type:'sc',diff:'mid',
+q:'上司の代理でお祝いを持参する際の対応として正しいものはどれか。',
+opts:['上司の名刺の裏に「代」と書き、添えて渡す','自分の名刺のみを渡す','上司の名刺の表に「代理」とスタンプを押して渡す','口頭で上司の代わりであることを伝えるだけでよい'],
+ans:[0],
+expl:'代理でお祝いを持参する場合は、上司の名刺の左下に「代」または「代理」と書き添えて渡すのがマナー。自分の名刺は必要に応じて別途渡す。名刺の表に書き込むのは失礼にあたる。',
+hint:'代理でのお祝い→上司名刺の左下に「代」と書いて渡す'},
+
+{id:74,cat:'マナー・接遇',type:'sc',diff:'mid',
+q:'弔電を打つ際の注意点として正しいものはどれか。',
+opts:['弔電は葬儀の前日までに届くよう手配する','弔電の文中に忌み言葉を使っても問題ない','弔電は必ず自分で持参しなければならない','弔電は葬儀終了後に送るのが礼儀である'],
+ans:[0],
+expl:'弔電は葬儀・告別式が始まる前（前日まで、または当日午前中）に届くよう手配するのが基本。弔電の文中にも「重ね重ね」などの忌み言葉は使わない。弔電は電報で送るもので持参する必要はない。',
+hint:'弔電→葬儀前日までに届くよう手配。忌み言葉も使わない'},
+
+{id:75,cat:'マナー・接遇',type:'sc',diff:'high',
+q:'祝儀袋・不祝儀袋の水引の本数・色について正しいものはどれか。',
+opts:['婚礼には赤白10本結び切りを使う','一般的なお見舞いには黒白の水引を使う','弔事には黄白または黒白の水引を使う','お中元には結び切りの水引を使う'],
+ans:[2],
+expl:'弔事（葬儀・法要）には黒白または黄白（西日本）の水引を使う。婚礼には赤白または金銀の10本結び切り。お見舞いは水引なし（またはのしなし）が基本。お中元・お歳暮などの一般贈答には紅白の蝶結びを使う。',
+hint:'弔事→黒白・黄白の水引。婚礼→赤白・金銀の結び切り10本'},
+
+{id:76,cat:'マナー・接遇',type:'sc',diff:'mid',
+q:'上司の親族が亡くなった場合の秘書の対応として適切なものはどれか。',
+opts:['上司に全ての連絡・手配を任せ、秘書は関与しない','スケジュールの調整・関係者への連絡など、上司の負担を軽減できる範囲で対応する','亡くなった事実を社内外に広く連絡する','葬儀に関する全ての手配を秘書が独断で行う'],
+ans:[1],
+expl:'上司の親族が亡くなった際は、上司の指示のもと、スケジュールのキャンセル・関係者への連絡・返礼品の手配など、秘書ができる範囲でサポートする。ただし独断での行動は避け、必ず上司の意向を確認する。',
+hint:'上司の親族の訃報→上司の指示のもと負担軽減のサポートをする'},
+
+{id:77,cat:'マナー・接遇',type:'sc',diff:'high',
+q:'結婚式の祝儀袋の表書きとして正しいものはどれか。',
+opts:['「御霊前」','「寿」または「御祝」','「御香典」','「御花料」'],
+ans:[1],
+expl:'結婚祝いの祝儀袋の表書きは「寿」「御祝」「御結婚御祝」などを使う。「御霊前」は弔事用、「御香典」は仏式の弔事用、「御花料」はキリスト教式の弔事用。',
+hint:'結婚祝い→「寿」「御祝」。御霊前・御香典・御花料は弔事用'},
+
+{id:78,cat:'マナー・接遇',type:'sc',diff:'mid',
+q:'喪中の上司への年賀状について秘書として正しい対応はどれか。',
+opts:['喪中でも年賀状は例年通り送る','年賀状は送らず、年明けに「寒中見舞い」を出す','喪中はがきが届いたら電話でお悔やみを伝える','喪中の期間が終わった後に改めて年賀状を送る'],
+ans:[1],
+expl:'喪中の方には年賀状を送らないのがマナー。代わりに松の内（1月7日）が明けてから立春（2月4日頃）までの間に「寒中見舞い」を出す。喪中はがきを受け取ったら電話は控え、寒中見舞いで対応するのが一般的。',
+hint:'喪中の方→年賀状は送らない→松の内明け後に寒中見舞いを出す'},
+
+// ❸ 席次・座席マナー（Q79〜Q84）
+{id:79,cat:'マナー・接遇',type:'sc',diff:'high',
+q:'タクシーの席次として「上座」にあたる席はどれか。',
+opts:['運転席の隣（助手席）','運転席の真後ろ（後部座席の右側）','後部座席の中央','後部座席の左側（運転席の後ろの対角線上）'],
+ans:[1],
+expl:'タクシーの上座は運転席の真後ろ（後部座席の右側）。次いで後部座席の左側、後部座席の中央、最下座が助手席の順。ただし上司・来客が「助手席に乗る」と言った場合はその意向を優先する。',
+hint:'タクシー上座：運転席の真後ろ（後部右）が最上座'},
+
+{id:80,cat:'マナー・接遇',type:'sc',diff:'high',
+q:'新幹線・電車の座席の席次として正しいものはどれか。（2人掛けと3人掛けが向かい合う4人席の場合）',
+opts:['窓側・進行方向向きが上座','通路側・進行方向向きが上座','窓側・進行方向と逆向きが上座','通路側・進行方向と逆向きが上座'],
+ans:[0],
+expl:'新幹線・電車の席次は、窓側かつ進行方向を向いた席が最上座。次に窓側・逆向き、通路側・進行方向向き、通路側・逆向きの順。景色が見やすく揺れの影響が少ない窓側・進行方向が上座となる。',
+hint:'新幹線上座：窓側＋進行方向向き＝最上座'},
+
+{id:81,cat:'マナー・接遇',type:'sc',diff:'mid',
+q:'和室での席次として正しいものはどれか。',
+opts:['出入口に最も近い席が上座','床の間を背にした席が上座','床の間の前（床の間を正面に見る席）が上座','窓に最も近い席が上座'],
+ans:[2],
+expl:'和室では床の間（とこのま）を正面に見る席（床の間の前に座る席）が上座。床の間を背にした席（床の間の前に向かって座る席）は下座になる。床の間がない場合は出入口から遠い席が上座。',
+hint:'和室の上座：床の間を正面に「見る」席（床の間の前に座る）'},
+
+{id:82,cat:'マナー・接遇',type:'sc',diff:'mid',
+q:'応接室でソファと一人掛け椅子がある場合、来客に勧める席として正しいものはどれか。',
+opts:['入口に近い一人掛け椅子','入口から遠いソファの奥側の席','入口に近いソファの席','入口から遠い一人掛け椅子'],
+ans:[1],
+expl:'応接室での上座は入口から遠い席で、なおかつソファ（長椅子）の奥側が最上座。ソファは一人掛け椅子より格上とされる。来客には入口から遠いソファの奥の席を勧める。',
+hint:'応接室：入口から遠い＋ソファの奥側＝最上座。来客に勧める'},
+
+{id:83,cat:'マナー・接遇',type:'sc',diff:'high',
+q:'会議室で上司と来客が向かい合って座る場合、来客側の上座として正しいものはどれか。',
+opts:['出入口に近い席の中央','出入口から最も遠い席の中央','窓に面した席の端','出入口の真横の席'],
+ans:[1],
+expl:'会議室では出入口から最も遠い席が上座。来客グループの代表者（最上位の人）は出入口から最も遠い席の中央（上手の真ん中）に座るのが基本。主催者側（自社）は出入口に近い側に座る。',
+hint:'会議室：来客→出入口から遠い側の中央が最上座'},
+
+{id:84,cat:'マナー・接遇',type:'sc',diff:'mid',
+q:'社用車（運転手付き）の場合の席次として正しいものはどれか。',
+opts:['タクシーと同じく運転席の真後ろが上座','助手席（運転手の隣）が上座','後部座席の中央が上座','車種によって上座は変わらない'],
+ans:[0],
+expl:'社用車（運転手付き）でもタクシーと同様、運転席の真後ろ（後部座席の右側）が上座。ただし、上司や来客が「助手席に乗る」と希望した場合はその意向を優先するのがマナー。',
+hint:'社用車もタクシーと同じ：運転席の真後ろが上座'},
+
+// ❹ 文書作成の細部（Q85〜Q92）
+{id:85,cat:'技能',type:'sc',diff:'mid',
+q:'社外ビジネス文書の「時候の挨拶」として、1月に使う表現として最も適切なものはどれか。',
+opts:['「新緑の候」','「厳冬の候」','「初秋の候」','「梅雨の候」'],
+ans:[1],
+expl:'時候の挨拶は季節に合わせた表現を使う。1月は「厳冬の候」「寒冷の候」「初春の候（年始）」など。「新緑の候」は5月頃、「初秋の候」は9月頃、「梅雨の候」は6月頃に使う。',
+hint:'1月：厳冬・寒冷・初春の候。新緑は5月、初秋は9月、梅雨は6月'},
+
+{id:86,cat:'技能',type:'sc',diff:'mid',
+q:'社外文書で「貴社」と「御社」の使い分けとして正しいものはどれか。',
+opts:['どちらも書き言葉・話し言葉で使える','「貴社」は書き言葉、「御社」は話し言葉で使う','「御社」は書き言葉、「貴社」は話し言葉で使う','業種によって使い分ける'],
+ans:[1],
+expl:'「貴社」は文書・手紙などの書き言葉で使い、「御社」は会話・電話などの話し言葉で使う。面談や電話では「御社」、文書では「貴社」というルールが基本。',
+hint:'貴社→書き言葉（文書）　御社→話し言葉（会話・電話）'},
+
+{id:87,cat:'技能',type:'sc',diff:'high',
+q:'社外文書の「前文」に含まれる要素として正しい組み合わせはどれか。',
+opts:['頭語・時候の挨拶・相手の繁栄を喜ぶ言葉・日頃の感謝','日付・差出人・宛名・件名','本件の主旨・依頼事項・期日','結語・追伸・担当者名'],
+ans:[0],
+expl:'社外文書の「前文」は①頭語（拝啓など）②時候の挨拶③相手の繁栄を喜ぶ言葉（「貴社益々ご隆盛のこととお慶び申し上げます」など）④日頃の取引への感謝で構成される。日付・差出人・宛名は「後付け」に含まれる。',
+hint:'前文：頭語＋時候の挨拶＋先方の繁栄を喜ぶ言葉＋感謝'},
+
+{id:88,cat:'技能',type:'sc',diff:'mid',
+q:'ビジネス文書の件名（タイトル）の書き方として正しいものはどれか。',
+opts:['件名は「記」の後に書く','件名は文書の内容が一目でわかるよう簡潔に書く','件名は必ず「〜の件」で終わらなければならない','件名は文書の末尾に書く'],
+ans:[1],
+expl:'件名（タイトル）は受け取った人が内容をすぐに把握できるよう、具体的かつ簡潔に書く。必ずしも「〜の件」で終わる必要はなく「〜のお知らせ」「〜のご依頼」なども使う。件名は文書の冒頭（宛名の後、本文の前）に書く。',
+hint:'件名：内容が一目でわかる＋簡潔に。「の件」で終わる必要はない'},
+
+{id:89,cat:'技能',type:'sc',diff:'high',
+q:'社外文書で「記」と「以上」を使う場合の説明として正しいものはどれか。',
+opts:['「記」の前に本文の詳細事項を書く','「記」以降に箇条書きで重要事項を列記し、末尾に「以上」と書く','「記」は文書の冒頭に使う言葉である','「以上」は差出人名の後に書く'],
+ans:[1],
+expl:'文書で「記」を使う場合は、前文・本文で主旨を述べた後に「記」と中央に書き、その下に日時・場所・内容などを箇条書きで列記する。最後は右端に「以上」と書いて締めくくる。',
+hint:'記書き：本文後→中央に「記」→箇条書き→右端に「以上」'},
+
+{id:90,cat:'技能',type:'sc',diff:'mid',
+q:'FAXで書類を送付する際のマナーとして適切なものはどれか。',
+opts:['FAXの枚数が多い場合も事前連絡は不要','送付状（FAX送付票）を付けて送り、電話で到着確認をする','個人情報が含まれる書類もFAXで送って問題ない','FAX送信後は送信確認レポートは不要'],
+ans:[1],
+expl:'FAX送付時は①送付状（宛先・差出人・枚数・用件を記した票）を付ける②重要書類は事前に電話連絡し、送信後に到着確認の電話をする。個人情報・機密情報のFAX送信は誤送信リスクがあるため注意が必要。',
+hint:'FAX：送付状を付ける＋重要書類は事前連絡＋到着確認の電話'},
+
+{id:91,cat:'技能',type:'sc',diff:'mid',
+q:'「お礼状」を出すタイミングとして最も適切なものはどれか。',
+opts:['なるべく早く、できれば翌日中に出す','1週間以内に出せばよい','礼状は形式的なものなので省略してもよい','相手から催促があってから出す'],
+ans:[0],
+expl:'お礼状はできるだけ早く出すのがマナー。翌日中が理想で、遅くとも3日以内が目安。遅れるほど誠意が伝わりにくくなる。メールで速やかに送り、後から正式な手紙を出す方法も有効。',
+hint:'お礼状：翌日中が理想。遅くとも3日以内に'},
+
+{id:92,cat:'技能',type:'sc',diff:'high',
+q:'社内メールを送る際のマナーとして正しいものはどれか。',
+opts:['件名は空欄でも内容を読めばわかる','CC（カーボンコピー）は情報共有が必要な関係者に使い、BCC（ブラインドカーボンコピー）は他の受信者に宛先を知られたくない場合に使う','返信不要の場合もすべてのメールに返信する','添付ファイルはサイズに関係なく送ってよい'],
+ans:[1],
+expl:'CCは同報した相手のアドレスが全員に見える。BCCは他の受信者にアドレスが見えない。一斉送信で受信者同士にアドレスを知られたくない場合はBCCを使う。件名は必ず内容がわかるよう記入するのが基本。',
+hint:'CC→全員にアドレス見える。BCC→他の受信者にアドレス非表示'},
+
+// ❺ 電話応対の応用（Q93〜Q95）
+{id:93,cat:'マナー・接遇',type:'sc',diff:'high',
+q:'クレームの電話を受けた際の対応として最も適切なものはどれか。',
+opts:['「それは当社の責任ではありません」と反論する','まず相手の話をよく聞き、不快な思いをさせたことに対してお詫びする','すぐに上司に代わってもらい、自分は対応しない','クレームの原因が不明な場合は折り返し電話をすると約束して切る'],
+ans:[1],
+expl:'クレーム対応の第一歩は「まず聞く・まずお詫びする」。事実確認より先に相手の感情を受け止め、不快な思いをさせたことへの謝罪が大切。その後、状況を確認し、解決策を提示する。即座の反論は怒りを増幅させる。',
+hint:'クレーム対応：反論×→まず聞く＋不快をおかけしたことへのお詫び'},
+
+{id:94,cat:'マナー・接遇',type:'sc',diff:'mid',
+q:'電話での伝言メモに記載すべき事項として不要なものはどれか。',
+opts:['電話をくれた相手の名前と所属','電話を受けた日時','伝言の内容と折り返しの要否','電話を受けた秘書の私用の電話番号'],
+ans:[3],
+expl:'伝言メモには①日時②相手の名前・所属・連絡先③伝言内容④折り返し連絡の要否⑤電話を受けた自分の名前を記載する。秘書の私用電話番号は業務上不要であり、記載すべきでない。',
+hint:'伝言メモ：日時・相手情報・内容・折り返し要否・受けた人の名前'},
+
+{id:95,cat:'マナー・接遇',type:'sc',diff:'mid',
+q:'電話が途中で切れてしまった場合の対応として正しいものはどれか。',
+opts:['かけた側（こちら側）からかけ直すのが原則','受けた側からかけ直すのが原則','どちらからかけ直してもよい','相手が再度かけてくるまで待つ'],
+ans:[0],
+expl:'電話が途中で切れた場合は、最初にかけた側（発信者側）がかけ直すのが一般的なマナー。ただし、こちらがかけた電話でなくても相手が重要な顧客・目上の方の場合はこちらからかけ直す配慮も大切。',
+hint:'電話が切れた→かけた側がかけ直すのが原則'},
+
+// ❻ 一般知識（経済・労働・ビジネス用語）（Q96〜Q100）
+{id:96,cat:'一般知識',type:'sc',diff:'mid',
+q:'「労働基準法」で定められた法定労働時間として正しいものはどれか。',
+opts:['1日8時間・1週40時間','1日9時間・1週45時間','1日7時間・1週35時間','1日10時間・1週50時間'],
+ans:[0],
+expl:'労働基準法第32条により、法定労働時間は「1日8時間・1週40時間」と定められている。これを超えて働かせる場合は36協定（時間外労働に関する労使協定）の締結と割増賃金の支払いが必要。',
+hint:'法定労働時間：1日8時間・1週40時間（労働基準法）'},
+
+{id:97,cat:'一般知識',type:'sc',diff:'mid',
+q:'「株主総会」の説明として正しいものはどれか。',
+opts:['会社の日常業務を決定する会議体','株主が参加し、会社の重要事項（役員選任・決算承認など）を決議する最高意思決定機関','取引先との契約を締結するための会議','社内の全社員が参加する経営会議'],
+ans:[1],
+expl:'株主総会は株式会社における最高意思決定機関。株主が参加し、取締役の選任・解任、決算の承認、定款変更などの重要事項を決議する。原則として年1回（定時株主総会）開催される。',
+hint:'株主総会＝株式会社の最高意思決定機関。年1回が原則'},
+
+{id:98,cat:'一般知識',type:'sc',diff:'high',
+q:'「損益計算書（P/L）」の説明として正しいものはどれか。',
+opts:['ある時点での企業の財産状況を示す表','一定期間の収益・費用・利益（損益）を示す財務諸表','企業の現金の動きを示す財務諸表','将来の売上予測をまとめた表'],
+ans:[1],
+expl:'損益計算書（P/L：Profit and Loss Statement）は一定期間（1年間など）の売上高・費用・利益を示す財務諸表。貸借対照表が「財政状態（ある時点）」を示すのに対し、損益計算書は「経営成績（一定期間）」を示す。',
+hint:'損益計算書＝一定期間の収益・費用・利益（経営成績）を示す'},
+
+{id:99,cat:'一般知識',type:'sc',diff:'mid',
+q:'「CSR（企業の社会的責任）」の説明として最も正しいものはどれか。',
+opts:['企業が株主に対して利益を最大化する責任','企業が法令遵守だけでなく、環境・社会・地域貢献など幅広い責任を果たすこと','企業の売上を社会に還元する税金制度','取引先に対して誠実に契約を守ること'],
+ans:[1],
+expl:'CSR（Corporate Social Responsibility）は企業が利益追求だけでなく、環境保護・人権尊重・地域貢献・労働環境改善など社会全体に対して責任を果たすという考え方。近年は「SDGs」との関連でも重要視されている。',
+hint:'CSR＝企業の社会的責任。法令遵守を超えた環境・社会・地域への責任'},
+
+{id:100,cat:'一般知識',type:'sc',diff:'mid',
+q:'「インボイス制度」に関する説明として正しいものはどれか。',
+opts:['社員の給与明細の発行に関する制度','消費税の仕入税額控除に必要な適格請求書（インボイス）を発行・保存する制度','社内稟議書の電子化に関する制度','取引先への見積書を標準化する制度'],
+ans:[1],
+expl:'インボイス制度（適格請求書等保存方式）は2023年10月に導入された消費税に関する制度。売り手は「適格請求書発行事業者」として登録し、適格請求書（インボイス）を発行する。買い手はインボイスの保存が仕入税額控除の条件となる。',
+hint:'インボイス＝消費税の仕入税額控除のための適格請求書制度（2023年〜）'},
+
+// ══════════════════════════════════════
+// ── 第4弾 Q101〜Q140（一般知識・技能・マナー接遇 補強）──
+// ══════════════════════════════════════
+
+// ❶ 一般知識：労働法規（Q101〜Q108）
+{id:101,cat:'一般知識',type:'sc',diff:'mid',
+q:'労働基準法で定められた「有給休暇」の最低付与日数について、入社後6ヶ月継続勤務・全労働日の8割以上出勤した場合の付与日数として正しいものはどれか。',
+opts:['3日','5日','10日','14日'],
+ans:[2],
+expl:'労働基準法第39条により、6ヶ月継続勤務かつ全労働日の8割以上出勤した労働者には、最低10日の年次有給休暇を付与しなければならない。勤続年数が増えると付与日数も増加する。',
+hint:'有給休暇：入社6ヶ月後に最低10日付与（労働基準法）'},
+
+{id:102,cat:'一般知識',type:'sc',diff:'mid',
+q:'「36協定」の説明として正しいものはどれか。',
+opts:['36歳以上の労働者の雇用を守る協定','時間外労働・休日労働に関する労使協定（労働基準法第36条）','36ヶ月以上勤務した社員の処遇に関する協定','社員36人以上の企業に義務付けられる就業規則'],
+ans:[1],
+expl:'36協定とは、労働基準法第36条に基づく「時間外労働・休日労働に関する協定」のこと。使用者と労働者代表が締結し、労働基準監督署に届け出ることで法定労働時間を超える残業が可能になる。',
+hint:'36協定＝労基法第36条。時間外・休日労働を可能にする労使協定'},
+
+{id:103,cat:'一般知識',type:'sc',diff:'high',
+q:'「育児・介護休業法」に関する説明として正しいものはどれか。',
+opts:['育児休業は母親のみが取得できる','育児休業は子が1歳になるまで取得できる（一定条件で延長可）','介護休業は通算365日まで取得できる','育児休業中は給与の全額が支給される'],
+ans:[1],
+expl:'育児休業は原則として子が1歳になるまで取得できる。保育園に入れない等の事情がある場合は最長2歳まで延長可能。父母ともに取得できる。育児休業中は雇用保険から休業給付金（賃金の約67%）が支給される。',
+hint:'育児休業：原則1歳まで（最長2歳まで延長可）。父母ともに取得可'},
+
+{id:104,cat:'一般知識',type:'sc',diff:'mid',
+q:'「最低賃金法」に関する説明として正しいものはどれか。',
+opts:['最低賃金は全国一律で同じ金額である','最低賃金は地域（都道府県）ごとに異なる地域別最低賃金がある','最低賃金はパート・アルバイトには適用されない','最低賃金を下回る賃金でも本人が合意すれば有効'],
+ans:[1],
+expl:'最低賃金には都道府県ごとに定められた「地域別最低賃金」がある。雇用形態（正社員・パート・アルバイト等）に関わらずすべての労働者に適用され、最低賃金を下回る賃金での契約は無効となる。',
+hint:'最低賃金＝都道府県ごとに異なる。雇用形態問わず全員に適用'},
+
+{id:105,cat:'一般知識',type:'sc',diff:'mid',
+q:'「ハラスメント」に関する説明として誤っているものはどれか。',
+opts:['パワーハラスメントは職場内の優越的な関係を背景にした言動','セクシャルハラスメントは性的な言動による不利益・不快感','マタニティハラスメントは妊娠・出産・育児に関する不利益取扱い','ハラスメントは意図的に行った場合のみ成立する'],
+ans:[3],
+expl:'ハラスメントは「意図」の有無に関わらず成立する。「冗談のつもりだった」「悪意はなかった」という主張は通らない。相手がどのように受け取ったかが重要であり、客観的にみて不当な言動であれば成立する。',
+hint:'ハラスメント＝意図の有無は関係なし。相手の受け取り方が重要'},
+
+{id:106,cat:'一般知識',type:'sc',diff:'mid',
+q:'「個人情報保護法」における「個人情報」の定義として正しいものはどれか。',
+opts:['氏名のみを指す','生存する個人に関する情報で、特定の個人を識別できるもの','企業の財務情報も含む','死亡した人の情報も含む'],
+ans:[1],
+expl:'個人情報保護法における個人情報とは「生存する個人に関する情報であって、氏名・生年月日その他の記述等により特定の個人を識別することができるもの」。死亡した人の情報は原則として対象外（ただし遺族の個人情報を含む場合は対象）。',
+hint:'個人情報＝生存する個人を特定できる情報。死者は原則対象外'},
+
+{id:107,cat:'一般知識',type:'sc',diff:'high',
+q:'「男女雇用機会均等法」で禁止されている行為として正しいものはどれか。',
+opts:['能力・実績に基づく昇進・昇給の差','募集・採用・昇進・教育訓練などにおける性別を理由とした差別','育児休業取得者への評価への考慮','時間外労働の上限設定'],
+ans:[1],
+expl:'男女雇用機会均等法は、募集・採用・配置・昇進・教育訓練・福利厚生・定年・解雇等における性別を理由とした差別を禁止している。また、婚姻・妊娠・出産を理由とした不利益取扱いも禁止している。',
+hint:'均等法＝採用・昇進・教育等における性差別を禁止'},
+
+{id:108,cat:'一般知識',type:'sc',diff:'mid',
+q:'「社会保険」に含まれるものの組み合わせとして正しいものはどれか。',
+opts:['健康保険・厚生年金保険・雇用保険・労災保険','健康保険・厚生年金保険のみ','雇用保険・労災保険のみ','健康保険・国民年金のみ'],
+ans:[0],
+expl:'社会保険は広義には健康保険・厚生年金保険・雇用保険・労災保険・介護保険の5つを指す。狭義には健康保険と厚生年金保険を指すこともある。労働保険（雇用保険＋労災保険）と社会保険（健保＋厚年）を合わせて「社会保険」と呼ぶことが多い。',
+hint:'社会保険（広義）＝健保・厚年・雇用・労災・介護の5種'},
+
+// ❷ 技能：文書作成の応用（Q109〜Q118）
+{id:109,cat:'技能',type:'sc',diff:'mid',
+q:'社外文書の「安否挨拶」として正しい表現はどれか。',
+opts:['「貴社ますますご清栄のこととお慶び申し上げます」','「貴社のご発展を心よりお祈り申し上げます」','「いつもお世話になっております」','「先日はありがとうございました」'],
+ans:[0],
+expl:'「貴社ますますご清栄のこととお慶び申し上げます」は社外文書の前文で使う典型的な安否挨拶（相手の繁栄を喜ぶ言葉）。「ご発展をお祈り申し上げます」は結びの言葉として使う。「いつもお世話になっております」は電話・メールの書き出し。',
+hint:'安否挨拶（前文）：「貴社ますますご清栄のこととお慶び申し上げます」'},
+
+{id:110,cat:'技能',type:'sc',diff:'high',
+q:'社外文書の「結び」の言葉として最も適切なものはどれか。',
+opts:['「以上、よろしくお願いいたします」','「まずはお礼かたがたご連絡申し上げます」','「取り急ぎご連絡まで」','「敬具」'],
+ans:[1],
+expl:'「まずはお礼かたがたご連絡申し上げます」は社外文書の末文（結び）でよく使われる表現。「敬具」は結語（頭語・結語の対）として使う。「取り急ぎご連絡まで」は略式の結びで正式文書には不向き。',
+hint:'結びの言葉：「まずはお礼かたがたご連絡申し上げます」が定番'},
+
+{id:111,cat:'技能',type:'sc',diff:'mid',
+q:'社内文書（連絡文書）の書き方として正しいものはどれか。',
+opts:['「拝啓」などの頭語を必ず使う','時候の挨拶は不要で、用件を簡潔に書く','縦書きが基本である','結語（敬具など）は必ず書く'],
+ans:[1],
+expl:'社内文書は社外文書と異なり、頭語・結語・時候の挨拶は不要。簡潔・明瞭・正確を重視し、必要な情報だけを伝える。横書きが一般的で、件名・日付・宛名・発信者名・本文が基本構成。',
+hint:'社内文書＝頭語・結語・時候の挨拶は不要。簡潔・明瞭が原則'},
+
+{id:112,cat:'技能',type:'sc',diff:'mid',
+q:'ビジネスメールの署名（シグネチャ）に含めるべき情報として最も適切なものはどれか。',
+opts:['個人の趣味や特技','会社名・部署名・氏名・電話番号・メールアドレス','プライベートのSNSアカウント','給与情報'],
+ans:[1],
+expl:'ビジネスメールの署名には会社名・部署名・氏名・電話番号・メールアドレス（・住所・FAX番号）を記載するのが基本。受信者がすぐに連絡先を確認できるようにするためのもの。',
+hint:'メール署名：会社名・部署・氏名・電話・メールアドレスが基本'},
+
+{id:113,cat:'技能',type:'sc',diff:'high',
+q:'「返信メール」のマナーとして正しいものはどれか。',
+opts:['件名は必ず新しいタイトルに変更する','件名は「Re:」のまま返信し、元のスレッドを維持する','受信したメールの本文は全部削除して返信する','返信は必ず24時間以内にしなければならない'],
+ans:[1],
+expl:'返信メールの件名は「Re:〇〇」のまま返信するのが基本。スレッド（やり取りの流れ）が維持され、相手が内容を把握しやすくなる。元の本文は文脈確認のため引用として残すのがマナー。返信は早いほど良いが、ビジネスでは当日〜翌営業日中が目安。',
+hint:'返信メール：件名は「Re:」のまま。スレッドを維持する'},
+
+{id:114,cat:'技能',type:'sc',diff:'mid',
+q:'「議事録」の配布タイミングとして最も適切なものはどれか。',
+opts:['会議終了直後に口頭で内容を共有すれば議事録は不要','会議終了後なるべく早く（原則として翌営業日中）に関係者に配布する','1週間以内に配布すればよい','次回会議の直前に配布する'],
+ans:[1],
+expl:'議事録は記憶が新鮮なうちに作成し、なるべく早く関係者に配布するのが原則。翌営業日中が目安で、決定事項の確認・アクションの実行が速やかに進むようにする。遅れると意思決定の遅延につながる。',
+hint:'議事録：なるべく早く、原則翌営業日中に配布'},
+
+{id:115,cat:'技能',type:'sc',diff:'mid',
+q:'報告書を作成する際の基本原則として正しいものはどれか。',
+opts:['自分の感想や意見を中心に書く','事実と意見・推測を明確に区別して書く','文章はなるべく長く詳しく書く','報告者の氏名は書かなくてよい'],
+ans:[1],
+expl:'報告書では「事実（起きたこと）」と「意見・推測（自分の考え）」を明確に区別して記載することが重要。「〜と思われます」などの推測と「〜でした」という事実が混在すると読み手が混乱する。',
+hint:'報告書：事実と意見・推測を明確に区別して記載する'},
+
+{id:116,cat:'技能',type:'sc',diff:'high',
+q:'「提案書」と「企画書」の違いとして正しいものはどれか。',
+opts:['まったく同じ意味で使われる','提案書は問題点と解決策を提示するもの、企画書は新しいアイデアや計画を提示するもの','企画書は社内用、提案書は社外用','提案書は口頭発表用、企画書は文書のみ'],
+ans:[1],
+expl:'提案書は現状の課題や問題点に対して解決策を提示する文書。企画書は新しいサービス・事業・イベントなどのアイデアや計画を具体的に示す文書。いずれも目的・背景・内容・効果・費用・スケジュールなどを盛り込む。',
+hint:'提案書＝課題への解決策を提示　企画書＝新しいアイデア・計画を提示'},
+
+{id:117,cat:'技能',type:'sc',diff:'mid',
+q:'「電子メール」と「文書（郵送）」の使い分けとして適切なものはどれか。',
+opts:['重要な契約書・証明書類はメールのみで送付してよい','速報性が必要な連絡はメール、原本が必要な公式文書は郵送が基本','メールは社内のみ、郵送は社外のみに使う','文書の郵送は時代遅れなので不要'],
+ans:[1],
+expl:'日常的な連絡・情報共有にはメールが便利だが、契約書・請求書・公式通知など原本が必要な文書は郵送（または持参）が基本。電子契約が普及しているが、相手先の対応状況を確認した上で使い分けることが大切。',
+hint:'メール＝速報・日常連絡　郵送＝契約書・公式文書など原本が必要な場合'},
+
+{id:118,cat:'技能',type:'sc',diff:'mid',
+q:'文書を「縦書き」で作成する場合の数字表記として正しいものはどれか。',
+opts:['アラビア数字（1・2・3）を使う','漢数字（一・二・三）を使う','どちらでもよい','ローマ数字（Ⅰ・Ⅱ・Ⅲ）を使う'],
+ans:[1],
+expl:'縦書き文書では漢数字（一・二・三・十・百・千・万）を使うのが基本。横書き文書ではアラビア数字（1・2・3）が一般的。ただし現代では縦書きの文書でも一部アラビア数字が使われることもある。',
+hint:'縦書き→漢数字　横書き→アラビア数字が基本'},
+
+// ❸ マナー・接遇の深掘り（Q119〜Q130）
+{id:119,cat:'マナー・接遇',type:'sc',diff:'mid',
+q:'「お辞儀」の角度について、ビジネスの場での使い分けとして正しいものはどれか。',
+opts:['会釈（15度）・敬礼（30度）・最敬礼（45度）の3種類','会釈（30度）・敬礼（45度）・最敬礼（60度）の3種類','角度は関係なく丁寧さが伝わればよい','お辞儀は10度で十分'],
+ans:[0],
+expl:'ビジネスのお辞儀は①会釈（15度：すれ違い時など）②敬礼（30度：一般的な挨拶）③最敬礼（45度：深い感謝・謝罪時）の3種類。上体を倒した後は相手より先に起こさないのがマナー。',
+hint:'会釈15度・敬礼30度・最敬礼45度の3種類'},
+
+{id:120,cat:'マナー・接遇',type:'sc',diff:'high',
+q:'訪問先への手土産を渡すタイミングとして最も適切なものはどれか。',
+opts:['訪問してすぐ玄関先で渡す','応接室に通されて着席した後、挨拶を済ませてから渡す','帰り際に渡す','相手から「何か持ってきましたか」と聞かれたら渡す'],
+ans:[1],
+expl:'手土産は玄関先ではなく、応接室に通されて着席し、挨拶を済ませた後に「つまらないものですが」などの一言を添えて渡すのがマナー。紙袋に入ってきた場合は取り出して渡す。',
+hint:'手土産：着席・挨拶後に「つまらないものですが」と添えて渡す'},
+
+{id:121,cat:'マナー・接遇',type:'sc',diff:'mid',
+q:'「席を外す」場合の電話応対として正しいものはどれか。',
+opts:['「ただいま席を外しております」と伝える','「トイレに行っています」と正直に伝える','「いません」とだけ伝える','「わかりません」と伝える'],
+ans:[0],
+expl:'上司や同僚が席を外している場合は「ただいま席を外しております」と伝えるのが基本。具体的な理由（トイレ・外出先など）は伝えない。戻り時刻がわかれば「〇時頃戻る予定です」と付け加えるとより丁寧。',
+hint:'席を外す場合：「ただいま席を外しております」。理由は言わない'},
+
+{id:122,cat:'マナー・接遇',type:'sc',diff:'high',
+q:'「名刺交換」を複数人で行う場合の正しい順序はどれか。',
+opts:['年齢の若い順に交換する','目上（役職が上）の人から順に交換する','自分から積極的に全員に同時に渡す','順番は関係ない'],
+ans:[1],
+expl:'複数人での名刺交換は、役職の高い人（目上の人）から順に行うのがマナー。自社側も役職の高い人から先に渡す。一度に複数枚を配るのは失礼にあたる。',
+hint:'名刺交換の順序：役職が高い人（目上）から順番に'},
+
+{id:123,cat:'マナー・接遇',type:'sc',diff:'mid',
+q:'上司への報告のタイミングとして最も適切なものはどれか。',
+opts:['すべての仕事が完了してからまとめて報告する','仕事の途中でも問題・変化が生じた場合は随時報告する','上司から聞かれたときだけ報告する','重要なことだけ月1回まとめて報告する'],
+ans:[1],
+expl:'報告は「仕事の完了時」だけでなく、途中で問題・遅延・予定外の事態が発生した場合は随時報告するのが基本（中間報告）。「報・連・相（ほうれんそう）」のうち「報告」は特に重要で、上司が状況を常に把握できるようにする。',
+hint:'報告：完了時だけでなく、問題・変化があれば随時中間報告を'},
+
+{id:124,cat:'マナー・接遇',type:'sc',diff:'mid',
+q:'「ビジネスの場での携帯電話マナー」として適切なものはどれか。',
+opts:['会議中でも重要な電話は出てよい','来客応対中・会議中は電源を切るかマナーモードにする','電車内では声を落とせば通話してよい','取引先との食事中は電話に出ることが優先される'],
+ans:[1],
+expl:'来客応対中・会議中・商談中は電源を切るかマナーモード（バイブ）に設定するのが基本マナー。どうしても対応が必要な場合は「失礼します」と断ってから席を外す。着信音が鳴るだけでも相手に不快感を与える。',
+hint:'会議・来客時：電源OFF or マナーモード。着信音はNG'},
+
+{id:125,cat:'マナー・接遇',type:'sc',diff:'high',
+q:'上司から叱られた際の秘書の正しい対応はどれか。',
+opts:['その場で言い訳や反論をして自分の正当性を主張する','まずは真摯に受け止め、改善策を考えて実行する','その場では謝るが、後で同僚に愚痴を言う','無視して仕事を続ける'],
+ans:[1],
+expl:'叱られた際はまず真摯に受け止め、「申し訳ございません」と謝罪する。その場での言い訳・反論は関係を悪化させる。後から冷静に振り返り、改善策を考えて実行することが大切。同僚への愚痴は職場の雰囲気を悪化させるので避ける。',
+hint:'叱られた時：言い訳せずまず謝罪→改善策を考えて実行'},
+
+{id:126,cat:'マナー・接遇',type:'sc',diff:'mid',
+q:'「中座（席を途中で外す）」する際のマナーとして正しいものはどれか。',
+opts:['黙ってそっと席を立つ','「失礼いたします」と会釈して静かに退席する','大きな声で「少し席を外します」と全員に聞こえるように言う','中座は絶対にしてはいけない'],
+ans:[1],
+expl:'会議や商談の途中で席を外す場合は「失礼いたします」と小声で会釈してから静かに退席するのがマナー。戻ってきた際も「失礼いたしました」と軽く会釈する。やむを得ない場合以外は中座を避けるよう努める。',
+hint:'中座：「失礼いたします」と会釈して静かに退席'},
+
+{id:127,cat:'マナー・接遇',type:'sc',diff:'high',
+q:'和室での「ふすま（襖）の開け方」として正しいものはどれか。',
+opts:['両手で一気に全開にする','手前に引いて少し開け、膝で押さえながら向こうへ引き込んで開ける','足で開ける','勢いよく開けて素早く入る'],
+ans:[1],
+expl:'ふすまの開け方：①手前に少し引いて開ける②膝（または手）でふすまの下部を押さえながら向こうへ引き込む③体を滑らせて入る。「バタン」と音を立てないよう静かに開け閉めするのがマナー。',
+hint:'ふすまの開け方：少し引いてから向こうへ引き込む。静かに丁寧に'},
+
+{id:128,cat:'マナー・接遇',type:'sc',diff:'mid',
+q:'「お見舞い」に関するマナーとして正しいものはどれか。',
+opts:['お見舞いは入院直後に行くのがよい','お見舞いは病状が落ち着いてから（入院後3〜4日以降）行く','菊の花をお見舞いに持参する','お見舞いの表書きは「御霊前」と書く'],
+ans:[1],
+expl:'お見舞いは入院直後を避け、病状が落ち着いた入院後3〜4日以降に行くのがマナー。菊は仏花のイメージがあるため避ける（カーネーション・ガーベラなどが適切）。お見舞いの表書きは「御見舞」。「御霊前」は弔事用。',
+hint:'お見舞い：入院直後は避け3〜4日後以降に。菊はNG。表書きは御見舞'},
+
+{id:129,cat:'マナー・接遇',type:'sc',diff:'mid',
+q:'「ビジネスランチ・会食」の席次として正しいものはどれか。',
+opts:['入口に最も近い席が上座','入口から最も遠い奥の席が上座','窓に面した景色のよい席が上座','円卓の場合は席次は関係ない'],
+ans:[2],
+expl:'レストランなどでの会食では、景色のよい窓側や奥まった落ち着いた席が上座とされる。ただし入口から遠い席という基本は同様。円卓（丸テーブル）では入口から最も遠い席が上座で、そこから時計回りに上席順が続く。',
+hint:'会食の上座：窓側・景色のよい席・入口から遠い席'},
+
+{id:130,cat:'マナー・接遇',type:'sc',diff:'high',
+q:'「断り方」のマナーとして最も適切なものはどれか。',
+opts:['理由を言わずにただ「できません」と断る','相手への配慮を示しながら、理由を簡潔に伝えて丁寧に断る','相手が怒るため断らずにすべて引き受ける','後でキャンセルすればよいとりあえず承諾する'],
+ans:[1],
+expl:'断る際は相手への敬意・配慮を示した上で、簡潔な理由とともに丁寧に断るのがマナー。「せっかくのお申し出ではございますが〜」などのクッション言葉を使う。曖昧な返事や後でのキャンセルは相手に余計な迷惑をかける。',
+hint:'断り方：クッション言葉＋簡潔な理由＋丁寧に。曖昧な返事はNG'},
+
+// ❹ 一般知識：経済・ビジネス用語（Q131〜Q140）
+{id:131,cat:'一般知識',type:'sc',diff:'mid',
+q:'「M&A（エムアンドエー）」の説明として正しいものはどれか。',
+opts:['企業の社員研修プログラム','企業の合併・買収のこと','マーケティングと広告の略称','メンバーシップとアグリーメントの略称'],
+ans:[1],
+expl:'M&AはMergers（合併）and Acquisitions（買収）の略。企業が他の企業を買収したり、複数の企業が合併したりすること。事業拡大・市場参入・技術獲得などを目的として行われる。',
+hint:'M&A＝Mergers（合併）and Acquisitions（買収）'},
+
+{id:132,cat:'一般知識',type:'sc',diff:'mid',
+q:'「ROE（自己資本利益率）」の説明として正しいものはどれか。',
+opts:['総資産に対する利益の割合','自己資本（株主資本）に対する当期純利益の割合','売上高に対する営業利益の割合','従業員一人当たりの売上高'],
+ans:[1],
+expl:'ROE（Return on Equity）は自己資本（株主が出資した資本）に対してどれだけ利益を生み出したかを示す指標。ROE＝当期純利益÷自己資本×100(%)。投資家が企業の収益性を判断する重要な指標。',
+hint:'ROE＝自己資本に対する当期純利益の割合（株主資本利益率）'},
+
+{id:133,cat:'一般知識',type:'sc',diff:'high',
+q:'「SWOT分析」の説明として正しいものはどれか。',
+opts:['売上・利益・コスト・品質の4要素を分析する手法','強み(S)・弱み(W)・機会(O)・脅威(T)を分析する経営分析手法','社員の能力を4段階で評価する人事評価手法','市場を4つのセグメントに分けるマーケティング手法'],
+ans:[1],
+expl:'SWOT分析はStrengths（強み）・Weaknesses（弱み）・Opportunities（機会）・Threats（脅威）の4要素を分析する経営戦略ツール。内部環境（強み・弱み）と外部環境（機会・脅威）を整理して戦略立案に活用する。',
+hint:'SWOT＝強み・弱み・機会・脅威の4要素分析'},
+
+{id:134,cat:'一般知識',type:'sc',diff:'mid',
+q:'「PDCAサイクル」の説明として正しいものはどれか。',
+opts:['Plan（計画）→Do（実行）→Check（評価）→Action（改善）を繰り返す業務改善の考え方','People（人）→Data（データ）→Cost（コスト）→Analysis（分析）の略','Project（プロジェクト）→Design（設計）→Create（制作）→Approval（承認）の略','Process（工程）→Direction（方向性）→Control（管理）→Achievement（達成）の略'],
+ans:[0],
+expl:'PDCAサイクルはPlan（計画）→Do（実行）→Check（確認・評価）→Action（改善・対処）を繰り返すことで業務を継続的に改善する手法。品質管理・業務改善・目標達成に広く活用される。',
+hint:'PDCA＝Plan計画→Do実行→Check評価→Action改善のサイクル'},
+
+{id:135,cat:'一般知識',type:'sc',diff:'mid',
+q:'「キャッシュフロー計算書」の説明として正しいものはどれか。',
+opts:['ある時点での企業の資産・負債・純資産を示す表','一定期間の収益と費用を示す表','一定期間の現金の流入と流出を示す財務諸表','将来の売上予測をまとめた表'],
+ans:[2],
+expl:'キャッシュフロー計算書（CF計算書）は一定期間における現金及び現金同等物の流入・流出を示す財務諸表。営業活動・投資活動・財務活動の3区分で表示される。貸借対照表・損益計算書と並ぶ三大財務諸表のひとつ。',
+hint:'キャッシュフロー計算書＝現金の流入・流出を示す（三大財務諸表のひとつ）'},
+
+{id:136,cat:'一般知識',type:'sc',diff:'mid',
+q:'「BtoB」と「BtoC」の説明として正しいものはどれか。',
+opts:['BtoBは企業と消費者間の取引、BtoCは企業間の取引','BtoBは企業間の取引、BtoCは企業と消費者間の取引','どちらも同じ意味','BtoBは国内取引、BtoCは海外取引'],
+ans:[1],
+expl:'BtoB（Business to Business）は企業間取引。BtoC（Business to Consumer）は企業と一般消費者間の取引。秘書が勤務するIT企業などはBtoB取引が中心のことが多い。',
+hint:'BtoB＝企業間取引　BtoC＝企業と消費者間の取引'},
+
+{id:137,cat:'一般知識',type:'sc',diff:'high',
+q:'「DX（デジタルトランスフォーメーション）」の説明として正しいものはどれか。',
+opts:['既存の業務をそのままデジタル化すること','デジタル技術を活用してビジネスモデルや組織・業務・文化を変革すること','パソコンを社員全員に配布すること','ITシステムを最新版に更新すること'],
+ans:[1],
+expl:'DX（Digital Transformation）は単なるIT化・デジタル化ではなく、デジタル技術を活用してビジネスモデル・業務プロセス・組織文化そのものを変革し、競争優位性を確立すること。2018年頃から日本でも重要課題として注目されている。',
+hint:'DX＝デジタル技術でビジネスモデルや組織そのものを変革すること'},
+
+{id:138,cat:'一般知識',type:'sc',diff:'mid',
+q:'「SDGs（エスディージーズ）」の説明として正しいものはどれか。',
+opts:['日本政府が定めた環境保護法の略称','2030年までに達成すべき17の持続可能な開発目標（国連）','特定の企業グループの経営理念','Social Duty Goals（社会的責任目標）の略'],
+ans:[1],
+expl:'SDGsはSustainable Development Goals（持続可能な開発目標）の略。2015年に国連が採択し、2030年までに達成すべき17の目標と169のターゲットで構成される。貧困・気候変動・教育・ジェンダー平等など幅広い課題を含む。',
+hint:'SDGs＝国連が定めた2030年までの17の持続可能な開発目標'},
+
+{id:139,cat:'一般知識',type:'sc',diff:'mid',
+q:'「OA機器」の説明として正しいものはどれか。',
+opts:['屋外広告（Outdoor Advertising）に使う機器','オフィスオートメーション機器の総称（コピー機・FAX・PCなど）','オーディオ・ビジュアル機器の略','職場の空調設備の総称'],
+ans:[1],
+expl:'OAはOffice Automation（オフィスオートメーション）の略。OA機器とはオフィスの業務効率化に使う機器の総称で、コピー機・FAX・プリンター・パソコン・シュレッダーなどが含まれる。',
+hint:'OA機器＝Office Automation機器（コピー・FAX・PCなど）の総称'},
+
+{id:140,cat:'一般知識',type:'sc',diff:'high',
+q:'「テレワーク（リモートワーク）」導入時の情報セキュリティ対策として適切なものはどれか。',
+opts:['自宅では会社のルールは適用されないため自由に作業してよい','VPN接続・画面ロック・業務情報の社外持出ルール遵守など会社のセキュリティポリシーに従う','家族が見える場所で機密書類を広げて作業する','公共の場でのフリーWi-Fi使用は問題ない'],
+ans:[1],
+expl:'テレワーク中も情報セキュリティのルールは在宅・オフィスを問わず適用される。VPN使用・画面ロック・機密書類の管理・フリーWi-Fi不使用・のぞき見防止フィルター使用などのセキュリティ対策を徹底することが必要。',
+hint:'テレワーク中も会社のセキュリティポリシーは同様に適用される'},
+
+// ══════════════════════════════════════
+// ── 第5弾 Q141〜Q200（混同・ひっかけ重点60問）──
+// ── 職務知識20問・一般知識15問・マナー接遇20問・技能5問 ──
+// ══════════════════════════════════════
+
+// ❶ 職務知識：混同しやすいひっかけ（Q141〜Q160）
+{id:141,cat:'職務知識',type:'sc',diff:'high',
+q:'上司から「この件は内密にしておいてほしい」と言われた案件について、同じ部署の先輩社員から「あの件どうなった？」と聞かれた。最も適切な対応はどれか。',
+opts:['先輩社員は同僚なので正直に話す','「上司に確認が必要です」と伝え、上司の指示を仰ぐ','「知りません」と嘘をつく','詳細は伝えずに「進行中です」とだけ答える'],
+ans:[1],
+expl:'「内密に」と上司から指示された案件は、同じ部署の先輩であっても勝手に話してはならない。「上司に確認が必要です」と伝え、上司の指示に従うのが正しい対応。「知りません」と嘘をつくことも不適切。',
+hint:'内密案件は同僚にも話さない→必ず上司に確認してから判断'},
+
+{id:142,cat:'職務知識',type:'sc',diff:'high',
+q:'上司が会議中に来客があった。上司は「会議中は原則面会しない」と言っていたが、来客は「急用で上司に直接伝えたいことがある」と言い張っている。秘書の対応として最も適切なものはどれか。',
+opts:['「上司の指示なので絶対にお通しできません」と断る','来客の名前・所属・用件をメモして会議室に届け、上司の判断を仰ぐ','来客の主張を信じ、会議を中断させる','来客に長時間待ってもらいながら会議が終わるまで放置する'],
+ans:[1],
+expl:'「原則」は例外を認めるもの。上司の指示を守りながらも来客を完全に無視するのではなく、用件をメモして上司に届け判断を仰ぐのが臨機応変な対応。上司が最終判断者であり、秘書が独断で決めない。',
+hint:'原則は原則。例外の判断は上司に委ねる。メモで伝えて上司に判断させる'},
+
+{id:143,cat:'職務知識',type:'sc',diff:'high',
+q:'上司から口頭で「A社のB部長に電話して、来週の会議を金曜から木曜に変更するよう伝えて」と指示された。秘書の対応として最も適切なものはどれか。',
+opts:['すぐにA社のB部長に電話して変更を伝える','指示の内容・変更後の日時・時刻を復唱・確認してから連絡する','メールで変更の連絡をする','来週になってから連絡する'],
+ans:[1],
+expl:'口頭指示は聞き間違いや記憶違いが起きやすい。日時変更という重要な連絡は、必ず「○日（曜日）の○時から木曜○日○時に変更、でよろしいでしょうか」と復唱して確認してから連絡する。思い込みによる誤連絡は大きなトラブルになる。',
+hint:'口頭指示は必ず復唱確認。日時・相手名など重要事項は特に念入りに'},
+
+{id:144,cat:'職務知識',type:'sc',diff:'high',
+q:'秘書が上司の不在中に「至急の案件」として他部署の部長から決裁を求められた。この部長は上司と同格の役職である。秘書の対応として正しいものはどれか。',
+opts:['同格の部長からの依頼なので秘書が代わりに決裁する','「上司の権限のため、上司に連絡してご指示を仰ぎます」と伝える','至急なので他の上位役職者に代理決裁してもらう','「私には判断できません」と断って何もしない'],
+ans:[1],
+expl:'決裁権は上司本人のみ。同格の部長であっても他部署の権限に干渉することはできない。秘書は「連絡して指示を仰ぐ」という橋渡し役に徹し、独断で代替手段を講じない。上司への連絡を速やかに行うことが重要。',
+hint:'決裁権は本人のみ。同格の他部署部長も代行不可→上司に連絡'},
+
+{id:145,cat:'職務知識',type:'sc',diff:'mid',
+q:'上司のスケジュール管理において、「仮予定」の取り扱いとして最も適切なものはどれか。',
+opts:['仮予定は確定するまで手帳に書かない','仮予定も記入し、確定予定と明確に区別して管理する（例：鉛筆書き・色分けなど）','仮予定が多くなったら古いものから削除する','仮予定は口頭で上司に伝えるだけでよい'],
+ans:[1],
+expl:'仮予定も必ず記録し、確定予定と区別して管理することが重要。記録しないと抜け落ちるリスクがある。確定した時点で正式な予定に切り替える。鉛筆書き・色分け・「仮」マークなど視覚的に区別できる方法が効果的。',
+hint:'仮予定も必ず記録。確定と区別して管理→確定したら正式に切り替え'},
+
+{id:146,cat:'職務知識',type:'sc',diff:'high',
+q:'上司から「来週月曜の会議に必要な資料を準備しておいて」と指示された。その後、上司が出張で週末も連絡がとれないことがわかった。秘書の対応として最も適切なものはどれか。',
+opts:['上司が戻るまで何もせず待つ','出張前に資料の仕様・部数・配布方法を上司に確認してから準備を進める','自分の判断で適当に資料を準備する','月曜の朝に上司が戻ってから準備する'],
+ans:[1],
+expl:'「来週月曜に必要」とわかっているなら、出張前に必要な情報（資料の内容・部数・形式・配布方法など）を確認しておくのが先読みの秘書業務。週末に連絡がとれない状況になってから困るのを防ぐのが秘書の役割。',
+hint:'期限が決まっている準備は、連絡できなくなる前に確認を済ませておく'},
+
+{id:147,cat:'職務知識',type:'sc',diff:'mid',
+q:'秘書が上司の代わりに社外の会合に出席する場合の心構えとして、最も適切なものはどれか。',
+opts:['自分の意見を積極的に発言して上司の代わりに意思決定する','上司の代理であることを明示し、重要な意思決定は持ち帰って上司に確認する','上司がいないので早めに退席してよい','会合の内容を詳しく記録する必要はない'],
+ans:[1],
+expl:'秘書が代理出席する場合は「代理である」ことを先方に明示した上で、重要な意思決定・承認は「持ち帰って上司に確認します」と伝えるのが原則。秘書が独断で意思決定するのは越権行為。会合の内容は詳細に記録し上司に報告する。',
+hint:'代理出席：意思決定は持ち帰り確認。代理であることを明示する'},
+
+{id:148,cat:'職務知識',type:'sc',diff:'mid',
+q:'「報告」「連絡」「相談」（ほうれんそう）のうち「相談」について、最も適切な説明はどれか。',
+opts:['相談は上司の判断を求めるためのもので、自分の意見は持たずに聞く','自分なりの考えや選択肢を整理した上で、上司の意見・判断を仰ぐ','相談はトラブルが発生した時だけ行う','相談すると「自分で考えていない」と思われるため極力避ける'],
+ans:[1],
+expl:'「相談」は丸投げではない。自分で考えた上で「A案とB案が考えられますが、どちらがよいでしょうか」など選択肢を整理して意見を添えて相談するのが理想。準備なしの丸投げ相談は上司の時間を無駄にする。',
+hint:'相談は丸投げ×→自分の考え・選択肢を整理してから相談'},
+
+{id:149,cat:'職務知識',type:'sc',diff:'high',
+q:'秘書が複数の上司（例：社長と専務の両方を担当）の秘書を務める場合、スケジュールが重複した際の対応として最も適切なものはどれか。',
+opts:['自分が好む上司の仕事を優先する','役職の高い方（社長）を優先し、もう一方（専務）には早めに調整の旨を伝える','どちらにも同時対応しようとする','先に依頼した方を優先する'],
+ans:[1],
+expl:'複数の上司を担当する場合、スケジュール重複時は役職の高い方を優先するのが基本。ただし事前に「調整が必要な場合は役職上位を優先する」という共通認識を持っておくことが重要。早めの調整連絡が双方への配慮となる。',
+hint:'複数上司のスケジュール競合：役職上位を優先＋早めに調整を伝える'},
+
+{id:150,cat:'職務知識',type:'sc',diff:'mid',
+q:'上司への「中間報告」が特に重要なのはどのような場面か、最も適切なものはどれか。',
+opts:['すべての仕事において毎時間報告する','予定より時間がかかりそうな時・問題が発生した時・指示内容に疑問が生じた時','仕事が完了した時だけ','上司から「報告して」と言われた時だけ'],
+ans:[1],
+expl:'中間報告は「何か変化・問題があったとき」が最重要タイミング。予定通り進んでいる場合は適宜報告すればよいが、遅延・問題発生・疑問点が生じた場合は必ず中間報告を行い、上司が軌道修正できるようにする。',
+hint:'中間報告：遅延・問題・疑問が生じた時が最重要。変化を早めに上司に伝える'},
+
+{id:151,cat:'職務知識',type:'sc',diff:'high',
+q:'秘書が電話応対中に、相手から「上司に確認してほしい」と言われた。上司はすぐ近くにいる。この場合の対応として最も適切なものはどれか。',
+opts:['受話器を持ったまま上司に大声で聞く','相手に「少々お待ちください」と伝えて保留にし、上司に内線または直接確認して回答する','「上司は今席を外しております」と嘘をつく','相手に折り返し電話をすると伝えて一度電話を切る'],
+ans:[1],
+expl:'受話器を持ったまま大声で上司に聞くと、会話が相手に筒抜けになり大変失礼。必ず保留にしてから上司に確認する。上司がすぐ近くにいても保留のマナーは守ること。折り返しは相手を無駄に待たせるため、確認できる状況なら避ける。',
+hint:'電話中の確認：受話器持ったまま大声はNG→必ず保留にしてから確認'},
+
+{id:152,cat:'職務知識',type:'sc',diff:'mid',
+q:'上司から「この書類を○○部長に渡しておいて」と言われた。○○部長は会議中だった。最も適切な対応はどれか。',
+opts:['会議を中断させて渡す','会議が終わるまで待ち、終わったら渡す','会議室のドアの前に置いておく','書類を○○部長の部下に渡してしまう'],
+ans:[1],
+expl:'会議中の場合は会議終了まで待ち、終わったら直接渡すのが基本。ただし至急の場合は会議中でもメモを添えてそっと届ける方法もある。部下への転渡しは上司に指示された「○○部長に渡す」という指示に反する。',
+hint:'会議中への書類：原則は終了を待つ。至急の場合はメモを添えてそっと届ける'},
+
+{id:153,cat:'職務知識',type:'sc',diff:'high',
+q:'上司が突然体調不良で早退することになった。今日の午後に重要な外部来客の予約がある。秘書として最初にすべき行動はどれか。',
+opts:['すぐに来客先に連絡して謝罪する','上司に来客対応をどうするか（代理対応・延期・キャンセル）の指示を仰ぐ','上司が帰った後に自分の判断で来客に対応する','来客が来てから「上司が不在」と説明する'],
+ans:[1],
+expl:'来客対応の変更（代理・延期・キャンセル）は上司が決定すること。体調が悪くても指示を仰いでから行動するのが原則。上司が判断できない状態であれば上位の役職者に確認する。来客には早めに連絡するほど誠意が伝わる。',
+hint:'急な上司不在→来客対応の指示を上司に仰いでから→早めに来客先へ連絡'},
+
+{id:154,cat:'職務知識',type:'sc',diff:'mid',
+q:'来客が予約した時間より大幅に早く到着した。上司はまだ別の来客の応対中である。この場合の対応として最も適切なものはどれか。',
+opts:['「予約は○時です」と告げて外で待たせる','応接室に案内してお茶を出し、上司に早期来訪の旨をメモで伝え、しばらくお待ちいただく','今の来客を急かして早く終わらせるよう上司に伝える','来客を無視して上司の応対が終わるまで何もしない'],
+ans:[1],
+expl:'予定より早く来た来客であっても、まず応接室に案内してお茶を出してもてなすのが接遇の基本。上司には「○○様が早めにいらっしゃっています」とメモで伝え、来客には「もう少しお待ちいただけますか」と丁寧に伝える。',
+hint:'早期来訪の来客→応接室に案内してお茶を出す＋上司にメモで伝える'},
+
+{id:155,cat:'職務知識',type:'sc',diff:'high',
+q:'秘書が上司の交際費（接待・贈答など）を管理する際の注意点として最も適切なものはどれか。',
+opts:['交際費は上司が自由に使えるお金なので金額の記録は不要','用途・相手先・金額・日付を正確に記録し領収書を保管する','領収書は金額が大きいものだけ保管する','交際費の使用は秘書が独断で決めてよい'],
+ans:[1],
+expl:'交際費は会社の経費として処理されるため、用途・相手先・金額・日付の記録と領収書の保管が必須。税務調査の対象にもなるため記録は正確に。金額の大小に関わらずすべて記録・保管する。使用用途は上司の指示に基づく。',
+hint:'交際費管理：用途・相手先・金額・日付を全件記録＋領収書は全部保管'},
+
+{id:156,cat:'職務知識',type:'sc',diff:'mid',
+q:'秘書が業務で知り得た「個人情報」の取り扱いとして最も不適切なものはどれか。',
+opts:['来客の名刺情報はデータベースに入力して管理する','上司の知人の個人情報を、上司の許可なく第三者に提供する','不要になった個人情報が記載された文書はシュレッダーで廃棄する','個人情報が入ったUSBメモリは施錠できる場所に保管する'],
+ans:[1],
+expl:'個人情報保護法により、取得した個人情報は本人の同意・上司の許可なく第三者に提供してはならない。「知人の情報だから」「悪用する気はない」という理由は通じない。無断提供は個人情報保護法違反になる可能性がある。',
+hint:'個人情報の第三者提供：本人の同意・上司の許可なしは違法'},
+
+{id:157,cat:'職務知識',type:'sc',diff:'high',
+q:'会議の「定足数（ていそくすう）」について正しい説明はどれか。',
+opts:['会議に必要な最低限の資料の数','会議が成立するために必要な最低限の出席者数','会議で発言できる最大人数','会議の開催に必要な事前通知の日数'],
+ans:[1],
+expl:'定足数とは会議・委員会などが有効に成立するために必要な最低出席者数のこと。例えば「定足数は過半数」の場合、10名の委員会なら6名以上の出席がないと会議が成立しない。秘書は定足数を確認して会議を段取りする必要がある。',
+hint:'定足数＝会議が成立するための最低出席者数'},
+
+{id:158,cat:'職務知識',type:'sc',diff:'mid',
+q:'上司への「悪い報告」（ミス・トラブルなど）をする際の秘書の心構えとして最も適切なものはどれか。',
+opts:['悪い報告は上司の機嫌がよいときを待って伝える','事実を正確に、できるだけ早く報告する（悪い報告ほど早く）','悪い報告は別の人に伝えてもらう','事態が収束してから報告する'],
+ans:[1],
+expl:'「悪い報告ほど早く」は社会人の鉄則。上司が早く知るほど対処できる時間が増える。機嫌のよい時を待ったり、事態が収束するまで待ったりすると被害が拡大する。事実を正確に・感情を交えずに報告することが大切。',
+hint:'悪い報告ほど早く。機嫌を待たず・事態収束を待たず即報告'},
+
+{id:159,cat:'職務知識',type:'sc',diff:'high',
+q:'秘書が「社外秘」の文書をメールで送付する際の適切な対応はどれか。',
+opts:['「社外秘」と書いてあれば社外には絶対送れない','上司の指示があれば送付可能だが、パスワード設定・暗号化など適切なセキュリティ対策を講じる','社外秘文書はFAXなら送ってよい','メールで送った後に「社外秘でした」と伝えれば問題ない'],
+ans:[1],
+expl:'「社外秘」は社外への無断提供を禁じるものだが、上司の指示・許可があれば業務上必要な範囲で送付できる場合もある。その際はパスワード設定・暗号化・別途パスワード連絡など適切なセキュリティ措置が必要。FAXは誤送信リスクが高い。',
+hint:'社外秘文書の送付：上司の指示＋パスワード等のセキュリティ対策が必須'},
+
+{id:160,cat:'職務知識',type:'sc',diff:'mid',
+q:'秘書が「慶弔休暇」について上司に報告する場面として最も適切なものはどれか。',
+opts:['慶弔休暇は個人の事情なので秘書は関与しない','上司の家族の慶弔事が判明した場合、スケジュール調整や関係者への連絡など必要なサポートを申し出る','慶弔休暇中でも上司への連絡・指示要請を続ける','他の社員に上司の慶弔事情を詳しく説明する'],
+ans:[1],
+expl:'上司の慶弔事が生じた場合、秘書としてスケジュールのキャンセル・調整や関係者への連絡など、上司の負担を軽減できるよう「何かお手伝いできることはありますか」と申し出るのが秘書の気配り。ただし詳細を他者に漏らすのはプライバシー侵害。',
+hint:'上司の慶弔事→スケジュール調整等のサポートを申し出る。他者への詳細説明はNG'},
+
+// ❷ 一般知識：混同しやすい用語・法律（Q161〜Q175）
+{id:161,cat:'一般知識',type:'sc',diff:'high',
+q:'「所得税」と「住民税」の違いについて正しいものはどれか。',
+opts:['所得税は地方税、住民税は国税','所得税は国税、住民税は地方税（都道府県・市区町村）','所得税と住民税は同じ税金の別名','所得税は企業が払い、住民税は個人が払う'],
+ans:[1],
+expl:'所得税は国に納める国税で、年収・控除額をもとに計算される。住民税は都道府県・市区町村に納める地方税で、前年の所得をもとに翌年6月から徴収される。この1年のずれが転職・退職時に混乱を生みやすい。',
+hint:'所得税＝国税　住民税＝地方税（都道府県・市区町村）'},
+
+{id:162,cat:'一般知識',type:'sc',diff:'high',
+q:'「有価証券」の説明として正しいものはどれか。',
+opts:['現金・硬貨の総称','財産的価値を表す証券（株式・債券・手形・小切手など）','銀行の預金通帳','不動産の登記簿'],
+ans:[1],
+expl:'有価証券とは財産的な権利を表す証券の総称。株式・社債・国債・手形・小切手・商品券なども含まれる。秘書業務では小切手や手形の取り扱い、株主総会に関連する場面で登場することがある。',
+hint:'有価証券＝財産的価値を表す証券（株式・債券・手形・小切手など）'},
+
+{id:163,cat:'一般知識',type:'sc',diff:'high',
+q:'「取締役」と「執行役員」の違いとして正しいものはどれか。',
+opts:['どちらも会社法上の役員で同じ権限を持つ','取締役は会社法上の役員で経営の意思決定権を持つ。執行役員は会社が任意に設ける役職で業務執行を担う','執行役員の方が取締役より役職が高い','取締役は社外の人、執行役員は社内の人'],
+ans:[1],
+expl:'取締役は会社法に定められた役員で、株主総会で選任され経営の意思決定（取締役会）に参加する。執行役員は会社が任意に設ける役職で法律上の役員ではなく、取締役の決定した方針を実際に執行する役割を担う。',
+hint:'取締役＝会社法上の役員・意思決定　執行役員＝会社任意・業務執行役'},
+
+{id:164,cat:'一般知識',type:'sc',diff:'mid',
+q:'「時効」に関する説明として正しいものはどれか。',
+opts:['時効とは法律違反の行為を忘れること','一定期間が経過することで権利が消滅したり権利を取得したりする法律上の制度','時効は刑事事件にのみ適用される','時効は当事者の合意があれば延長できる'],
+ans:[1],
+expl:'時効には権利が消滅する「消滅時効」と一定期間の占有等で権利を取得する「取得時効」がある。売掛金・賃金請求権にも時効があり（例：一般債権5年）、ビジネスでも重要な概念。時効の中断・更新という制度もある。',
+hint:'時効＝一定期間経過で権利が消滅または取得する法律制度'},
+
+{id:165,cat:'一般知識',type:'sc',diff:'high',
+q:'「資本金」と「資本準備金」の違いとして正しいものはどれか。',
+opts:['どちらも同じ意味で使われる','資本金は株式発行で払い込まれた金額のうち資本金に組み入れた部分、資本準備金は残りの半額まで積み立てが認められる準備金','資本準備金は借入金の一種','資本金は社員が積み立てるお金'],
+ans:[1],
+expl:'株式を発行した際の払込金額は全額を資本金にしなくてもよく、払込金額の2分の1までを資本準備金として積み立てることができる（会社法）。資本金が多いほど会社の信用度が高いとされるが、税負担も変わる。',
+hint:'資本金＝払込額のうち資本金組入れ部分　資本準備金＝残りの半額まで積立可'},
+
+{id:166,cat:'一般知識',type:'sc',diff:'mid',
+q:'「景気循環」の4つの局面を正しい順序で並べたものはどれか。',
+opts:['好況→後退→不況→回復','不況→後退→好況→回復','後退→回復→好況→不況','回復→好況→後退→不況'],
+ans:[3],
+expl:'景気循環は「回復→好況（拡張）→後退→不況（収縮）」の4局面を繰り返す。回復期に始まり好況のピークを経て後退・不況の底へ向かい、また回復する。秘書検定の一般知識では経済の基本知識として出題される。',
+hint:'景気循環：回復→好況→後退→不況→回復の繰り返し'},
+
+{id:167,cat:'一般知識',type:'sc',diff:'high',
+q:'「株式の額面」についての説明として正しいものはどれか。',
+opts:['現在の日本では額面株式が義務付けられている','2001年の商法改正により日本では額面株式制度が廃止され、現在は無額面株式のみ','額面は株式の現在の市場価格を示す','額面は会社が自由に毎年変更できる'],
+ans:[1],
+expl:'日本では2001年の商法改正により、額面株式制度が廃止された。現在はすべて無額面株式となっている。株式の額面とは、かつて株券に記載されていた1株あたりの金額のことで、現在は上場株式の価値は市場での株価で決まる。',
+hint:'日本の株式：2001年に額面制度廃止→現在はすべて無額面株式'},
+
+{id:168,cat:'一般知識',type:'sc',diff:'mid',
+q:'「為替レート（円高・円安）」について正しい説明はどれか。',
+opts:['円高とは1ドルで買える円が増えること（例：1ドル＝150円→1ドル＝100円）','円安とは日本円の価値が上がること','円高になると日本の輸出企業に有利になる','円安になると海外旅行が安くなる'],
+ans:[0],
+expl:'円高とは円の価値が上がること。1ドル＝150円から1ドル＝100円になると、100円で1ドル買えるようになり円の価値が上昇＝円高。円高は輸入に有利・輸出に不利。円安は輸出に有利・輸入（原材料・エネルギー）コスト上昇。',
+hint:'円高＝円の価値↑（ドルが安くなる）。1ドル150円→100円は円高'},
+
+{id:169,cat:'一般知識',type:'sc',diff:'high',
+q:'「不正競争防止法」で保護される「営業秘密」の3要件として正しいものはどれか。',
+opts:['有名であること・高価値であること・社長が管理していること','秘密管理性（秘密として管理されている）・有用性（事業活動に有用）・非公知性（公然と知られていない）','特許を取得していること・登録されていること・法人が持っていること','文書で記録されていること・暗号化されていること・社外秘と明記されていること'],
+ans:[1],
+expl:'不正競争防止法上の「営業秘密」として保護されるには①秘密管理性（アクセス制限・秘密表示等で管理）②有用性（事業活動に役立つ情報）③非公知性（公になっていない）の3要件をすべて満たす必要がある。',
+hint:'営業秘密の3要件：秘密管理性・有用性・非公知性（すべて必要）'},
+
+{id:170,cat:'一般知識',type:'sc',diff:'mid',
+q:'「社債」の説明として正しいものはどれか。',
+opts:['株式会社の株式と同じもの','会社が資金調達のために発行する債券で、満期に元本を返済し定期的に利息を払う','社員が会社に貸すお金','国が発行する国債の別称'],
+ans:[1],
+expl:'社債とは企業が資金調達のために発行する債券。投資家が社債を購入することで企業に資金を貸し、企業は定期的に利息を払い満期に元本を返済する。株式との違いは、社債保有者は株主ではなく「債権者」であり、議決権がない。',
+hint:'社債＝企業が発行する債券。株式と異なり議決権なし。満期に元本返済'},
+
+{id:171,cat:'一般知識',type:'sc',diff:'high',
+q:'「独占禁止法」が禁止する行為として正しいものはどれか。',
+opts:['企業が新しい商品を発売すること','競合他社同士が価格や生産量を話し合って決めること（カルテル）','企業が広告宣伝費を多く使うこと','企業が優秀な人材を採用すること'],
+ans:[1],
+expl:'独占禁止法（私的独占の禁止及び公正取引の確保に関する法律）は、競争を阻害する行為を禁止する。カルテル（競合他社間での価格・数量等の協定）、不当廉売、優越的地位の濫用などが代表的な禁止行為。公正取引委員会が監視・摘発する。',
+hint:'独占禁止法：カルテル・不当廉売・優越的地位の濫用などを禁止'},
+
+{id:172,cat:'一般知識',type:'sc',diff:'mid',
+q:'「グローバル化」がビジネスに与える影響として、最も適切な説明はどれか。',
+opts:['グローバル化により国内市場だけを意識すればよくなる','グローバル化により海外との競争激化・多様な人材活用・異文化理解が重要になる','グローバル化は大企業にのみ関係する','グローバル化が進むと英語だけ話せれば十分'],
+ans:[1],
+expl:'グローバル化により企業は海外企業との競争にさらされると同時に、海外市場への進出機会も増える。多様なバックグラウンドを持つ人材との協働・異文化コミュニケーションが重要になる。中小企業も海外取引・外国人採用等でグローバル化の影響を受ける。',
+hint:'グローバル化：競争激化＋新市場機会。異文化理解・多様性が重要に'},
+
+{id:173,cat:'一般知識',type:'sc',diff:'high',
+q:'「知的財産権」のうち「著作権」について正しい説明はどれか。',
+opts:['著作権は特許庁に登録しないと効力が生じない','著作権は創作した時点で自動的に発生し、登録は不要','著作権の保護期間は著作者の死後30年','著作権は企業のみが持てる権利'],
+ans:[1],
+expl:'著作権は「無方式主義」のため、創作した時点で自動的に発生し、登録手続きは不要。保護期間は原則として著作者の死後70年（2018年の法改正で延長）。個人も法人も著作権を持てる。特許権・商標権は特許庁への登録が必要。',
+hint:'著作権：登録不要・創作時点で自動発生。保護期間は死後70年'},
+
+{id:174,cat:'一般知識',type:'sc',diff:'mid',
+q:'「消費者契約法」について正しい説明はどれか。',
+opts:['企業間（BtoB）の取引に適用される法律','消費者と事業者間の契約で、不当な勧誘・不当条項から消費者を保護する法律','消費者が店舗で商品を選ぶ際のルールを定めた法律','消費者の苦情を処理するための機関の設置を定めた法律'],
+ans:[1],
+expl:'消費者契約法は消費者（個人）と事業者との間の契約を対象とし、不実告知・断定的判断の提供・不当な条項（損害賠償額の過剰制限等）から消費者を保護する。BtoB（企業間）取引には適用されない。',
+hint:'消費者契約法＝消費者（個人）と事業者の契約を保護。BtoBには不適用'},
+
+{id:175,cat:'一般知識',type:'sc',diff:'high',
+q:'「電子署名」について正しい説明はどれか。',
+opts:['電子署名は手書きのサインをスキャンしたもの','電子署名は電磁的記録に付与される本人確認・改ざん防止のための技術的な署名','電子署名があれば契約書の内容はいつでも変更できる','電子署名は日本では法的効力が認められていない'],
+ans:[1],
+expl:'電子署名は電子文書の作成者を証明し、改ざんを検知するための技術。電子署名法により、電子署名が付された電子文書は手書き署名・押印と同等の法的効力が認められる。電子契約の普及に伴い重要性が増している。',
+hint:'電子署名＝本人確認＋改ざん防止の技術。法的効力あり（電子署名法）'},
+
+// ❸ マナー・接遇：混同しやすいひっかけ（Q176〜Q195）
+{id:176,cat:'マナー・接遇',type:'sc',diff:'high',
+q:'「尊敬語」「謙譲語」「丁寧語」の使い分けで正しいものはどれか。',
+opts:['「いただく」は尊敬語、「くださる」は謙譲語','「おっしゃる」は謙譲語、「申す」は尊敬語','「いただく」は謙譲語（自分が恩恵を受ける）、「くださる」は尊敬語（相手が与える）','丁寧語は目上の人にのみ使う'],
+ans:[2],
+expl:'「いただく」は謙譲語で自分（または自分側）が恩恵を受ける表現。「くださる」は尊敬語で相手（または相手側）が与える表現。「ご確認いただく」（自分側が確認してもらう）と「ご確認くださる」（相手が確認してくれる）のように場面で使い分ける。',
+hint:'いただく＝謙譲語（自分が受ける）　くださる＝尊敬語（相手が与える）'},
+
+{id:177,cat:'マナー・接遇',type:'sc',diff:'high',
+q:'「お体に気をつけてください」の適切な敬語表現として正しいものはどれか。',
+opts:['「お体をご自愛ください」','「ご自愛くださいませ」','「お体をお大事になさってください」','「お体をお気をつけてください」'],
+ans:[2],
+expl:'「ご自愛ください」の「自愛」は「自分の体を大切にする」という意味。そのため「お体をご自愛ください」は「お体を自分の体を大切にしてください」となり二重表現になる。正しくは「ご自愛ください」または「お体をお大事になさってください」。',
+hint:'「お体をご自愛ください」は二重表現。「ご自愛ください」だけ、またはお体をお大事に'},
+
+{id:178,cat:'マナー・接遇',type:'sc',diff:'high',
+q:'「拝見する」と「ご覧になる」の使い分けとして正しいものはどれか。',
+opts:['どちらも自分が見る時に使う','「拝見する」は自分が見る時の謙譲語、「ご覧になる」は相手が見る時の尊敬語','「ご覧になる」は自分が見る時の謙譲語、「拝見する」は相手が見る時の尊敬語','どちらも相手に見てもらう時に使う'],
+ans:[1],
+expl:'「拝見する」は「見る」の謙譲語で自分の動作に使う（例：「資料を拝見いたします」）。「ご覧になる」は「見る」の尊敬語で相手の動作に使う（例：「こちらをご覧になってください」）。逆に使うと非常に失礼になる。',
+hint:'拝見する＝自分が見る（謙譲語）　ご覧になる＝相手が見る（尊敬語）'},
+
+{id:179,cat:'マナー・接遇',type:'sc',diff:'high',
+q:'「参る」「伺う」「おいでになる」の使い分けで正しいものはどれか。',
+opts:['「参る」は相手の動作、「伺う」は自分の動作','「参る」と「伺う」はどちらも謙譲語で自分の動作。「おいでになる」は尊敬語で相手の動作','「おいでになる」は謙譲語で自分が行く時に使う','「伺う」は尊敬語で相手が来る時に使う'],
+ans:[1],
+expl:'「参る」は「行く・来る」の謙譲語（自分の動作）。「伺う」は「行く・訪問する・聞く・尋ねる」の謙譲語（自分の動作）。「おいでになる」は「いる・来る・行く」の尊敬語（相手の動作）。混同しやすいが方向（自分か相手か）で判断する。',
+hint:'参る・伺う＝謙譲語（自分）　おいでになる＝尊敬語（相手）'},
+
+{id:180,cat:'マナー・接遇',type:'sc',diff:'high',
+q:'訪問時に相手の会社に到着してから受付での名乗り方として正しいものはどれか。',
+opts:['「〇〇様はいらっしゃいますか」とだけ言う','「〇〇社の〇〇と申します。△△様に○時にお約束をいただいております」と会社名・氏名・約束を伝える','「〇〇部長に会いに来ました」と言う','「約束している者です」と簡潔に伝える'],
+ans:[1],
+expl:'受付では自分の会社名・氏名・アポイントの相手名・約束の時間を明確に伝えるのが基本。「申します」という謙譲語を使い、相手（訪問先の担当者）には「様」をつける。簡潔すぎる名乗りは相手に失礼で受付での取り次ぎが滞る。',
+hint:'受付での名乗り：会社名＋氏名（申します）＋相手名（様）＋約束の旨'},
+
+{id:181,cat:'マナー・接遇',type:'sc',diff:'mid',
+q:'「接客中の割り込み」について正しい対応はどれか。',
+opts:['緊急の用件であれば割り込んでも許される','接客中の割り込みは原則NG。至急の場合はメモを渡すか、接客終了を待つ','他のスタッフがいれば割り込んでよい','相手が知人なら割り込んでよい'],
+ans:[1],
+expl:'接客中に他の用件で割り込むのは接客相手・応対者双方に失礼。どうしても伝えなければならない至急の件はメモで静かに渡すか、自分が判断できる範囲で対応する。緊急性が高くても「割り込んでいい理由」にはならない。',
+hint:'接客中の割り込みは原則NG。至急ならメモで静かに渡す'},
+
+{id:182,cat:'マナー・接遇',type:'sc',diff:'high',
+q:'「慶事」と「弔事」が重なった場合の優先順位として一般的に正しいものはどれか。',
+opts:['慶事を優先する','弔事を優先する','どちらも同等なので順番は関係ない','上司に判断してもらう'],
+ans:[1],
+expl:'慶事（結婚式・祝賀会など）と弔事（葬儀・法要など）が重なった場合は、弔事を優先するのが一般的な礼儀とされている。「冠婚葬祭」の「婚」より「葬」が先という考え方に基づく。ただし状況・関係性によって判断が必要な場合もある。',
+hint:'慶事と弔事が重なったら弔事を優先するのが一般的'},
+
+{id:183,cat:'マナー・接遇',type:'sc',diff:'high',
+q:'「お中元」「お歳暮」の時期と作法として正しいものはどれか。',
+opts:['お中元は9月・お歳暮は3月に贈る','お中元は7月上旬〜8月上旬・お歳暮は12月上旬〜20日頃までが一般的','お中元とお歳暮は同じ時期に贈るもの','一度贈り始めたら毎年続けなくてよい'],
+ans:[1],
+expl:'お中元の時期は関東では7月1日〜15日頃、関西では7月中旬〜8月15日頃が一般的。お歳暮は全国的に12月初旬〜20日頃が目安。どちらも日頃の感謝を伝える贈り物で、一度贈り始めたら毎年継続するのが礼儀とされる。',
+hint:'お中元＝7月〜8月上旬　お歳暮＝12月上旬〜20日頃。一度始めたら継続'},
+
+{id:184,cat:'マナー・接遇',type:'sc',diff:'mid',
+q:'電話で「〇〇部長をお願いします」と言われた場合の応答として正しいものはどれか。',
+opts:['「〇〇部長ですね、少々お待ちください」','「〇〇でございますね、少々お待ちくださいませ」','「部長の〇〇様ですね、お繋ぎします」','「〇〇さんですね、確認します」'],
+ans:[1],
+expl:'電話で自社の上司を指す場合は役職をつけない（「〇〇部長」ではなく「〇〇」）。相手が「〇〇部長」と言っても、受ける側は「〇〇でございますね」と役職なしで受けるのが正しい。「〇〇様」も自社の人間に使うのは誤り。',
+hint:'電話応対で自社の人：相手が「部長」と言っても「〇〇でございますね」と役職なしで受ける'},
+
+{id:185,cat:'マナー・接遇',type:'sc',diff:'high',
+q:'「賞状・表彰状」の渡し方として正しいものはどれか。',
+opts:['賞状は文字が自分に読めるように向けて渡す','賞状は受け取る人が正面から読めるように向けて、両手で丁寧に渡す','賞状は封筒に入れて渡す','賞状は机の上に置いて相手に取ってもらう'],
+ans:[1],
+expl:'賞状・表彰状は受取人が正面から読める向きで両手で渡すのが基本。贈る側が文字を逆さに読む形になる。渡す際は「おめでとうございます」などの一言を添える。封筒に入れて渡すのは略式で、正式な表彰式では直接渡すのが基本。',
+hint:'賞状：受け取る人が読める向きで両手で渡す。贈る側は逆さ向きになる'},
+
+{id:186,cat:'マナー・接遇',type:'sc',diff:'high',
+q:'「内祝い」の説明として正しいものはどれか。',
+opts:['内祝いは相手からお祝いをもらった時にするお返し','内祝いはお祝い事があった本人が身内や親しい人に祝いのおすそ分けとして贈るもの（近年ではお返しを指すことも多い）','内祝いは弔事の際に贈るもの','内祝いはお中元と同じ意味'],
+ans:[1],
+expl:'本来「内祝い」はお祝い事（出産・結婚・新築等）があった本人が、喜びのおすそ分けとして周囲に贈るもの。近年では「お祝いへのお返し」の意味で使われることが多い。表書きは「内祝」。弔事には使わない。',
+hint:'内祝い＝慶事のおすそ分け（本来）。現代ではお祝いへのお返しの意味が多い'},
+
+{id:187,cat:'マナー・接遇',type:'sc',diff:'mid',
+q:'ビジネスの場での「あいさつ」について、最も不適切なものはどれか。',
+opts:['朝の出社時は自分から積極的に挨拶する','廊下ですれ違う社外の人にも軽く会釈する','挨拶は目下の人からするものなので、上司からの挨拶を待ってから返す','退社時は周囲に「お先に失礼します」と声をかける'],
+ans:[2],
+expl:'挨拶は「目下から先にする」とされるが、それは待つ理由にはならない。上司・目上の人からの挨拶を待つのではなく、気づいた方・出会った方から積極的に挨拶するのがビジネスマナーの基本。挨拶を返すだけでなく自ら先に挨拶できる人が評価される。',
+hint:'挨拶は目下から先というルールはあるが「待つ」理由にはならない。気づいた方から'},
+
+{id:188,cat:'マナー・接遇',type:'sc',diff:'high',
+q:'「不祝儀袋（香典袋）」の書き方として最も不適切なものはどれか。',
+opts:['表書きは薄墨（うすずみ）で書く','金額は旧字体の漢数字（壱・弐・参など）で書く','中袋の金額欄に「金○○円也」と記入する','香典袋はボールペンで書くのが一般的'],
+ans:[3],
+expl:'不祝儀袋（香典袋）は薄墨（悲しみで墨が薄くなったことを表す）の毛筆または筆ペンで書くのが正式。ボールペンや黒の濃いマジックは避ける。金額は旧字体漢数字で書くことで改ざんを防ぐ。「也」は不要という意見もあるが記入する場合も多い。',
+hint:'香典袋は薄墨の毛筆・筆ペンで書く。ボールペンは不適切'},
+
+{id:189,cat:'マナー・接遇',type:'sc',diff:'mid',
+q:'「お詫び状」を送る際のマナーとして正しいものはどれか。',
+opts:['お詫び状は時間をかけて丁寧に書くため、1週間以内に送ればよい','お詫び状はできるだけ早く（遅くとも翌日中）送る。遅れるほど誠意が伝わらない','お詫び状はメールで送るのが現代では一般的','お詫び状は相手が怒っている間は送らない方がよい'],
+ans:[1],
+expl:'お詫びは「早さ」が誠意を表す。時間が経つほど「軽く見ている」「忘れていた」という印象を与える。まずは口頭（電話）で謝罪し、その後できるだけ早くお詫び状を郵送するのが誠意ある対応。相手が怒っている時こそ早急な謝罪が重要。',
+hint:'お詫び状：早さが誠意。まず電話→翌日中にお詫び状を郵送'},
+
+{id:190,cat:'マナー・接遇',type:'sc',diff:'high',
+q:'「結婚記念日」に関する用語で、「金婚式」が指すものとして正しいものはどれか。',
+opts:['結婚10周年','結婚25周年','結婚50周年','結婚75周年'],
+ans:[2],
+expl:'金婚式は結婚50周年のお祝い。銀婚式は25周年、銀婚式（25年）・金婚式（50年）・ダイヤモンド婚式（60年）・白金婚式（75年）などがある。秘書として上司・来客の記念日に関わる場面で知っておくべき知識。',
+hint:'金婚式＝結婚50周年。銀婚式＝25周年、ダイヤモンド婚式＝60周年'},
+
+{id:191,cat:'マナー・接遇',type:'sc',diff:'high',
+q:'「ビジネス文書における宛名」の書き方として正しいものはどれか。',
+opts:['会社宛の場合は「〇〇株式会社 御中」と書く','個人宛の場合は「〇〇株式会社 〇〇部長 御中」と書く','「様」と「御中」を同時に使ってもよい（例：〇〇様御中）','担当者不明の場合は宛名を書かなくてよい'],
+ans:[0],
+expl:'「御中」は会社・部署・団体宛に使い、「様」は個人宛に使う。「〇〇様御中」のように両方同時に使うのは誤り。個人宛は「〇〇株式会社 〇〇部 〇〇様」と書く。担当者不明の場合は「〇〇株式会社 ご担当者様」と書く。',
+hint:'御中＝会社・団体宛　様＝個人宛。御中と様を同時使用はNG'},
+
+{id:192,cat:'マナー・接遇',type:'sc',diff:'mid',
+q:'「電話応対」で相手の会社名・名前が聞き取れなかった時の対応として最も適切なものはどれか。',
+opts:['聞き取れないまま話を進める','「恐れ入りますが、お名前をもう一度お聞かせいただけますでしょうか」と丁寧に聞き直す','「聞こえませんでした」とだけ言う','電話を切って折り返す'],
+ans:[1],
+expl:'聞き取れなかった場合は「恐れ入りますが」というクッション言葉を添えてから丁寧に聞き直す。「聞こえませんでした」は事実だが失礼な印象を与える。聞き取れないまま進めると誤りの元になる。2度聞き直す場合は「電波の状況が悪いようで〜」と添えると自然。',
+hint:'聞き取れない時：「恐れ入りますが」＋丁寧に聞き直す。そのまま進めるのはNG'},
+
+{id:193,cat:'マナー・接遇',type:'sc',diff:'high',
+q:'「忌引き休暇」の日数について、一般的な企業の規定として正しい傾向にあるものはどれか。',
+opts:['忌引き休暇は誰が亡くなっても一律3日間','配偶者が亡くなった場合が最も長く（例：10日）、血縁が遠くなるほど短くなる傾向がある','祖父母が亡くなった場合は配偶者より日数が多い','忌引き休暇は法律で統一的に定められている'],
+ans:[1],
+expl:'忌引き休暇の日数は法律では定められておらず会社規定による。一般的に配偶者が最も長く（5〜10日程度）、子・父母（5〜7日）、兄弟姉妹（3〜5日）、祖父母・義父母（1〜3日）のように続柄により異なる。親等が遠いほど短くなる傾向がある。',
+hint:'忌引き日数：配偶者が最長。続柄（親等）が遠くなるほど短くなる。法律上の統一規定なし'},
+
+{id:194,cat:'マナー・接遇',type:'sc',diff:'mid',
+q:'「SNS（ソーシャルネットワーキングサービス）」とビジネスマナーについて正しいものはどれか。',
+opts:['個人のSNSに職場の情報を投稿することは自由','会社の機密情報・顧客情報・社内の出来事を個人SNSに投稿してはならない','SNSは私的なものなので会社のルールは適用されない','有名人でない限りSNS投稿が問題になることはない'],
+ans:[1],
+expl:'個人のSNSであっても、会社の機密情報・顧客情報・社内の様子（写真含む）を投稿することは情報漏洩・プライバシー侵害・守秘義務違反になる可能性がある。「鍵アカウントだから大丈夫」も通らない。現代の秘書が特に注意すべき事項。',
+hint:'個人SNSでも会社情報・顧客情報・社内写真の投稿はNG。鍵アカも不可'},
+
+{id:195,cat:'マナー・接遇',type:'sc',diff:'high',
+q:'「チャット・ビジネスメッセージ（SlackやTeamsなど）」のマナーとして正しいものはどれか。',
+opts:['チャットはカジュアルなツールなので敬語を使わなくてよい','チャットでも宛先・用件・送信者を明確にし、社外の人には適切な敬語を使う','既読スルーは問題ない','チャットは送信後に取り消しができるため内容を確認する必要はない'],
+ans:[1],
+expl:'チャットツールもビジネスコミュニケーションの一部であり、特に社外とのやり取りでは適切な敬語・丁寧な文章が求められる。社内チャットでも宛先・用件は明確に。誤送信は即取り消しが基本だが、相手がすでに読んでいる可能性も考慮した上でフォローの一言が必要。',
+hint:'チャットでも社外は敬語・丁寧に。宛先・用件を明確に。誤送信はフォローを'},
+
+// ❹ 技能：ひっかけ問題（Q196〜Q200）
+{id:196,cat:'技能',type:'sc',diff:'high',
+q:'「ビジネス文書の数字表記」について最も不適切なものはどれか。',
+opts:['金額は「¥100,000」のようにカンマ区切りで表記する','日付は「令和○年○月○日」または「20XX年○月○日」と統一して表記する','「1,000,000円」を「百万円」と漢数字に変換して表記するのは常に正しい','契約書の金額は改ざん防止のため「金壱百万円也」のように旧字体漢数字で書く'],
+ans:[2],
+expl:'ビジネス文書では横書きにアラビア数字を使うのが基本。金額を任意に漢数字に変換することは、かえって読みにくくなる場合がある。契約書・証書類など改ざん防止が必要な場合は旧字体漢数字を使うが、一般のビジネス文書では不要。「常に正しい」という表現が誤り。',
+hint:'一般ビジネス文書の金額はアラビア数字。漢数字変換が「常に正しい」は誤り'},
+
+{id:197,cat:'技能',type:'sc',diff:'high',
+q:'「社外文書の発信日付」について正しいものはどれか。',
+opts:['発信日付は文書を作成した日を書く','発信日付は文書を相手に送付する日（または送付予定日）を書く','発信日付は相手が受け取った日を書く','発信日付は省略してもよい'],
+ans:[1],
+expl:'社外文書の日付は「発信日（送付する日）」を記載する。作成日と発信日が異なる場合は発信日を書く。相手が受け取った日ではない。日付は文書の効力・優先順位・記録上の重要な要素であり省略できない。',
+hint:'社外文書の日付＝発信日（送付する日）。作成日でも受取日でもない'},
+
+{id:198,cat:'技能',type:'sc',diff:'high',
+q:'「プレゼンテーション資料（スライド）」の作成マナーとして最も不適切なものはどれか。',
+opts:['1枚のスライドに伝えたいメッセージを1つに絞る','文字は大きく読みやすいフォントを使う','1枚のスライドにできるだけ多くの情報を詰め込む','図・グラフを使って視覚的にわかりやすくする'],
+ans:[2],
+expl:'プレゼン資料は「1スライド1メッセージ」が基本原則。情報を詰め込むと視聴者が理解しにくくなり、発表者も話しにくくなる。スライドは補助資料であり、文字を読ませるものではなく要点を視覚化するもの。',
+hint:'プレゼンスライド：1枚に1メッセージ。詰め込みすぎはNG'},
+
+{id:199,cat:'技能',type:'sc',diff:'high',
+q:'「会議の種類」について正しい説明はどれか。',
+opts:['定例会議とは突発的な問題が起きた時に開く会議','臨時会議とは定期的に開かれる会議','定例会議は定期的に開かれる会議、臨時会議は必要に応じて随時開く会議','ブレインストーミングは多数決で結論を出す会議'],
+ans:[2],
+expl:'定例会議は毎週・毎月など定期的に開催される会議。臨時会議は緊急案件・突発的な問題が生じた際に随時開催される会議。ブレインストーミングは参加者が自由にアイデアを出し合う発散型の会議手法で多数決とは無関係。',
+hint:'定例会議＝定期開催　臨時会議＝随時開催。ブレインストーミング＝自由なアイデア出し'},
+
+{id:200,cat:'技能',type:'sc',diff:'high',
+q:'「コピー機（複合機）」を使って機密文書をコピーする際の注意点として最も適切なものはどれか。',
+opts:['機密文書のコピーは誰でも自由にとってよい','コピー後の原稿を取り忘れないようにし、余分なコピーが出た場合はシュレッダーで廃棄する','コピーしたものを共有フォルダに保存しておく','コピー機のメモリに残るため必ず電源を切ってから離れる'],
+ans:[1],
+expl:'コピー後の原稿置き忘れ（自動送り装置の残り忘れ含む）は機密漏洩の典型的なミス。余分なコピーも必ずシュレッダーで廃棄する。共有フォルダへの保存はアクセス権の管理が必要で機密文書には不適切な場合がある。現代の複合機はメモリのデータ消去機能があるが電源を切るだけでは不十分。',
+hint:'機密文書のコピー：原稿置き忘れNG＋余分なコピーはシュレッダー廃棄'},
+
+// ══════════════════════════════════════
+// ── 第6弾 Q201〜Q260（混同・ひっかけ強化60問）──
+// ── 職務知識15問・一般知識15問・マナー接遇20問・技能10問 ──
+// ══════════════════════════════════════
+
+// ❶ 職務知識（Q201〜Q215）
+{id:201,cat:'職務知識',type:'sc',diff:'high',
+q:'上司から「A社のC氏に電話して、来週の打ち合わせを木曜から金曜に変更してほしいと伝えて」と頼まれた。C氏に電話したところ「金曜は難しい、水曜ではどうか」と言われた。秘書の対応として正しいのはどれか。',
+opts:['「わかりました、水曜でお願いします」と即答する','「確認して折り返しご連絡いたします」と伝え、上司に報告して指示を仰ぐ','「それは上司に聞かないとわかりません」と言って電話を切る','「では木曜のままでよいですか」と勝手に決める'],
+ans:[1],
+expl:'日程変更の代替案は上司が決めることであり、秘書が独断で決めることはできない。「確認して折り返します」と伝えて上司に状況を報告し、指示を仰いでから再度連絡するのが正しい手順。',
+hint:'代替案の承諾は上司の判断。「確認して折り返します」→上司に報告'},
+
+{id:202,cat:'職務知識',type:'sc',diff:'high',
+q:'上司が会議室で来客と商談中に、別の取引先から「今すぐ上司と話したい、急用だ」と電話が入った。最も適切な対応はどれか。',
+opts:['すぐに会議室に入って上司に電話を代わってもらう','「商談中のためすぐには難しい状況です。折り返しのお電話でよろしいでしょうか」と伝え、上司にメモで状況を届ける','「商談中は対応できません」と電話を切る','取引先の言う通り会議を中断させる'],
+ans:[1],
+expl:'商談中の会議室に踏み込んで電話を代わらせるのは来客に大変失礼。先方に折り返しを提案しつつ、上司には「○○社△△様から至急とのお電話あり」とメモで届けて上司に判断させるのが正解。',
+hint:'商談中の至急電話：会議室には入らず→折り返し提案＋上司にメモ'},
+
+{id:203,cat:'職務知識',type:'sc',diff:'mid',
+q:'秘書が上司の代理でメールを送信する場合の署名として正しいものはどれか。',
+opts:['上司の名前だけ書く','上司の名前の後に「代」または「（代理：○○）」と明記する','自分の名前だけ書く','署名は省略してよい'],
+ans:[1],
+expl:'代理でメールを送る場合は「上司名 代」または「上司名（代理：秘書名）」と明記するのが誠実な対応。受信者が誰から届いたメールかを正確に把握できるようにする。署名の省略は受信者に不信感を与える。',
+hint:'代理メールの署名：上司名＋「代」または「代理：秘書名」を明記'},
+
+{id:204,cat:'職務知識',type:'sc',diff:'high',
+q:'秘書が上司から「この資料は極秘扱いで、部内でも○○課長だけに見せてよい」と指示された。同じ部の部長（上司の上位者）から「その資料を見せてほしい」と言われた。どう対応するか。',
+opts:['上位者である部長には見せてよい','「上司から○○課長のみとご指示をいただいております。確認してよろしいでしょうか」と伝えて上司に判断を仰ぐ','部長なので当然見せてよい','「見せられません」と何も言わず断る'],
+ans:[1],
+expl:'上司から「○○課長のみ」と明確に指示されている以上、たとえ上位者の部長であっても秘書が独断で見せることはできない。「確認します」と伝えて上司に判断を仰ぐのが原則。上位者だからといって指示を覆せるのは上司本人の判断による。',
+hint:'極秘資料は上位者にも独断で見せない→上司に確認して判断を仰ぐ'},
+
+{id:205,cat:'職務知識',type:'sc',diff:'mid',
+q:'秘書が複数の仕事を抱えているとき、上司から「急ぎで頼む」と新たな指示が来た。最も適切な対応はどれか。',
+opts:['今やっている仕事を全部後回しにして新しい指示だけに集中する','現在の仕事の進捗状況を上司に伝え、優先順位を確認してから取り組む','「今忙しいのでできません」と断る','とにかく全部同時に進めようとする'],
+ans:[1],
+expl:'「急ぎで頼む」と言われても、現在の仕事の状況を上司が把握していない場合がある。「現在○○の仕事が△時までに必要ですが、今の指示を優先してよいでしょうか」と状況を伝えて優先順位を確認するのが適切。',
+hint:'新たな急ぎ指示→現在の状況を伝え優先順位を上司に確認'},
+
+{id:206,cat:'職務知識',type:'sc',diff:'high',
+q:'来客の応対中に上司から内線で「その客はすぐに帰ってもらって」と言われた。秘書の対応として最も適切なものはどれか。',
+opts:['すぐに「上司が帰ってほしいと言っています」と来客に伝える','「上司が急用で本日の面会が困難になりました。大変申し訳ございませんが、お日にちを改めていただけますでしょうか」と丁寧にお断りする','理由もなく「本日はここまでにしてください」と告げる','来客を無視して上司のところへ行く'],
+ans:[1],
+expl:'上司の内線内容を来客にそのまま伝えるのは大変失礼。「急用が生じました」などの適切な理由を添えて、丁寧に日程を改める旨をお伝えするのが秘書の腕の見せどころ。来客に失礼のない言葉を選ぶことが重要。',
+hint:'「帰ってもらって」をそのまま伝えるのはNG。丁寧な理由を添えて日程変更をお願いする'},
+
+{id:207,cat:'職務知識',type:'sc',diff:'mid',
+q:'「議事録」作成において、欠席者への対応として正しいものはどれか。',
+opts:['欠席者には議事録を送らなくてよい','議事録は出席者・欠席者を問わず関係者全員に配布し、欠席者も内容を把握できるようにする','欠席者には電話で口頭説明すれば議事録は不要','欠席者分の議事録は次の会議まで保管しておけばよい'],
+ans:[1],
+expl:'議事録は会議の記録として欠席者も含む関係者全員に配布するのが基本。欠席者は会議の決定事項・アクション事項を把握できず業務に支障が出る。口頭説明だけでは記録が残らないため不適切。',
+hint:'議事録は欠席者も含む関係者全員に配布する'},
+
+{id:208,cat:'職務知識',type:'sc',diff:'high',
+q:'上司が「この件は私が直接対応するから、秘書は手を出さないように」と言っていた案件について、上司不在中に関係者から連絡が入った。秘書の対応として正しいものはどれか。',
+opts:['上司の指示通り対応せず、連絡があった旨を上司が戻ったら伝える','「上司が直接対応します。上司に連絡があった旨を伝えます」と伝え、上司に速やかに報告する','上司の代わりに対応して解決してしまう','「上司が不在なので対応できません」と電話を切る'],
+ans:[1],
+expl:'「手を出さないように」という指示は守りつつ、連絡があったという事実は上司に速やかに伝える必要がある。連絡してきた相手には「上司に報告します」と伝えることで、相手にも状況が伝わり安心感を与えられる。',
+hint:'手を出さない指示でも、連絡があった事実は速やかに上司に報告する'},
+
+{id:209,cat:'職務知識',type:'sc',diff:'mid',
+q:'「業務日誌（日報）」の目的として最も適切な説明はどれか。',
+opts:['上司が部下を監視するための道具','その日の業務内容・成果・課題・翌日の予定などを記録し、業務の継続性と改善に役立てるもの','残業時間を記録するためだけのもの','ミスをした時にだけ書くもの'],
+ans:[1],
+expl:'業務日誌は単なる監視ツールではなく、業務の可視化・継続性の確保・自己管理・上司との情報共有が目的。「今日何をして、何が課題で、明日何をするか」を整理することで業務の質が上がる。秘書にとっても重要なツール。',
+hint:'業務日誌＝業務の記録・継続性・改善・上司との情報共有のためのツール'},
+
+{id:210,cat:'職務知識',type:'sc',diff:'high',
+q:'秘書が「上司の個人的な用事（私用）」を頼まれた場合の対応として正しいものはどれか。',
+opts:['秘書なのでどんな私用でも断ってはいけない','私用の手伝いは秘書の仕事ではないので一切断る','職場の慣行・上司との関係・内容の妥当性を考慮し、業務の支障にならない範囲で対応することもある','私用の依頼は上司のハラスメントなので即座に拒否する'],
+ans:[2],
+expl:'秘書の私用への対応は一律ではなく、職場の慣行や内容の妥当性による。例えばランチの予約や交通手段の確認などは一般的に秘書業務の範囲内とされることも多い。ただし業務に支障が出る場合や個人的すぎる依頼は適切に断ることも必要。',
+hint:'上司の私用依頼：一律拒否でも無条件対応でもなく、内容・慣行・支障の有無で判断'},
+
+{id:211,cat:'職務知識',type:'sc',diff:'mid',
+q:'「クレーム処理」の基本手順として正しいものはどれか。',
+opts:['事実確認→謝罪→解決策提示','謝罪→事実確認→解決策提示→再発防止','言い訳→説明→謝罪','まず解決策を提示してから謝罪する'],
+ans:[1],
+expl:'クレーム対応の基本手順は①謝罪（不快をかけたことへのお詫び）②事実確認（何が起きたか冷静に聴く）③解決策の提示④再発防止策の説明。まず謝罪して相手の感情を受け止めることが先決。事実確認より先に言い訳や説明をするのはNG。',
+hint:'クレーム対応：謝罪→事実確認→解決策→再発防止の順'},
+
+{id:212,cat:'職務知識',type:'sc',diff:'high',
+q:'上司が重要な取引先との会食中に、社内から緊急の電話が入り秘書に転送された。「今すぐ上司の決裁が必要な案件がある」という内容だった。秘書の対応として最も適切なものはどれか。',
+opts:['会食の席に電話をつなぐ','案件の内容・緊急度・待てる時間を確認し、上司に短いメモ（ショートメッセージ）で状況を知らせ判断を仰ぐ','「会食中なので対応できません」と断って終わりにする','自分で決裁してしまう'],
+ans:[1],
+expl:'会食中でも上司が判断すべき緊急案件は知らせる必要がある。ただし電話をそのままつなぐと会食に支障が出る。案件の緊急度を確認した上でショートメッセージや同席スタッフ経由でメモを届け、上司に判断させるのが最善。',
+hint:'会食中の緊急案件：電話をつなぐのではなくメモで状況を伝え上司に判断させる'},
+
+{id:213,cat:'職務知識',type:'sc',diff:'mid',
+q:'「電子メールの誤送信」をしてしまった場合の対応として最も適切なものはどれか。',
+opts:['気づかないふりをして放置する','すぐに相手に電話し誤送信の旨を詫び、内容を見ないよう（または削除するよう）依頼し、上司にも報告する','「取り消しメール」を送るだけでよい','ミスがバレないように新たな内容のメールを送ってごまかす'],
+ans:[1],
+expl:'誤送信に気づいたら迅速な対応が必要。まず相手に電話し誤送信を詫びて内容の扱いを依頼する。その後上司・関係部署に報告する。「送信取消」機能は相手がすでに読んでいる可能性があり確実ではない。隠蔽は事態を悪化させる。',
+hint:'誤送信：すぐに電話で謝罪＋削除依頼→上司に報告。隠蔽は厳禁'},
+
+{id:214,cat:'職務知識',type:'sc',diff:'high',
+q:'秘書が「上司のパスワード」を管理する場合の注意点として最も適切なものはどれか。',
+opts:['パスワードは付箋に書いてPCに貼っておくと便利','パスワードは秘書が管理する場合でも他の人には絶対に教えず、安全な方法で保管する','パスワードは同僚の秘書と共有しておくと緊急時に便利','パスワードはメモ帳に書いてデスクの引き出しに入れておく'],
+ans:[1],
+expl:'パスワードはセキュリティの要であり、付箋に貼る・引き出しに入れるは論外。同僚との共有も厳禁。専用のパスワード管理ツール・施錠できる金庫などで安全に管理する。上司のパスワードを知っている人は最小限にとどめるのが原則。',
+hint:'パスワード管理：付箋・引き出し・同僚共有はすべてNG。安全な方法で保管'},
+
+{id:215,cat:'職務知識',type:'sc',diff:'mid',
+q:'秘書が「業務を引き継ぐ」場合に最も重要なこととして正しいものはどれか。',
+opts:['口頭で説明するだけでよい','進行中の案件・定期業務・重要な連絡先・注意事項などを文書化し、後任者が業務を滞りなく継続できるようにする','自分のやり方を詳細に文書化するが引き継ぎ先には見せない','急ぎの案件だけ伝えれば十分'],
+ans:[1],
+expl:'引き継ぎは「自分がいなくなっても業務が止まらない状態を作ること」が目的。口頭だけでは漏れが生じやすく、文書化することで後任者が迷わず対応できる。引き継ぎ文書は進行中案件・定期業務・重要連絡先・上司の好み・注意事項などを網羅する。',
+hint:'引き継ぎ：文書化が必須。後任者が迷わず対応できる状態を作ることが目的'},
+
+// ❷ 一般知識（Q216〜Q230）
+{id:216,cat:'一般知識',type:'sc',diff:'high',
+q:'「債権」と「債務」の説明として正しいものはどれか。',
+opts:['債権と債務は同じ意味','債権は相手に何かを請求できる権利、債務は相手に何かをしなければならない義務','債権は借金、債務は貯金','債権は会社のみが持てる権利'],
+ans:[1],
+expl:'債権とは特定の人（債務者）に対して一定の行為（支払い・履行など）を請求できる権利。債務はその反対で、特定の人（債権者）に対して一定の行為をしなければならない義務。売掛金は債権、買掛金は債務の典型例。',
+hint:'債権＝請求できる権利（売掛金など）　債務＝履行しなければならない義務（買掛金など）'},
+
+{id:217,cat:'一般知識',type:'sc',diff:'high',
+q:'「固定費」と「変動費」の違いとして正しいものはどれか。',
+opts:['固定費は毎月変わる費用、変動費は毎月一定の費用','固定費は売上や生産量に関わらず一定の費用（家賃・人件費など）、変動費は売上や生産量に比例して変わる費用（材料費など）','固定費は社員が使えない費用','変動費は管理職のみが管理する費用'],
+ans:[1],
+expl:'固定費は売上の増減に関わらず毎月一定額発生するコスト（例：家賃・固定給・減価償却費）。変動費は売上・生産量に応じて増減するコスト（例：材料費・販売手数料・外注費）。この区別はコスト管理・損益分岐点分析の基本。',
+hint:'固定費＝売上に関わらず一定（家賃など）　変動費＝売上に比例して変動（材料費など）'},
+
+{id:218,cat:'一般知識',type:'sc',diff:'mid',
+q:'「ROA（総資産利益率）」の説明として正しいものはどれか。',
+opts:['自己資本に対する利益の割合','総資産に対する利益の割合（企業がどれだけ効率的に資産を使って利益を上げているか）','売上高に対する利益の割合','従業員数に対する利益の割合'],
+ans:[1],
+expl:'ROA（Return on Assets）は総資産（自己資本＋負債）に対してどれだけの利益を生み出しているかを示す収益性指標。ROA＝当期純利益÷総資産×100(%)。ROE（自己資本利益率）との混同に注意。',
+hint:'ROA＝総資産利益率（総資産全体の効率）　ROE＝自己資本利益率（株主資本の効率）'},
+
+{id:219,cat:'一般知識',type:'sc',diff:'high',
+q:'「手形」と「小切手」の違いとして正しいものはどれか。',
+opts:['どちらも現金の代わりに使える有価証券で同じもの','手形は一定期日後に支払われる信用証券、小切手は銀行に持参すると即時に現金化できる証券','小切手は会社のみが発行できる','手形は個人間でのみ使われる'],
+ans:[1],
+expl:'手形は「支払期日」が設定されており、期日まで現金化できない（約束手形・為替手形）。小切手は銀行に持参すれば原則即時に現金化できる（ただし残高不足だと不渡りになる）。どちらも有価証券だが決済のタイミングが異なる。',
+hint:'手形＝期日まで待つ（信用決済）　小切手＝即時現金化可能'},
+
+{id:220,cat:'一般知識',type:'sc',diff:'mid',
+q:'「減価償却」の説明として正しいものはどれか。',
+opts:['商品の値引き販売のこと','固定資産（建物・機械など）の取得費用を耐用年数にわたって分割して費用計上していく会計処理','毎年の資産評価を上げること','在庫の価値を下げる処理'],
+ans:[1],
+expl:'減価償却は、長期間使用する固定資産（建物・車両・機械設備など）の購入費用を、使用期間（耐用年数）にわたって分割して費用として計上する会計処理。一度に大きな費用を計上せず、使用する期間に対応させることで適正な損益計算ができる。',
+hint:'減価償却＝固定資産の取得費用を耐用年数にわたって分割計上する会計処理'},
+
+{id:221,cat:'一般知識',type:'sc',diff:'high',
+q:'「粗利益（売上総利益）」と「営業利益」の違いとして正しいものはどれか。',
+opts:['同じ意味で使われる','粗利益は売上高から売上原価を引いたもの、営業利益は粗利益からさらに販売費・一般管理費を引いたもの','営業利益は粗利益より必ず大きい','粗利益は税引き後の利益'],
+ans:[1],
+expl:'粗利益（売上総利益）＝売上高－売上原価。営業利益＝粗利益－販売費及び一般管理費（人件費・広告費・家賃など）。さらに営業外損益を加減した経常利益、特別損益を加減した税引前当期純利益と続く。この利益の段階を理解することが重要。',
+hint:'利益の段階：売上高→粗利益（－売上原価）→営業利益（－販管費）→経常利益→純利益'},
+
+{id:222,cat:'一般知識',type:'sc',diff:'mid',
+q:'「フリーランス」と「派遣社員」の違いとして正しいものはどれか。',
+opts:['どちらも会社と雇用契約を結ぶ働き方','フリーランスは企業と雇用関係を持たず業務委託で働く個人、派遣社員は派遣会社と雇用契約を結び取引先企業で働く','フリーランスは派遣会社に登録が必要','派遣社員は正社員より高収入が保証されている'],
+ans:[1],
+expl:'フリーランスは特定の会社に属さず、個人として業務委託契約で複数のクライアントと働く。派遣社員は派遣会社（派遣元）と雇用契約を結び、派遣先企業で働く。フリーランスには雇用保険・社会保険が適用されない（自分で手続きが必要）。',
+hint:'フリーランス＝雇用なし・業務委託　派遣社員＝派遣会社と雇用契約'},
+
+{id:223,cat:'一般知識',type:'sc',diff:'high',
+q:'「株主優待」と「配当」の違いとして正しいものはどれか。',
+opts:['株主優待は現金で支払われ、配当は商品・サービス券で支払われる','配当は企業が利益の一部を株主に金銭で還元するもの、株主優待は自社商品・割引券などのサービスを株主に提供するもの','どちらも必ず支払われる義務がある','株主優待は大企業のみが行う'],
+ans:[1],
+expl:'配当は利益から金銭で支払われる株主への利益還元。株主優待は自社商品・割引券・食事券などを株主に提供するサービス。どちらも支払いを保証する義務はなく（無配・優待廃止もある）、会社の業績・方針によって決まる。',
+hint:'配当＝現金での利益還元　株主優待＝自社商品・サービス券などの提供'},
+
+{id:224,cat:'一般知識',type:'sc',diff:'mid',
+q:'「景気指標」のうち「先行指数」「一致指数」「遅行指数」の説明として正しいものはどれか。',
+opts:['先行指数は景気の変化より後に動く指標','一致指数は景気の変化に先行して動く指標','先行指数は景気の山・谷より先に動く指標、一致指数は景気とほぼ同時に動く指標、遅行指数は景気変化より遅れて動く指標','遅行指数は最も重要な景気指標'],
+ans:[2],
+expl:'景気動向指数の3分類：先行指数（株価・新規求人数など、景気の変化より先に動く）・一致指数（生産指数・有効求人倍率など、景気とほぼ同時）・遅行指数（完全失業率・家計消費支出など、景気変化より遅れて動く）。',
+hint:'先行＝景気より先に動く　一致＝ほぼ同時　遅行＝景気変化より遅れて動く'},
+
+{id:225,cat:'一般知識',type:'sc',diff:'high',
+q:'「PL（製造物責任法）」について正しい説明はどれか。',
+opts:['PL法は企業の利益（Profit and Loss）に関する法律','製造物の欠陥により消費者が損害を受けた場合、製造業者等が過失の有無に関わらず損害賠償責任を負う法律','PL法はサービス業のみに適用される','PL法は消費者の故意による損害にも適用される'],
+ans:[1],
+expl:'PL法（製造物責任法）は製品の欠陥による人身・財産被害について、製造者・輸入業者が「過失がなくても」（無過失責任）賠償責任を負うと定めた法律。被害者は製造者の過失を証明する必要がなく「欠陥の存在」を証明すればよい。',
+hint:'PL法＝製造物責任法。欠陥製品による損害は過失なくても製造者が賠償責任'},
+
+{id:226,cat:'一般知識',type:'sc',diff:'mid',
+q:'「源泉徴収」の説明として正しいものはどれか。',
+opts:['社員が自分で税務署に税金を納めること','給与の支払者（会社）が給与から所得税等を天引きして、代わりに税務署に納付する制度','源泉徴収は外国人社員のみに適用される','源泉徴収は年1回まとめて行う'],
+ans:[1],
+expl:'源泉徴収は給与・報酬の支払者が支払い時に所得税等を差し引いて代わりに納税する制度。サラリーマンは毎月の給与から源泉徴収され、年末調整で過不足を精算する。フリーランスへの報酬・講師料などにも適用される。',
+hint:'源泉徴収＝支払者が給与等から税金を天引きして代わりに納税する制度'},
+
+{id:227,cat:'一般知識',type:'sc',diff:'high',
+q:'「連結決算」と「単体決算」の違いとして正しいものはどれか。',
+opts:['連結決算は小規模企業向け、単体決算は大企業向け','単体決算は1社のみの財務状況、連結決算は親会社と子会社・関連会社を一体として財務状況を示す','連結決算は売上高のみを合算したもの','どちらも同じ内容を示す'],
+ans:[1],
+expl:'単体決算は一つの法人単体の財務諸表。連結決算は親会社を中心に子会社・関連会社グループ全体を一体として財務諸表を作成するもの。グループ内取引を消去して実態を示す。上場企業は連結決算の開示が義務付けられている。',
+hint:'単体＝1社のみ　連結＝親会社＋子会社グループ全体を一体化した財務諸表'},
+
+{id:228,cat:'一般知識',type:'sc',diff:'mid',
+q:'「フィンテック（FinTech）」の説明として正しいものはどれか。',
+opts:['フィンランドのテクノロジー企業の略称','金融（Finance）と技術（Technology）を組み合わせた造語で、ITを活用した革新的な金融サービスの総称','財務（Financial）技術者（Technician）の資格名称','フィンランドとテキサスの経済協定'],
+ans:[1],
+expl:'フィンテック（FinTech）はFinance（金融）とTechnology（技術）を組み合わせた造語。スマホ決済・仮想通貨・AI投資・クラウドファンディング・ネット銀行など、ITを活用して従来の金融サービスを革新・効率化するサービス・ビジネスモデルの総称。',
+hint:'FinTech＝Finance（金融）＋Technology（技術）。スマホ決済・仮想通貨などが代表例'},
+
+{id:229,cat:'一般知識',type:'sc',diff:'high',
+q:'「内部統制」の説明として正しいものはどれか。',
+opts:['社内の不正を発見した際に外部に報告する制度','組織が業務の有効性・財務報告の信頼性・法令遵守・資産保全を達成するために整備する仕組みの総称','内部告発者を保護する制度','社員同士が互いに監視し合う制度'],
+ans:[1],
+expl:'内部統制とは組織が①業務の有効性・効率性②財務報告の信頼性③法令等の遵守④資産の保全という4つの目的を達成するために整備する仕組みの総称。J-SOX（金融商品取引法）により上場企業には内部統制報告書の提出が義務付けられている。',
+hint:'内部統制＝業務効率・財務信頼性・法令遵守・資産保全のための組織的な仕組み'},
+
+{id:230,cat:'一般知識',type:'sc',diff:'mid',
+q:'「インフレーション（インフレ）」と「デフレーション（デフレ）」の正しい説明はどれか。',
+opts:['インフレは物価が下がること、デフレは物価が上がること','インフレは物価が継続的に上昇する状態、デフレは物価が継続的に下落する状態','インフレは景気が良い時のみ起こる','デフレは必ず景気が良い状態を示す'],
+ans:[1],
+expl:'インフレは物価が継続的に上昇し、お金の価値が下がる状態。デフレは物価が継続的に下落し、お金の価値が上がる状態。デフレは一見お得に見えるが、企業収益減→賃金低下→消費減少→さらに物価下落という「デフレスパイラル」に陥るリスクがある。',
+hint:'インフレ＝物価上昇・お金の価値低下　デフレ＝物価下落・お金の価値上昇'},
+
+// ❸ マナー・接遇（Q231〜Q250）
+{id:231,cat:'マナー・接遇',type:'sc',diff:'high',
+q:'「存じます」と「存じ上げます」の使い分けとして正しいものはどれか。',
+opts:['どちらも同じ意味で使える','「存じます」は事柄について、「存じ上げます」は人物に対して使う謙譲表現','「存じ上げます」は尊敬語で相手の動作に使う','「存じます」は目下の人にのみ使う'],
+ans:[1],
+expl:'「存じます」は「思う・知る」の謙譲語で事柄について使う（例：「承知と存じます」）。「存じ上げます」は人物に対して使う謙譲語（例：「○○様のことは存じ上げております」）。人に「存じます」を使うのは誤りではないが、「存じ上げます」の方が丁寧。',
+hint:'存じます＝事柄について　存じ上げます＝人物について（より丁寧）'},
+
+{id:232,cat:'マナー・接遇',type:'sc',diff:'high',
+q:'「お世話様です」と「お世話になっております」の使い分けとして正しいものはどれか。',
+opts:['どちらも同じ意味で同じ場面で使える','「お世話様です」は目上の人への正式な挨拶、「お世話になっております」はカジュアルな表現','「お世話様です」は同僚・作業員など向け、「お世話になっております」はビジネスの改まった挨拶として広く使える','「お世話になっております」は初対面の人には使えない'],
+ans:[2],
+expl:'「お世話になっております」はビジネス全般で広く使えるフォーマルな挨拶。「お世話様です」はやや砕けた表現で宅配業者・出入り業者など向けに使われることが多く、取引先・目上の人に使うのは失礼と感じる人もいるため避けた方が無難。',
+hint:'お世話になっております＝ビジネス正式挨拶　お世話様です＝作業員・業者向けのカジュアル表現'},
+
+{id:233,cat:'マナー・接遇',type:'sc',diff:'high',
+q:'「おります」と「いらっしゃいます」の使い分けとして正しいものはどれか。',
+opts:['どちらも同じ意味で使える','「おります」は謙譲語で自分や自社の人間について使う、「いらっしゃいます」は尊敬語で相手や第三者について使う','「おります」は尊敬語','「いらっしゃいます」は自分の動作に使える'],
+ans:[1],
+expl:'「おります」（おる）は謙譲語で自分・自社の人間の動作を表す。「いらっしゃいます」は尊敬語で相手・来客・目上の人の動作に使う。「お客様がおります」は誤り（謙譲語を来客に使っている）。「お客様がいらっしゃいます」が正解。',
+hint:'おります＝謙譲語（自分・自社）　いらっしゃいます＝尊敬語（相手・来客）'},
+
+{id:234,cat:'マナー・接遇',type:'sc',diff:'high',
+q:'「させていただきます」の正しい使い方はどれか。',
+opts:['「本日は早退させていただきます（上司への連絡）」は正しい','「資料をご覧させていただきます」は正しい','「ご説明させていただきます」は常に誤りである','すべての動詞に「させていただきます」をつけるのが最も丁寧'],
+ans:[0],
+expl:'「させていただきます」は相手の許可・恩恵がある場合に使う謙譲表現。上司に早退の許可を求める文脈では「させていただきます」は適切。「資料をご覧させていただきます」は自分が見る際に謙譲語の重複があり不自然。何でもつければ丁寧というわけではない。',
+hint:'させていただきます＝相手の許可・恩恵がある場面のみ適切。何でもつけるのはNG'},
+
+{id:235,cat:'マナー・接遇',type:'sc',diff:'high',
+q:'取引先から高額な贈り物を受け取った場合の対応として正しいものはどれか。',
+opts:['ありがたくいただく','社内規程を確認し、規程で禁止または制限されている場合は丁寧にお断りするか上司に相談する','後で上司に黙って受け取る','相手に失礼なので受け取ってから処分する'],
+ans:[1],
+expl:'多くの企業では取引先からの過大な贈答・接待を禁止または制限する社内規程がある（コンプライアンス・利益相反防止）。高額な贈り物を受け取ることは贈収賄・癒着の疑いを招く可能性もある。社内規程を確認し、必要に応じて丁寧にお断りするのが正しい。',
+hint:'高額な贈り物：社内規程を確認→規程に従い断るか上司に相談'},
+
+{id:236,cat:'マナー・接遇',type:'sc',diff:'mid',
+q:'「立食パーティー」での基本マナーとして正しいものはどれか。',
+opts:['料理はできるだけ多く皿に盛っておく','飲み物は両手に持ってはいけない（片手を空けて握手できるようにしておく）','一か所に固まって同僚とだけ話す','上司より先に料理をとる'],
+ans:[1],
+expl:'立食パーティーは交流が目的。飲み物を片手に持ち、もう片方の手で握手・名刺交換ができるようにしておくのがマナー。料理の盛りすぎは品がない。同僚だけでなく幅広く交流することが目的。上司より先に料理をとるのも失礼。',
+hint:'立食パーティー：片手を空けて握手できるように。交流が目的なので同僚だけで固まらない'},
+
+{id:237,cat:'マナー・接遇',type:'sc',diff:'high',
+q:'「忌中（きちゅう）」と「喪中（もちゅう）」の違いとして正しいものはどれか。',
+opts:['同じ意味で使われる','忌中は死後49日間（仏式）の期間、喪中は死後1年間を指すことが多い','喪中は死後49日間、忌中は死後1年間','どちらも死後3ヶ月間を指す'],
+ans:[1],
+expl:'忌中は四十九日（仏式）または五十日（神式）の期間で、特に慎む期間。喪中は忌中を含む約1年間の期間で、慶事への参加を控える目安となる。喪中はがきは喪中の期間に年賀状を遠慮する旨を伝えるもの。',
+hint:'忌中＝四十九日まで（特に慎む期間）　喪中＝約1年間（慶事を控える期間）'},
+
+{id:238,cat:'マナー・接遇',type:'sc',diff:'high',
+q:'「返礼品（香典返し・引き出物など）」の「のし（熨斗）」について正しいものはどれか。',
+opts:['弔事の返礼品にものしをつける','のしは慶事用の飾りのため、弔事の返礼品にはのしをつけない（のしなし・黒白または黄白の水引のみ）','のしは必ずすべての贈り物につける','のしは水引と同じものである'],
+ans:[1],
+expl:'「のし」は慶事の贈り物に用いる飾り（アワビを干したものに由来）。弔事の返礼品（香典返し・法事の引き出物など）にはのしをつけない。弔事には「のし紙」ではなく「掛け紙」（のしなし・弔事用水引）を使う。これを混同する人が多い。',
+hint:'のしは慶事のみ。弔事の返礼品にはのし不要（掛け紙のみ・のしなし）'},
+
+{id:239,cat:'マナー・接遇',type:'sc',diff:'mid',
+q:'「席次（乗り物）」について、社用車で上司が自ら運転する場合の上座として正しいものはどれか。',
+opts:['運転席の真後ろ（後部右）が上座','運転席の隣（助手席）が上座','後部座席の中央が上座','どこに座っても同じ'],
+ans:[1],
+expl:'社用車で上司本人が運転する場合は、運転席の隣（助手席）が上座となる。これは「運転手（上司）のそば」が最も親しい・重要な位置とされるため。運転手付きの場合とは逆になるので混同に注意。',
+hint:'上司自身が運転する場合：助手席が上座（運転手付きとは逆）'},
+
+{id:240,cat:'マナー・接遇',type:'sc',diff:'high',
+q:'「二次会」「三次会」への参加マナーとして正しいものはどれか。',
+opts:['参加は義務なので断ってはいけない','参加は任意であり、断る場合は「先約があります」など丁寧に断ってよい。無理に誘い続けるのもマナー違反','上司に誘われたら必ず参加する','二次会は全員参加が礼儀'],
+ans:[1],
+expl:'二次会・三次会への参加は基本的に任意。断る場合は「先約があります」「明日早い予定があります」などと丁寧に断ることができる。無理に引き留めたり、断った人を責めたりするのはハラスメント（アルハラ・パワハラ）に当たる場合もある。',
+hint:'二次会は任意参加。断ることは問題なし。無理強いするのがマナー違反'},
+
+{id:241,cat:'マナー・接遇',type:'sc',diff:'high',
+q:'「謝罪の言葉」の適切な使い分けとして正しいものはどれか。',
+opts:['「失礼いたしました」は重大なミスに対して使う最も丁寧な謝罪','「申し訳ございません」が最も丁寧な謝罪で重大なミス・深刻な状況に使う。「失礼いたしました」は比較的軽微な場面や会釈代わりにも使う','「ごめんなさい」はビジネスで最も丁寧な謝罪','「すみません」は目上の人への謝罪として最適'],
+ans:[1],
+expl:'謝罪の丁寧度：「ごめんなさい」＜「すみません」＜「申し訳ありません」＜「申し訳ございません」。「失礼いたしました」は軽い謝罪・礼儀表現としても使えるが、重大なミスには「申し訳ございません」を使うべき。「すみません」はビジネスでは軽すぎる場面が多い。',
+hint:'謝罪の重さ：申し訳ございません＞失礼いたしました＞すみません＞ごめんなさい'},
+
+{id:242,cat:'マナー・接遇',type:'sc',diff:'mid',
+q:'「慶弔電報（祝電・弔電）」について正しいものはどれか。',
+opts:['祝電は結婚式が終わってから送る','祝電は式の当日朝までに、弔電は葬儀・告別式の開始前に届くよう手配する','弔電は式が終わった後に送ってもよい','電報は現在使われていないので代わりにメールを送る'],
+ans:[1],
+expl:'祝電は式典（結婚式・入学式など）当日の朝までに届くよう手配する。弔電は葬儀・告別式が始まる前に届くよう早めに手配する。式の後では意味がない。電報は現在もNTT等のサービスで利用可能で、改まった場面では現役の通信手段。',
+hint:'祝電・弔電とも式の前に届くよう手配。式後では間に合わない'},
+
+{id:243,cat:'マナー・接遇',type:'sc',diff:'high',
+q:'「ビジネス文書の敬称」について正しいものはどれか。',
+opts:['会社宛なら「〇〇株式会社 様」と書く','「株式会社〇〇 御中」（会社宛）、「株式会社〇〇 〇〇部長 様」（個人宛）が正しい。「御中」と「様」を同時に使うのは誤り','部署宛の場合は「様」を使う','「殿（どの）」は目上の人への最も丁寧な敬称'],
+ans:[1],
+expl:'「御中」は会社・部署・団体宛（個人名なし）に使う敬称。「様」は個人宛に使う。「〇〇会社 御中」は正しいが「〇〇会社 〇〇様 御中」と両方使うのは誤り。「殿」はかつて公文書で使われたが現在は目下・同格向けとされビジネスでは「様」が一般的。',
+hint:'御中＝会社・団体宛　様＝個人宛。御中＋様の併用はNG。殿はビジネスでは使わない'},
+
+{id:244,cat:'マナー・接遇',type:'sc',diff:'mid',
+q:'「上座・下座」について、和室でエアコンがある場合の上座として正しいものはどれか。',
+opts:['エアコンの真下が上座','床の間の前（床の間を正面に見る席）かつエアコンの風が直接当たらない席が上座','エアコンに最も近い席が上座','和室ではエアコンの位置は席次に影響しない'],
+ans:[1],
+expl:'和室の上座の基本は「床の間の前の席（床の間を正面に見る席）」だが、実際にはエアコンの風が直接当たる席・直射日光が当たる席は相手への配慮から避けるべき。快適に過ごせる席を来客に勧めることが接遇の基本であり、形式だけでなく相手への気遣いが重要。',
+hint:'和室の上座：床の間前が基本だが、エアコンの風が当たらない・直射日光を避ける配慮も'},
+
+{id:245,cat:'マナー・接遇',type:'sc',diff:'high',
+q:'「弔問（ちょうもん）」の際の言葉として最も不適切なものはどれか。',
+opts:['「このたびはご愁傷様でございます」','「心よりお悔やみ申し上げます」','「早く元気を出してください」','「お力落としのことと存じます」'],
+ans:[2],
+expl:'「早く元気を出してください」は遺族の悲しみを否定するような表現であり弔問の言葉として不適切。弔問では相手の悲しみに寄り添う言葉を選ぶ。「ご愁傷様」「お悔やみ申し上げます」「お力落とし」が適切な表現。「頑張って」「元気を出して」系の言葉は避ける。',
+hint:'弔問で「早く元気を出して」は不適切。相手の悲しみを否定せず寄り添う言葉を'},
+
+{id:246,cat:'マナー・接遇',type:'sc',diff:'mid',
+q:'「ビジネスにおける時間管理」のマナーとして正しいものはどれか。',
+opts:['訪問は約束の時間ちょうどに到着すればよい','訪問は約束の時間の5〜10分前に到着し、早すぎる場合は外やロビーで時間を調整する','約束時間より30分前に到着すると誠意が伝わる','遅刻は1〜2分程度なら連絡しなくてよい'],
+ans:[1],
+expl:'訪問時は5〜10分前到着が基本。早すぎる到着（15分以上前）は相手の準備を乱す可能性があるため外やロビーで時間を調整する。遅刻する場合はたとえ1〜2分でも事前に連絡するのがマナー。ちょうどに着くのは直前すぎてロビーからの移動でギリギリになるリスクがある。',
+hint:'訪問：5〜10分前到着が基本。早すぎは外で調整。遅刻は1分でも連絡'},
+
+{id:247,cat:'マナー・接遇',type:'sc',diff:'high',
+q:'「電話で謝罪する」際のマナーとして正しいものはどれか。',
+opts:['電話での謝罪は十分なので訪問は不要','電話で謝罪した後、状況の重大性によっては直接訪問してお詫びすることが誠意を示す','謝罪は文書のみで行うのが正式','電話の謝罪は録音される可能性があるので言葉を慎重に選びすぎなくてよい'],
+ans:[1],
+expl:'電話での謝罪は迅速に行えるが、重大なミス・大きな迷惑をかけた場合は電話だけでは誠意が伝わらないことがある。直接訪問してのお詫びが誠意を示す最善の方法となる場合が多い。軽微な場合は電話＋書面で対応することもある。',
+hint:'重大な謝罪は電話だけでなく直接訪問でのお詫びが誠意を示す'},
+
+{id:248,cat:'マナー・接遇',type:'sc',diff:'high',
+q:'「社外の人を社内に案内する」際の注意点として最も適切なものはどれか。',
+opts:['来客を一人で歩かせても問題ない','来客が社内を一人で歩くことのないよう常に付き添い、機密情報・個人情報が目に入る場所には立ち入らせないよう配慮する','来客が希望する場所に自由に案内する','来客が詳しいなら案内は省略してよい'],
+ans:[1],
+expl:'社外の人（来客）を社内に案内する際は、機密情報が見える場所・個人情報を扱うエリア・セキュリティゾーンへの立ち入りに注意が必要。来客が一人で社内を歩くことは情報漏洩・セキュリティ上のリスクとなる。常に付き添いを忘れずに。',
+hint:'来客の社内案内：常に付き添い。機密情報・個人情報エリアへの立ち入りに注意'},
+
+{id:249,cat:'マナー・接遇',type:'sc',diff:'mid',
+q:'「年賀状」のビジネスマナーとして正しいものはどれか。',
+opts:['年賀状は元日に届くよう12月25日以降に投函する','年賀状は12月25日頃までに投函し元日に届くよう手配する。遅れた場合は「寒中見舞い」として松の内（1月7日）以降に送る','年賀状は1月15日までに届けばよい','年賀状はメールに変えても失礼にならない'],
+ans:[1],
+expl:'年賀状は元日に届くよう12月25日頃までに投函するのが基本（郵便局の推奨は12月25日まで）。遅くとも松の内（1月7日）までが年賀状として送れる期間。それを過ぎた場合は「寒中見舞い」として送る。ビジネスではメールより紙の年賀状が丁寧とされる。',
+hint:'年賀状：12月25日頃までに投函。遅れたら寒中見舞いに切り替える'},
+
+{id:250,cat:'マナー・接遇',type:'sc',diff:'high',
+q:'「冠婚葬祭での服装（喪服・礼服）」について正しいものはどれか。',
+opts:['葬儀には白のハンカチを持参してはいけない','葬儀での女性の服装は黒のワンピースやスーツが基本。アクセサリーは真珠のみ許容され、光り物・カラー物は避ける','葬儀には革靴を履いてはいけない','葬儀に黒のバッグを持参するのはマナー違反'],
+ans:[1],
+expl:'葬儀（喪服）での女性の服装：黒のワンピース・スーツ・アンサンブルが基本。アクセサリーは真珠（涙を象徴）のみ許容。金・ダイヤ・カラーストーン等は「華やか・目立つ」として避ける。バッグは黒が基本。白いハンカチは問題なし（ハンカチは白か黒が基本）。',
+hint:'葬儀のアクセサリー：真珠のみOK。金・ダイヤ・カラーはNG'},
+
+// ❹ 技能（Q251〜Q260）
+{id:251,cat:'技能',type:'sc',diff:'high',
+q:'社外文書の「末文（結びの言葉）」として使い分けが必要なものはどれか。',
+opts:['「まずはご連絡まで」はどんな文書にも使える正式な結び','「まずはご連絡まで」は略式の結びで正式な文書には不向き。「まずは書中にてお礼申し上げます」等を使う','「まずはご連絡まで」は最も格式の高い結び','結びの言葉はどれを使っても同じ'],
+ans:[1],
+expl:'「まずはご連絡まで」「取り急ぎご連絡まで」は略式の結びで、急ぎの連絡や親しい相手への文書には使えるが、正式な取引先への書状・改まった文書には不向き。正式な結びは「まずは書中にてお礼申し上げます」「敬具」等を使う。',
+hint:'取り急ぎ・まずはご連絡まで＝略式。正式文書には書中にてお礼申し上げます等を使う'},
+
+{id:252,cat:'技能',type:'sc',diff:'high',
+q:'「横書きビジネス文書」での日付表記として最も適切なものはどれか。',
+opts:['「R7.4.1」のように元号のアルファベット略記と数字を組み合わせる','「令和7年4月1日」または「2025年4月1日」のように元号もしくは西暦で統一して表記する','「4月1日」のように年は省略する','「April 1, 2025」と英語表記にする'],
+ans:[1],
+expl:'ビジネス文書の日付は元号（令和○年○月○日）または西暦（2025年○月○日）で統一して書くのが基本。「R7」などのアルファベット略記は公文書で使われることがあるが一般ビジネス文書では不親切。年の省略は前後の文脈が変わると混乱を招く。英語表記は国内文書には不要。',
+hint:'日付表記：元号か西暦で統一。アルファベット略記・年の省略は不適切'},
+
+{id:253,cat:'技能',type:'sc',diff:'mid',
+q:'「社内通達（通知文）」と「社内回覧」の違いとして正しいものはどれか。',
+opts:['まったく同じ意味で使われる','通達・通知文は一人ひとりに配布する文書、回覧は一部を順番に回して確認してもらう文書','回覧の方が通達より格式が高い','通達は口頭でのみ行う'],
+ans:[1],
+expl:'通達・通知文は人数分を印刷して配布（または個別メール送信）する。回覧は1部を作成して関係者が順番に読んで確認印・サインをして回す方法。コスト削減・環境配慮の観点から回覧が使われることも多いが、重要性・緊急性が高い場合は個別配布の方が確実。',
+hint:'通達・通知文＝人数分配布　回覧＝1部を順番に回す'},
+
+{id:254,cat:'技能',type:'sc',diff:'high',
+q:'「会議の種類」のうち「ブレインストーミング」のルールとして正しいものはどれか。',
+opts:['良いアイデアだけを出す','他人のアイデアを批判・評価しない、量を重視する、突飛なアイデアも歓迎する、他のアイデアに乗っかってよい','司会者のみが発言する','参加者を少数精鋭に絞る'],
+ans:[1],
+expl:'ブレインストーミング（ブレスト）の4原則：①批判禁止（他者のアイデアを否定しない）②自由奔放（どんなアイデアも歓迎）③質より量（多くのアイデアを出す）④結合改善（他のアイデアに乗っかって発展させる）。評価・選別は別の場で行う。',
+hint:'ブレスト4原則：批判禁止・自由奔放・量重視・結合改善'},
+
+{id:255,cat:'技能',type:'sc',diff:'mid',
+q:'「グラフ」の作成において「目盛りの改ざん」として問題になりやすいものはどれか。',
+opts:['棒グラフの色を変えること','縦軸の目盛りをゼロから始めず途中（例：90）から始めることで差を実際より大きく見せる','複数のデータを1つのグラフに入れること','グラフにタイトルをつけること'],
+ans:[1],
+expl:'棒グラフの縦軸をゼロから始めず途中から始めると、実際の差より大きく見せることができる（いわゆる「グラフの切り取り」）。正確な情報伝達のために棒グラフは原則ゼロから始めることが重要。折れ線グラフは差の強調が目的の場合に使われることもあるが、恣意的な操作は不誠実。',
+hint:'棒グラフの縦軸：原則ゼロから始める。途中から始めると差が大きく見える'},
+
+{id:256,cat:'技能',type:'sc',diff:'high',
+q:'「マニュアル（業務手順書）」の作成において最も重要なことはどれか。',
+opts:['専門用語を多用して正確性を高める','誰が読んでも同じ手順で実行できるよう、具体的・わかりやすく・抜け漏れなく書く','作成者の名前を目立つように記載する','ページ数を多くすることで網羅性を示す'],
+ans:[1],
+expl:'マニュアルの目的は「誰が実行しても同じ結果が出ること」。専門用語の多用や曖昧な表現は理解を妨げる。「具体的に（数値・固有名詞）」「わかりやすく（図・写真・ステップ形式）」「抜け漏れなく」が三大原則。ページ数の多さは必ずしも質を意味しない。',
+hint:'マニュアル：誰が読んでも同じ手順で実行できるよう、具体的・わかりやすく・抜け漏れなく'},
+
+{id:257,cat:'技能',type:'sc',diff:'mid',
+q:'「企画書」の構成要素として必要なものの組み合わせとして最も適切なものはどれか。',
+opts:['タイトルと担当者名だけで十分','目的・背景・内容・効果（メリット）・スケジュール・費用・実施体制などを盛り込む','費用だけを詳しく書く','アイデアだけを箇条書きにする'],
+ans:[1],
+expl:'説得力ある企画書には①なぜやるか（目的・背景）②何をするか（内容・概要）③どんな効果があるか（メリット・ROI）④いつやるか（スケジュール）⑤費用はいくらか⑥誰がやるか（実施体制）を盛り込む。読み手が「承認すべきか」を判断できる情報を提供する。',
+hint:'企画書：目的・内容・効果・スケジュール・費用・実施体制を盛り込む'},
+
+{id:258,cat:'技能',type:'sc',diff:'high',
+q:'「ビジネス文書の修正方法」として正しいものはどれか。',
+opts:['修正液（修正テープ）で消して書き直す','手書き文書の場合は訂正箇所に二重線を引き、訂正印を押してから正しい文字を書き加える','鉛筆で書き直す','間違いの部分を切り取る'],
+ans:[1],
+expl:'ビジネス文書（特に重要書類）の修正は、修正液・修正テープは不正改ざんの疑いを招くため使用しない。正しい方法は「二重線（縦二本または「＝」）で消す→訂正印を押す→正しい内容を書き加える」。これにより元の記載が確認できる透明性が保たれる。',
+hint:'文書修正：修正液はNG。二重線＋訂正印＋正しい内容を書き加える'},
+
+{id:259,cat:'技能',type:'sc',diff:'mid',
+q:'「表（テーブル）」と「グラフ」の使い分けとして正しいものはどれか。',
+opts:['グラフは常に表より優れているので表は使わない','表は正確な数値・細かいデータを示すのに適し、グラフは傾向・比較・変化を視覚的に示すのに適している','表は読者に理解させる力がグラフより低い','グラフは数値の正確性が保証される'],
+ans:[1],
+expl:'表は多くの正確な数値データを整理して提示するのに適している。グラフは数値の傾向・比較・変化を視覚的・直感的に伝えるのに適している。資料作成では目的に応じて使い分けることが重要。グラフは視覚的だが細かい数値は読み取りにくい。',
+hint:'表＝正確な数値を整理　グラフ＝傾向・比較・変化を視覚化。目的で使い分け'},
+
+{id:260,cat:'技能',type:'sc',diff:'high',
+q:'「縦書き文書」での改行・句読点について正しいものはどれか。',
+opts:['縦書きでは句読点（。、）の代わりにピリオド（．）とカンマ（，）を使う','縦書きでは句読点は「。」「、」を使い、カッコは縦用のものを使う（「」など）','縦書きと横書きで句読点の使い方は同じ','縦書きでは句読点を省略するのが正式'],
+ans:[1],
+expl:'横書きではピリオド（．）・カンマ（，）を使う公文書様式もあるが、一般的な縦書き文書では句読点は「。」（句点）と「、」（読点）が標準。括弧も縦書き用の「」や（）を縦向きに使う。横書きと縦書きで使う記号が異なる点に注意。',
+hint:'縦書き：句読点は「。」「、」。横書きの一部官公庁では「．」「，」を使うが一般縦書きは「。」「、」'},
+
+// ══════════════════════════════════════
+// ── 第7弾 Q261〜Q320（混同・ひっかけ強化60問）──
+// ── 必要とされる資質15問・職務知識15問・マナー接遇20問・技能10問 ──
+// ══════════════════════════════════════
+
+// ❶ 必要とされる資質（Q261〜Q275）
+{id:261,cat:'必要とされる資質',type:'sc',diff:'high',
+q:'秘書が「自己啓発」に取り組む目的として最も適切なものはどれか。',
+opts:['上司より知識を増やして指摘できるようにするため','業務に必要な知識・スキルを高め、より質の高いサポートができるようにするため','資格をとって転職するため','同僚より優れていることを示すため'],
+ans:[1],
+expl:'秘書の自己啓発は「上司をより効果的にサポートするため」が目的。業務関連の知識（ビジネスマナー・IT・語学・業界知識）を常にアップデートすることで、先読みや的確な判断ができるようになる。自己顕示や転職準備が目的ではない。',
+hint:'秘書の自己啓発：上司をより質高くサポートするため。自己顕示・転職目的ではない'},
+
+{id:262,cat:'必要とされる資質',type:'sc',diff:'high',
+q:'秘書が「感情的になりやすい上司」に仕える場合の心構えとして最も適切なものはどれか。',
+opts:['上司と同様に感情的に反応する','上司の感情の起伏を把握した上で、冷静に接しタイミングを見計らって報告・相談する','感情的な上司には何も報告しない','他の社員に上司の感情的な行動を広める'],
+ans:[1],
+expl:'感情的になりやすい上司への対応は「冷静さを保ち、タイミングを見計らうこと」が重要。上司の感情パターンを把握し、落ち着いたタイミングで報告・提案を行う。秘書が感情的になると関係が悪化する。他者への愚痴・情報共有は信頼を損なう。',
+hint:'感情的な上司：冷静を保ち感情パターンを把握→落ち着いたタイミングで報告'},
+
+{id:263,cat:'必要とされる資質',type:'sc',diff:'mid',
+q:'秘書が「上司の意図を正確に読み取る」ために最も有効な行動はどれか。',
+opts:['上司の言葉だけを字義通りに受け取る','上司の発言・行動・背景・業務目標などを総合的に理解し、言葉の裏にある意図を読み取る','上司に毎回「どういう意味ですか」と確認する','同僚に上司の意図を聞く'],
+ans:[1],
+expl:'上司の意図を読み取るには、言葉だけでなく「なぜその指示が出たのか」「何を達成しようとしているのか」という文脈・背景を理解することが大切。日頃から上司の業務目標・関心事・価値観を把握しておくことが先読みにつながる。',
+hint:'上司の意図：言葉だけでなく背景・目的・文脈を総合的に理解する'},
+
+{id:264,cat:'必要とされる資質',type:'sc',diff:'high',
+q:'秘書が「ミスをした」場合の対処として最も適切なものはどれか。',
+opts:['ミスを隠して自分で解決しようとする','ミスに気づいたらすぐに上司に報告し、影響の大きさを確認した上で対処法を相談する','同僚に相談してから上司に報告する','「次から気をつけます」と言うだけで済ませる'],
+ans:[1],
+expl:'ミスは隠すほど被害が拡大することが多い。気づいた時点ですぐに上司へ報告し、影響範囲・緊急度を確認した上で対処法を相談するのが原則。「次から気をつける」だけでは再発防止につながらない。同僚への先相談は時間のロスになる場合がある。',
+hint:'ミスは隠さずすぐ上司に報告→影響確認→対処法を相談。隠蔽は被害拡大'},
+
+{id:265,cat:'必要とされる資質',type:'sc',diff:'mid',
+q:'秘書としての「観察力」が特に役立つ場面として最も適切なものはどれか。',
+opts:['上司の私生活を観察する','来客の表情・雰囲気・状況を観察して適切なタイミングでお茶を出す・声をかけるなど、状況に応じた対応をする','同僚の行動を観察して上司に報告する','上司のミスを観察して記録する'],
+ans:[1],
+expl:'秘書の観察力は「状況を的確に読み取り、適切に行動する」ために活かす。来客の様子・上司の体調・場の雰囲気を観察してタイミングよく対応することが質の高い秘書業務につながる。監視・スパイ行為とは全く異なる。',
+hint:'秘書の観察力：状況を読んで適切なタイミングで行動するために活かす'},
+
+{id:266,cat:'必要とされる資質',type:'sc',diff:'high',
+q:'秘書が「複数の上司からの指示が矛盾する」場合の対応として最も適切なものはどれか。',
+opts:['自分が好む方の指示に従う','どちらの指示が優先されるべきか、関係する上司に確認・調整してもらう','指示の内容を勝手に折衷案にする','どちらの指示にも対応せず放置する'],
+ans:[1],
+expl:'複数の上司から矛盾する指示を受けた場合、秘書が独断でどちらかを選んだり折衷案を出したりするのは越権行為。「〇〇様と△△様から異なるご指示をいただいております。ご確認いただけますでしょうか」と当事者に調整してもらうのが正しい対応。',
+hint:'矛盾する指示：独断で選ばず・折衷案も作らず→上司同士に調整してもらう'},
+
+{id:267,cat:'必要とされる資質',type:'sc',diff:'mid',
+q:'秘書が「上司の健康管理」をサポートする観点として適切なものはどれか。',
+opts:['上司の食事・運動・睡眠を細かく管理する','スケジュールに無理が生じないよう配慮し、出張・会食が続く場合は移動時間や休息時間を確保する','上司に健康診断を強制する','上司の体調に関することは一切関与しない'],
+ans:[1],
+expl:'秘書の健康管理サポートとは「スケジュール管理を通じた配慮」が中心。無理なスケジュールを組まない・出張が続く場合に休息時間を確保する・体調が悪そうな場合に配慮するなどが含まれる。個人の生活習慣への強制介入は不適切。',
+hint:'秘書の健康サポート＝スケジュール管理での配慮。食事・運動への直接介入は不要'},
+
+{id:268,cat:'必要とされる資質',type:'sc',diff:'high',
+q:'秘書が「職場の人間関係のトラブル」に巻き込まれた場合の対応として最も適切なものはどれか。',
+opts:['積極的に仲裁に入って解決する','自分が当事者でない限り中立を保ち、一方的な肩入れや噂の拡散を避ける','上司にすべて報告して解決してもらう','どちらかの味方をして協力する'],
+ans:[1],
+expl:'職場のトラブルに対して秘書は中立を保つことが重要。一方的な肩入れは他方との関係を悪化させ、噂の拡散は職場環境をさらに悪化させる。自分が直接の当事者でない限り、巻き込まれず公平な立場を保つことが長期的な信頼につながる。',
+hint:'職場トラブル：当事者でなければ中立を保つ。肩入れ・噂の拡散はNG'},
+
+{id:269,cat:'必要とされる資質',type:'sc',diff:'mid',
+q:'秘書が「プレッシャーのかかる状況」でも冷静に対応するために最も重要なことはどれか。',
+opts:['プレッシャーを感じたら仕事を休む','日頃から十分な準備・手順の確認・優先順位の整理をしておき、突発事態にも対応できる基盤を作る','プレッシャーを感じていることを来客に見せる','急いでいる時ほど確認を省略して素早く処理する'],
+ans:[1],
+expl:'プレッシャーへの対応力は日頃の準備から生まれる。手順を把握し、優先順位を整理し、「もしもの時」の対応を考えておくことで突発事態にも落ち着いて対処できる。急ぐほど確認を省略すると重大なミスにつながる。',
+hint:'プレッシャーへの対応：日頃の準備・手順確認・優先順位整理が基盤'},
+
+{id:270,cat:'必要とされる資質',type:'sc',diff:'high',
+q:'秘書が「新しい業務システム・ツール」を導入した際の姿勢として最も適切なものはどれか。',
+opts:['「今までのやり方で十分」と変化を拒否する','積極的に習得しようとし、使いこなせるようになることで業務効率向上に貢献する','慣れるまで古いやり方と新しいやり方を混在させる','上司に「使い方を教えてください」と依存する'],
+ans:[1],
+expl:'秘書は変化への適応力が求められる。新しいシステムやツールが導入された場合は積極的に習得し、業務に活かすことで上司のサポート品質を高める。「変化への抵抗」は秘書としての価値を下げる。自己学習・研修活用・マニュアル確認などで自律的に習得する。',
+hint:'新ツール導入：積極的に習得→業務効率向上に貢献。変化への抵抗はNG'},
+
+{id:271,cat:'必要とされる資質',type:'sc',diff:'mid',
+q:'秘書が「仕事の引き継ぎ期間中」に心がけるべきことはどれか。',
+opts:['前任者のやり方をすべて否定して自分流に変える','前任者のやり方を理解した上で業務を把握し、改善点は上司に相談してから変更する','前任者に任せて自分では何もしない','業務を把握する前から積極的に変更を加える'],
+ans:[1],
+expl:'引き継ぎ期間中は前任者のやり方を尊重しながら業務全体を把握することが優先。理解する前に変更を加えると業務が混乱する。改善点があると感じた場合は、まず上司に相談した上で変更する。前任者への感謝・敬意も大切。',
+hint:'引き継ぎ：まず前任者のやり方を理解→把握後に改善は上司相談してから'},
+
+{id:272,cat:'必要とされる資質',type:'sc',diff:'high',
+q:'秘書が「上司が不合理な指示を出した」と感じた場合の対応として最も適切なものはどれか。',
+opts:['指示に従わずに自分の判断で行動する','不明点・懸念点を適切なタイミングで丁寧に確認し、それでも指示が変わらなければ誠実に実行する','同僚に「上司の指示はおかしい」と広める','指示が気に入らないので放置する'],
+ans:[1],
+expl:'上司の指示に疑問を感じた場合は、感情的にならず「〇〇の点が気になるのですが、確認してもよろしいでしょうか」と丁寧に確認する。それでも指示が変わらなければ、倫理・法令に反しない限り誠実に実行するのが秘書の職責。同僚への愚痴は信頼を損なう。',
+hint:'不合理な指示→まず丁寧に確認→変わらなければ誠実に実行（法令違反は除く）'},
+
+{id:273,cat:'必要とされる資質',type:'sc',diff:'mid',
+q:'秘書が「異文化・外国人来客」への対応で心がけることとして最も適切なものはどれか。',
+opts:['日本のマナーを徹底的に押し付ける','相手の文化・習慣・宗教的背景への配慮を忘れず、柔軟かつ丁寧に対応する','外国人には日本語のみで対応する','自分が知っている外国文化のステレオタイプで対応する'],
+ans:[1],
+expl:'グローバル化が進む現代、外国人来客への対応も秘書の重要な業務。相手の文化・習慣・食事制限（宗教的理由など）への配慮が求められる。ステレオタイプ（思い込み）に頼らず、相手に確認しながら柔軟に対応することが大切。語学力だけでなく文化的感受性が重要。',
+hint:'外国人来客：文化・習慣・宗教への配慮。ステレオタイプに頼らず柔軟に対応'},
+
+{id:274,cat:'必要とされる資質',type:'sc',diff:'high',
+q:'秘書が「上司の出席を断った会合」への対応として正しいものはどれか。',
+opts:['断った理由を詳しく相手に説明する','「所用のため出席がかないません、誠に恐れ入ります」と丁寧にお断りし、必要に応じて代替案（代理出席・後日連絡など）を提示する','相手に怒られないよう嘘の理由を伝える','断った後のフォローは上司の仕事なので秘書は関与しない'],
+ans:[1],
+expl:'欠席の連絡は「所用のため」など具体的な理由を明かさない形で丁寧にお断りするのが基本。嘘の理由はバレた際に信用を大きく損なう。代替案（代理出席・後日のご連絡など）を提示することで相手への配慮を示せる。フォローも秘書の重要な役割。',
+hint:'欠席連絡：具体的理由は明かさず「所用のため」で丁寧にお断り。代替案も提示'},
+
+{id:275,cat:'必要とされる資質',type:'sc',diff:'mid',
+q:'秘書として「長所を活かし短所を補う」意識について最も適切な説明はどれか。',
+opts:['短所は完全に克服しなければならない','自分の得意分野を業務に活かしつつ、短所はトレーニングや工夫で影響を最小化する','長所だけを活かし短所は無視する','短所を上司に正直に告白して業務から外してもらう'],
+ans:[1],
+expl:'完璧な人間はいない。自分の得意分野・強みを業務に積極的に活かしながら、短所については意識的にトレーニング・チェックリストの活用・周囲のサポートを借りるなどで補う姿勢が大切。短所を無視したり完全克服にこだわりすぎたりするのも現実的ではない。',
+hint:'長所を活かし短所は工夫・トレーニングで影響を最小化する'},
+
+// ❷ 職務知識（Q276〜Q290）
+{id:276,cat:'職務知識',type:'sc',diff:'high',
+q:'上司から「A社との契約書の内容を確認しておいて」と指示された。契約書の内容に疑問点があった場合の対応として正しいものはどれか。',
+opts:['自分の判断で契約書の内容を変更する','疑問点をメモにまとめ、上司に確認を求める（必要に応じて法務部門への確認も提案する）','疑問点があっても何も言わずに「確認しました」と報告する','疑問点を取引先に直接問い合わせる'],
+ans:[1],
+expl:'契約書の確認は重要業務だが、内容の解釈・変更は法律的な判断を伴うため秘書が独断で行うことはできない。疑問点は具体的にまとめて上司に報告し、必要に応じて法務部門への確認を提案するのが適切。取引先への直接問い合わせも上司の承認なしには行わない。',
+hint:'契約書の疑問点→メモにまとめ上司に確認。法務相談も提案。独断変更・直接問合せはNG'},
+
+{id:277,cat:'職務知識',type:'sc',diff:'mid',
+q:'「社内会議の議長（ファシリテーター）」の役割として正しいものはどれか。',
+opts:['自分の意見だけを会議で通す','会議の進行を管理し、全員が発言できる環境を作り、時間内に結論が出るよう誘導する','参加者の発言を制限して時間を短縮する','議事録を作成するだけ'],
+ans:[1],
+expl:'議長（ファシリテーター）の役割は会議の進行管理。全員が意見を言えるよう促し、脱線を防ぎ、時間内に議題を消化して結論を導き出すことが求められる。自分の意見を押し通すのではなく、参加者の意見を整理・集約する役割を担う。',
+hint:'議長の役割：進行管理＋全員が発言できる環境づくり＋時間内に結論導出'},
+
+{id:278,cat:'職務知識',type:'sc',diff:'high',
+q:'「アジェンダ（会議の議題一覧）」を事前に参加者に送る目的として正しいものはどれか。',
+opts:['参加者を会議から排除するため','参加者が事前に内容を把握・準備でき、会議を効率的に進行するため','議題を変更できないよう固定するため','会議への参加を強制するため'],
+ans:[1],
+expl:'アジェンダを事前共有することで参加者が内容を事前に確認・準備でき、会議本番での説明時間を短縮し議論に集中できる。「会議のための会議」を防ぎ、質の高い意思決定につながる。変更が必要な場合は事前に修正版を送り直す。',
+hint:'アジェンダ事前共有：参加者の事前準備促進＋会議の効率化が目的'},
+
+{id:279,cat:'職務知識',type:'sc',diff:'mid',
+q:'「稟議書」の書き方として最も適切なものはどれか。',
+opts:['感情的な文章で訴えかけると承認されやすい','目的・背景・内容・費用・効果・スケジュール・リスクを簡潔に記載し、判断に必要な情報を盛り込む','長ければ長いほど説得力がある','承認者の名前を先に書いておく'],
+ans:[1],
+expl:'稟議書は承認者が判断するための文書。①何のために（目的・背景）②何を（内容）③いくら（費用）④どんな効果があるか⑤いつまでに（スケジュール）⑥リスクは何かを簡潔に記載する。感情的な訴えや冗長な文章は逆効果。',
+hint:'稟議書：目的・内容・費用・効果・スケジュール・リスクを簡潔に。感情的な文章はNG'},
+
+{id:280,cat:'職務知識',type:'sc',diff:'high',
+q:'上司から「この件はオフレコで」と言われた情報を、後日別の上司から「あの件はどうなった」と聞かれた場合の対応として正しいものはどれか。',
+opts:['聞かれたので正直に話す','「〇〇様から伺った情報ですので、〇〇様にご確認いただけますでしょうか」と伝え、情報の開示可否は上司に判断させる','「知りません」と嘘をつく','「オフレコと言われました」とそのまま伝える'],
+ans:[1],
+expl:'「オフレコ」と言われた情報は秘書が独断で開示することはできない。他の上司からの問い合わせでも同様。「情報源の上司に確認をお願いする」という形で回答し、開示可否は当事者が判断するよう促すのが正しい。「知りません」は嘘になる。',
+hint:'オフレコ情報は他の上司にも話せない→「〇〇様に確認を」と情報源に判断を委ねる'},
+
+{id:281,cat:'職務知識',type:'sc',diff:'mid',
+q:'「郵便物の開封・仕分け」の際に秘書が気をつけることとして正しいものはどれか。',
+opts:['すべての郵便物を速やかに開封する','「親展」「書留」「速達」などの表示を確認し、それぞれ適切に処理する。親展は未開封のまま上司に渡す','書留はその場で捨ててよい','速達は通常郵便と同じように処理する'],
+ans:[1],
+expl:'郵便物の種類によって処理方法が異なる。「親展」＝未開封で本人へ、「速達」＝優先して届ける、「書留」＝受領印・受け取り記録が必要。一律に開封・処理するのは不適切で、表示・種類を確認した上でそれぞれに合った対応が必要。',
+hint:'郵便物：親展は未開封で本人へ。速達は優先処理。書留は受領印が必要'},
+
+{id:282,cat:'職務知識',type:'sc',diff:'high',
+q:'秘書が「上司が在席しているかどうか」を来客・電話相手に伝える際の注意点として正しいものはどれか。',
+opts:['常に正直に在席・不在を伝える','上司の指示に従い、場合によっては「確認いたします」と述べて上司に判断を仰いでから対応する','在席していても「不在です」と嘘をつくことが秘書の役割','在席・不在は誰にでも正直に伝えてよい'],
+ans:[1],
+expl:'上司が在席していても「今すぐ対応できない状況」はありうる。上司から「来客・電話対応について」の指示があれば従う。指示がない場合は在席を確認した上で上司に取り次ぐかどうかを判断してもらう。「在席しているのに不在と嘘をつく」は誠実ではないが、「確認します」として上司の判断に委ねることは問題ない。',
+hint:'在席・不在の伝え方：上司の指示に従う。「確認します」と述べ上司に判断を仰ぐことは適切'},
+
+{id:283,cat:'職務知識',type:'sc',diff:'mid',
+q:'「上司の出張中」の秘書の役割として最も適切なものはどれか。',
+opts:['上司不在なので秘書業務を休む','上司が不在中の連絡・問い合わせに対応し、重要な件は上司に報告。不在中の出来事をまとめておく','上司が不在の間に独断で重要な決定をする','上司の業務をすべて自分で処理する'],
+ans:[1],
+expl:'上司の出張中は「留守を守る」役割を担う。連絡・問い合わせに適切に対応し（判断が必要なものは上司に連絡）、不在中の出来事・郵便物・電話記録などをまとめて帰社後に報告できるよう準備しておく。重要な決定は上司なしに行わない。',
+hint:'上司出張中：連絡対応＋重要件は上司に報告＋不在中の出来事をまとめておく'},
+
+{id:284,cat:'職務知識',type:'sc',diff:'high',
+q:'「会議室の予約が重複した」ことが直前に判明した場合の秘書の対応として正しいものはどれか。',
+opts:['どちらかの会議をキャンセルする','両方の会議担当者に状況を伝え、代替部屋の手配・時間調整などを速やかに行う','重複に気づかなかったふりをする','片方の会議参加者が来るまで何もしない'],
+ans:[1],
+expl:'ダブルブッキングが判明したら迅速な対応が必要。両方の担当者にすぐ状況を伝え、代替会議室の確保・時間変更・別フロアへの移動などを可能な範囲で手配する。早めに対応するほど関係者への影響を最小化できる。',
+hint:'会議室ダブルブッキング：すぐ両方の担当者に伝え代替手配を速やかに'},
+
+{id:285,cat:'職務知識',type:'sc',diff:'mid',
+q:'「名刺のデータ管理」を行う際の注意点として正しいものはどれか。',
+opts:['名刺情報はSNSに投稿してもよい','名刺情報は個人情報であるため、アクセス権限を管理し適切に保護する','名刺データは誰でも自由に閲覧・利用できる状態にする','名刺データは必要なくなったらゴミ箱に捨てる'],
+ans:[1],
+expl:'名刺に記載されている氏名・会社名・連絡先などは個人情報。データ化した場合もアクセス権限の管理・不正利用防止が必要。不要になったデータは適切に削除する。SNSへの投稿・無制限の閲覧は個人情報保護法に抵触する可能性がある。',
+hint:'名刺データ＝個人情報。アクセス権限管理・適切な保護・廃棄が必要'},
+
+{id:286,cat:'職務知識',type:'sc',diff:'high',
+q:'「上司が取引先との口頭約束をした」ことを後日否認しそうになった場合、秘書の対応として正しいものはどれか。',
+opts:['上司が否認すると言っているので秘書も知らないふりをする','当時記録したメモや手帳などの記録を上司に確認してもらい、事実確認を助ける','上司に逆らって取引先に事実を伝える','記録があっても上司の意向を優先して記録を隠す'],
+ans:[1],
+expl:'口頭約束のトラブルはビジネスでよくある問題。秘書は日頃から上司の約束・指示をメモ・手帳に記録しておく習慣が重要。後日問題になった際に記録を上司に確認してもらうことで事実確認を助けられる。記録の隠滅は絶対にしてはならない。',
+hint:'口頭約束のトラブル：日頃の記録が重要。記録を上司に確認してもらい事実確認を助ける'},
+
+{id:287,cat:'職務知識',type:'sc',diff:'mid',
+q:'秘書が「上司のスピーチ原稿」を作成するよう指示された場合の対応として正しいものはどれか。',
+opts:['自分の文章センスだけで自由に書く','スピーチの目的・対象・時間・場・上司の伝えたいメッセージを確認してから作成し、上司に確認・修正してもらう','上司の過去のスピーチをそのままコピーして使う','インターネットで見つけた文章をそのまま使う'],
+ans:[1],
+expl:'スピーチ原稿は上司が話すものなので、まず目的・対象（聴衆）・時間・場の雰囲気・上司が伝えたいメッセージを確認してから作成する。完成後は必ず上司に確認・修正してもらう。過去の原稿のコピーや無断流用はオリジナリティがなく問題がある。',
+hint:'スピーチ原稿：目的・対象・時間・メッセージを確認→作成→上司に確認・修正'},
+
+{id:288,cat:'職務知識',type:'sc',diff:'high',
+q:'「テレワーク中の上司」への連絡・報告について最も適切なものはどれか。',
+opts:['テレワーク中は連絡しなくてよい','テレワーク中でも通常業務と同様に報告・連絡・相談を行い、使用するツール（メール・チャット・電話など）を上司と事前に取り決めておく','テレワーク中は緊急事態のみ連絡する','テレワーク中の上司には直接訪問して報告する'],
+ans:[1],
+expl:'テレワーク中でもほうれんそう（報告・連絡・相談）の原則は変わらない。ただしオフィスとは異なり対面でのやり取りができないため、使用するコミュニケーションツール・連絡の優先度・報告のタイミングを事前に上司と取り決めておくことが重要。',
+hint:'テレワーク中も報連相は同様。ツール・優先度・タイミングを事前に取り決める'},
+
+{id:289,cat:'職務知識',type:'sc',diff:'mid',
+q:'「会議の種類」のうち「取締役会」について正しい説明はどれか。',
+opts:['すべての社員が参加できる会議','取締役によって構成され、会社の業務執行に関する重要事項を決定する法定の機関','年1回だけ開催される会議','株主のみが参加できる会議'],
+ans:[1],
+expl:'取締役会は会社法に基づく法定の機関で、取締役全員で構成される。会社の重要な業務執行の決定（大規模な投資・重要な人事など）と取締役の職務執行の監督を行う。開催頻度は法令・定款による（原則として3ヶ月に1回以上）。株主総会とは異なる。',
+hint:'取締役会＝取締役で構成される法定機関。重要事項の決定と取締役の監督を行う'},
+
+{id:290,cat:'職務知識',type:'sc',diff:'high',
+q:'「上司が急に海外出張に行くことになった」場合の秘書の対応として最も適切なものはどれか。',
+opts:['上司が自分でなんとかするので秘書は関与しない','パスポート・ビザの有効期限確認、航空券・ホテル手配、訪問先への連絡、国内の予定調整、緊急連絡先の確認などを速やかに行う','とりあえず航空券だけ手配する','出発当日に必要なものをまとめる'],
+ans:[1],
+expl:'急な海外出張では秘書が迅速に複数の手配を同時に進める必要がある。パスポート・ビザの有効期限確認、航空券・ホテルの手配、訪問先への連絡（日程確認）、国内の予定キャンセル・調整、海外旅行保険の確認、現地通貨の準備など多岐にわたる。',
+hint:'急な海外出張：パスポート・ビザ確認、航空券・ホテル手配、訪問先連絡、国内予定調整を同時進行'},
+
+// ❸ マナー・接遇（Q291〜Q310）
+{id:291,cat:'マナー・接遇',type:'sc',diff:'high',
+q:'「いただく」と「もらう」の正しい使い分けはどれか。',
+opts:['どちらも同じ意味でどちらでも使える','「いただく」は「もらう」の謙譲語で、目上の人や取引先に使う。「もらう」はカジュアルな表現','「いただく」は尊敬語で相手の動作に使う','「もらう」の方が「いただく」より丁寧'],
+ans:[1],
+expl:'「いただく」は「もらう・食べる・飲む」の謙譲語。ビジネスシーンでは「〜していただく」「〜をいただく」という形で広く使われる。「もらう」は日常的な表現で目上の人や改まった場面では「いただく」を使うのが適切。',
+hint:'いただく＝もらう・食べる・飲むの謙譲語。目上・ビジネスシーンで使う'},
+
+{id:292,cat:'マナー・接遇',type:'sc',diff:'high',
+q:'「拝察する」「ご推察」の正しい使い方はどれか。',
+opts:['どちらも同じ意味で同じように使える','「拝察する」は自分が推察する謙譲表現、「ご推察」は相手が推察することへの尊敬表現','「拝察する」は尊敬語','「ご推察」は謙譲語'],
+ans:[1],
+expl:'「拝察する」は「推察する」の謙譲語で自分の動作に使う（例：「ご心境を拝察いたします」）。「ご推察」は相手が推察することへの尊敬表現（例：「ご推察の通りでございます」）。謙譲・尊敬の方向を正確に理解することが重要。',
+hint:'拝察する＝自分が推察する（謙譲語）　ご推察＝相手が推察する（尊敬表現）'},
+
+{id:293,cat:'マナー・接遇',type:'sc',diff:'high',
+q:'「目上の人への手紙」で使う言葉として最も適切なものはどれか。',
+opts:['「お体に気をつけてね」','「ご自愛くださいますよう心よりお願い申し上げます」','「体気をつけて」','「元気でいてください」'],
+ans:[1],
+expl:'目上の人への手紙の結びには「ご自愛くださいますよう心よりお願い申し上げます」「ご健康をお祈り申し上げます」など改まった表現を使う。「ね」をつけた口語表現や命令調は不適切。「ご自愛」は「自分の体を大切に」という意味の尊敬表現。',
+hint:'目上の人への手紙の結び：「ご自愛くださいますようお願い申し上げます」'},
+
+{id:294,cat:'マナー・接遇',type:'sc',diff:'mid',
+q:'「ご苦労様」と「お疲れ様」の使い分けとして正しいものはどれか。',
+opts:['どちらも同じ意味で誰にでも使える','「ご苦労様」は目上の人が目下の人の労をねぎらう言葉、「お疲れ様」は上下関係なく広く使えるねぎらいの言葉','「お疲れ様」は目下の人にしか使えない','「ご苦労様」は社外の人専用の言葉'],
+ans:[1],
+expl:'「ご苦労様」は本来目上の人が目下の人をねぎらう表現であり、部下が上司に「ご苦労様です」と言うのは失礼とされる。「お疲れ様です」は上下関係なく広く使えるねぎらいの言葉で、ビジネスシーンでは上司にも同僚にも使える。',
+hint:'ご苦労様＝目上→目下のねぎらい。お疲れ様＝上下問わず使えるねぎらいの言葉'},
+
+{id:295,cat:'マナー・接遇',type:'sc',diff:'high',
+q:'「ビジネスの場での笑い・ユーモア」について正しいものはどれか。',
+opts:['ビジネスでは常に真面目で笑いは不要','場を和ませる軽いユーモアは歓迎されることがあるが、相手・場面・立場を考慮し、下品・差別的な笑いは絶対に避ける','取引先との商談中は大笑いしても構わない','上司の冗談には必ず大笑いで応じるのがマナー'],
+ans:[1],
+expl:'ビジネスにおけるユーモアは「場を和ませる」という効果があるが、相手・状況・立場を考慮することが必須。差別的・セクシャルな笑い・特定の人を傷つけるユーモアは絶対禁止。笑いを「強要」されている場合はハラスメントに該当することもある。',
+hint:'ビジネスのユーモア：場と相手を考慮。差別的・下品な笑いは絶対NG'},
+
+{id:296,cat:'マナー・接遇',type:'sc',diff:'mid',
+q:'「着席の順序」について、応接室で上司と来客が向かい合う場合の正しい順序はどれか。',
+opts:['秘書が最初に着席して場を整える','来客を上座に案内して着席を促し、その後上司が着席する（秘書は同席しない場合は退室）','上司が先に着席し来客を待つ','全員が同時に着席する'],
+ans:[1],
+expl:'応接室では来客を上座（入口から遠い側）に案内して「どうぞ」と着席を促す。その後上司が着席するのが基本の順序。秘書が応接に同席しない場合は「お飲み物をお持ちします」など一言添えて退室する。上司が先に着席して来客を待つのは失礼。',
+hint:'着席順：まず来客を上座に案内して着席→その後上司が着席'},
+
+{id:297,cat:'マナー・接遇',type:'sc',diff:'high',
+q:'「陳謝（ちんしゃ）」と「謝罪」の違いとして正しいものはどれか。',
+opts:['まったく同じ意味','陳謝は事情を述べながら謝罪すること（陳＝述べる）、謝罪は単に詫びること','謝罪の方が陳謝より重い','陳謝は文書のみで使う表現'],
+ans:[1],
+expl:'「陳謝」は「陳」（述べる）＋「謝」（謝る）で、事情・経緯を説明しながら謝罪する表現。単純な「謝罪」より内容の説明が伴う。「遺憾の意を表明する」も謝罪ではなく「残念に思う」という表明で、謝罪と混同されやすい。',
+hint:'陳謝＝事情を述べながら謝罪（陳＝述べる）。単純な謝罪より経緯説明が伴う'},
+
+{id:298,cat:'マナー・接遇',type:'sc',diff:'mid',
+q:'来客への「お茶の温度」について適切なものはどれか。',
+opts:['季節に関係なく常に熱いお茶を出す','季節・状況・来客の様子に応じて温度を配慮する（夏は冷たいもの、冬は温かいものなど）','冷たいものは失礼なので避ける','来客に「熱いのと冷たいのどちらがいいですか」と必ず聞く'],
+ans:[1],
+expl:'お茶の温度は季節・状況に合わせた配慮が大切。夏の暑い日に熱いお茶だけを出すのは相手への配慮に欠ける。ただし「必ず聞く」のも状況による。会社の方針・季節・来客の様子・打ち合わせの雰囲気などを総合的に判断して適切なものを提供する。',
+hint:'お茶の温度：季節・状況・来客の様子に応じて配慮。夏は冷たい物も検討'},
+
+{id:299,cat:'マナー・接遇',type:'sc',diff:'high',
+q:'「電話でのクッション言葉」として適切な使い方はどれか。',
+opts:['クッション言葉は不要で、用件だけ直接伝えるべき','「恐れ入りますが」「よろしければ」「お手数ですが」などのクッション言葉を添えることで、依頼・断り・確認をより丁寧に伝えることができる','クッション言葉は書き言葉にのみ使う','「クッション言葉」を使いすぎると不誠実に聞こえる'],
+ans:[1],
+expl:'クッション言葉とは依頼・断り・質問の前に添える緩衝表現。「恐れ入りますが〜（お願い）」「あいにくではございますが〜（断り）」「よろしければ〜（提案）」などが代表的。これにより相手への配慮が伝わりより丁寧なコミュニケーションになる。適度な使用が大切。',
+hint:'クッション言葉：恐れ入りますが・お手数ですが・よろしければ等。配慮を伝える緩衝表現'},
+
+{id:300,cat:'マナー・接遇',type:'sc',diff:'high',
+q:'「三越・伊勢丹などの百貨店でのギフト」に関するビジネスマナーとして正しいものはどれか。',
+opts:['贈り物は何でも百貨店のものなら喜ばれる','贈る相手・目的・関係性・金額相場を考慮して品物を選ぶ。のし・包装・表書きにも注意が必要','金額が高いほど相手は必ず喜ぶ','贈り物は必ず手渡しでなければならない'],
+ans:[1],
+expl:'ビジネスギフトは相手への配慮が最重要。相手の立場・好み・アレルギー・宗教的制約（食品の場合）などを考慮する。のし・表書き（目的に合った表書き）・包装（外のし・内のしの使い分け）も正確に。金額相場を大幅に超えると相手に負担・疑念を与える場合もある。',
+hint:'ビジネスギフト：相手・目的・関係性・相場を考慮。のし・表書き・包装にも注意'},
+
+{id:301,cat:'マナー・接遇',type:'sc',diff:'mid',
+q:'「お詫びの品（菓子折りなど）」を持参する際のマナーとして正しいものはどれか。',
+opts:['お詫びの品を渡せばそれだけで謝罪が完結する','まず口頭で誠心誠意謝罪した上で、「心ばかりのものですが」と添えてお詫びの品を渡す','開口一番にお詫びの品を差し出す','お詫びの品は豪華であればあるほど誠意が伝わる'],
+ans:[1],
+expl:'お詫びの品は「謝罪の代替」ではなく「誠意の表れ」。まず言葉で誠心誠意謝罪することが先決で、品物はその後に「心ばかりですが」と添えて渡す。開口一番に品物を差し出すのは「物で解決しようとしている」印象を与えて逆効果になることもある。',
+hint:'お詫びの品：まず言葉で謝罪→その後「心ばかりですが」と品物を渡す。品物が先はNG'},
+
+{id:302,cat:'マナー・接遇',type:'sc',diff:'high',
+q:'「上座・下座」の考え方で「床の間のない和室」の上座として正しいものはどれか。',
+opts:['どこに座っても同じ','出入口から最も遠い席が上座となる','窓に近い席が上座','中央の席が上座'],
+ans:[1],
+expl:'床の間のない和室や一般的な洋室でも「出入口から最も遠い席が上座」という基本原則は変わらない。出入口に近い席ほど下座で、雑音・人の出入りなど外乱の影響を受けやすいため。この原則はほとんどの場面（会議室・応接室・和室）で共通。',
+hint:'床の間のない和室：出入口から最も遠い席が上座（基本原則は共通）'},
+
+{id:303,cat:'マナー・接遇',type:'sc',diff:'mid',
+q:'「ご遺族への言葉」として最も不適切なものはどれか。',
+opts:['「このたびはご愁傷様でございます」','「心よりお悔やみ申し上げます」','「あの方は幸せだったと思いますよ」','「お力落としのことと拝察いたします」'],
+ans:[2],
+expl:'「あの方は幸せだったと思いますよ」は憶測・決めつけの言葉で遺族の悲しみに対して不適切。弔問・弔事での言葉は相手の悲しみに寄り添うものを選ぶ。「ご愁傷様」「お悔やみ申し上げます」「お力落とし」が適切な表現。自分の意見・判断を述べるのは慎む。',
+hint:'弔問の言葉：憶測・決めつけは不適切。相手の悲しみに寄り添う言葉を選ぶ'},
+
+{id:304,cat:'マナー・接遇',type:'sc',diff:'high',
+q:'「社外でのビジネス会話」で自分の会社を指す表現として正しいものはどれか。',
+opts:['「うちの会社では〜」','「弊社では〜」または「当社では〜」','「私どもの御社では〜」','「我々の会社では〜」'],
+ans:[1],
+expl:'社外で自社を指す謙遜表現として「弊社」（最もへりくだった表現）または「当社」（丁寧な表現）が適切。「うちの会社」「我々の会社」は口語的でビジネスの改まった場面には不向き。「私どもの御社」は「御社」が相手の会社を指す尊敬語なので誤り。',
+hint:'社外で自社を指す：弊社（へりくだり）または当社（丁寧）。「うちの会社」はNG'},
+
+{id:305,cat:'マナー・接遇',type:'sc',diff:'mid',
+q:'「謙譲語の「参る」」の正しい使い方として適切なものはどれか。',
+opts:['「部長が参ります」（上司の行動に使う）','「ただいま担当者が参ります」（自社の担当者の行動に使う）','「お客様が参りました」（来客の行動に使う）','「先生が参ります」（目上の人の行動に使う）'],
+ans:[1],
+expl:'「参る」は「行く・来る」の謙譲語で自分や自社の人間の動作に使う。「ただいま担当者が参ります」は自社の担当者の動作に謙譲語を使っており正しい。「部長が参ります」「先生が参ります」は自社の上司や目上の人に謙譲語を使うのは誤り。「お客様が参りました」は来客に謙譲語は不適切。',
+hint:'参る＝自分・自社の人間の動作に使う謙譲語。上司・来客・目上の人には使わない'},
+
+{id:306,cat:'マナー・接遇',type:'sc',diff:'high',
+q:'「名刺を忘れた」場合のビジネスマナーとして最も適切なものはどれか。',
+opts:['名刺がないので名刺交換しなくてよい','「申し訳ございません、本日名刺を切らしております」と丁寧に詫び、後日郵送するか次回の機会にお渡しする旨を伝える','相手の名刺だけもらって自分は渡さない','手書きで名刺を作る'],
+ans:[1],
+expl:'名刺を忘れた・切らした場合は「本日は名刺を切らしており大変失礼いたします」と丁寧に詫びる。後日郵送する・次回必ずお渡しすると伝えることで誠意を示す。相手の名刺だけもらって何も言わないのは失礼。事前に名刺の残数を確認する習慣が大切。',
+hint:'名刺を忘れた：「本日切らしており失礼いたします」と詫び後日お渡しを伝える'},
+
+{id:307,cat:'マナー・接遇',type:'sc',diff:'mid',
+q:'「ビジネスにおける「間（ま）の取り方」について正しいものはどれか。',
+opts:['会話は途切れなく話し続けるのが礼儀','相手の話を遮らず、適切な間（沈黙）を取ることで相手の発言を促し、自分の発言も慎重に行う','沈黙は失礼なのですぐに何か話す','間が空いたらすぐに話題を変える'],
+ans:[1],
+expl:'ビジネス会話での「間の取り方」は重要なコミュニケーションスキル。相手の話が終わったら少し間を置くことで「しっかり聞いていた」という印象を与え、相手も追加発言がしやすくなる。性急に話し続けたり沈黙を埋めようとして無駄な話をするのは避ける。',
+hint:'間の取り方：相手の話を遮らず適切な間を持つ。沈黙は相手の発言を促す効果がある'},
+
+{id:308,cat:'マナー・接遇',type:'sc',diff:'high',
+q:'「目上の人への手紙」で「追伸（P.S.）」を使うことについて正しいものはどれか。',
+opts:['追伸は目上の人への手紙に積極的に使うべき','追伸は書き忘れを補う略式の表現であり、目上の人への正式な手紙では使わないのがマナー','追伸は英語なので日本語の手紙には使えない','追伸は手紙の冒頭に書く'],
+ans:[1],
+expl:'「追伸（P.S.）」は「書き忘れた補足を付け加えた」という意味合いがあり、目上の人への正式な手紙では「最初から計画して書いていない」という印象を与えるため使わない方がよい。書き足すべき内容がある場合は最初から本文に組み込む。',
+hint:'追伸（P.S.）：略式表現。目上の人への正式な手紙では使わない'},
+
+{id:309,cat:'マナー・接遇',type:'sc',diff:'mid',
+q:'「電話応対で相手の会社名・名前を確認する」際の表現として最も適切なものはどれか。',
+opts:['「誰ですか？」','「恐れ入りますが、お名前とご所属をお聞かせいただけますでしょうか」','「あなたの名前は？」','「はっきり言ってください」'],
+ans:[1],
+expl:'相手の会社名・名前を確認する際は「恐れ入りますが」というクッション言葉を添えてから丁寧に確認する。「誰ですか」「あなたは」は失礼な表現。「はっきり言ってください」は相手を非難する印象を与える。聞き取れない場合も同様にクッション言葉で聞き直す。',
+hint:'電話で名前確認：「恐れ入りますが、お名前とご所属をお聞かせいただけますでしょうか」'},
+
+{id:310,cat:'マナー・接遇',type:'sc',diff:'high',
+q:'「ビジネス会食でのお酌（おしゃく）」のマナーとして正しいものはどれか。',
+opts:['グラスが空になる前に自分でお代わりをする','相手のグラスが空になりそうなタイミングを見計らい「いかがでしょうか」と声をかけてお酌をする。断られた場合は強要しない','グラスが空でないうちにお酌をするのはマナー違反','上司から先にお酌してもらうのを待つ'],
+ans:[1],
+expl:'会食でのお酌は相手への気遣いの表れ。グラスが空になりそうなタイミングを見てさりげなく「いかがでしょうか」と声をかける。断られた場合は無理強いしない（アルハラに該当する可能性）。目下の者が目上の者にお酌するのが基本だが、上司からも注いでもらうことはある。',
+hint:'お酌：グラスが空になりそうな頃に「いかがでしょうか」と声かけ。断られたら強要しない'},
+
+// ❹ 技能（Q311〜Q320）
+{id:311,cat:'技能',type:'sc',diff:'high',
+q:'「社外文書の別記（箇条書き部分）」の書き方として正しいものはどれか。',
+opts:['別記の箇条書きには必ず番号をつける','別記の形式は「記」で始まり「以上」で終わる。項目は「1．」「・」など記号を使って箇条書きにするが、形式は会社の規程に従う','「記」の後には必ず5項目以上書く','「以上」は左端に書く'],
+ans:[1],
+expl:'「記書き」の基本：本文後に中央に「記」と書き、箇条書きで項目を列挙し、最後に右端に「以上」と書く。箇条書きの記号（番号・中点・アラビア数字など）は内容・会社規程に応じる。「以上」は右端（右寄せ）が正しい。5項目以上の制限はない。',
+hint:'別記：中央に「記」→箇条書き→右端に「以上」。「以上」は右寄せが正しい'},
+
+{id:312,cat:'技能',type:'sc',diff:'mid',
+q:'「ビジネス文書の押印（捺印）」について正しいものはどれか。',
+opts:['押印は常に「正印（まっすぐ）」でなければならない','正式な書類では印鑑が真っすぐ押されていることが望ましい。ただし文書の種類により電子署名・電子印鑑での代替が認められている場合もある','押印は軽く押せばよい','朱肉の色は何色でもよい'],
+ans:[1],
+expl:'押印はまっすぐ鮮明に押すのが基本（傾いた・かすれた印鑑は印象が悪く書類不備と見なされることも）。朱肉の色は一般的に赤（朱色）が基本。近年は電子署名・電子印鑑での代替が法的に認められるケースが増えているが、書類の種類や相手先の方針によって異なる。',
+hint:'押印：まっすぐ鮮明に押すのが基本。朱肉は朱色。電子署名での代替も増加'},
+
+{id:313,cat:'技能',type:'sc',diff:'high',
+q:'「文書の「宛先」と「送付先」の違い」として正しいものはどれか。',
+opts:['宛先と送付先は常に同じ','宛先は文書の名あて人（誰に向けた文書か）、送付先は実際に文書を届ける場所（異なる場合もある）','送付先の方が宛先より重要','宛先は省略してもよい'],
+ans:[1],
+expl:'宛先（あて先）は「この文書は誰に向けたものか」を示す。送付先は実際に郵送・届ける場所。例えば「代表取締役社長宛の書類を経理部長気付で送る」場合、宛先は代表取締役社長だが送付先（気付）は経理部長。この区別が重要になるケースがある。',
+hint:'宛先＝名あて人　送付先＝実際に届ける場所。「気付（きづけ）」で使い分けることも'},
+
+{id:314,cat:'技能',type:'sc',diff:'mid',
+q:'「ビジネス文書の「気付（きづけ）」」の使い方として正しいものはどれか。',
+opts:['「気付」は相手への配慮を示す礼儀的な表現','「○○会社 △△様気付 ××様」のように、最終的な宛先の人物が別の場所・人物を経由して受け取る場合に使う表現','「気付」は社内文書にのみ使う','「気付」は封筒の裏に書く'],
+ans:[1],
+expl:'「気付（きづけ）」は郵便物の送付先に、「○○会社気付 ××様」のように使う。相手が常駐していない場所（出張先・仮設事務所など）に届けてもらう際に、中継する人・場所を示す。封筒の宛名に使い、「様」の前または会社名の後に記載する。',
+hint:'気付（きづけ）：宛先の人物が別の場所・人経由で受け取る場合の中継先表示'},
+
+{id:315,cat:'技能',type:'sc',diff:'high',
+q:'「プレゼンテーションのスライド」における「フォント選び」について正しいものはどれか。',
+opts:['プレゼンでは必ずゴシック体を使わなければならない','プレゼンでは読みやすいゴシック体・サンセリフ系が適しており、明朝体は長文の印刷物向けが一般的','明朝体はプレゼンスライドでも問題ない','フォントの種類は関係なく大きさだけが重要'],
+ans:[1],
+expl:'プレゼンスライドのフォントは「ゴシック体」（和文）や「サンセリフ系」（欧文：ArialやCalibriなど）が見やすく推奨される。明朝体（セリフ体）は線の強弱があり小さい文字では読みにくく、印刷物（書籍・論文）向け。スライドでは視認性の高いフォントを選ぶ。',
+hint:'プレゼンスライド：ゴシック体が見やすい。明朝体は印刷物向け'},
+
+{id:316,cat:'技能',type:'sc',diff:'mid',
+q:'「会議の「動議（どうぎ）」」について正しい説明はどれか。',
+opts:['会議で事前に決めた議題のこと','会議中に参加者から「議題の変更・追加・議事進行に関する提案」を行うこと','議長が一方的に決定を下すこと','会議の議事録のこと'],
+ans:[1],
+expl:'動議とは会議中に参加者が議題以外の事項（議題の追加・変更・採決方法の変更・休憩の提案など）を提案すること。動議が出たら議長は参加者に諮り、可否を確認する。事前に決めた議題が「議題」であるのに対し、当日提案されるものが「動議」。',
+hint:'動議＝会議中に参加者が行う議題外の提案（議題追加・変更・採決方法変更など）'},
+
+{id:317,cat:'技能',type:'sc',diff:'high',
+q:'「社外文書の「記書き」を使う場面」として最も適切なものはどれか。',
+opts:['すべての社外文書に必ず記書きを使う','日時・場所・内容など具体的な詳細事項を整理して伝える必要がある文書（案内状・通知文など）に使う','記書きは社内文書にのみ使う','記書きは返信文書にのみ使う'],
+ans:[1],
+expl:'「記書き（別記形式）」は案内状・通知文など、日時・場所・参加費・持参物などの具体的詳細を整理して伝える場合に使う。すべての文書に使う必要はなく、本文だけで十分な場合は使わない。社外・社内問わず使用できる。',
+hint:'記書き：日時・場所・詳細を整理して伝える文書（案内状・通知文など）に使う'},
+
+{id:318,cat:'技能',type:'sc',diff:'mid',
+q:'「ビジネス文書の「同封物（添付書類）」の表記」として正しいものはどれか。',
+opts:['同封物は本文中に書けば別途記載不要','本文末の「記」の後または追記として「添付書類：〇〇 1部」のように明記する','同封物の数量は書かなくてよい','同封物は封書の表面に書く'],
+ans:[1],
+expl:'社外文書に書類を同封する場合は、本文または別記（記書き）に「添付書類：〇〇 1部（2部）」のように明記するのが基本。受取人が何が入っているか確認でき、書類の欠落・紛失の発見にも役立つ。封筒の表面には書かない。',
+hint:'同封物：別記または本文末に「添付書類：〇〇 〇部」と明記する'},
+
+{id:319,cat:'技能',type:'sc',diff:'high',
+q:'「会議の「全会一致」と「多数決」の使い分け」として正しいものはどれか。',
+opts:['重要な意思決定は常に多数決で行う','全会一致は参加者全員の賛成が必要で一体感が生まれるが時間がかかる。多数決は効率的だが少数意見が切り捨てられる可能性がある','多数決は民主的なので常に全会一致より優れている','全会一致でなければ決定は無効'],
+ans:[1],
+expl:'全会一致は全員が納得した形で決定できる反面、意見調整に時間がかかり一人の反対で決定できない。多数決は効率的だが少数意見が反映されにくい。重要度・時間・組織の性質に応じて使い分けることが大切。秘書は会議の性格に応じた進行をサポートする。',
+hint:'全会一致＝全員納得・時間がかかる　多数決＝効率的・少数意見が切り捨てられる可能性'},
+
+{id:320,cat:'技能',type:'sc',diff:'mid',
+q:'「アウトライン（文書の構成案）」を作成する目的として最も適切なものはどれか。',
+opts:['アウトラインを作ると文書が長くなる','文書全体の構造・流れを事前に整理することで、論理的で読みやすい文書を効率よく作成できる','アウトラインは報告書にしか使えない','アウトラインを作ると内容が固まってしまい柔軟性がなくなる'],
+ans:[1],
+expl:'アウトラインとは文書の骨格・構成案のこと。目的・結論・主要論点・根拠・結びを事前に整理することで、論理的で一貫した文書が書けるようになる。書き直しの回数を減らし効率も上がる。報告書・企画書・スピーチ原稿など幅広い文書で活用できる。',
+hint:'アウトライン＝文書の骨格を事前に整理。論理的な文書作成と効率化が目的'}
+
+];// QS終了
+
+// ===== 状態管理 =====
+const SK='hisho2_4taku_v1';
+let S={results:{},session:[],sessionIdx:0,sessionMode:'',sessionWrong:[],sessionLabel:''};
+function loadS(){try{const d=localStorage.getItem(SK);if(d)S=JSON.parse(d)}catch(e){}}
+function saveS(){try{localStorage.setItem(SK,JSON.stringify(S))}catch(e){}}
+function last(id){const r=S.results[id];if(!r||!r.length)return null;return r[r.length-1].correct}
+function miss(id){const r=S.results[id];if(!r)return 0;return r.filter(x=>!x.correct&&!x.manual).length}
+function weakIds(){return QS.filter(q=>miss(q.id)>=2).map(q=>q.id)}
+function wrongIds(){return QS.filter(q=>last(q.id)===false).map(q=>q.id)}
+function impIds(){try{const d=localStorage.getItem(SK+'_imp');return d?JSON.parse(d):[]}catch(e){return[]}}
+function setImp(ids){try{localStorage.setItem(SK+'_imp',JSON.stringify(ids))}catch(e){}}
+function rec(id,ok){if(!S.results[id])S.results[id]=[];S.results[id].push({correct:ok,ts:Date.now()});saveS()}
+
+// ===== ホーム描画 =====
+function renderHome(){
+  const tot=QS.length,ans=QS.filter(q=>(S.results[q.id]||[]).length>0).length;
+  const ok=QS.filter(q=>last(q.id)===true).length,ng=QS.filter(q=>last(q.id)===false).length;
+  ['ovTotal','ovAnswered','ovCorrect','ovWrong','modeAllCount'].forEach((id,i)=>document.getElementById(id).textContent=[tot,ans,ok,ng,tot][i]);
+  const newCnt=QS.filter(q=>!(S.results[q.id]&&S.results[q.id].length>0)).length;
+  const newEl=document.getElementById('modeNewCount');
+  if(newEl)newEl.textContent=newCnt>0?`未出題 ${newCnt}問 残り`:'すべて挑戦済み ✅';
+  const cats=[...new Set(QS.map(q=>q.cat))];
+  document.getElementById('catGrid').innerHTML=cats.map(c=>catHtml(c)).join('');
+  const wk=weakIds();
+  if(wk.length){
+    document.getElementById('weakBanner').style.display='flex';
+    document.getElementById('modeWeakCard').style.display='block';
+    document.getElementById('weakCount').textContent=wk.length;
+    document.getElementById('weakDesc').textContent=`2回以上間違えた問題（計${wk.length}問）`;
+  }else{document.getElementById('weakBanner').style.display='none';document.getElementById('modeWeakCard').style.display='none';}
+  const imp=impIds();
+  if(imp.length){
+    document.getElementById('impBanner').style.display='flex';
+    document.getElementById('modeImpCard').style.display='block';
+    document.getElementById('impCount').textContent=imp.length;
+    const take=Math.min(10,imp.length);
+    document.getElementById('impDesc').textContent=`重要マークした問題からランダムに${take}問出題できます`;
+  }else{document.getElementById('impBanner').style.display='none';document.getElementById('modeImpCard').style.display='none';}
+  renderSetPicker();
+  document.getElementById('catPickGrid').innerHTML=cats.map(c=>catHtml(c)).join('');
+  // ── モードカードにaddEventListener登録（iPhone Safari対応）──
+  var modeMap={
+    'modeBtnAll':'all','modeBtnShuffle':'shuffle10','modeBtnNew':'new10',
+    'modeBtnWrong':'wrong','modeBtnWeak':'weak','modeBtnImp':'imp10'
+  };
+  Object.keys(modeMap).forEach(function(bid){
+    var el=document.getElementById(bid);
+    if(el) el.addEventListener('click',function(){startMode(modeMap[bid]);});
+  });
+  // catGrid と catPickGrid の button にリスナー登録
+  document.querySelectorAll('#catGrid .cat-card, #catPickGrid .cat-card').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      startCat(this.getAttribute('data-cat'));
+    });
+  });
+  // setGrid の button にリスナー登録
+  document.querySelectorAll('#setGrid .set-card').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      startSet(parseInt(this.getAttribute('data-set')));
+    });
+  });
+}
+function catHtml(cat){
+  const qs=QS.filter(q=>q.cat===cat),tot=qs.length;
+  const ok=qs.filter(q=>last(q.id)===true).length,ng=qs.filter(q=>last(q.id)===false).length,un=tot-ok-ng;
+  const pct=tot>0?Math.round(ok/tot*100):0;
+  const col=pct>=80?'var(--success)':pct>=50?'var(--aws-orange)':'var(--accent-red)';
+  return '<button type="button" class="cat-card" data-cat="'+cat+'">'
+    +'<div class="cat-top"><div class="cat-name">'+cat+'</div><div class="cat-pct" style="color:'+col+'">'+pct+'%</div></div>'
+    +'<div class="cat-bar"><div class="cat-bar-fill" style="width:'+pct+'%"></div></div>'
+    +'<div class="cat-sub"><span class="cat-ok">✅ '+ok+'問</span><span class="cat-ng">❌ '+ng+'問</span><span class="cat-un">⬜ '+un+'問</span></div>'
+    +'</button>';
+}
+function renderSetPicker(){
+  const n=QS.length,sets=Math.ceil(n/10),grid=document.getElementById('setGrid');
+  grid.innerHTML='';
+  for(let i=0;i<sets;i++){
+    const s=i*10,e=Math.min(s+10,n),sq=QS.slice(s,e);
+    const ok=sq.filter(q=>last(q.id)===true).length,tot=sq.length,pct=Math.round(ok/tot*100);
+    const doneColor=ok===tot?'var(--success)':ok>0?'var(--aws-orange)':'var(--text-muted)';
+    const doneTxt=ok===tot?'✅ 完了':ok>0?(ok+'/'+tot+'正解'):'未実施';
+    grid.innerHTML+='<button type="button" class="set-card" data-set="'+i+'">'
+      +'<div class="set-num">Set '+(i+1)+'</div>'
+      +'<div class="set-range">Q'+(s+1)+'〜Q'+e+'</div>'
+      +'<div class="set-done" style="color:'+doneColor+'">'+doneTxt+'</div>'
+      +'<div class="set-bar"><div class="set-bar-fill" style="width:'+pct+'%"></div></div>'
+      +'</button>';
+  }
+}
+function showSetPicker(){hidePickers();document.getElementById('setPicker').style.display='block';}
+function showCatPicker(){hidePickers();document.getElementById('catPicker').style.display='block';}
+function hidePickers(){['setPicker','catPicker'].forEach(id=>document.getElementById(id).style.display='none');}
+function startSet(i){const s=i*10,e=Math.min(s+10,QS.length);startSession(QS.slice(s,e).map(q=>q.id),`10問 Set${i+1}（Q${s+1}〜Q${e}）`,'set');}
+function startCat(cat){startSession(QS.filter(q=>q.cat===cat).map(q=>q.id),`領域: ${cat}`,'cat');}
+function startMode(m){
+  if(m==='all')startSession(QS.map(q=>q.id),'全問チャレンジ','all');
+  else if(m==='shuffle10'){const s=[...QS].sort(()=>Math.random()-.5).slice(0,10).map(q=>q.id);startSession(s,'ランダム10問','shuffle10');}
+  else if(m==='new10'){
+    const ids=QS.filter(q=>!(S.results[q.id]&&S.results[q.id].length>0)).map(q=>q.id);
+    if(!ids.length){alert('未出題の問題がありません。すべての問題に挑戦済みです！');return;}
+    const picked=[...ids].sort(()=>Math.random()-.5).slice(0,10);
+    startSession(picked,`🆕 未出題10問（残り${ids.length}問）`,'new10');
+  }
+  else if(m==='weak'){const ids=weakIds();if(!ids.length){alert('苦手問題がまだありません。');return;}startSession(ids,'苦手集中モード','weak');}
+  else if(m==='wrong'){const ids=wrongIds();if(!ids.length){alert('不正解の問題がありません。');return;}startSession(ids,'不正解のみ','wrong');}
+  else if(m==='imp10'){
+    const ids=impIds();
+    if(!ids.length){alert('重要マークした問題がありません。\n問題を解いた後、⭐ボタンで重要マークをつけてください。');return;}
+    const picked=[...ids].sort(()=>Math.random()-.5).slice(0,10);
+    startSession(picked,`⭐ 重要問題ランダム${Math.min(10,ids.length)}問`,'imp10');
+  }
+}
+function startSession(ids,lbl,m){// 問題をシャッフル
+var si=[...ids];for(let i=si.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[si[i],si[j]]=[si[j],si[i]];}S.session=si;S.sessionIdx=0;S.sessionMode=m;S.sessionWrong=[];S.sessionLabel=lbl;saveS();showSc('quizScreen');renderQ();}
+
+// ===== クイズ描画 =====
+let cAns=[],cDone=false,cCorr=[];
+function renderQ(){
+  if(S.sessionIdx>=S.session.length){showResult();return;}
+  const id=S.session[S.sessionIdx],q=QS.find(x=>x.id===id),tot=S.session.length,idx=S.sessionIdx;
+  document.getElementById('quizModeLabel').textContent=S.sessionLabel;
+  document.getElementById('quizProgTxt').textContent=(idx+1)+' / '+tot;
+  document.getElementById('quizProgFill').style.width=((idx/tot)*100)+'%';
+  cAns=[];cDone=false;
+  // 選択肢シャッフル
+  const sh=[...Array(q.opts.length).keys()].sort(()=>Math.random()-.5);
+  cCorr=q.ans.map(a=>sh.indexOf(a));
+  // 正解が最長にならないよう、最長の不正解を正解より長くする（末尾に補足を追加）
+  (function(){
+    var ansIdx=q.ans[0];
+    var ansLen=q.opts[ansIdx].length;
+    var maxWrongLen=0, maxWrongIdx=-1;
+    for(var wi=0;wi<q.opts.length;wi++){
+      if(wi!==ansIdx && q.opts[wi].length>maxWrongLen){
+        maxWrongLen=q.opts[wi].length; maxWrongIdx=wi;
+      }
+    }
+    if(maxWrongIdx>=0 && ansLen>=maxWrongLen){
+      // 正解より長くなるよう最長の不正解に補足を追加（表示用の一時コピー）
+      var pad=ansLen-maxWrongLen+5;
+      var suffix=['（いずれの場合にも適用される）','（状況を問わず有効）','（どの場面でも正しい）','（一般的に広く使われる）'][maxWrongIdx%4];
+      q._padded=q._padded||{};
+      q._padded[maxWrongIdx]=q.opts[maxWrongIdx]+suffix;
+    }
+  })();
+  const dL={low:'易',mid:'普',high:'難'}[q.diff]||q.diff;
+  const dC={low:'t-lo',mid:'t-mi',high:'t-hi'}[q.diff]||'t-mi';
+  const wk=weakIds().includes(id),mc=miss(id);
+  const isImp=impIds().includes(id);
+  // buttonタグで生成、onclick属性なし
+  const opts=sh.map((oi,i)=>{const txt=(q._padded&&q._padded[oi])?q._padded[oi]:q.opts[oi];return '<button type="button" class="opt" id="o_'+id+'_'+i+'" data-qid="'+id+'" data-idx="'+i+'"><div class="opt-mk">'+String.fromCharCode(65+i)+'</div><div>'+txt+'</div></button>';}).join('');
+  const mh=mc>0?'<div class="miss-count">⚠️ 累計'+mc+'回ミス'+(mc>=2?' 【苦手問題】':'')+'</div>':'';
+  const impTag=isImp?'<span class="tag t-imp" id="imp_tag_'+id+'">⭐ 重要</span>':'<span class="tag t-imp" id="imp_tag_'+id+'" style="display:none">⭐ 重要</span>';
+  document.getElementById('quizCardWrap').innerHTML=
+    '<div class="q-card" id="qcard">'+
+    '<div class="q-head">'+
+    '<div class="q-num">'+(idx+1)+'</div>'+
+    '<div class="q-tags">'+
+    '<span class="tag t-cat">'+q.cat+'</span>'+
+    '<span class="tag t-sc">4択</span>'+
+    '<span class="tag '+dC+'">難易度:'+dL+'</span>'+
+    (wk?'<span class="tag t-wk">⚠️ 苦手</span>':'')+
+    impTag+
+    '</div>'+
+    '<button type="button" class="wk-flag" id="wkBtn_'+id+'">'+(wk?'🔴':'⭕')+'</button>'+
+    '<button type="button" class="imp-flag" id="impBtn_'+id+'" title="重要マーク">'+(isImp?'⭐':'☆')+'<span class="imp-tooltip">'+(isImp?'重要マークを外す':'重要マークをつける')+'</span></button>'+
+    '</div>'+
+    '<div class="q-body">'+
+    '<div class="q-text">'+q.q+'</div>'+
+    '<div class="opts" id="opts_'+id+'">'+opts+'</div>'+
+    '<div class="expl" id="ex_'+id+'">'+
+    '<div id="ex_r_'+id+'"></div>'+
+    '<div class="expl-body">'+q.expl+'</div>'+
+    '<div class="expl-hint">💡 覚え方：'+q.hint+'</div>'+mh+
+    '</div></div></div>';
+  document.getElementById('nextWrap').classList.remove('show');
+  // addEventListener で登録（iPhone Safari完全対応）
+  document.querySelectorAll('#opts_'+id+' .opt').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      sel(parseInt(this.getAttribute('data-qid')),parseInt(this.getAttribute('data-idx')));
+    });
+  });
+  var wkBtn=document.getElementById('wkBtn_'+id);
+  if(wkBtn) wkBtn.addEventListener('click',function(e){twk(id,e);});
+  var impBtn=document.getElementById('impBtn_'+id);
+  if(impBtn) impBtn.addEventListener('click',function(e){timp(id,e);});
+}
+function twk(id,e){
+  e.stopPropagation();
+  if(!S.results[id])S.results[id]=[];
+  const hm=S.results[id].some(x=>x.manual);
+  if(hm)S.results[id]=S.results[id].filter(x=>!x.manual);
+  else{S.results[id].push({correct:false,manual:true,ts:Date.now()});S.results[id].push({correct:false,manual:true,ts:Date.now()});}
+  saveS();
+  const nw=weakIds().includes(id);
+  document.querySelector('.wk-flag').textContent=nw?'🔴':'⭕';
+  const tg=document.querySelector('.q-tags'),ex=tg.querySelector('.t-wk');
+  if(nw&&!ex)tg.insertAdjacentHTML('beforeend','<span class="tag t-wk">⚠️ 苦手</span>');
+  if(!nw&&ex)ex.remove();
+}
+function timp(id,e){
+  e.stopPropagation();
+  let ids=impIds();
+  if(ids.includes(id)){ids=ids.filter(x=>x!==id);}else{ids.push(id);}
+  setImp(ids);
+  const isImp=ids.includes(id);
+  document.querySelector('.imp-flag').firstChild.textContent=isImp?'⭐':'☆';
+  const tooltip=document.querySelector('.imp-tooltip');
+  if(tooltip)tooltip.textContent=isImp?'重要マークを外す':'重要マークをつける';
+  const tg=document.querySelector('.q-tags');
+  const ex=document.getElementById(`imp_tag_${id}`);
+  if(isImp&&ex){ex.style.display='';}
+  if(!isImp&&ex){ex.style.display='none';}
+}
+function sel(id,i){
+  if(cDone)return;
+  cAns=[i];judge(id);
+}
+function judge(id){
+  const q=QS.find(x=>x.id===id);
+  const ok=JSON.stringify(cAns.slice().sort())===JSON.stringify(cCorr.slice().sort());
+  cDone=true;rec(id,ok);if(!ok)S.sessionWrong.push(id);
+  document.querySelectorAll(`#opts_${id} .opt`).forEach((el,i)=>{
+    el.classList.add('disabled');
+    if(cAns.includes(i))el.classList.add(cCorr.includes(i)?'ok':'ng');
+    if(cCorr.includes(i)&&!cAns.includes(i))el.classList.add('hint');
+  });
+  document.getElementById(`ex_${id}`).classList.add('show');
+  document.getElementById(`ex_r_${id}`).innerHTML=ok?'<div class="expl-ok">✅ 正解です！</div>':'<div class="expl-ng">❌ 不正解です。正解は緑色の選択肢です。</div>';
+  document.getElementById('qcard').classList.add(ok?'ac':'ng');
+  document.getElementById('nextWrap').classList.add('show');
+}
+function nextQuestion(){S.sessionIdx++;saveS();renderQ();}
+
+// ===== 結果 =====
+function showResult(){
+  const tot=S.session.length,ng=S.sessionWrong.length,ok=tot-ng,pct=Math.round(ok/tot*100);
+  showSc('resultScreen');
+  document.getElementById('resTitle').textContent=`${S.sessionLabel} — 完了！`;
+  document.getElementById('resScore').textContent=pct+'%';
+  document.getElementById('resOk').textContent=ok;
+  document.getElementById('resNg').textContent=ng;
+  document.getElementById('resTotal').textContent=tot;
+  document.getElementById('resMsg').textContent=pct===100?'🎉 パーフェクト！全問正解です！':pct>=80?'✅ 合格ライン超え！残りも繰り返して定着させましょう。':pct>=60?'📚 あと少し。不正解を中心に復習しましょう。':'🔁 苦手分野が多いです。解説をしっかり読み、繰り返し練習しましょう。';
+  document.getElementById('btnRetryWrong').style.display=ng>0?'inline-flex':'none';
+  if(ng>0){
+    let h=`<div class="wr-list"><div style="font-size:12px;font-weight:700;color:var(--danger);margin-bottom:10px">❌ 不正解の問題（${ng}問）</div>`;
+    S.sessionWrong.forEach(id=>{const q=QS.find(x=>x.id===id),mc=miss(id);h+=`<div class="wr-item"><div class="wi-q">${q.q.substring(0,60)}${q.q.length>60?'…':''}</div><div class="wi-a">✅ 正解：${q.ans.map(i=>q.opts[i]).join('、')}</div><div class="wi-miss" style="color:${mc>=2?'var(--wk-bg)':'var(--aws-orange)'}">⚠️ 累計${mc}回ミス${mc>=2?' 【苦手問題】':''}</div></div>`;});
+    h+='</div>';document.getElementById('wrongReview').innerHTML=h;
+  }else document.getElementById('wrongReview').innerHTML='';
+  renderHome();
+}
+function retrySession(){S.sessionIdx=0;S.sessionWrong=[];showSc('quizScreen');renderQ();}
+function retryWrong(){const ids=[...S.sessionWrong];S.session=ids;S.sessionIdx=0;S.sessionWrong=[];S.sessionLabel='不正解の再挑戦';showSc('quizScreen');renderQ();}
+function showSc(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo({top:0,behavior:'smooth'});}
+function goHome(){showSc('homeScreen');renderHome();}
+function resetAll(){if(!confirm('すべての解答履歴をリセットしますか？'))return;S={results:{},session:[],sessionIdx:0,sessionMode:'',sessionWrong:[],sessionLabel:''};saveS();renderHome();}
+window.addEventListener('scroll',()=>{const b=document.getElementById('bkBtn');window.scrollY>400?b.classList.add('show'):b.classList.remove('show');});
+loadS();renderHome();
+
+// ── 初期イベント登録（iPhone Safari対応・DOM確定後）──
+document.addEventListener('DOMContentLoaded',function(){
+  // 次へボタン
+  var nb=document.getElementById('nextWrap');
+  if(nb){
+    var nbtn=nb.querySelector('.next-btn');
+    if(nbtn) nbtn.addEventListener('click',function(){nextQuestion();});
+  }
+});
+</script>
+</body>
+</html>
