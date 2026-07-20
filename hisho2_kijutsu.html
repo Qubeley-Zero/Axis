@@ -342,8 +342,8 @@ button { font-family: inherit; -webkit-appearance: none; appearance: none; curso
     <div class="mode-section-title">✨ おすすめ</div>
     <button type="button" id="menuBtnToday" class="menu-card-sm">
       <span class="menu-card-sm-icon">🌸</span>
-      <div><div class="menu-card-sm-title">今日の5問</div><div class="menu-card-sm-sub">全カテゴリからランダムに5問</div></div>
-      <span class="menu-card-sm-badge badge-today">5問</span>
+      <div><div class="menu-card-sm-title">今日の5問</div><div class="menu-card-sm-sub" id="subToday">未出題優先で5問出題</div></div>
+      <span class="menu-card-sm-badge badge-today" id="badgeToday">5問</span>
     </button>
 
     <!-- 学習状況から出題 -->
@@ -2243,8 +2243,34 @@ function starredQs(){ return allQs().filter(function(item){ return (state.starre
 // 混在モードでセッション開始（5問）
 function startMixSession(items, label){
   if(!items.length){ alert('対象の問題がありません。'); return; }
-  // シャッフルして5問
-  var arr=[].concat(items).sort(function(){return Math.random()-0.5;}).slice(0,5);
+
+  // 「今日の5問」は未出題優先で抽出
+  var arr;
+  if(label.indexOf('今日の5問') >= 0){
+    // ① 未出題をシャッフル
+    var unSeen = items.filter(function(item){
+      var r = state.results[item.key];
+      return !r || !r.length;
+    }).sort(function(){ return Math.random()-0.5; });
+
+    if(unSeen.length >= 5){
+      // 未出題が5問以上→未出題から5問
+      arr = unSeen.slice(0,5);
+    } else if(unSeen.length > 0){
+      // 未出題が1〜4問→未出題＋解答済みから補充
+      var seen = items.filter(function(item){
+        var r = state.results[item.key];
+        return r && r.length > 0;
+      }).sort(function(){ return Math.random()-0.5; });
+      arr = unSeen.concat(seen).slice(0,5);
+    } else {
+      // 全問出題済み→全問ランダム（2周目へ）
+      arr = [].concat(items).sort(function(){ return Math.random()-0.5; }).slice(0,5);
+    }
+  } else {
+    // 今日の5問以外は通常通りシャッフルして5問
+    arr = [].concat(items).sort(function(){ return Math.random()-0.5; }).slice(0,5);
+  }
   state.mixSession = arr;
   state.mixIdx = 0;
   state.mixLabel = label;
@@ -2689,6 +2715,28 @@ function renderMenu(){
   var wqList = wrongQs();
   var wkList = weakQs();
   var stList = starredQs();
+
+  // 今日の5問バッジ：未出題数を表示
+  var unSeenCount = allItems.filter(function(item){
+    var r = state.results[item.key]; return !r || !r.length;
+  }).length;
+  var todayBadge = document.getElementById('badgeToday');
+  if(todayBadge){
+    if(unSeenCount > 0){
+      todayBadge.textContent = '未出題' + unSeenCount + '問';
+      todayBadge.className = 'menu-card-sm-badge badge-new';
+    } else {
+      todayBadge.textContent = '全問済！';
+      todayBadge.className = 'menu-card-sm-badge badge-star';
+    }
+  }
+  // サブテキストも更新
+  var todaySub = document.getElementById('subToday');
+  if(todaySub){
+    todaySub.textContent = unSeenCount > 0
+      ? '未出題優先で5問出題（残り' + unSeenCount + '問）'
+      : '全問出題済み！ランダム5問で復習';
+  }
 
   document.getElementById('badgeNew').textContent   = nqList.length + '問';
   document.getElementById('badgeWrong').textContent = wqList.length + '問';
